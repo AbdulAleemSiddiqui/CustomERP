@@ -101,10 +101,7 @@ namespace SfDesk.Controllers
             model.add();
             return RedirectToAction("Create",FormMethod.Get);
         }
-        public ActionResult Adddd()
-        {
-            return View();
-        }
+     
 
     }
 }
