@@ -31,9 +31,6 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.CompanyName)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.UserRoleName)
-                                </th>
                                
                                 <th></th>
                             </tr>
@@ -57,14 +54,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CompanyName)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserRoleName)
-                                </td>
                             
                                 <td>
                                     <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("Edit", "user",new { id = item.U_Id })'"><i class="ti-pencil"></i> </button>
                                     <button type="button" class="btn mini btn-danger"onclick="ConfirmDelete(@item.U_Id)" })'"><i class="ti-trash"></i> </button>
-                                    <button type="button" class="btn mini btn-info " onclick="location.href='@Url.Action("Detail", "user")'"><i class="ti-notepad"></i> </button>
                                 </td>
                             </tr>
 

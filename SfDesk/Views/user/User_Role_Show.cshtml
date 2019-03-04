@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SfDesk.Models.User_Role>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UR_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.U_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.R_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.R_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UR_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.U_ID)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.R_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.R_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

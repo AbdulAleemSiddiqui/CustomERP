@@ -28,7 +28,7 @@
     <link href="~/assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="~/assets/css/lib/unix.css" rel="stylesheet">
     <link href="~/assets/css/style.css" rel="stylesheet">
-
+    <link href="~/assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet" />
   
 </head>
 <body>
@@ -48,12 +48,13 @@
                     </li>
                     <li class="label">School</li>
                     <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>Management <span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>SF DESK <span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li><a href="school-student.html">Student</a></li>
-                            <li><a href="school-student-profile.html">Student Profile</a></li>
-                            <li><a href="school-student-details.html">Student Detail</a></li>
-                            <li><a href="school-hostel-room.html">Hostel</a></li>
+                            <li><a href="@Url.Action("Index","User")">User</a></li>
+                            <li><a href="@Url.Action("Index","Company")">Company</a></li>
+                            <li><a href="@Url.Action("Index","Role")">Role</a></li>
+                            <li><a href="@Url.Action("Create","Role")">Role Detail</a></li>
+                            <li><a href="@Url.Action("User_Role","user")">User Right</a></li>
                             <li><a href="school-all-student-table.html">Students Table</a></li>
                             <li><a href="school-student-search.html">search</a></li>
                             <li><a href="school-teacher-information.html">Teacher Info</a></li>
@@ -398,7 +399,7 @@
     <script src="~/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="~/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="~/assets/js/lib/data-table/datatables-init.js"></script>
-
+    <script src="~/assets/js/lib/sweetalert/sweetalert.min.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>
