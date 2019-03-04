@@ -20,6 +20,8 @@ namespace SfDesk.Controllers
 
         public AccountController()
         {
+            // ye delete krna hyy
+            //Nahii darrddd hoga
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )

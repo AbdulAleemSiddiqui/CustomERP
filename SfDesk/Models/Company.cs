@@ -69,8 +69,7 @@ namespace SfDesk.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
-
- 
+        
         public string Machine_Ip { get; set; }
         
         public string Mac_Address { get; set; }

@@ -1,4 +1,4 @@
-﻿        using SfDesk.Models;
+﻿    using SfDesk.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,45 @@ namespace SfDesk.Controllers
         {
             return View();
         }
- 
+        public ActionResult AddDetails(int idd)
+        {
+            ViewBag.id = idd;
+            List<int> ids = new List<int>() { 1, 2, 3, 4 };
+            List<string> names = new List<string>() { "Add", "Edit", "Delete", "Detail" };
+
+            RoleDetails model = new RoleDetails();
+            model.forms = new List<Form>();
+
+            foreach (var id in ids)
+            {
+                Form child = new Form()
+                {
+                    Form_ID = id,
+                    Form_Name = "Form" + id,
+                    actions = new List<Models.Action>()
+                };
+
+                for (int i = 0; i < names.Count; i++)
+                {
+                    child.actions.Add(new Models.Action()
+                    {
+                        Action_ID = i + 1,
+                        Action_Name = names[i],
+                        isSelected = false
+                    });
+                }
+                model.forms.Add(child);
+
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddDetails(RoleDetails model)
+        {
+            return RedirectToAction("Create", FormMethod.Get);
+            
+        }
+
         [HttpPost]
         public ActionResult Add(Role r)
         {
@@ -26,52 +64,44 @@ namespace SfDesk.Controllers
             return View();
         }
 
-        
         public ActionResult Create()
+        {
+            List<int> ids = new List<int>() { 1,2,3,4 };
+            List<string> names = new List<string>() { "Add","Edit","Delete","Detail"};
+
+            RoleDetails model = new RoleDetails();
+            model.forms = new List<Form>();
+
+            foreach (var id in ids)
             {
-            RoleDetails model = (RoleDetails) TempData["model"];
-            if (model==null)
-            {
-               model = new RoleDetails();
+                Form child = new Form()
+                {
+                    Form_ID = id,
+                    Form_Name = "Form" + id,
+                    actions = new List<Models.Action>()
+                };
+
+                for (int i = 0; i < names.Count; i++)
+                {
+                    child.actions.Add(new Models.Action()
+                    {
+                        Action_ID = i+1,
+                        Action_Name = names[i],
+                        isSelected = false
+                    });
+                }
+                model.forms.Add(child);
+
             }
             return View(model);
-        }
-        public ActionResult Detail(int id)
-        {
-            return PartialView("Detail", new Company().Company_Get_By_ID(id));
         }
         [HttpPost]
         public ActionResult Create(RoleDetails model)
         {
-            model.Role_Detail_Add();
+            model.add();
             return RedirectToAction("Create",FormMethod.Get);
         }
+     
 
-        public ActionResult Delete(int id)
-        {
-            Role  u = new Role() { R_ID = id };
-            u.Role_Delete();   ///Deleting existing Role (updating state to 0 in database)
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Edit(int id)
-        {
-            return View(new Role().Role_Get_By_ID(id)); // get role by id 
-
-        }
-        [HttpPost]
-        public ActionResult Edit(Role u)
-        {
-            u.Role_Update();   // Update existing role records
-            return View();
-        }
-        public JsonResult Update_Role_ID(int id)
-        {
-            RoleDetails r = new RoleDetails() { R_ID = id };
-            r.Form_Get_By_Module(Module.Module_ID);
-            TempData["model"] =  r ;
-            return Json(r, JsonRequestBehavior.AllowGet);
-
-        }
     }
 }
