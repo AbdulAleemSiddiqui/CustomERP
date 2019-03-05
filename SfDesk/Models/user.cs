@@ -20,7 +20,7 @@ namespace SfDesk.Models
         public string State { get; set; }
         [DisplayName("Company")]
         public int CompanyCode { get; set; }
-
+   
         public string CompanyName { get; set; }
 
         //[DisplayName("User Role")]
@@ -54,7 +54,7 @@ namespace SfDesk.Models
                 U_Id = (int)sdr[0];
                 State = (string)sdr[1];
                 Last_Login_Date = (DateTime)sdr[2];
-                Last_Pass_Change_Date = (DateTime)sdr[3];
+                Last_Pass_Change_Date= (DateTime)sdr[3];
                 switch (State)
                 {
                     case "N":
@@ -64,7 +64,7 @@ namespace SfDesk.Models
                         msg = "In-Active User";
                         break;
                     case "A":
-
+                        
                         double diff = (DateTime.Now - Last_Login_Date).TotalDays;
                         double diff1 = (DateTime.Now - Last_Pass_Change_Date).TotalDays;
                         if (diff >= 30)
@@ -123,7 +123,7 @@ namespace SfDesk.Models
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
-                u = new user()
+               u = new user()
                 {
                     U_Id = (int)sdr[0],
                     Password = (string)sdr[1],

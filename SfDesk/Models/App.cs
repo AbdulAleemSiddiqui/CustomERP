@@ -10,4 +10,9 @@ namespace SfDesk.Models
         public static int App_ID { get; set; } = 1;
         public string App_Name { get; set; }
     }
+    public class Module
+    {
+        public static int Module_ID { get; set; } = 1;
+        public string Module_Name { get; set; }
+    }
 }

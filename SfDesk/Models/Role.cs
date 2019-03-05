@@ -16,6 +16,9 @@ namespace SfDesk.Models
         public DateTime Created_Date { get; set; }
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
+
+
+
         public List<Role> Role_Get_By_Company(int C_ID)
         {
             List<Role> lst = new List<Role>();
@@ -51,19 +54,55 @@ namespace SfDesk.Models
                 Role u = new Role();
                 u.R_ID = (int)sdr[0];
                 u.Name = (string)sdr[1];
-                u.CompanyCode = (int)sdr[2]; 
-
+                u.CompanyCode = (int)sdr[2];
+                u.CompanyName = (string)sdr["Company_Name"];
                 lst.Add(u);
             }
             sdr.Close();
             return lst;
+        }
+        public Role Role_Get_By_ID(int id)
+        {
+
+            Role u = new Role();
+            SqlCommand sc = new SqlCommand("Role_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            sc.Parameters.AddWithValue("@R_ID", id);
+            SqlDataReader sdr = sc.ExecuteReader();
+            if (sdr.Read())
+            {
+                
+                u.R_ID = (int)sdr[0];
+                u.Name = (string)sdr[1];
+                u.CompanyCode = (int)sdr[2];
+
+           
+            }
+            sdr.Close();
+            return u;
         }
         public void Role_Add()
         {
             SqlCommand sc = new SqlCommand("Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Role_Name", Name);
             sc.Parameters.AddWithValue("@CCode", CompanyCode);
-            sc.Parameters.AddWithValue("@CreatedBy", Created_By);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+            sc.ExecuteNonQuery();
+        }
+        public void Role_Delete()
+        {
+            SqlCommand sc = new SqlCommand("Role_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@id", R_ID);
+            sc.ExecuteNonQuery();
+        }
+        public void Role_Update()
+        {
+            SqlCommand sc = new SqlCommand("Role_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+
+            sc.Parameters.AddWithValue("@Role_Name", Name);
+            sc.Parameters.AddWithValue("@CCode", CompanyCode);
+            sc.Parameters.AddWithValue("@R_ID", R_ID);
+          
             sc.ExecuteNonQuery();
         }
     }
