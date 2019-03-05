@@ -20,7 +20,7 @@ namespace SfDesk.Models
         public string State { get; set; }
         [DisplayName("Company")]
         public int CompanyCode { get; set; }
-   
+
         public string CompanyName { get; set; }
 
         //[DisplayName("User Role")]
@@ -39,7 +39,9 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Password", Password);
             sc.Parameters.AddWithValue("@Email", Email);
             sc.Parameters.AddWithValue("@CCode", CompanyCode);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
             sc.ExecuteNonQuery();
         }
         public string User_Login()
@@ -52,9 +54,17 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 U_Id = (int)sdr[0];
-                State = (string)sdr[1];
-                Last_Login_Date = (DateTime)sdr[2];
-                Last_Pass_Change_Date= (DateTime)sdr[3];
+                Password = (string)sdr[1];
+                Email = (string)sdr[2];
+                Last_Login_Date = (DateTime)sdr[3];
+                Last_Pass_Change_Date = (DateTime)sdr[4];
+                State = (string)sdr[5];
+                CompanyCode = (int)sdr[6];
+                CompanyName = (string)sdr[7];
+                Created_By = (int)sdr[8];
+                Created_Date = (DateTime)sdr[9];
+                Machine_Ip = (string)sdr[10];
+                Mac_Address = (string)sdr[11];
                 switch (State)
                 {
                     case "N":
@@ -64,7 +74,7 @@ namespace SfDesk.Models
                         msg = "In-Active User";
                         break;
                     case "A":
-                        
+
                         double diff = (DateTime.Now - Last_Login_Date).TotalDays;
                         double diff1 = (DateTime.Now - Last_Pass_Change_Date).TotalDays;
                         if (diff >= 30)
@@ -103,11 +113,12 @@ namespace SfDesk.Models
                 u.Last_Login_Date = (DateTime)sdr[3];
                 u.Last_Pass_Change_Date = (DateTime)sdr[4];
                 u.State = (string)sdr[5];
-                u.CompanyName = (string)sdr[6];
-                u.Created_By = (int)sdr[7];
-                u.Created_Date = (DateTime)sdr[8];
-                u.Machine_Ip = (string)sdr[9];
-                u.Mac_Address = (string)sdr[10];
+                u.CompanyCode = (int)sdr[6];
+                u.CompanyName = (string)sdr[7];
+                u.Created_By = (int)sdr[8];
+                u.Created_Date = (DateTime)sdr[9];
+                u.Machine_Ip = (string)sdr[10];
+                u.Mac_Address = (string)sdr[11];
                 lst.Add(u);
             }
             sdr.Close();
@@ -123,7 +134,7 @@ namespace SfDesk.Models
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
-               u = new user()
+                u = new user()
                 {
                     U_Id = (int)sdr[0],
                     Password = (string)sdr[1],
@@ -132,8 +143,9 @@ namespace SfDesk.Models
                     Last_Pass_Change_Date = (DateTime)sdr[4],
                     State = (string)sdr[5],
                     CompanyCode = (int)sdr[6],
-                    Created_By = (int)sdr[7],
-                    Created_Date = (DateTime)sdr[8],
+                    CompanyName = (string)sdr[7],
+                    Created_By = (int)sdr[8],
+                    Created_Date = (DateTime)sdr[9],
                     Machine_Ip = (string)sdr[10],
                     Mac_Address = (string)sdr[11]
                 };

@@ -213,7 +213,9 @@
     <Compile Include="Connection.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SessionAttributeController.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -728,8 +730,8 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\user\Add.cshtml" />
     <Content Include="Views\user\Index.cshtml" />
-    <Content Include="Views\user\Login.cshtml" />
-    <Content Include="Views\user\Change_Password.cshtml" />
+    <Content Include="Views\LoginUser\Login.cshtml" />
+    <Content Include="Views\LoginUser\Change_Password.cshtml" />
     <Content Include="Views\Company\Add.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\user\Edit.cshtml" />
@@ -747,6 +749,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
