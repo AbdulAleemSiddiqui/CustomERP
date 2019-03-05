@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<SfDesk.Models.User_Role>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -48,11 +46,46 @@
             @Html.DisplayFor(modelItem => item.C_Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+            <button type="button" class="btn mini btn-info" onclick="Edit(@item.UR_ID)" })'"><i class="ti-pencil"></i> </button>
+            <button type="button" class="btn mini btn-danger" onclick="ConfirmDelete(@item.UR_ID)" })'"><i class="ti-trash"></i> </button>
+ </td>
     </tr>
 }
 
 </table>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <script>
+        function Edit(id) {
+            $.get('@Url.Action("Edit_User_Role", "user")', { id: id }, function (data) { $("#myModalContent").html(data); });
+
+            $('#myModal').modal('show');
+        };
+        function ConfirmDelete(id){
+            swal({
+                title: "Are you sure to delete ?",
+                text: "You will not be able to recover this imaginary file !!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it !!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.get('@Url.Action("Delete_User_Role", "user")', { id: id }, function () { document.location = '/user/index'; })
+                    swal("Deleted !!", "Hey, your User has been deleted !!", "success");
+                    detail();
+                });
+
+       };
+
+    </script>
