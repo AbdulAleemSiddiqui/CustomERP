@@ -42,7 +42,10 @@ namespace SfDesk.Controllers
             u.User_Delete();
             return RedirectToAction("Index");
         }
-
+        public JsonResult Company_Get_By_User(int id)
+        {
+            return Json(new Company().Company_Get_By_User(id), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult Role_Get_By_Company(int id)
         {
             return Json(new Role().Role_Get_By_Company(id), JsonRequestBehavior.AllowGet);
@@ -67,21 +70,22 @@ namespace SfDesk.Controllers
         {
             return PartialView("User_Role_Show", new User_Role().User_Role_Get_All());
         }
-        public ActionResult Delete_Role(int id)
+
+        public ActionResult Delete_User_Role(int id)
         {
             User_Role ur = new User_Role() { UR_ID = id };
             ur.User_Role_Delete();
             return View();
         }
-        public ActionResult Edit_Role(int id  )
+        public ActionResult Edit_User_Role(int id  )
         {
             User_Role ur = new Models.User_Role();
            ur = ur.User_Role_Get_By_ID(id);
-             return PartialView("Edit_Role",ur);
+             return PartialView("Edit_User_Role", ur);
             
         }
         [HttpPost]
-        public ActionResult Edit_Role(User_Role ur)
+        public ActionResult Edit_User_Role(User_Role ur)
         {
             ur.User_Role_Update();
            return RedirectToAction("User_Role");

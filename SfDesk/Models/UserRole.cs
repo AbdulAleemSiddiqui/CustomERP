@@ -47,7 +47,7 @@ namespace SfDesk.Models
         {
 
             User_Role u = new User_Role();
-            SqlCommand sc = new SqlCommand("User_Role_Get_BY_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("User_Role_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@UR_ID", UR_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
 
@@ -58,9 +58,9 @@ namespace SfDesk.Models
                 u.UR_ID = (int)sdr[0];
                 u.U_ID = (int)sdr[1];
                 u.R_ID = (int)sdr[2];
-                u.R_Name= (string)sdr[3];
-                u.U_ID = (int)sdr[4];
-                u.U_Name = (string)sdr[5];
+                u.R_Name = (string)sdr[3];
+                u.C_ID = (int)sdr[4];
+                u.C_Name = (string)sdr[5];
 
             }
             sdr.Close();
@@ -78,7 +78,7 @@ namespace SfDesk.Models
         public void User_Role_Delete()
         {
             SqlCommand sc = new SqlCommand("User_Role_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@UR_ID", R_ID);
+            sc.Parameters.AddWithValue("@UR_ID", UR_ID);
             sc.ExecuteNonQuery();
         }
         public void User_Role_Update()

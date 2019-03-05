@@ -45,7 +45,9 @@ namespace SfDesk.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime Business_Start_Date { get; set; } = DateTime.Parse("2001/01/01");
-        
+
+    
+
         [DisplayName("Book Start Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -114,7 +116,42 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
+        public Company Company_Get_By_User(int U_id)
+        {
+            Company u = new Company();
+            SqlCommand sc = new SqlCommand("Company_Get_By_User", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@U_ID", U_id);
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                u.Company_ID = (int)sdr["Company_ID"];
+                u.Company_Name = (string)sdr["Company_Name"];
+                u.Contact = (string)sdr["Contact"];
+                u.Address1 = (string)sdr["Address1"];
+                u.Address2 = (string)sdr["Address2"];
+                u.Area = (string)sdr["Area"];
+                u.Province = (string)sdr["Province"];
+                u.Country = (string)sdr["Country"];
+                u.Phone_No = (string)sdr["Phone_No"];
+                u.Email = (string)sdr["Email"];
+                u.Website = (string)sdr["Website"];
+                u.Business_Start_Date = (DateTime)sdr["Business_Start_Date"];
+                u.Book_Start_Date = (DateTime)sdr["Book_Start_Date"];
+                u.Year_Ends = (string)sdr["Year_Ends"];
+                u.CUIN = (string)sdr["CUIN"];
+                u.NTN = (string)sdr["NTN"];
+                u.STRN = (string)sdr["STRN"];
+                u.STRN_Date = (DateTime)sdr["STRN_Date"];
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
 
+            }
+            sdr.Close();
+            return u;
+        }
 
         public Company Company_Get_By_ID(int id)
         {

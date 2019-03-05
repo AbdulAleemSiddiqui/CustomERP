@@ -5,87 +5,119 @@
 }
 
 @model SfDesk.Models.User_Role
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <h4>UserRole</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.U_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.U_ID, new { htmlAttributes = new { @class = "form-control", @id = "UID"  } })
+                            @Html.ValidationMessageFor(model => model.U_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="form-horizontal">
-        <h4>UserRole</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.U_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.U_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.U_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Select Company", htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-md-3">
-                @Html.DropDownListFor(model => model.C_ID, new SelectList(new SfDesk.Models.Company().Company_Get_All(), "Company_ID", "Company_Name"), new { @class = "form-control", @id = "CompanyCode", @name = "CompanyCode" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("Select Role", htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-md-3">
-                <select data-val="true" class="form-control" data-val-number="The field Company must be a number." data-val-required="The Company field is required." id="R_ID" name="R_ID">
-                    <option></option>
-                </select>
-            </div>
+                    <div class="form-group">
+                        @Html.Label("Select Company", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-md-3">
+                            @Html.HiddenFor(model => model.C_ID, new { @value = new SfDesk.Models.Company().Company_Get_By_User(Model.U_ID).Company_ID, @class = "form-control", @id = "CompanyID", @name = "CompanyID" })
+                            @Html.TextBoxFor(model => model.C_Name,  new { @value = new SfDesk.Models.Company().Company_Get_By_User(Model.U_ID).Company_Name, @class = "form-control", @id = "CompanyCode", @name = "CompanyCode", @readonly = true })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Select Role", htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-md-3">
+                            <select data-val="true" class="form-control" data-val-number="The field Company must be a number." data-val-required="The Company field is required." id="R_ID" name="R_ID">
+                                <option></option>
+                            </select>
+                        </div>
 
 
-        </div>
+                    </div>
 
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default"/>
-            </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                <div id="show"></div>
+            }
         </div>
     </div>
-    <div id="show"></div>
-}
-
-
+</div>
 @section scripts
-{
+{ 
+   
     <script>
 
         function detail() {
-            $.get('@Url.Action("User_Role_Show", "user")'   , function (data) { $("#show").html(data); });
 
-        };
+            $.get('@Url.Action("User_Role_Show", "user")', function (data) { $("#show").html(data); });
+
+                    };
         $(document).ready(function () {
-            $("#CompanyCode").prepend("<option value='' selected='selected'></option>");
+                        
+                        //$("#CompanyCode").prepend("<option value='' selected='selected'></option>");
             detail();
+            
+            populate();
 
-        })
-        $('#CompanyCode').on("change", function () {
-            var id = parseInt($(this).val());
-            var ddlState = $('#R_ID');
+                    })
+    
+        var id = 0;
+        function populate()
+        {
+            id = parseInt($('#UID').val())
+
             $.ajax({
-                url: '/user/Role_Get_By_Company',
+                url: '/user/Company_Get_By_User',
                 type: 'GET',
                 dataType: 'json',
                 data: { id: id },
                 success: function (d) {
 
-                    ddlState.empty(); $("#R_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
-                    $.each(d, function (i, states) {
 
-                        ddlState.append($("<option></option>").val(states.R_ID).html(states.Name));
+                    $('#CompanyID').val(d.Company_ID);
+                    $('#CompanyCode').val(d.Company_Name);
+                    var id = parseInt($('#CompanyID').val());
+                    var ddlState = $('#R_ID');
+                    $.ajax({
+                        url: '/user/Role_Get_By_Company',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { id: id },
+                        success: function (d) {
+
+                            ddlState.empty(); $("#R_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
+                            $.each(d, function (i, states) {
+
+                                ddlState.append($("<option></option>").val(states.R_ID).html(states.Name));
+                            });
+                        },
+                        error: function () {
+                            alert('Error!');
+                        }
                     });
+
+
                 },
                 error: function () {
                     alert('Error!');
                 }
             });
-
-        })
-   
+        }
+        $('#UID').on("change", populate);
     </script>
+
+
 }
