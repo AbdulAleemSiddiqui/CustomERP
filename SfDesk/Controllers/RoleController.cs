@@ -68,7 +68,7 @@ namespace SfDesk.Controllers
         public JsonResult Update_Role_ID(int id)
         {
             RoleDetails r = new RoleDetails() { R_ID = id };
-            r.Form_Get_By_Module(Module.Module_ID);
+            r.Role_Detail_Get_All();
             TempData["model"] =  r ;
             return Json(r, JsonRequestBehavior.AllowGet);
 
