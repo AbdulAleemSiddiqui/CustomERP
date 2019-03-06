@@ -7,22 +7,7 @@ using System.Web;
 
 namespace SfDesk.Models
 {
-    //public class RoleDetails
-    //{
-    //    public int R_ID { get; set; }
-    //    public string R_Name { get; set; }
-    //    public int F_ID { get; set; }
-    //    public string F_Name { get; set; }
-    //    public int A_ID { get; set; }
-    //    public string A_Name { get; set; }
-
-
-
-    //    public void RoleDetail_Add()
-    //    {
-
-    //    }
-    //}
+  
     public class RoleDetails
     {
         public int R_ID { get; set; }
