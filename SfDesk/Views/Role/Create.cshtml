@@ -47,15 +47,16 @@
                                 @for (int k = 0; k < Model.modules.Count; k++)
                                 {
                                    <tr>
-                                       <td>@Model.modules[k].Module_Name</td>
+                                       <td>@Model.modules[k].Module_Name
+                                           <input name="modules[@k].M_ID" id="modules[@k].M_ID" value="@Model.modules[k].M_ID" hidden="hidden" />
+                                       </td>
+
                                    </tr>
                                     for (int i = 0; i < Model.modules[k].forms.Count; i++)
                                     {
-
                                         <tr>
-
                                             <td>
-                                                <input name="forms[@i].Form_ID" id="forms[@i].Form_ID" value="@Model.modules[k].forms[i].Form_ID" hidden="hidden" />
+                                                <input name="modules[@k].forms[@i].Form_ID" id="modules[@k].forms[@i].Form_ID" value="@Model.modules[k].forms[i].Form_ID" hidden="hidden" />
                                                 <label class="control-label col-md-4" style="padding-right:70px">
                                                     @Model.modules[k].forms[i].Form_Name
                                                 </label>
@@ -64,8 +65,8 @@
                                             @for (int j = 0; j < Model.modules[k].forms[i].actions.Count; j++)
                                             {
                                                 <td>
-                                                    <input name="forms[@i].actions[@j].Action_ID" value="@Model.modules[k].forms[i].actions[j].Action_ID" hidden="hidden" />
-                                                    <label name="forms[i].actions[j].Action_Name" class="control-label" style="padding-right:5px">
+                                                    <input name="modules[@k].forms[@i].actions[@j].Action_ID" value="@Model.modules[k].forms[i].actions[j].Action_ID" hidden="hidden" />
+                                                    <label name="modules[@k].forms[i].actions[j].Action_Name" class="control-label" style="padding-right:5px">
                                                         @Model.modules[k].forms[i].actions[j].Action_Name
                                                     </label>
                                                     @Html.EditorFor(model => model.modules[k].forms[i].actions[j].isSelected)

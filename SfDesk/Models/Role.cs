@@ -16,7 +16,11 @@ namespace SfDesk.Models
         public DateTime Created_Date { get; set; }
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
-
+        public Role()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
 
 
         public List<Role> Role_Get_By_Company(int C_ID)
@@ -86,6 +90,8 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Role_Name", Name);
             sc.Parameters.AddWithValue("@CCode", CompanyCode);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }

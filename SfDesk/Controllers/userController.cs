@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
-    [Session]
-
     public class userController : Controller
     {
         #region User CRUD
@@ -23,7 +22,6 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Add(user u)
         {
-            u.Machine_Ip = this.Request.UserHostAddress;
             u.User_Add();
             return View();
         }
@@ -66,6 +64,8 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult User_Role(User_Role ur)
         {
+            ur.Machine_Ip = this.Request.UserHostAddress;
+            ur.Mac_Address = Utility.GetMacAddress();
             ur.User_Role_Add();
             return View(ur);
         }
@@ -82,8 +82,8 @@ namespace SfDesk.Controllers
         }
         public ActionResult Edit_User_Role(int id  )
         {
-            User_Role ur = new Models.User_Role();
-           ur = ur.User_Role_Get_By_ID(id);
+             User_Role ur = new Models.User_Role();
+             ur = ur.User_Role_Get_By_ID(id);
              return PartialView("Edit_User_Role", ur);
             
         }
