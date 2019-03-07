@@ -8,6 +8,8 @@ namespace SfDesk.Models
 {
     public class User_Role
     {
+        #region Properties
+
         public int UR_ID { get; set; }
         public int U_ID { get; set; }
         public string U_Name { get; set; }
@@ -20,7 +22,14 @@ namespace SfDesk.Models
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
 
+        public User_Role()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
+        #endregion
 
+        #region CRUD
 
         public List<User_Role> User_Role_Get_All()
         {
@@ -66,12 +75,15 @@ namespace SfDesk.Models
             sdr.Close();
             return u;
         }
+
         public void User_Role_Add()
         {
             SqlCommand sc = new SqlCommand("User_Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", U_ID);
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             sc.Parameters.AddWithValue("@C_ID", C_ID);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }
@@ -92,6 +104,6 @@ namespace SfDesk.Models
 
             sc.ExecuteNonQuery();
         }
-
+        #endregion
     }
 }

@@ -228,6 +228,7 @@
     <Compile Include="Models\App.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Form.cs" />
+    <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Module.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\Utility.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />

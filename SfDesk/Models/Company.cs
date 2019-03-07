@@ -11,73 +11,61 @@ namespace SfDesk.Models
     public class Company
     {
         #region Properties
+
         [DisplayName("ID")]
-        
         public int Company_ID { get; set; }
 
         [DisplayName("Name")]
-        
         public string Company_Name { get; set; }
-        
         public string Contact { get; set; }
-
-        
         public string Address1 { get; set; }
-
-        
         public string Address2 { get; set; }
-
-        
         public string Area { get; set; }
-        
         public string Province { get; set; }
-        
         public string Country { get; set; }
-        
+
         [DisplayName("Phone#")]
         public string Phone_No { get; set; }
-        
         public string Email { get; set; }
-        
         public string Website { get; set; }
-        
+
         [DisplayName("Business Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime Business_Start_Date { get; set; } = DateTime.Parse("2001/01/01");
 
-    
-
         [DisplayName("Book Start Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Book_Start_Date { get; set; }=  DateTime.Parse("2001/01/01");
+        public DateTime Book_Start_Date { get; set; } = DateTime.Parse("2001/01/01");
+
         [DisplayName("Year Ends")]
-       
-        
         public string Year_Ends { get; set; }
-        
         public string CUIN { get; set; }
-        
         public string NTN { get; set; }
-        
         public string STRN { get; set; }
-           [DataType(DataType.Date)]
+
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("STRN Date")]
         public DateTime STRN_Date { get; set; } = DateTime.Parse("2001/01/01");
-        
         public int Created_By { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
 
- 
         public string Machine_Ip { get; set; }
-        
+
         public string Mac_Address { get; set; }
+
+        public Company()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
         #endregion
-        
+
         #region CRUD
         public List<Company> Company_Get_All()
         {
@@ -210,6 +198,8 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@NTN", NTN);
             sc.Parameters.AddWithValue("@STRN", STRN);
             sc.Parameters.AddWithValue("@STRN_Date", STRN_Date);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
             sc.ExecuteNonQuery();
@@ -218,7 +208,7 @@ namespace SfDesk.Models
 
         public void Company_Update()
         {
-            SqlCommand sc = new SqlCommand("Company_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; 
+            SqlCommand sc = new SqlCommand("Company_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
 
             sc.Parameters.AddWithValue("@Company_ID", Company_ID);
             sc.Parameters.AddWithValue("@Company_Name", Company_Name);
@@ -248,6 +238,6 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@id", Company_ID);
             sc.ExecuteNonQuery();
         }
-#endregion
+        #endregion
     }
 }

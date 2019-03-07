@@ -29,10 +29,14 @@ namespace SfDesk.Models
 
         public int Created_By { get; set; }
         public DateTime Created_Date { get; set; }
-        public string Machine_Ip { get; set; }
+        public string Machine_Ip { get; set; } 
         public string Mac_Address { get; set; }
 
-
+        public user()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
         public void User_Add()
         {
             SqlCommand sc = new SqlCommand("User_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -40,6 +44,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Email", Email);
             sc.Parameters.AddWithValue("@CCode", CompanyCode);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
             sc.ExecuteNonQuery();

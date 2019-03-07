@@ -8,22 +8,31 @@ namespace SfDesk.Models
 {
     public class Module
     {
-        public  int Module_ID { get; set; }
-      //  public int M_ID { get; set; }
+        public static int Module_ID { get; set; } = 1;
+        public int M_ID { get; set; }
         public string Module_Name { get; set; }
-
         public int Created_By { get; set; }
         public DateTime Created_Date { get; set; }
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
-
-
         public List<Form> forms { get; set; }
+
         public Module()
         {
-            forms = new List<Form>();
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+            forms = new List<Form>(); 
         }
 
+        public void Module_Add()
+        {
+            SqlCommand sc = new SqlCommand("Module_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Module_Name", Module_Name);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+            sc.ExecuteNonQuery();
+        }
         public List<Form> Form_Get_By_Module(int Module_ID,int R_ID)
         {
             forms = new List<Form>();

@@ -8,10 +8,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card alert">
-
            
-         
-     
             @using (Html.BeginForm())
             {
                 <div class="form-horizontal">
@@ -34,60 +31,52 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                                <table  class="table" onload="toggle(0)">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayName("Form")
-                                            </th>
-                                            <th>
-                                                @Html.DisplayName("Actions")
-                                            </th>
+                            <table  class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Form")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Actions")
+                                        </th>
                                       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @for (int k = 0; k < Model.modules.Count; k++)
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @for (int k = 0; k < Model.modules.Count; k++)
+                                {
+                                   <tr>
+                                       <td>@Model.modules[k].Module_Name
+                                           <input name="modules[@k].M_ID" id="modules[@k].M_ID" value="@Model.modules[k].M_ID" hidden="hidden" />
+                                       </td>
+
+                                   </tr>
+                                    for (int i = 0; i < Model.modules[k].forms.Count; i++)
                                     {
-                          
+                                        <tr>
+                                            <td>
+                                                <input name="modules[@k].forms[@i].Form_ID" id="modules[@k].forms[@i].Form_ID" value="@Model.modules[k].forms[i].Form_ID" hidden="hidden" />
+                                                <label class="control-label col-md-4" style="padding-right:70px">
+                                                    @Model.modules[k].forms[i].Form_Name
+                                                </label>
+                                            </td>
 
-                                            <tr>
-                                               <td>
-                                                   <input name="Model.modules[@k].Module_ID" id="Model.modules[@k].Module_ID" value="@Model.modules[k].Module_ID" hidden="hidden" />
-                                                   <button class="btn btn-primary" onclick="toggle(@k)" type="button"><i class="ti-plus"></i>@Model.modules[k].Module_Name</button>
-
-                                                </td>
-                                                <td></td>
-                                            </tr>     
-                                       
-                                            for (int i = 0; i < Model.modules[k].forms.Count; i++)
+                                            @for (int j = 0; j < Model.modules[k].forms[i].actions.Count; j++)
                                             {
-
-                                               <tr class="@k hideit" >
-
-                                                    <td>
-                                                        <input name="@Model.modules[k].forms[i].Form_ID" id="Model.modules[@k].forms[@i].Form_ID" value="@Model.modules[k].forms[i].Form_ID" hidden="hidden" />
-                                                        <label class="control-label col-md-4" style="padding-right:70px">
-                                                            @Model.modules[k].forms[i].Form_Name
-                                                        </label>
-                                                    </td>
-
-                                                    @for (int j = 0; j < Model.modules[k].forms[i].actions.Count; j++)
-                                                    {
                                                 <td>
-                                                    <input name="Model.modules[@k].forms[@i].actions[@j].Action_ID" value="@Model.modules[k].forms[i].actions[j].Action_ID" hidden="hidden" />
-                                                    <label name="Model.modules[@k].forms[@i].actions[@j].Action_Name" class="control-label" style="padding-right:5px">
+                                                    <input name="modules[@k].forms[@i].actions[@j].Action_ID" value="@Model.modules[k].forms[i].actions[j].Action_ID" hidden="hidden" />
+                                                    <label name="modules[@k].forms[i].actions[j].Action_Name" class="control-label" style="padding-right:5px">
                                                         @Model.modules[k].forms[i].actions[j].Action_Name
                                                     </label>
                                                     @Html.EditorFor(model => model.modules[k].forms[i].actions[j].isSelected)
                                                 </td>
-                                                    }
-                                                </tr>
                                             }
-                                      
+                                        </tr>
                                     }
-    </tbody>
-                                </table>
+}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <br />
@@ -109,21 +98,13 @@
 
 @section scripts
 {
-    
     <script>
-        function toggle(id)
-        {
-            if (id == -1) $(".hideit").hide();
-            var v = '.' + id;   
-            $(v).toggle("slow");
-        }
+
         $(document).ready(function () {
             $("#CompanyCode").prepend("<option value='' selected='selected'></option>");
-            
-           
+        
 
         })
-      
         $('#CompanyCode').on("change", function () {
             var id = parseInt($(this).val());
             var ddlState = $('#R_ID');
@@ -156,10 +137,7 @@
                 data: { id: id },
                 success: function (d) {
                     
-                    $(".table").load(location.href + " table", function () {
-                        toggle(-1);
-                    });
-                 
+                    $("table").load(location.href+" table");
                     //$('.bootstrap-data-table-panel').reload();
                     //location.reload();
                   
@@ -169,7 +147,7 @@
                     alert('Error!');
                 }
             });
-           
+
         })
     </script>
 }
