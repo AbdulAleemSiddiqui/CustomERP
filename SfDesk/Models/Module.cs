@@ -8,8 +8,8 @@ namespace SfDesk.Models
 {
     public class Module
     {
-        public static int Module_ID { get; set; } = 1;
-        public int M_ID { get; set; }
+        public  int Module_ID { get; set; }
+      //  public int M_ID { get; set; }
         public string Module_Name { get; set; }
 
         public int Created_By { get; set; }
@@ -18,8 +18,11 @@ namespace SfDesk.Models
         public string Mac_Address { get; set; }
 
 
-        public List<Form> forms = new List<Form>();
-
+        public List<Form> forms { get; set; }
+        public Module()
+        {
+            forms = new List<Form>();
+        }
 
         public List<Form> Form_Get_By_Module(int Module_ID,int R_ID)
         {

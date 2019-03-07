@@ -19,7 +19,11 @@ namespace SfDesk.Models
         public string A_Name { get; set; }
 
         // public string Product { get; set; }
-        public List<Module> modules =new List<Module>();
+        public List<Module> modules { get; set; }
+        public RoleDetails()
+        {
+            modules = new List<Module>();
+        }
 
         public void Role_Detail_Add()
         {
@@ -89,13 +93,13 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 Module u = new Module();
-                u.M_ID = (int)sdr[0];
+                u.Module_ID = (int)sdr[0];
                 u.Module_Name = (string)sdr[1];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
                 u.Mac_Address = (string)sdr["Mac_Address"];
-                u.forms= new Module().Form_Get_By_Module(u.M_ID, R_ID);
+                u.forms= new Module().Form_Get_By_Module(u.Module_ID, R_ID);
                 modules.Add(u);
             }
             sdr.Close();
