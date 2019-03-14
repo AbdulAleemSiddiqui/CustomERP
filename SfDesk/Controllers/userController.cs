@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
+    [Session]
     public class userController : Controller
     {
         #region User CRUD
