@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<SfDesk.Models.User_Role>
 
-
+@if (Model.Count() == 0)
+{
+    <h3>No role assign</h3>
+}
+else
+{
 <div class="card-body">
     <div class="table-responsive">
         <table class="table table-striped">
@@ -25,7 +30,9 @@
                     string formClass2 = "";
                     string lastMod = "";
                    }
+            
             <tbody>
+               
                 @foreach (var item in Model)
                 {
                     if (item.M_Name != lastMod)
@@ -78,7 +85,8 @@
                     }
 
                     actionClass = "hideit" + roleClass;
-                    if (a++ == 0) { <tr class="@formClass hideit @formClass2 @actionClass"><td  colspan="2" style="text-align:left"><b>actions:</b></td></tr> }
+                    if (a++ == 0)
+                    { <tr class="@formClass hideit @formClass2 @actionClass"><td  colspan="2" style="text-align:left"><b>actions:</b></td></tr> }
                     <tr class="@formClass hideit @formClass2 @actionClass">
                        
                         <td style="text-align:right">
@@ -99,7 +107,7 @@
             </table>
         </div>
 </div>
-
+}
 
     <script>
        

@@ -58,7 +58,7 @@
                                     @Html.DisplayFor(modelItem => item.CompanyName)
                                 </td>
                                 <td>
-                                    <button type="button" class="btn mini btn-info" onclick="detail(@item.U_Id)" })'"><i class="ti-notepad"></i> </button>
+                                    <button type="button" class="btn mini btn-compose" onclick="detail(@item.U_Id)" })'"><i class="ti-user"></i> </button>
 
                                 </td>
                                 <td>
@@ -98,8 +98,11 @@
         function detail(id) {
             $.get('@Url.Action("User_Role_Details", "user")', { id: id }, function (data) { $("#myModalContent").html(data); });
             $(".modal-title").text("user ID:" + id + " have following roles")
-            $('#myModal').modal('show');   
+            $('#myModal').modal('show',1000);   
         };
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
    
         function ConfirmDelete(id){
             swal({
