@@ -1,0 +1,206 @@
+﻿@model IEnumerable<SfDesk.Models.User_Role>
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                   
+                    <th colspan="2" style="text-align:left" >
+                       User Roles:
+                    </th>
+                   
+
+                </tr>
+                </thead>
+                @{int lastID = -1;
+                    string lastForm = "";
+                    int a = 0;
+                    string formClass = "";
+                    string actionClass = "";
+                    string moduleClass = "";
+                    string roleClass = "";
+                    string formClass2 = "";
+                    string lastMod = "";
+                   }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.M_Name != lastMod)
+                    {
+                        moduleClass = item.M_Name.Replace(' ', '_');
+                        lastID = -1;
+                        lastMod = item.M_Name;
+                        <tr>
+
+                            <td style="text-align:left">
+                                <button class="btn btn-warning"  onclick="toggleModule(this,'@moduleClass')" type="button">
+                                    <i class="ti-arrow-circle-down"></i><b>@Html.DisplayFor(modelItem => item.M_Name)</b>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                    if (item.R_ID != lastID)
+                    {
+                        lastForm = "";
+                        lastID = item.R_ID;
+                        roleClass = item.R_ID.ToString() + moduleClass;
+                        <tr class="@moduleClass hideit">
+                          
+                            <td style="text-align:left">
+                                <button class="btn btn-success" onclick="toggleRole(this,'@roleClass')" type="button">
+                                    <i class="ti-arrow-circle-down"></i><b>@Html.DisplayFor(modelItem => item.R_Name)</b></button>
+</td>
+                            <td></td>
+                        </tr>
+                    }
+
+                    if (item.F_Name != lastForm)
+                    {
+                        formClass = item.F_Name.Replace(' ', '_') + roleClass;
+                        formClass2 = "hideit" + moduleClass;
+                        lastForm = item.F_Name;
+                        <tr class="@roleClass @formClass2 hideit">
+                           
+                            <td></td>
+                            <td style="text-align:left">
+                          
+                                <button class="btn btn-primary" onclick="toggle(this,'@formClass')"   type="button">
+                                    <i class="ti-angle-down" ></i> <b>Form name:</b> @Html.DisplayFor(modelItem => item.F_Name)
+                                </button></td>
+
+
+                        </tr>                
+                        a = 0;
+                    }
+
+                    actionClass = "hideit" + roleClass;
+                    if (a++ == 0) { <tr class="@formClass hideit @formClass2 @actionClass"><td  colspan="2" style="text-align:left"><b>actions:</b></td></tr> }
+                    <tr class="@formClass hideit @formClass2 @actionClass">
+                       
+                        <td style="text-align:right">
+                            
+                        </td>
+                        <td style="text-align:left"><b>@Html.DisplayFor(modelItem => item.A_Name)</b></td>
+
+                    </tr>
+
+
+
+
+
+
+
+                }
+            </tbody>
+            </table>
+        </div>
+</div>
+
+
+    <script>
+       
+        $(document).ready(function () {
+            toggle(null,-1);
+        })
+        function toggle(e,id)
+        {
+            if (id == -1) {
+                $(".hideit").hide();
+            }
+            else {
+                var v = '.' + id;
+                var icon = $(e).find('i').first();
+                var className = icon.attr('class');
+              
+                if (className.includes("down")) {
+                    $(icon).removeClass();
+                    className = className.replace("down", "up");
+                    $(icon).addClass(className);
+                    $(v).show("slow");
+                }
+                else {
+                    $(icon).removeClass();
+                    className = className.replace("up", "down");
+                    $(icon).addClass(className);
+                    $(v).hide("slow");
+
+                }
+                    
+            }
+        }
+        function toggleRole(e, id) {
+            var v = '.' + id;
+            var icon = $(e).find('i').first();
+            var className = icon.attr('class');
+            
+                $(v).toggle("slow").promise().done(function () {
+                    if ($(v).css('display') != 'none') {
+                        $(icon).removeClass();
+                        className = className.replace("down", "up");
+                        $(icon).addClass(className);
+                      
+
+                       
+                    }
+                    else {
+                        $(icon).removeClass();
+                        className = className.replace("up", "down");    
+                        $(icon).addClass(className);
+
+
+                        var x = document.getElementsByClassName(id);
+                        icon = $(x).find('i');
+                        className = icon.attr('class');
+                        $(icon).removeClass();
+                        className = className.replace("up", "down");
+                        $(icon).addClass(className);
+
+                        v = ".hideit" + id;
+
+                        $(v).hide();
+                    }
+                });
+                }
+        function toggleModule(e, id) {
+
+
+            var v = '.' + id;
+            var icon = $(e).find('i').first();
+            var className = icon.attr('class');
+
+         
+            var v = '.' + id;
+            $(v).toggle("slow").promise().done(function () {
+                if ($(v).css('display') != 'none') {
+                    $(icon).removeClass();
+                    className = className.replace("down", "up");
+                    $(icon).addClass(className);
+
+
+
+                }
+                else {
+                    $(icon).removeClass();
+                    className = className.replace("up", "down");
+                    $(icon).addClass(className);
+
+
+                    var x = document.getElementsByClassName(id);
+                    icon = $(x).find('i');
+                    className = icon.attr('class');
+                    $(icon).removeClass();
+                    className = className.replace("up", "down");
+                    $(icon).addClass(className);
+
+                    v = ".hideit" + id;
+
+                    $(v).hide();
+                }
+            });
+        }
+        </script>
+ 

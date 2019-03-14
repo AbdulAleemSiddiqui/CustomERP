@@ -749,6 +749,7 @@
     <Content Include="Views\user\User_Role.cshtml" />
     <Content Include="Views\user\User_Role_Show.cshtml" />
     <Content Include="Views\user\Edit_User_Role.cshtml" />
+    <Content Include="Views\user\User_Role_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

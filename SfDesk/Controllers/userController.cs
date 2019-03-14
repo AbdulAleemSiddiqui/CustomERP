@@ -74,6 +74,12 @@ namespace SfDesk.Controllers
             return PartialView("User_Role_Show", new User_Role().User_Role_Get_All());
         }
 
+        public ActionResult User_Role_Details(int id)
+        {
+            User_Role ur = new User_Role() { U_ID = id };
+          
+            return PartialView("User_Role_Details",ur.User_Role_Get_By_U_ID());
+        }
         public ActionResult Delete_User_Role(int id)
         {
             User_Role ur = new User_Role() { UR_ID = id };
