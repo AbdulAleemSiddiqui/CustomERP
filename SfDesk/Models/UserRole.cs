@@ -15,6 +15,9 @@ namespace SfDesk.Models
         public string U_Name { get; set; }
         public int R_ID { get; set; }
         public string R_Name { get; set; }
+        public string F_Name { get; set; }
+        public string M_Name { get; set; }
+        public string A_Name { get; set; }
         public int C_ID { get; set; }
         public string C_Name { get; set; }
         public int Created_By { get; set; }
@@ -52,7 +55,31 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
-        public User_Role User_Role_Get_By_ID(int UR_ID)
+    public List<User_Role> User_Role_Get_By_U_ID()
+        {
+            List<User_Role> lst = new List<User_Role>();
+
+            SqlCommand sc = new SqlCommand("User_Role_Get_By_U_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@U_ID", U_ID);
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                User_Role u = new User_Role();
+                u.U_ID = U_ID;
+                u.UR_ID = (int)sdr[0];
+               
+                u.R_ID = (int)sdr[1];
+                u.R_Name = (string)sdr[2];
+                u.F_Name = (string)sdr[3];
+                u.A_Name = (string)sdr[4];
+                u.M_Name = (string)sdr[5];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
+     public User_Role User_Role_Get_By_ID(int UR_ID)
         {
 
             User_Role u = new User_Role();
@@ -75,7 +102,6 @@ namespace SfDesk.Models
             sdr.Close();
             return u;
         }
-
         public void User_Role_Add()
         {
             SqlCommand sc = new SqlCommand("User_Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;

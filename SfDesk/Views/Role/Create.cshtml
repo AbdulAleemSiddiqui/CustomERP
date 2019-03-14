@@ -48,7 +48,7 @@
                                     {
                                         <tr class="modules">
                                             <td>
-                                                <button class="btn btn-primary" onclick="toggle(@k)" type="button"><i class="ti-plus"></i>       @Model.modules[k].Module_Name</button>
+                                                <button class="btn btn-primary" onclick="toggle(this,@k)" type="button"><i class="ti-angle-down"></i>       @Model.modules[k].Module_Name</button>
                                        <input name="modules[@k].M_ID" id="modules[@k].M_ID" value="@Model.modules[k].M_ID" hidden="hidden" />
                                             </td>
                                             <td></td>
@@ -103,13 +103,25 @@
 
 
     <script>
-        function toggle(id)
+        function toggle(e,id)
         {
             if (id == -1) {
                 $(".hideit").hide();
             }
             else{
+
                 var v = '.' + id;
+                var icon =  $(e).find('i').first();
+                var className = icon.attr('class');
+                if(className=="ti-angle-down") {
+                    $(icon).removeClass();
+                    $(icon).addClass('ti-angle-up');
+                }
+                else{
+                    $(icon).addClass('ti-angle-down');
+
+                }
+               
                 $(v).toggle("slow");
             }
         }
@@ -156,7 +168,7 @@
                 success: function (d) {
 
                     $(".table").load(location.href + " table", function () {
-                        toggle(-1);
+                        toggle(null,-1);
                     });
 
                     //$('.bootstrap-data-table-panel').reload();
