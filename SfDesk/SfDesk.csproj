@@ -213,6 +213,7 @@
     <Compile Include="Connection.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SessionAttributeController.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,6 +229,7 @@
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\App.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -238,6 +241,7 @@
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\Utility.cs" />
+    <Compile Include="Models\vendor.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -750,6 +754,8 @@
     <Content Include="Views\user\User_Role_Show.cshtml" />
     <Content Include="Views\user\Edit_User_Role.cshtml" />
     <Content Include="Views\user\User_Role_Details.cshtml" />
+    <Content Include="Views\Vendor\Vendor_Add.cshtml" />
+    <Content Include="Views\Customer\Customer_Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

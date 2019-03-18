@@ -26,7 +26,7 @@ namespace SfDesk.Controllers
             return View();
         }
 
-        
+ 
         public ActionResult Create()
             {
             RoleDetails model = (RoleDetails) TempData["model"];
@@ -65,6 +65,7 @@ namespace SfDesk.Controllers
             u.Role_Update();   // Update existing role records
             return View();
         }
+      
         public JsonResult Update_Role_ID(int id)
         {
             RoleDetails r = new RoleDetails() { R_ID = id };
