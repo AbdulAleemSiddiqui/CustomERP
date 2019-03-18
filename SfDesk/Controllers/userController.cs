@@ -81,7 +81,7 @@ namespace SfDesk.Controllers
         {
             return PartialView("User_Role_Show", new User_Role().User_Role_Get_All());
         }
-
+        [OutputCache(Duration = int.MaxValue)]
         public ActionResult User_Role_Details(int id)
         {
             User_Role ur = new User_Role() { U_ID = id };
