@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SfDesk.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,13 +12,22 @@ namespace SfDesk.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            string a = filterContext.ActionDescriptor.ActionName;
+            string b = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             HttpContext ctx = HttpContext.Current;
             if (HttpContext.Current.Session["ID"] == null)
-            {   
+            {
                 filterContext.Result = new RedirectResult("~/LoginUser/Login");
                 return;
             }
-            base.OnActionExecuting(filterContext);
+            else if (new user() { U_Id = ((user)HttpContext.Current.Session["ID"]).U_Id }.Validate_Action( a, b))
+            {
+                base.OnActionExecuting(filterContext);
+            }
+            else
+            {
+                filterContext.Result = new RedirectResult("~/LoginUser/Login");
+            }
         }
     }
 

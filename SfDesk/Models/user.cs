@@ -202,5 +202,18 @@ namespace SfDesk.Models
             }
             return false;
         }
+        public  bool Validate_Action(string Action,string Controller)
+        {
+            SqlCommand sc = new SqlCommand("Validate_Action", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@U_ID", U_Id);
+            sc.Parameters.AddWithValue("@Action", Action);
+            sc.Parameters.AddWithValue("@Controller", Controller);
+            object a =sc.ExecuteScalar();
+            if(a==null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

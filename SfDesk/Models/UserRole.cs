@@ -68,7 +68,6 @@ namespace SfDesk.Models
                 User_Role u = new User_Role();
                 u.U_ID = U_ID;
                 u.UR_ID = (int)sdr[0];
-               
                 u.R_ID = (int)sdr[1];
                 u.R_Name = (string)sdr[2];
                 u.F_Name = (string)sdr[3];

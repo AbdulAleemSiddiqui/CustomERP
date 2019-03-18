@@ -215,7 +215,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\SessionAttributeController.cs" />
+    <Compile Include="Controllers\SessionAttribute.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +231,7 @@
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\Role.cs" />

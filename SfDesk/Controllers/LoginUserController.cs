@@ -54,7 +54,7 @@ namespace SfDesk.Controllers
             if (u.User_Update_Password())
             {
                 Session["ID"] = u;
-                return RedirectToAction("Dashboard", "user");
+                return RedirectToAction("Index", "Company");
             }
             ViewBag.message = "Old password is incorrect";
             return View();
