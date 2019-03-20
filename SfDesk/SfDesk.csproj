@@ -766,6 +766,7 @@
     <Content Include="Views\Customer\Customer_Add.cshtml" />
     <Content Include="Views\PurchaseInventory\master.cshtml" />
     <Content Include="Views\PurchaseInventory\detail.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
