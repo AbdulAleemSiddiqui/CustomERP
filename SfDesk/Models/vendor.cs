@@ -59,6 +59,9 @@ namespace SfDesk.Models
         #region Banking Details
         [DisplayName("Name")]
         public string Bank_Name { get; set; }
+        [DisplayName("Incorporation No")]
+        public string Incorporation_No{ get; set; }
+
         public string Title { get; set; }
         [DisplayName("Account#")]
         public string Account_No { get; set; }
@@ -83,6 +86,7 @@ namespace SfDesk.Models
 
             sc.Parameters.AddWithValue("@Vendor_Type", Vendor_Type);
             sc.Parameters.AddWithValue("@Business_Name", Business_Name);
+            sc.Parameters.AddWithValue("@Incorporation_No", Incorporation_No);
             sc.Parameters.AddWithValue("@Address1", Address1);
             sc.Parameters.AddWithValue("@Address2", Address2);
             sc.Parameters.AddWithValue("@City", City);
@@ -119,6 +123,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Vendor_ID", Vendor_ID);
             sc.Parameters.AddWithValue("@Vendor_Type", Vendor_Type);
             sc.Parameters.AddWithValue("@Business Name", Business_Name);
+            sc.Parameters.AddWithValue("@Incorporation_No", Incorporation_No);
             sc.Parameters.AddWithValue("@Address1", Address1);
             sc.Parameters.AddWithValue("@Address2", Address2);
             sc.Parameters.AddWithValue("@City", City);
@@ -173,7 +178,7 @@ namespace SfDesk.Models
                 u.Phone_No = (string)sdr["Phone_No"];
                 u.Email = (string)sdr["Email"];
                 u.Comments = (string)sdr["Comments"];
-
+                u.Incorporation_No = (string)sdr["Incorporation_No"];
                 u.NTN = (string)sdr["NTN"];
                 u.NTN_Status = (string)sdr["NTN_Status"];
                 u.STRN = (string)sdr["STRN"];
@@ -220,7 +225,7 @@ namespace SfDesk.Models
                 u.Phone_No = (string)sdr["Phone_No"];
                 u.Email = (string)sdr["Email"];
                 u.Comments = (string)sdr["Comments"];
-
+                u.Incorporation_No = (string)sdr["Incorporation_No"];
                 u.NTN = (string)sdr["NTN"];
                 u.NTN_Status = (string)sdr["NTN_Status"];
                 u.STRN = (string)sdr["STRN"];
