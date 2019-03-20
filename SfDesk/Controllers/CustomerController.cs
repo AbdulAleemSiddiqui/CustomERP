@@ -16,7 +16,9 @@ namespace SfDesk.Controllers
         }
         public ActionResult Customer_Add()
         {
-            ViewBag.list = new Customer().Customer_Type;
+            ViewBag.ctype = new string[] { "Company", "Individual", "Partnership" };
+            ViewBag.status = new string[] { "Filer", "Non-Filer" };
+            ViewBag.tt = new string[] { "Cash", "Acc. Receivable", "Both" }; ;
             return View();
         }
     }

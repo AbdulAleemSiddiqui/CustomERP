@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.vendor
+﻿@model SfDesk.Models.Vendor
 
 
 @{
@@ -26,7 +26,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Vendor_Type, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.Vendor_Type, new SelectList(new SfDesk.Models.vendor().Vendor_Type), "select type", htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Vendor_Type, new SelectList(ViewBag.ctype), "select type", htmlAttributes: new { @class = "form-control" })
 
                         
                               @*  @Html.EditorFor(model => model.Vendor_Type, new { htmlAttributes = new { @class = "form-control" } })*@
@@ -56,10 +56,10 @@
                             @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
                         </div>
-                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-1" })
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-1" })
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -73,6 +73,13 @@
                         <div class="col-md-4">
                             @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -101,7 +108,7 @@
                         </div>
                         @Html.LabelFor(model => model.NTN_Status, htmlAttributes: new { @class = "control-label col-md-1" })
                         <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.NTN_Status, new SelectList(new SfDesk.Models.vendor().NTN_Status), "select", htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.NTN_Status, new SelectList(ViewBag.status), "select", htmlAttributes: new { @class = "form-control" })
 
                             @* @Html.EditorFor(model => model.NTN_Status, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.NTN_Status, "", new { @class = "text-danger" })
@@ -117,7 +124,7 @@
                     
                         @Html.LabelFor(model => model.STRN_Status, htmlAttributes: new { @class = "control-label col-md-1" })
                         <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.STRN_Status, new SelectList(new SfDesk.Models.vendor().STRN_Status), "select", htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.STRN_Status, new SelectList(ViewBag.status), "select", htmlAttributes: new { @class = "form-control" })
 
                           
     @*  @Html.EditorFor(model => model.STRN_Status, new { htmlAttributes = new { @class = "form-control" } })*@
@@ -131,7 +138,7 @@
                         
                         <b class = "control-label col-md-2">Transaction type</b> 
                         <div class="col-md-4">
-                            @Html.DropDownListFor(model => model.Transaction_type, new SelectList(new SfDesk.Models.vendor().Transaction_type), "select type", htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.Transaction_type, new SelectList(ViewBag.tt), "select type", htmlAttributes: new { @class = "form-control" })
 
                             
     @*@Html.EditorFor(model => model.Transaction_type, new { htmlAttributes = new { @class = "form-control" } })*@

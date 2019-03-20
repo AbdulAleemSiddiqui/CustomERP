@@ -15,6 +15,9 @@ namespace SfDesk.Controllers
         }
         public ActionResult Vendor_Add()
         {
+            ViewBag.ctype = new string[] { "Company", "Individual", "Partnership" };
+            ViewBag.status = new string[] { "Filer", "Non-Filer" };
+            ViewBag.tt = new string[] { "Cash" , "Acc. Receivable" , "Both" };
             return View();
         }
     }
