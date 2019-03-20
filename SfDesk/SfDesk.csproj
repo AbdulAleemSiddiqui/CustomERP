@@ -215,6 +215,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
+    <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SessionAttribute.cs" />
     <Compile Include="Controllers\userController.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\user.cs" />
@@ -250,6 +252,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\jsgrid-theme.min.css" />
+    <Content Include="assets\css\jsgrid.min.css" />
     <Content Include="assets\images\loading.gif" />
     <Content Include="assets\css\admin\assets\fonts\themify.svg" />
     <Content Include="assets\css\advance-widget.css" />
@@ -388,6 +392,8 @@
     <Content Include="assets\images\user-profile.jpg" />
     <Content Include="assets\images\user.jpg" />
     <Content Include="assets\images\video-cam.png" />
+    <Content Include="assets\js\jsgrid.js" />
+    <Content Include="assets\js\jsgrid.min.js" />
     <Content Include="assets\js\lib\barRating\barRating.init.js" />
     <Content Include="assets\js\lib\barRating\jquery.barrating.js" />
     <Content Include="assets\js\lib\bootstrap.min.js" />
@@ -422,6 +428,7 @@
     <Content Include="assets\js\lib\datamap\datamap-init.js" />
     <Content Include="assets\js\lib\datamap\datamaps.world.min.js" />
     <Content Include="assets\js\lib\datamap\topojson.js" />
+    <Content Include="assets\js\db.js" />
     <Content Include="assets\js\lib\easing\jquery.easing.min.js" />
     <Content Include="assets\js\lib\easing\stepup-form-init.js" />
     <Content Include="assets\js\lib\flot-chart\curvedLines.js" />
@@ -757,6 +764,8 @@
     <Content Include="Views\user\User_Role_Details.cshtml" />
     <Content Include="Views\Vendor\Vendor_Add.cshtml" />
     <Content Include="Views\Customer\Customer_Add.cshtml" />
+    <Content Include="Views\PurchaseInventory\master.cshtml" />
+    <Content Include="Views\PurchaseInventory\detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

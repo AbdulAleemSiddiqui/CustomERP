@@ -12,22 +12,22 @@ namespace SfDesk.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            string a = filterContext.ActionDescriptor.ActionName;
-            string b = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-            HttpContext ctx = HttpContext.Current;
-            if (HttpContext.Current.Session["ID"] == null)
-            {
-                filterContext.Result = new RedirectResult("~/LoginUser/Login");
-                return;
-            }
-            else if (new user() { U_Id = ((user)HttpContext.Current.Session["ID"]).U_Id }.Validate_Action( a, b))
-            {
-                base.OnActionExecuting(filterContext);
-            }
-            else
-            {
-                filterContext.Result = new RedirectResult("~/LoginUser/Login");
-            }
+            //string a = filterContext.ActionDescriptor.ActionName;
+            //string b = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            //HttpContext ctx = HttpContext.Current;
+            //if (HttpContext.Current.Session["ID"] == null)
+            //{
+            //    filterContext.Result = new RedirectResult("~/LoginUser/Login");
+            //    return;
+            //}
+            //else if (new user() { U_Id = ((user)HttpContext.Current.Session["ID"]).U_Id }.Validate_Action( a, b))
+            //{
+            //    base.OnActionExecuting(filterContext);
+            //}
+            //else
+            //{
+            //    filterContext.Result = new RedirectResult("~/LoginUser/Login");
+            //}
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -24,9 +25,10 @@ namespace SfDesk.Models
         [DisplayName("Address Line 2")]
         public string Address2 { get; set; }
         [EmailAddress(ErrorMessage = "The email address is not valid")]
-        public string email { get; set; }
+        public string Email { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
+        public string City { get; set; }
         public string Province { get; set; }
         public string Country { get; set; }
 
@@ -81,6 +83,42 @@ namespace SfDesk.Models
         public string Machine_Ip { get; set; }
 
         public string Mac_Address { get; set; }
+        public void Customer_Add()
+        {
+            SqlCommand sc = new SqlCommand("Customer_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+
+            sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
+            sc.Parameters.AddWithValue("@Customer_Type", Customer_Type);
+            sc.Parameters.AddWithValue("@Business Name", Business_Name);
+            sc.Parameters.AddWithValue("@Address1", Address1);
+            sc.Parameters.AddWithValue("@Address2", Address2);
+            sc.Parameters.AddWithValue("@City",City);
+            sc.Parameters.AddWithValue("@Province", Province);
+            sc.Parameters.AddWithValue("@Country", Country);
+            sc.Parameters.AddWithValue("@Phone_No", Phone_No);
+            sc.Parameters.AddWithValue("@Email", Email);
+            sc.Parameters.AddWithValue("@Comments", Comments);
+            sc.Parameters.AddWithValue("@NTN", NTN);
+            sc.Parameters.AddWithValue("@NTN_Status", NTN_Status);
+            sc.Parameters.AddWithValue("@STRN", STRN);
+            sc.Parameters.AddWithValue("@STRN_Status", STRN_Status);
+            sc.Parameters.AddWithValue("@Transaction_Type", Transaction_type);
+            sc.Parameters.AddWithValue("@Person_Name", Person_Name);
+            sc.Parameters.AddWithValue("@Person_Phone", Person_Phone);
+            sc.Parameters.AddWithValue("@Person_Email", Person_Email);
+            sc.Parameters.AddWithValue("@Person_Designation", Person_Designation);
+            sc.Parameters.AddWithValue("@Bank_Name", Bank_Name);
+            sc.Parameters.AddWithValue("@Title", Title);
+            sc.Parameters.AddWithValue("@IBAN_No", IBAN_No);
+            sc.Parameters.AddWithValue("@Account_No", Account_No);
+            sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
+            sc.ExecuteNonQuery();
+
+        }
 
     }
 }
