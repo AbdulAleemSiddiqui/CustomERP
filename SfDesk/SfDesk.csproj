@@ -229,6 +229,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\App.cs" />
+    <Compile Include="Models\ChartOfAccounts.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Form.cs" />
