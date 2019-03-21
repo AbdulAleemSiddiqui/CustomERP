@@ -1,0 +1,172 @@
+﻿@model SfDesk.Models.Customer
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null; //"~/Views/Shared/_dashLayout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card alert">
+            <div class="card-body">
+                <div class="user-profile">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="user-photo m-b-30">
+                                @*  <img class="img-responsive" src="~/assets/images/user-profile.jpg" alt="" />*@
+                                <h1>Details</h1>
+                                <br />
+                            </div>
+                            <div class="user-skill">
+                                <h4>Person Information</h4>
+                                <ul>
+                                    <li>
+                                        <span class="Number-title">Name:  </span>
+                                        <span style="font-size:small; font-weight:800">
+                                            @Html.DisplayFor(model => model.Person_Name)
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="Number-title ">Email:</span>
+                                        <span style="font-size:small; font-weight:800">
+                                            @Html.DisplayFor(model => model.Person_Email)
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <span class="Number-title">Phone#:  </span>
+                                        <span style="font-size:small; font-weight:800">
+                                            @Html.DisplayFor(model => model.Person_Phone)
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="Number-title">Designation:  </span>
+                                        <span style="font-size:small; font-weight:800">
+                                            @Html.DisplayFor(model => model.Person_Designation)
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="user-work">
+                                <h4>Tax Details</h4>
+                                <div class="work-content">
+                                    <h3>NTN:  &nbsp;@Html.DisplayFor(model => model.NTN) </h3>
+                                    <p><b>Status:     &nbsp;   </b>@Html.DisplayFor(model => model.NTN_Status)</p>
+                                    <p><b>STRN:      &nbsp;    </b>@Html.DisplayFor(model => model.STRN)</p>
+                                    <p><b>Status:     &nbsp;   </b>@Html.DisplayFor(model => model.STRN_Status)</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="user-profile-name">
+                                @Html.DisplayFor(model => model.Business_Name)
+                            </div>
+                            <div class="user-Location">
+                                <i class="ti-location-pin"></i>
+                                @Html.DisplayFor(model => model.City)
+                            </div>
+                            <div class="user-job-title"></div>
+
+                            <div class="user-send-message"><br /></div>
+                            <div class="custom-tab user-profile-tab">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">About</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="1">
+                                        <div class="contact-information">
+                                            <h4>Business information</h4>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Name:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.Business_Name)
+                                                </span>
+
+                                            </div>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Phone:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.Business_Phone_No)
+                                                </span>
+
+
+                                            </div>
+                                            <div class="phone-content">
+                                                <span class="contact-title">comment:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.Business_Comment)
+                                                </span>
+
+                                            </div>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Incorporation#:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.Incorporation_No)
+                                                </span>
+
+                                            </div>
+                                            <div class="address-content">
+                                                <span class="contact-title">Address1:</span>
+                                                <span class="mail-address">
+                                                    @Html.DisplayFor(model => model.Address_Line_1)
+                                                </span>
+                                            </div>
+                                            <div class="address-content">
+                                                <span class="contact-title">Address2:</span>
+                                                <span class="mail-address">
+                                                    @Html.DisplayFor(model => model.Address_Line_2)
+                                                </span>
+                                            </div>
+                                            <div class="email-content">
+                                                <span class="contact-title">Email:</span>
+                                                <span class="contact-email">
+                                                    @Html.DisplayFor(model => model.Business_Email)
+                                                </span>
+                                            </div>
+                                            <div class="website-content">
+                                                <span class="contact-title">City:</span>
+                                                <span class="contact-website">@Html.DisplayFor(model => model.City) &nbsp;<sub>@Html.DisplayFor(model => model.Province) | @Html.DisplayFor(model => model.Country)</sub></span>
+                                            </div>
+
+                                        </div>
+                                        <div class="basic-information">
+                                            <h4>Bank information</h4>
+                                            <div class="birthday-content">
+                                                <span class="contact-title">Bank Name:</span>
+                                                <span class="birth-date">@Html.DisplayFor(model => model.Bank_Name) </span>
+                                            </div>
+                                            <div class="birthday-content">
+                                                <span class="contact-title">IBAN#:</span>
+                                                <span class="birth-date">@Html.DisplayFor(model => model.Bank_IBAN_No) </span>
+                                            </div>
+                                            <div class="birthday-content">
+                                                <span class="contact-title">Account#:</span>
+                                                <span class="birth-date">@Html.DisplayFor(model => model.Bank_Account_No) </span>
+                                            </div>
+                                            <div class="birthday-content">
+                                                <span class="contact-title">Title:</span>
+                                                <span class="birth-date">@Html.DisplayFor(model => model.Bank_Title) </span>
+                                            </div>
+                                              <div class="birthday-content">
+                                                <span class="contact-title">Opening Balance:</span>
+                                                <span class="birth-date">@Html.DisplayFor(model => model.Bank_Opening_Balance) </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

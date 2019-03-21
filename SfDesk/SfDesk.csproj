@@ -762,11 +762,16 @@
     <Content Include="Views\user\User_Role_Show.cshtml" />
     <Content Include="Views\user\Edit_User_Role.cshtml" />
     <Content Include="Views\user\User_Role_Details.cshtml" />
-    <Content Include="Views\Vendor\Vendor_Add.cshtml" />
-    <Content Include="Views\Customer\Customer_Add.cshtml" />
+    <Content Include="Views\Vendor\Add.cshtml" />
+    <Content Include="Views\Customer\Add.cshtml" />
     <Content Include="Views\PurchaseInventory\master.cshtml" />
     <Content Include="Views\PurchaseInventory\detail.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Vendor\Edit.cshtml" />
+    <Content Include="Views\Vendor\Index.cshtml" />
+    <Content Include="Views\Customer\Detail.cshtml" />
+    <Content Include="Views\Vendor\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
