@@ -170,31 +170,31 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 u.Customer_ID = (int)sdr["Customer_ID"];
-                u.Customer_Type = (string)sdr["Customer_Type"];
+                u.Customer_Type= (string)sdr["Customer_Type"];
+                u.Incorporation_No = (string)sdr["Incorporation_No"];
                 u.Business_Name = (string)sdr["Business_Name"];
-                u.Address1 = (string)sdr["Address1"];
-                u.Address2 = (string)sdr["Address2"];
+                u.Address1 = (string)sdr["Address_Line_1"];
+                u.Address2 = (string)sdr["Address_Line_2"];
                 u.City = (string)sdr["City"];
                 u.Province = (string)sdr["Province"];
                 u.Country = (string)sdr["Country"];
-                u.Phone_No = (string)sdr["Phone_No"];
-                u.Email = (string)sdr["Email"];
-                u.Comments = (string)sdr["Comments"];
-                u.Incorporation_No= (string)sdr["Incorporation_No"];
+                u.Phone_No = (string)sdr["Business_Phone_No"];
+                u.Email = (string)sdr["Business_Email"];
+                u.Comments = (string)sdr["Business_Comments"];
                 u.NTN = (string)sdr["NTN"];
                 u.NTN_Status = (string)sdr["NTN_Status"];
                 u.STRN = (string)sdr["STRN"];
                 u.STRN_Status = (string)sdr["STRN_Status"];
-                u.Transaction_type = (string)sdr["Transaction_type"];
+                u.Transaction_type = (string)sdr["Transaction_Type"];
                 u.Person_Name = (string)sdr["Person_Name"];
                 u.Person_Phone = (string)sdr["Person_Phone"];
                 u.Person_Designation = (string)sdr["Person_Designation"];
                 u.Person_Email = (string)sdr["Person_Email"];
                 u.Bank_Name = (string)sdr["Bank_Name"];
-                u.IBAN_No = (string)sdr["IBAN_No"];
-                u.Account_No = (string)sdr["Account_No"];
-                u.Title = (string)sdr["Title"];
-                u.Opening_Balance = (decimal)sdr["Opening_Balance"];
+                u.IBAN_No = (string)sdr["Bank_IBAN_No"];
+                u.Account_No = (string)sdr["Bank_Account_No"];
+                u.Title = (string)sdr["Bank_Title"];
+                u.Opening_Balance = (decimal)sdr["Bank_Opening_Balance"];
 
 
                 u.Created_By = (int)sdr["CreatedBy"];
@@ -218,30 +218,30 @@ namespace SfDesk.Models
                 Customer u = new Customer();
                 u.Customer_ID = (int)sdr["Customer_ID"];
                 u.Customer_Type = (string)sdr["Customer_Type"];
+                u.Incorporation_No = (string)sdr["Incorporation_No"];
                 u.Business_Name = (string)sdr["Business_Name"];
-                u.Address1 = (string)sdr["Address1"];
-                u.Address2 = (string)sdr["Address2"];
+                u.Address1 = (string)sdr["Address_Line_1"];
+                u.Address2 = (string)sdr["Address_Line_2"];
                 u.City = (string)sdr["City"];
                 u.Province = (string)sdr["Province"];
                 u.Country = (string)sdr["Country"];
-                u.Phone_No = (string)sdr["Phone_No"];
-                u.Email = (string)sdr["Email"];
-                u.Comments = (string)sdr["Comments"];
-                u.Incorporation_No = (string)sdr["Incorporation_No"];
+                u.Phone_No = (string)sdr["Business_Phone_No"];
+                u.Email = (string)sdr["Business_Email"];
+                u.Comments = (string)sdr["Business_Comments"];
                 u.NTN = (string)sdr["NTN"];
                 u.NTN_Status = (string)sdr["NTN_Status"];
                 u.STRN = (string)sdr["STRN"];
                 u.STRN_Status = (string)sdr["STRN_Status"];
-                u.Transaction_type = (string)sdr["Transaction_type"];
+                u.Transaction_type = (string)sdr["Transaction_Type"];
                 u.Person_Name = (string)sdr["Person_Name"];
                 u.Person_Phone = (string)sdr["Person_Phone"];
                 u.Person_Designation = (string)sdr["Person_Designation"];
                 u.Person_Email = (string)sdr["Person_Email"];
                 u.Bank_Name = (string)sdr["Bank_Name"];
-                u.IBAN_No = (string)sdr["IBAN_No"];
-                u.Account_No = (string)sdr["Account_No"];
-                u.Title = (string)sdr["Title"];
-                u.Opening_Balance = (decimal)sdr["Opening_Balance"];
+                u.IBAN_No = (string)sdr["Bank_IBAN_No"];
+                u.Account_No = (string)sdr["Bank_Account_No"];
+                u.Title = (string)sdr["Bank_Title"];
+                u.Opening_Balance = (decimal)sdr["Bank_Opening_Balance"];
 
 
                 u.Created_By = (int)sdr["CreatedBy"];

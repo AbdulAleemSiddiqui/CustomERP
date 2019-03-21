@@ -10,6 +10,7 @@ namespace SfDesk.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.menu = new Menu().Get_All_Menu();
             return View();
         }
 

@@ -63,6 +63,7 @@ namespace SfDesk.Controllers
         public ActionResult Logout()
         {
             Session["ID"] = null;
+            Session["isMenuCreated"] = null;
             return RedirectToAction("Login");
         }
     }

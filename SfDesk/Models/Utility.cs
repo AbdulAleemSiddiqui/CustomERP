@@ -23,6 +23,9 @@ namespace SfDesk.Models
             string hostName = Dns.GetHostName();
             return Dns.GetHostByName(hostName).AddressList[0].ToString();
         }
-        
+        public static string GetMenu(int U_ID)
+        {
+            return "";
+        }
     }
 }

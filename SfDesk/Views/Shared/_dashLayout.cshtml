@@ -38,7 +38,7 @@
 @{
 
     int a = 0;
- }
+}
 <body>
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
@@ -50,18 +50,65 @@
                         <ul>
                             <li><a href="index.html">Dashboard 1</a></li>
                             <li><a href="index-v1.html">Dashboard 2</a></li>
-                            
+
                             <li><a href="index-school.html">Dashboard 3</a></li>
                             <li><a href="index-restaurant.html">Dashboard 4</a></li>
                         </ul>
 
-                            }
+                        }
                     </li>
                     <li class="label">School</li>
 
-                    @if (Session["ID"] != null)
+                    @if (Session["ID"] != null )
                     {
-                        var lst = new SfDesk.Models.User_Role() { U_ID = ((SfDesk.Models.user)Session["ID"]).U_Id }.User_Role_Get_By_U_ID();
+
+                        var lst = new SfDesk.Controllers.Menu().Get_All_Menu();
+
+                        foreach (var l1 in lst.Where(x => x.Parent_ID == 0))
+                        {
+                            var sub = lst.Where(x => x.Parent_ID == l1.Menu_ID);
+                            Session["isMenuCreated"] = true;
+                            <li>
+                                <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>@l1.Text<span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                                @if (sub.Count() != 0)
+                                {
+                                    <ul>
+                                        @foreach (var l2 in sub)
+                                        {
+                                            var sub_sub = lst.Where(x => x.Parent_ID == l2.Menu_ID);
+
+                                            <li>
+                                                <a href="@Url.Action(l2.RedirectAction, l2.RedirectController)">@l2.Text</a>
+                                 
+                                                @if (sub_sub.Count() != 0)
+                                                {
+                                                    <ul>
+                                                        @foreach (var l3 in sub_sub)
+                                                        {
+                                                            <li>
+                                                                <a href="@Url.Action(l3.RedirectAction, l3.RedirectController)">@l3.Text</a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+
+                            </li>
+                        }
+
+                    }
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" >Menu 1<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Submenu 1-1</a></li>
+                            <li><a href="#">Submenu 1-2</a></li>
+                            <li><a href="#">Submenu 1-3</a></li>
+                        </ul>
+                    </li>
+                    @*var lst = new SfDesk.Models.User_Role() { U_ID = ((SfDesk.Models.user)Session["ID"]).U_Id }.User_Role_Get_By_U_ID();
                         var modules = lst.Select(x => x.M_Name).Distinct().ToList();
                         foreach (var item in modules)
                         {
@@ -80,45 +127,45 @@
                                     </ul>
                                 </li>
                             }
-                        }
-                    
+                        }*@
+
 
                     @*<li>
-                <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>SF DESK <span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li>
-                        <a href="@Url.Action("Index", "User")">User</a>
-                    </li>
-                    <li><a href="@Url.Action("Index", "Company")">Company</a></li>
-                    <li><a href="@Url.Action("Index", "Role")">Role</a></li>
-                    <li><a href="@Url.Action("Create", "Role")">Role Detail</a></li>
-                    <li><a href="@Url.Action("User_Role", "user")">User Right</a></li>
-                    <li><a href="school-all-student-table.html">Students Table</a></li>
-                    <li><a href="school-student-search.html">search</a></li>
-                    <li><a href="school-teacher-information.html">Teacher Info</a></li>
-                    <li><a href="school-student-profile.html">Teacher Details</a></li>
-                    <li><a href="school-all-teacher-table.html">Teacher Table</a></li>
-                    <li><a href="school-class-information.html">Class Info</a></li>
-                    <li><a href="school-subject.html">Subject</a></li>
-                    <li><a href="school-class-routine.html">Routine</a></li>
-                    <li><a href="school-attendace-sheet.html">Attendance</a></li>
-                    <li><a href="school-grade-list.html">Exam Result</a></li>
-                    <li><a href="school-new-exam.html">Exam Schedule</a></li>
-                    <li><a href="school-account-setting.html">Setting</a></li>
-                    <li><a href="school-student-fees-collection.html">Collection Fees</a></li>
-                    <li><a href="school-payment-information.html">Payment info</a></li>
-                    <li><a href="school-add-new-expenses.html">New Expense</a></li>
-                    <li><a href="school-all-expense-list.html">Expense</a></li>
-                    <li><a href="school-attendace-sheet.html">Attendance</a></li>
-                    <li><a href="school-book-information.html">Book Info</a></li>
-                    <li><a href="school-book-list.html">Book List</a></li>
-                    <li><a href="school-all-parents-list.html">Parents List</a></li>
-                    <li><a href="school-parents.html">Parents</a></li>
-                    <li><a href="school-form.html">Form</a></li>
-                    <li><a href="school-notice.html">Notice</a></li>
-                    <li><a href="school-transport.html">Transport</a></li>
-                </ul>
-            </li>*@
+                            <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>SF DESK <span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="@Url.Action("Index", "User")">User</a>
+                                </li>
+                                <li><a href="@Url.Action("Index", "Company")">Company</a></li>
+                                <li><a href="@Url.Action("Index", "Role")">Role</a></li>
+                                <li><a href="@Url.Action("Create", "Role")">Role Detail</a></li>
+                                <li><a href="@Url.Action("User_Role", "user")">User Right</a></li>
+                                <li><a href="school-all-student-table.html">Students Table</a></li>
+                                <li><a href="school-student-search.html">search</a></li>
+                                <li><a href="school-teacher-information.html">Teacher Info</a></li>
+                                <li><a href="school-student-profile.html">Teacher Details</a></li>
+                                <li><a href="school-all-teacher-table.html">Teacher Table</a></li>
+                                <li><a href="school-class-information.html">Class Info</a></li>
+                                <li><a href="school-subject.html">Subject</a></li>
+                                <li><a href="school-class-routine.html">Routine</a></li>
+                                <li><a href="school-attendace-sheet.html">Attendance</a></li>
+                                <li><a href="school-grade-list.html">Exam Result</a></li>
+                                <li><a href="school-new-exam.html">Exam Schedule</a></li>
+                                <li><a href="school-account-setting.html">Setting</a></li>
+                                <li><a href="school-student-fees-collection.html">Collection Fees</a></li>
+                                <li><a href="school-payment-information.html">Payment info</a></li>
+                                <li><a href="school-add-new-expenses.html">New Expense</a></li>
+                                <li><a href="school-all-expense-list.html">Expense</a></li>
+                                <li><a href="school-attendace-sheet.html">Attendance</a></li>
+                                <li><a href="school-book-information.html">Book Info</a></li>
+                                <li><a href="school-book-list.html">Book List</a></li>
+                                <li><a href="school-all-parents-list.html">Parents List</a></li>
+                                <li><a href="school-parents.html">Parents</a></li>
+                                <li><a href="school-form.html">Form</a></li>
+                                <li><a href="school-notice.html">Notice</a></li>
+                                <li><a href="school-transport.html">Transport</a></li>
+                            </ul>
+                        </li>*@
                     <li class="label">Restaurant</li>
                     <li>
                         <a class="sidebar-sub-toggle"><i class="ti-cup"></i> Restaurant<span class="badge badge-primary">7</span> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
