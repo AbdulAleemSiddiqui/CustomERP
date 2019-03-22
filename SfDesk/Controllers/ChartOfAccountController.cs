@@ -26,7 +26,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Edit(int id)
         {
-            return PartialView("Detail", new ChartOfAccount().COA_Get_By_ID(id));
+            return PartialView("Detail", new ChartOfAccount() { COA_ID=id}.COA_Get_By_ID());
         }
         [HttpPost]
         public ActionResult Edit(ChartOfAccount c)

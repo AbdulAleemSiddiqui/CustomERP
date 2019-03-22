@@ -22,6 +22,8 @@ namespace SfDesk.Models
         public string Type_Name { get; set; }
         [DisplayName("Group")]
         public string Group_Name { get; set; }
+
+        public string Nature { get; set; }
         public void COA_Add()
         {
             SqlCommand sc = new SqlCommand("Company_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
@@ -41,21 +43,24 @@ namespace SfDesk.Models
         {
             
         }
-        public ChartOfAccount COA_Get_By_ID(int id)
+        public ChartOfAccount COA_Get_By_ID()
         {
             SqlCommand sc = new SqlCommand("COA_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            sc.Parameters.AddWithValue("@COA_ID", id);
+            sc.Parameters.AddWithValue("@COA_ID", COA_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             ChartOfAccount u = new ChartOfAccount();
             if (sdr.Read())
             {
                 
-                u.COA_ID = (int)sdr["COA_ID"];
+                u.COA_ID = (int)sdr["Coa_ID"];
                 u.COA_Name = (string)sdr["COA_Name"];
                 u.Code = (int)sdr["Code"];
                 u.Type_ID = (int)sdr["Type_ID"];
+                u.Type_Name = (string)sdr["Type_Name"];
                 u.Group_ID = (int)sdr["Group_ID"];
+                u.Group_Name = (string)sdr["G_Name"];
+                u.Nature = (string)sdr["Nature"];
             }
             sdr.Close();
             return u;
@@ -65,17 +70,20 @@ namespace SfDesk.Models
             List<ChartOfAccount> lst = new List<ChartOfAccount>();
 
             SqlCommand sc = new SqlCommand("COA_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Company_Code", Company_Code);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
                 ChartOfAccount u = new ChartOfAccount();
-                u.COA_ID = (int)sdr["COA_ID"];
+                u.COA_ID = (int)sdr["Coa_ID"];
                 u.COA_Name = (string)sdr["COA_Name"];
                 u.Code = (int)sdr["Code"];
                 u.Type_ID = (int)sdr["Type_ID"];
+                u.Type_Name = (string)sdr["Type_Name"];
                 u.Group_ID = (int)sdr["Group_ID"];
-                
+                u.Group_Name = (string)sdr["G_Name"];
+                u.Nature = (string)sdr["Nature"];
                 lst.Add(u);
             }
             sdr.Close();

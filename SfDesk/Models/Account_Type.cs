@@ -9,5 +9,7 @@ namespace SfDesk.Models
     {
         public int Type_ID { get; set; }
         public string Type_Name{ get; set; }
+
+
     }
 }
