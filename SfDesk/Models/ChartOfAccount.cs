@@ -24,7 +24,14 @@ namespace SfDesk.Models
         public string Group_Name { get; set; }
         public void COA_Add()
         {
+            SqlCommand sc = new SqlCommand("Company_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@U_ID", HttpContext.Current.Session["ID"]=51);
+            sc.Parameters.AddWithValue("@COA_Name", COA_Name);
+            sc.Parameters.AddWithValue("@Group_ID", Group_ID);
+            sc.Parameters.AddWithValue("@Type_ID", Type_ID);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
+            sc.ExecuteNonQuery();
         }
         public void COA_Update()
         {
