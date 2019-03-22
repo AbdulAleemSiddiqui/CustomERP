@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -35,11 +36,43 @@ namespace SfDesk.Models
         }
         public ChartOfAccount COA_Get_By_ID(int id)
         {
-            return this;
+            SqlCommand sc = new SqlCommand("COA_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@COA_ID", id);
+            SqlDataReader sdr = sc.ExecuteReader();
+            ChartOfAccount u = new ChartOfAccount();
+            if (sdr.Read())
+            {
+                
+                u.COA_ID = (int)sdr["COA_ID"];
+                u.COA_Name = (string)sdr["COA_Name"];
+                u.Code = (int)sdr["Code"];
+                u.Type_ID = (int)sdr["Type_ID"];
+                u.Group_ID = (int)sdr["Group_ID"];
+            }
+            sdr.Close();
+            return u;
         }
         public List<ChartOfAccount> COA_Get_All()
         {
-            return null;
+            List<ChartOfAccount> lst = new List<ChartOfAccount>();
+
+            SqlCommand sc = new SqlCommand("COA_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                ChartOfAccount u = new ChartOfAccount();
+                u.COA_ID = (int)sdr["COA_ID"];
+                u.COA_Name = (string)sdr["COA_Name"];
+                u.Code = (int)sdr["Code"];
+                u.Type_ID = (int)sdr["Type_ID"];
+                u.Group_ID = (int)sdr["Group_ID"];
+                
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
         }
     }
 }

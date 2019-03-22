@@ -12,12 +12,12 @@ namespace SfDesk.Controllers
         // GET: ChartOfAccount
         public ActionResult Index()
         {
-            return View();
+            return View(new ChartOfAccount().COA_Get_All());
         }
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            return PartialView("add");
         }
         [HttpPost]
         public ActionResult Add(ChartOfAccount c)

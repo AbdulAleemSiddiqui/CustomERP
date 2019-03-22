@@ -777,6 +777,7 @@
     <Content Include="Views\Customer\Detail.cshtml" />
     <Content Include="Views\Vendor\Detail.cshtml" />
     <Content Include="Views\ChartOfAccount\Index.cshtml" />
+    <Content Include="Views\ChartOfAccount\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
