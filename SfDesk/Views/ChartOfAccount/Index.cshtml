@@ -26,9 +26,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Code)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Company_Code)
-                                </th>
+                                
                             
                                
                                
@@ -51,11 +49,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Code)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Company_Code)
-                                    </td>
-                                 
-                                  
+                                   
                                     <td>
                                         <button type="button" class="btn mini btn-info" onclick="Edit(@item.COA_ID)" })'"><i class="ti-pencil"></i> </button>
                                         <button type="button" class="btn mini btn-danger" onclick="ConfirmDelete(@item.COA_ID)" })'"><i class="ti-trash"></i> </button>
@@ -108,7 +102,7 @@
                 closeOnConfirm: false
             },
                   function () {
-                      $.get('@Url.Action("delete", "ChartOfAccount")', { id: id },function () { document.location = '/customer/index'; })
+                      $.get('@Url.Action("delete", "ChartOfAccount")', { id: id },function () { document.location = '/chartofaccount/index'; })
                       swal("Deleted !!", "Hey, your Account has been deleted !!", "success");
                 });
 

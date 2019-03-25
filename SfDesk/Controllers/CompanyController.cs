@@ -23,7 +23,7 @@ namespace SfDesk.Controllers
         {
             c.Company_Add();
           
-            return View();
+            return RedirectToAction("index");
         }
    
         public ActionResult Edit(int id)

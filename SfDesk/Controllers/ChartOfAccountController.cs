@@ -23,20 +23,22 @@ namespace SfDesk.Controllers
         public ActionResult Add(ChartOfAccount c)
         {
             c.COA_Add();
-            return View();
+            return RedirectToAction("index");
         }
         public ActionResult Edit(int id)
         {
-            return PartialView("Detail", new ChartOfAccount() { COA_ID=id}.COA_Get_By_ID());
+            return PartialView("Edit", new ChartOfAccount() { COA_ID=id}.COA_Get_By_ID());
         }
         [HttpPost]
         public ActionResult Edit(ChartOfAccount c)
         {
-            return View();
+            c.COA_Update();
+            return RedirectToAction("index");
         }
-        public ActionResult Delete()
+        public ActionResult Delete(int id)
         {
-            return View();
+            new ChartOfAccount() { COA_ID= id}.COA_Delete();
+            return RedirectToAction("index");
         }
 
         public ActionResult Get_Last_Code(int type_id)

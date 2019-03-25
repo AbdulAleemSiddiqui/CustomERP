@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-6">
-                @Html.DropDownListFor(model => model.Type_ID, new SelectList(new SfDesk.Models.Account_Type().Account_Type_Get_All(),"Type_ID","Type_Name"),htmlAttributes :new { @class = "form-control",@onchange="Get_Code()" })
+                @Html.DropDownListFor(model => model.Type_ID, new SelectList(new SfDesk.Models.Account_Type().Account_Type_Get_All(),"Type_ID","Type_Name"),"select type",htmlAttributes :new { @class = "form-control",@onchange="Get_Code()" })
                 @Html.ValidationMessageFor(model => model.Type_ID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Group_ID, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-6">
-                @Html.DropDownListFor(model => model.Group_ID, new SelectList(new SfDesk.Models.Account_Group().Account_Group_Get_All(), "G_ID", "G_Name"), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Group_ID, new SelectList(new SfDesk.Models.Account_Group().Account_Group_Get_All(), "G_ID", "G_Name"), "select type", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Group_ID, "", new { @class = "text-danger" })
             </div>
         </div>

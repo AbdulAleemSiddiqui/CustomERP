@@ -49,7 +49,7 @@ namespace SfDesk.Models
         public void COA_Add()
         {
             SqlCommand sc = new SqlCommand("COA_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@U_ID", HttpContext.Current.Session["ID"]=51);
+            sc.Parameters.AddWithValue("@U_ID", ((user)HttpContext.Current.Session["ID"]).U_Id);
             sc.Parameters.AddWithValue("@COA_Name", COA_Name);
             sc.Parameters.AddWithValue("@Group_ID", Group_ID);
             sc.Parameters.AddWithValue("@Type_ID", Type_ID);
@@ -61,11 +61,18 @@ namespace SfDesk.Models
         }
         public void COA_Update()
         {
-
+            SqlCommand sc = new SqlCommand("COA_Edit", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@COA_Name", COA_Name);
+            sc.Parameters.AddWithValue("@COA_ID", COA_ID);
+            sc.ExecuteNonQuery();
         }
         public void COA_Delete()
         {
-            
+            SqlCommand sc = new SqlCommand("COA_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@COA_ID", COA_ID);
+            sc.ExecuteNonQuery();
         }
         public ChartOfAccount COA_Get_By_ID()
         {
@@ -94,7 +101,7 @@ namespace SfDesk.Models
             List<ChartOfAccount> lst = new List<ChartOfAccount>();
 
             SqlCommand sc = new SqlCommand("COA_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Company_Code", Company_Code);
+            sc.Parameters.AddWithValue("@U_ID", ((user)HttpContext.Current.Session["ID"]).U_Id);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
