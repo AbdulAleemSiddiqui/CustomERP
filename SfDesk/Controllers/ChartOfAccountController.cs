@@ -22,6 +22,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Add(ChartOfAccount c)
         {
+            c.COA_Add();
             return View();
         }
         public ActionResult Edit(int id)
@@ -36,6 +37,11 @@ namespace SfDesk.Controllers
         public ActionResult Delete()
         {
             return View();
+        }
+
+        public ActionResult Get_Last_Code(int type_id)
+        {
+            return Json(new ChartOfAccount() { Type_ID = type_id }.COA_Get_Last_Code(), JsonRequestBehavior.AllowGet);
         }
     }
 }

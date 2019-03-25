@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -24,13 +25,36 @@ namespace SfDesk.Models
         public string Group_Name { get; set; }
 
         public string Nature { get; set; }
+
+
+        public int Created_By { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
+
+        public string Machine_Ip { get; set; }
+
+        public string Mac_Address { get; set; }
+
+        public ChartOfAccount()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
+
+
+
+
         public void COA_Add()
         {
-            SqlCommand sc = new SqlCommand("Company_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("COA_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@U_ID", HttpContext.Current.Session["ID"]=51);
             sc.Parameters.AddWithValue("@COA_Name", COA_Name);
             sc.Parameters.AddWithValue("@Group_ID", Group_ID);
             sc.Parameters.AddWithValue("@Type_ID", Type_ID);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
             sc.ExecuteNonQuery();
@@ -88,6 +112,19 @@ namespace SfDesk.Models
             }
             sdr.Close();
             return lst;
+        }
+        public int COA_Get_Last_Code()
+        {
+            List<ChartOfAccount> lst = new List<ChartOfAccount>();
+            SqlCommand sc = new SqlCommand("COA_Get_Last_Code", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Type_ID", Type_ID);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+           object c=sc.ExecuteScalar();
+            if(c==System.DBNull.Value)
+            {
+                return 0;
+            }
+            return (int)c;
         }
     }
 }

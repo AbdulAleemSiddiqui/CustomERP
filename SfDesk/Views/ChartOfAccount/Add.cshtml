@@ -8,39 +8,6 @@
         <h4>ChartOfAccount</h4>
         <hr />
         
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Company_Code, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Company_Code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Company_Code, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Type_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Type_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Group_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Group_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Group_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.COA_Name, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-6">
@@ -48,8 +15,28 @@
                 @Html.ValidationMessageFor(model => model.COA_Name, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.Type_ID, new SelectList(new SfDesk.Models.Account_Type().Account_Type_Get_All(),"Type_ID","Type_Name"),htmlAttributes :new { @class = "form-control",@onchange="Get_Code()" })
+                @Html.ValidationMessageFor(model => model.Type_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-       
+        <div class="form-group">
+            @Html.LabelFor(model => model.Group_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.Group_ID, new SelectList(new SfDesk.Models.Account_Group().Account_Group_Get_All(), "G_ID", "G_Name"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Group_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" ,@readonly="ReadOnly"} })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-9">
@@ -58,3 +45,19 @@
         </div>
     </div>
 }
+
+    <script>
+        function Get_Code() {
+            var id = $('#Type_ID').val();
+            $.ajax({
+                url: '/ChartOfAccount/Get_Last_Code',
+                type: 'GET',
+                data: { type_id: id },
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $('#Code').val(data);
+                }
+            });
+
+        };
+    </script>

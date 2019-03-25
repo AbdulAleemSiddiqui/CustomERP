@@ -21,7 +21,7 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 Account_Group u = new Account_Group();
-                u.G_ID = (int)sdr["Group_ID"];
+                u.G_ID = (int)sdr["G_ID"];
                 u.G_Name = (string)sdr["G_Name"];
                 lst.Add(u);
 
