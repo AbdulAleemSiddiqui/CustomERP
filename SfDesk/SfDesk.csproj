@@ -219,6 +219,7 @@
     <Compile Include="Controllers\Menu.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SaleOrderController.cs" />
     <Compile Include="Controllers\SessionAttribute.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleDetails.cs" />
+    <Compile Include="Models\SaleOrder.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\Utility.cs" />
@@ -780,11 +782,14 @@
     <Content Include="Views\ChartOfAccount\Index.cshtml" />
     <Content Include="Views\ChartOfAccount\Add.cshtml" />
     <Content Include="Views\ChartOfAccount\Edit.cshtml" />
+    <Content Include="Views\SaleOrder\master.cshtml" />
+    <Content Include="Views\SaleOrder\detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\SalesOrder\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
   <ItemGroup>

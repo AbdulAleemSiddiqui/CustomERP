@@ -25,7 +25,7 @@ namespace SfDesk.Controllers
             List<Menu> lst = new List<Menu>();
 
             SqlCommand sc = new SqlCommand("Menu_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@U_ID", 60);
+            sc.Parameters.AddWithValue("@U_ID", ((user)HttpContext.Current.Session["ID"]).U_Id);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
