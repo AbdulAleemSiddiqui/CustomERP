@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<SfDesk.Models.PurchaseInventory>
-@{ 
 
-    Layout ="~/Views/Shared/_dashLayout.cshtml" ;
-}
 <link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
 <link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
 <div id="main-content">
@@ -18,14 +15,12 @@
         <!-- /# column -->
     </div>
 </div>
-@section scripts
-{
-    
 
-<script src="~/assets/js/jsgrid.min.js"></script>
+
+
  @*  <script src="~/assets/js/db.js"></script>*@
     <script>
-
+        function f(){}
         $(function(){
             var array =@Html.Raw(Json.Encode(Model));
             var arr=[];
@@ -117,28 +112,5 @@
                 });
                    
             });
-        var db = {
-
-
-            insertItem: function(insertingClient) {
-                // this.clients.push(insertingClient);
-                $.ajax({
-                    type:"POST",
-                    data: insertingClient,
-                    url: "add",
-                    success: function (d) {
-                        alert(d);
-                        },
-                })
-            },
-
-            updateItem: function(updatingClient) { },
-
-            deleteItem: function(deletingClient) {
-                var clientIndex = $.inArray(deletingClient, this.clients);
-                this.clients.splice(clientIndex, 1);
-            }
-
-        };
+  
     </script>
-}

@@ -124,12 +124,12 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-6">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Create" class="btn btn-default" id="done" />
                         </div>
                     </div>
                 </div>
             }
-
+          
             <div id="child"></div>
         </div>
     </div>
@@ -137,19 +137,23 @@
 @section scripts
 {
 
+<script src="~/assets/js/jsgrid.min.js"></script>
+<script src="~/assets/js/db.js"></script>
     <script>
+        $("form").submit(function (e) {
+            e.preventDefault();
+            $.post('ADD', $(this).serialize(), detail())
 
+        });
+
+
+        /*ye master ka he*/
         function detail() {
 
             $.get('@Url.Action("detail", "PurchaseInventory")', function (data) { $("#child").html(data); });
-
+            $("#done").hide()
         };
-        $(document).ready(function () {
+       
 
-            //$("#CompanyCode").prepend("<option value='' selected='selected'></option>");
-            detail();
-
-
-        });
     </script>
 }

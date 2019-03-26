@@ -1,27 +1,36 @@
-(function() {
+   var db = {
+            insertItem: function (insertingClient) {
+                // this.clients.push(insertingClient);
+                $.ajax({
+                    type: "POST",
+                    data: insertingClient,
+                    url: "add",
+                    success: function (d) {
+                        alert(d);
+                    },
+                })
+            },
 
-    var db = {
+            updateItem: function (updatingClient) {
+                $.ajax({
+                    type: "POST",
+                    data: updatingClient,
+                    url: "update",
+                    success: function (d) {
+                        alert(d);
+                    },
+                })
+            },
 
-            
-        insertItem: function(insertingClient) {
-            // this.clients.push(insertingClient);
-            alert("tatti");
-        },
+            deleteItem: function (deletingClient) {
+                $.ajax({
+                    type: "GET",
+                    data: deletingClient,
+                    url: "Delete",
+                    success: function (d) {
+                        alert(d);
+                    },
+                })
+            }
 
-        updateItem: function(updatingClient) { },
-
-        deleteItem: function(deletingClient) {
-            var clientIndex = $.inArray(deletingClient, this.clients);
-            this.clients.splice(clientIndex, 1);
-        }
-
-    };
-   
-    window.db = db;
-
-
-   
-
-
-
-}());
+        };
