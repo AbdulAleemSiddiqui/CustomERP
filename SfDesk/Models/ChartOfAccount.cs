@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -49,7 +50,7 @@ namespace SfDesk.Models
         public void COA_Add()
         {
             SqlCommand sc = new SqlCommand("COA_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@U_ID", ((user)HttpContext.Current.Session["ID"]).U_Id);
+            sc.Parameters.AddWithValue("@Company_Code", ((user)HttpContext.Current.Session["ID"]).CompanyCode);
             sc.Parameters.AddWithValue("@COA_Name", COA_Name);
             sc.Parameters.AddWithValue("@Group_ID", Group_ID);
             sc.Parameters.AddWithValue("@Type_ID", Type_ID);
@@ -101,7 +102,7 @@ namespace SfDesk.Models
             List<ChartOfAccount> lst = new List<ChartOfAccount>();
 
             SqlCommand sc = new SqlCommand("COA_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@U_ID", ((user)HttpContext.Current.Session["ID"]).U_Id);
+            sc.Parameters.AddWithValue("@Company_Code", ((user)HttpContext.Current.Session["ID"]).CompanyCode);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -124,13 +125,14 @@ namespace SfDesk.Models
         {
             List<ChartOfAccount> lst = new List<ChartOfAccount>();
             SqlCommand sc = new SqlCommand("COA_Get_Last_Code", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Company_Code", ((user)HttpContext.Current.Session["ID"]).CompanyCode);
             sc.Parameters.AddWithValue("@Type_ID", Type_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-           object c=sc.ExecuteScalar();
-            if(c==System.DBNull.Value)
-            {
-                return 0;
-            }
+            sc.Parameters.Add("@code", SqlDbType.Int);
+            sc.Parameters["@code"].Direction = ParameterDirection.Output;
+            sc.ExecuteNonQuery();
+            int c = 0;
+            c = (int)sc.Parameters["@code"].Value;
             return (int)c;
         }
     }
