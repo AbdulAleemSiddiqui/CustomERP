@@ -214,8 +214,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChartOfAccountController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
+    <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\Menu.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -236,13 +238,17 @@
     <Compile Include="Models\App.cs" />
     <Compile Include="Models\ChartOfAccount.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Role.cs" />
@@ -784,12 +790,20 @@
     <Content Include="Views\ChartOfAccount\Edit.cshtml" />
     <Content Include="Views\SaleOrder\master.cshtml" />
     <Content Include="Views\SaleOrder\detail.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Add.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Contractor\Index.cshtml" />
+    <Content Include="Views\Contractor\Add.cshtml" />
+    <Content Include="Views\Contractor\Edit.cshtml" />
+    <Content Include="Views\Material\Index.cshtml" />
+    <Content Include="Views\Material\Add.cshtml" />
+    <Content Include="Views\Material\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="Views\SalesOrder\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
    var db = {
+
             insertItem: function (insertingClient) {
                 // this.clients.push(insertingClient);
                 $.ajax({
@@ -10,7 +11,7 @@
                     },
                 })
             },
-
+          
             updateItem: function (updatingClient) {
                 $.ajax({
                     type: "POST",
