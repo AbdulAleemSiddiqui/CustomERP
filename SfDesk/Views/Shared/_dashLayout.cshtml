@@ -62,11 +62,11 @@
                     @if (Session["ID"] != null )
                     {
 
-                        var lst = new SfDesk.Controllers.Menu().Get_All_Menu();
+                        var lst = new SfDesk.Models.Form().Get_All_Menu();
 
                         foreach (var l1 in lst.Where(x => x.Parent_ID == 0))
                         {
-                            var sub = lst.Where(x => x.Parent_ID == l1.Menu_ID);
+                            var sub = lst.Where(x => x.Parent_ID == l1.Form_ID);
                             Session["isMenuCreated"] = true;
                             <li>
                                 <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>@l1.Text<span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
@@ -75,7 +75,7 @@
                                     <ul>
                                         @foreach (var l2 in sub)
                                         {
-                                            var sub_sub = lst.Where(x => x.Parent_ID == l2.Menu_ID);
+                                            var sub_sub = lst.Where(x => x.Parent_ID == l2.Form_ID);
 
                                             <li>
                                                 <a href="@Url.Action(l2.RedirectAction, l2.RedirectController)">@l2.Text</a>

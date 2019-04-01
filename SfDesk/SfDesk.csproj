@@ -240,7 +240,6 @@
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
@@ -761,7 +760,6 @@
     <Content Include="Views\Role\Add.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
-    <Content Include="Views\Role\AddDetails.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\user\User_Role.cshtml" />
     <Content Include="Views\user\User_Role_Show.cshtml" />

@@ -31,30 +31,21 @@ namespace SfDesk.Models
         public void Role_Detail_Add()
         {
 
-            SqlCommand sc = new SqlCommand("Role_Detail_Del", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Menu_Role_Del", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
             foreach (Module module in modules)
             {
-                foreach (Form item in module.forms)
+                foreach (Form item in module.forms.FindAll(x=>x.isSelected==true))
                 {
-                    this.F_ID = item.Form_ID;
-                    foreach (Action action in item.actions)
-                    {
-                        if (action.isSelected)
-                        {
-                            this.A_ID = action.Action_ID;
-                            sc = new SqlCommand("Role_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-                            sc.Parameters.AddWithValue("@R_ID", R_ID);
-                            sc.Parameters.AddWithValue("@F_ID", F_ID);
-                            sc.Parameters.AddWithValue("@A_ID", A_ID);
-                            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
-                            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
-                            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-                            sc.ExecuteNonQuery();
-                        }
-                    }
+                    SqlCommand dc = new SqlCommand("Menu_Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+                    dc.Parameters.AddWithValue("@R_ID", R_ID);
+                    dc.Parameters.AddWithValue("@M_ID", item.Form_ID);
+                    dc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+                   dc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
+                    dc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+                    dc.ExecuteNonQuery();
                 }
 
             }
@@ -104,7 +95,7 @@ namespace SfDesk.Models
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
                 u.Mac_Address = (string)sdr["Mac_Address"];
-                u.forms= new Module().Form_Get_By_Module(u.M_ID, R_ID);
+                u.forms= new Module().Form_Get_By_Module(u.M_ID,R_ID);
                 modules.Add(u);
             }
             sdr.Close();
