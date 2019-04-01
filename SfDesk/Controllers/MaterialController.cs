@@ -39,5 +39,13 @@ namespace SfDesk.Controllers
             new Material() { M_ID = id }.Material_Delete();
             return RedirectToAction("index");
         }
+        public ActionResult Material_GET_ALL(string m)
+        {
+            List<Material> ls = new List<Material>();
+            ls.Add(new Material() { M_Name = "mat1", M_ID = 1 , M_Type = "Material", M_Unit="kgs" }); ls.Add(new Material() { M_Name = "mat2", M_ID = 2, M_Type = "Pakaging Material", M_Unit = "unit" }); ls.Add(new Material() { M_Name = "mat3", M_ID = 3,M_Type= "Material", M_Unit = "kgs" });
+            ls = ls.FindAll(x => x.M_Type == m);
+            return Json(ls, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

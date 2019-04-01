@@ -22,7 +22,15 @@ namespace SfDesk.Models
         }
         public List<Product> Product_Get_All()
         {
-            return new List<Product>();
+            List<Product> lst = new List<Product>();
+            for (int i = 1; i < 5; i++)
+            {
+                  Product p = new Product();
+                p.P_ID = i ;
+                p.P_Name = "product" + i;
+                lst.Add(p);
+            }
+            return  lst;
         }
         public Product Product_Get_By_ID( )
         {

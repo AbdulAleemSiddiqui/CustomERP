@@ -220,6 +220,7 @@
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\Menu.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
+    <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
     <Compile Include="Controllers\SessionAttribute.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
+    <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\SaleOrder.cs" />
@@ -799,6 +801,7 @@
     <Content Include="Views\Material\Index.cshtml" />
     <Content Include="Views\Material\Add.cshtml" />
     <Content Include="Views\Material\Edit.cshtml" />
+    <Content Include="Views\Recipe\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
