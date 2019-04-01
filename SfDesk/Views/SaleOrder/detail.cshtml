@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SfDesk.Models.SaleOrder>
+
+<link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
+<link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
+<div id="main-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card alert">
+                <div class="jsgrid-table-panel">
+                    <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
+                </div>
+
+                <div id="taxes"style="padding-top:20px">
+                    <div class="col-sm-10"  style="text-align:right" >  
+                        <p style="padding:10px; ">less/ add Commission</p>
+                        <p style="padding:10px">GST</p> 
+                        <p style="padding:10px"> Further Tax</p> 
+                        <p style="padding:10px;"> Further Tax</p>
+
+                    </div>
+                    <div class="col-sm-2" >
+                        <table class="table table-bordered">
+
+                            <tr><td>dummy</td><td>dummy</td></tr>
+
+                            <tr><td>dummy</td><td>dummy</td></tr>
+
+                            <tr><td>dummy</td><td>dummy</td></tr>
+                        </table>
+                    </div>
+                   
+                </div>
+            </div>
+            <!-- /# card -->
+        </div>
+        <!-- /# column -->
+    </div>
+
+</div>
+
+<button onclick="f()">fff</button>
+
+
+@*  <script src="~/assets/js/db.js"></script>*@
+<script>
+        function f(){}
+        $(function(){
+            var array =@Html.Raw(Json.Encode(Model));
+            var arr=[];
+            $.each(array, function (key, value) {
+
+                var na = value;
+
+                var a= na.Store;
+
+                arr.push({
+                "Store": na.Store,
+                "Item_Code": na.Item_Code,
+                "Product_Name": na.Product_Name,
+                "Product_Description": na.Product_Description,
+                "Quantitiy": na.Quantitiy,
+                "Commision": na.Commision,
+                "Rate": na.Rate,
+                "Amount": na.Amount,
+                "Discount": na.Discount,
+                "Discount_Amount": na.Discount_Amount,
+                "Net_Amount": na.Net_Amount
+
+
+                })
+            });
+            clients = arr;
+        })
+
+            $(function(){
+                $("#jsGrid").jsGrid({
+
+                    height: "auto",
+                    width: "100%",
+                    filtering: false,
+                    editing: true,
+                    inserting: true,
+                    sorting: true,
+                    paging: true,
+                    autoload: true,
+                    pageSize: 15,
+                    pageButtonCount: 5,
+                    deleteConfirm: "Do you rete the client?",
+                    data: clients,
+                    controller: db,
+                    pagerContainer: null,
+                    pageIndex: 1,
+                    pageSize: 20,
+                    pageButtonCount: 15,
+                    pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+                    pagePrevText: "Prev",
+                    pageNextText: "Next",
+                    pageFirstText: "First",
+                    pageLastText: "Last",
+                    pageNavigatorNextText: "...",
+                    pageNavigatorPrevText: "...",
+
+                    invalidMessage: "Invalid data entered!",
+                    onRefreshed: function(args) {
+                        var items = args.grid.option("data");
+                        var total = { Name: "Total", "Store":"<b>TOTAL</b>", "Quantitiy": 0,"Rate": 0,"Amount": 0, "Commision": 0, "Discount_Amount": 0, "Net_Amount": 0, IsTotal: true };
+
+                        items.forEach(function(item) {
+                            total.Rate += parseInt(item.Rate);
+                            total.Quantitiy += parseInt(item.Quantitiy); 
+                            total.Amount += parseInt(item.Amount);  
+                            total.Commision += parseInt(item.Commision);
+                            total.Discount_Amount += parseInt(item.Discount_Amount);
+                            total.Net_Amount += parseInt(item.Net_Amount);
+
+                        });
+
+                        var $totalRow = $("<tr style='border-top: solid;border-bottom: solid'>").addClass("total-row");
+                        
+                        args.grid._renderCells($totalRow, total);
+                       
+                        args.grid._content.append($totalRow);
+                        
+
+                        var col =  $(".total-row").find('td:first').attr('colspan',4);                        ////$('.total-row td:nth-child(1)').remove();
+                        $('.total-row').find("td:eq(1)").remove();  
+                        $('.total-row').find("td:eq(1)").remove();  
+                        $('.total-row').find("td:eq(1)").remove();  
+                        $('.total-row ').find('td:first').css('text-align','center');
+
+                    },
+                    fields: [
+                    {name:"Store", title: "@Html.DisplayNameFor(m=>m.Store)", type: "text", width:  80, validate: "required",  },
+                    {name:"Item_Code", title: "@Html.DisplayNameFor(m=>m.Item_Code)", type: "number", width:  80, validate: "required" },
+                    {name:"Product_Name", title: "@Html.DisplayNameFor(m=>m.Product_Name)", type: "text", width:  80, validate: "required" },
+                    {name:"Product_Description", title: "@Html.DisplayNameFor(m=>m.Product_Description)", type: "text", width:  80, validate: "required" },
+                    {name:"Quantitiy", title: "@Html.DisplayNameFor(m=>m.Quantitiy)", type: "number", width:  80, validate: "required" },
+                    {name:"Rate", title: "@Html.DisplayNameFor(m=>m.Rate)", type: "text", width:  80, validate: "required" },
+                    {name:"Amount", title: "@Html.DisplayNameFor(m=>m.Amount)", type: "text", width:  80, validate: "required" },
+                    {name:"Commision", title: "@Html.DisplayNameFor(m=>m.Commision)", type: "text", width:  80, validate: "required" },
+                    {name:"Discount", title: "@Html.DisplayNameFor(m=>m.Discount)", type: "text", width:  80, validate: "required" },
+                    {name:"Discount_Amount", title: "@Html.DisplayNameFor(m=>m.Discount_Amount)", type: "text", width:  80, validate: "required" },
+                    {name:"Net_Amount", title: "@Html.DisplayNameFor(m=>m.Net_Amount)", type: "text", width:  80, validate: "required" },
+                        { type: "control", 
+                            itemTemplate: function(_, item) {
+                                if(item.IsTotal)
+                                    return "";
+                                return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);  
+                            }
+                        }
+                    ]
+                });
+
+            });
+
+</script>
+
