@@ -44,11 +44,11 @@
 <script src="~/assets/js/jsgrid.min.js"></script>
  <script src="~/assets/js/db.js"></script>
 <script>
-      
-   
-   
-    var unit = "";
 
+
+    var arr = [];
+    var unit = "";
+    var ma = [{ "M_ID": 0, "M_Name": "", "M_Type": "" }]
     $(document).ready(function () {
 
         $("#Pid").on("change",function(){
@@ -56,10 +56,23 @@
             $(".jsgrid-insert-mode-button").click();
         });
 
-        var ma = [{ "M_ID": 0, "M_Name": "", "M_Type": "" }]
-        var start = 0;
-        $("#jsGrid").jsGrid({
+       
+        $.ajax({
+            type: "GET",
+            url: "/material/Material_GET_ALL",
+            dataType: "json",
+            success: function (d) {
+                ma = d;
+                my();
 
+            }
+        });
+        var start = 0;
+
+    });
+    function my()
+    {
+     $("#jsGrid").jsGrid({
             height: "auto",
             width: "100%",
             filtering: false,
@@ -85,16 +98,24 @@
             pageNavigatorPrevText: "...",
             onOptionChanged: function () {
                 var $result = jsGrid.fields.text.prototype.insertTemplate.call(this.fields[4]); // original input
-                
+
                 $result.val($("#Pid").val());
-               
+
                 return $result;
-                
+
             },
             onItemInserted: function (args) {
                 $(".jsgrid-insert-mode-button").click();
-               
+          
             },
+            onRefreshing: function (args) {
+            var my = this.fields[1];
+            my.items = ma;
+            var a = $(".abc")
+            $(".abc").empty().append(my.insertTemplate())
+
+            },
+            
             invalidMessage: "Invalid data entered!",
 
             fields: [
@@ -114,11 +135,11 @@
 
                          $.ajax({
                              type: "GET",
-                             url: "/material/Material_GET_ALL",
+                             url: "/material/Material_get_by_type",
                              dataType: "json",
                              data: { m: selectedDepartment },
                              success: function (d) {
-                                 ma = d;
+
                                  var departmentTeam = d;
                                  departmentTeam.splice(0, 0, [{ "M_ID": 0, "M_Name": "", "M_Type": "" }])
                                  teamField.items = departmentTeam;
@@ -135,14 +156,13 @@
             {
                 name: "M_Name", title: "@Html.DisplayNameFor(m=>m.M_Name)",
                 type: "select",
-                items: ma,
                 valueField: "M_Name", textField: "M_Name",
                 insertcss: "abc",
-
+                items: ma,
                 insertTemplate: function () {
                     var UnitFields = this._grid.fields[2];
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
-                    
+
 
                     $insertControl.on("change", function () {
                         var $u = jsGrid.fields.text.prototype.insertTemplate.call(UnitFields);
@@ -152,18 +172,16 @@
                         $u.text(unit)//val(unit);
                         var a = $(".unit").empty();
 
-                        //$(".unit").val(unit)
-                        //$(".unit").text(unit)
                         $(".unit").append($u);
                         a = $(".unit")
 
                     });
 
-                   
+
 
                     return $insertControl;
                 },
-                   
+
 
             },
 
@@ -177,17 +195,16 @@
             },
             { name: "Quantity", title: "@Html.DisplayNameFor(m=>m.Quantity)", type: "text", width: 80, validate: "required" },
              {
-                 name: "P_ID", title: "@Html.DisplayNameFor(m=>m.P_ID)", type: "text", width: 30,
-                
+                 name: "P_ID", title: "@Html.DisplayNameFor(m=>m.P_ID)", type: "text", width: 30,visible:false
+
 
              },
                 { type: "control" }
             ]
         });
-        
-    });
 
-         
+    }
+  
 
 </script>
 
