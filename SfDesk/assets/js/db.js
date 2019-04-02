@@ -9,7 +9,7 @@
                     url: "add",
                     success: function (d) {
                         alert(d);
-                
+                        arr.push(insertingClient);
                         
                     },
                 })
