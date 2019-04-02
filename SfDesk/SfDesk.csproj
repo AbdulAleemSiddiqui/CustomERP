@@ -788,9 +788,6 @@
     <Content Include="Views\ChartOfAccount\Index.cshtml" />
     <Content Include="Views\ChartOfAccount\Add.cshtml" />
     <Content Include="Views\ChartOfAccount\Edit.cshtml" />
-    <Content Include="Views\Contractor\Add.cshtml" />
-    <Content Include="Views\Contractor\Edit.cshtml" />
-    <Content Include="Views\Contractor\Index.cshtml" />
     <Content Include="Views\Material\Add.cshtml" />
     <Content Include="Views\Material\Edit.cshtml" />
     <Content Include="Views\Material\Index.cshtml" />
@@ -800,6 +797,9 @@
     <Content Include="Views\Recipe\Add.cshtml" />
     <Content Include="Views\SaleOrder\detail.cshtml" />
     <Content Include="Views\SaleOrder\master.cshtml" />
+    <Content Include="Views\Contractor\Add.cshtml" />
+    <Content Include="Views\Contractor\Edit.cshtml" />
+    <Content Include="Views\Contractor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

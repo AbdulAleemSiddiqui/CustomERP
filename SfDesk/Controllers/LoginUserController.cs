@@ -37,7 +37,7 @@ namespace SfDesk.Controllers
                 case "OK":
                     u.User_Update_Login_Date();
                     Session["ID"] = u;
-                    return RedirectToAction("Dashboard","user");
+                    return RedirectToAction("Index","user");
                 default:
                     ViewBag.i = "Wronge Email or Password";
                     break;
