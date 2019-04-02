@@ -3,12 +3,12 @@
     Layout = "~/Views/Shared/_dashLayout.cshtml";
 }
 @{
-    var lst = new SfDesk.Controllers.Menu().Get_All_Menu();
+    var lst = new SfDesk.Models.Form().Get_All_Menu();
 }
 <ul>
     @foreach (var l1 in lst.Where(x => x.Parent_ID == 0))
     {
-        var sub = lst.Where(x => x.Parent_ID == l1.Menu_ID);
+        var sub = lst.Where(x => x.Parent_ID == l1.Form_ID);
 
         <li>
             @Html.ActionLink(l1.Text, l1.RedirectAction, l1.RedirectController)

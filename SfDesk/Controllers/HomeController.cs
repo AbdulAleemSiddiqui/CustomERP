@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SfDesk.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace SfDesk.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.menu = new Menu().Get_All_Menu();
+            ViewBag.menu = new Form().Get_All_Menu();
             return View();
         }
 

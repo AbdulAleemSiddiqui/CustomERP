@@ -51,27 +51,40 @@
                                                 <button class="btn btn-primary" onclick="toggle(this,@k)" type="button"><i class="ti-angle-down"></i>       @Model.modules[k].Module_Name</button>
                                        <input name="modules[@k].M_ID" id="modules[@k].M_ID" value="@Model.modules[k].M_ID" hidden="hidden" />
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                @{
+                                                    var forms = Model.modules[k].forms.GroupBy(i => i.RedirectController.ToLower()).Select(group => group.First());
+                                                    int index = 0;
+                                                        }
+                                            </td>
                                     </tr>
-                                        for (int i = 0; i < Model.modules[k].forms.Count; i++)
-                                        {
+
+                                                    for (int i = 0; i < forms.Count(); i++)
+                                                        {
+
+
                                             <tr class="@k hideit" >
                                                 <td>
-                                                    <input name="modules[@k].forms[@i].Form_ID" id="modules[@k].forms[@i].Form_ID" value="@Model.modules[k].forms[i].Form_ID" hidden="hidden" />
+                                                  @*  <input name="modules[@k].forms[@i].Form_ID" id="modules[@k].forms[@i].Form_ID" value="@forms[i].Form_ID" hidden="hidden" />*@
                                                     <label class="control-label col-md-4" style="padding-right:70px">
-                                                        @Model.modules[k].forms[i].Form_Name
+                                                        @forms.ElementAt(i).RedirectController
                                                     </label>
                                                 </td>
-
-                                                @for (int j = 0; j < Model.modules[k].forms[i].actions.Count; j++)
+                                                @{ 
+                                                    var actions = Model.modules[k].forms.FindAll(x => x.RedirectController.ToLower()== forms.ElementAt(i).RedirectController.ToLower() && x.Parent_ID!=0);
+                                                }
+                                                @for (int j = 0; j < actions.Count; j++)
                                                 {
                                                     <td>
-                                                        <input name="modules[@k].forms[@i].actions[@j].Action_ID" value="@Model.modules[k].forms[i].actions[j].Action_ID" hidden="hidden" />
-                                                        <label name="modules[@k].forms[i].actions[j].Action_Name" class="control-label" style="padding-right:5px">
-                                                            @Model.modules[k].forms[i].actions[j].Action_Name
+                                                        <input name="modules[@k].forms[@index].Form_ID" id="modules[@k].forms[@index].Form_ID" value="@actions[j].Form_ID" hidden="hidden" />
+
+                                                        <label name="modules[@k].forms[j].Text" class="control-label" style="padding-right:5px">
+                                                            @actions[j].Text
                                                         </label>
-                                                        @Html.EditorFor(model => model.modules[k].forms[i].actions[j].isSelected)
+                                                                @*<input type="checkbox" name="modules[@k].forms[@index].isSelected" id="modules[@k].forms[@index].isSelected"/>*@                                                    
+                                                                @Html.EditorFor(model => model.modules[k].forms[index].isSelected)
                                                     </td>
+                                                    index++;
                                                 }
                                             </tr>
                                         }
