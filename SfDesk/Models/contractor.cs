@@ -13,7 +13,8 @@ namespace SfDesk.Models
         public decimal C_Amount { get; set; }
         public string C_Unit { get; set; }
         public string Machine_Ip { get; set; }
-
+        public string C_Type { get; set; } = "Contractor";
+        
         public string Mac_Address { get; set; }
 
         public Contractor()

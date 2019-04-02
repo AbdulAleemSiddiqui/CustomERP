@@ -39,6 +39,22 @@ namespace SfDesk.Controllers
             new Contractor() { C_ID = id }.Contractor_Delete();
             return RedirectToAction("index");
         }
+        public ActionResult Contractor_GET_BY_Type(string m)
+        {
+            List<Contractor> ls = new List<Contractor>();
+            ls.Add(new Contractor() { C_Name = "con1", C_ID = 1, C_Type = "Contractor", C_Unit = "kgs" }); ls.Add(new Contractor() { C_Name = "con2", C_ID = 2, C_Type = "Pakaging Contractor", C_Unit = "unit" }); ls.Add(new Contractor() { C_Name = "con3", C_ID = 3, C_Type = "Contractor", C_Unit = "kgs" });
 
+            ls = ls.FindAll(x => x.C_Type == m);
+            return Json(ls, JsonRequestBehavior.AllowGet);
+
+        }
+        public ActionResult Contractor_GET_ALL()
+        {
+            List<Contractor> ls = new List<Contractor>();
+            ls.Add(new Contractor() { C_Name = "con1", C_ID = 1, C_Type = "Contractor", C_Unit = "kgs" }); ls.Add(new Contractor() { C_Name = "con2", C_ID = 2, C_Type = "Contractor", C_Unit = "unit" }); ls.Add(new Contractor() { C_Name = "con3", C_ID = 3, C_Type = "Contractor", C_Unit = "kgs" });
+
+            return Json(ls, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

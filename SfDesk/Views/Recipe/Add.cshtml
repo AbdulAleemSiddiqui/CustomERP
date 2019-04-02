@@ -62,7 +62,24 @@
             url: "/material/Material_GET_ALL",
             dataType: "json",
             success: function (d) {
+                d.splice(0, 0, [{ "M_ID": 0, "M_Name": "", "M_Type": "" }])
+
                 ma = d;
+                $.ajax({
+                    type: "GET",
+                    url: "/contractor/Contractor_GET_ALL",
+                    dataType: "json",
+                    success: function (d) {
+
+                        $.each(d, function (i,v) {
+                            ma.push(v);
+                        })
+
+                        
+
+
+                    }
+                });
                 my();
 
             }
@@ -132,7 +149,15 @@
 
                      $insertControl.on("change", function () {
                          var selectedDepartment = $(this).find('option:selected').text();
-
+                         var uri = "";
+                         if (selectedDepartment == "Material")
+                         {
+                             uri = "/material/Material_get_by_type";
+                         }
+                        else
+                         {
+                             "/Contractor/Contractor_get_by_type";
+                         }
                          $.ajax({
                              type: "GET",
                              url: "/material/Material_get_by_type",
@@ -192,6 +217,7 @@
                 type: "text", width: 80,
                 validate: "required",
                 insertcss: "unit",
+               
             },
             { name: "Quantity", title: "@Html.DisplayNameFor(m=>m.Quantity)", type: "text", width: 80, validate: "required" },
              {
