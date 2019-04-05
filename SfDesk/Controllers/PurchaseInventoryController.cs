@@ -16,7 +16,7 @@ namespace SfDesk.Controllers
             return View(new PurchaseInventory() { Invoice_No = "123" });
         }
         [HttpPost]
-        public ActionResult master(PurchaseInventory ps)
+        public ActionResult master(PurchaseInventory c)
         {
             return Json("");
         }

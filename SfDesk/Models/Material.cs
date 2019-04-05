@@ -98,27 +98,7 @@ namespace SfDesk.Models
             sdr.Close();
             return u;
         }
-        public Material Material_Get_By_Type()
-        {
-            Material u = new Material();
-            SqlCommand sc = new SqlCommand("Material_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@M_ID", M_ID);
-            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
-            {
-                u.M_ID = (int)sdr["M_ID"];
-                u.M_Name = (string)sdr["M_Name"];
-                u.M_Type = (string)sdr["M_Type"];
-                u.M_Unit = (string)sdr["M_Unit"];
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
-            }
-            sdr.Close();
-            return u;
-        }
+  
         public void Material_Add()
         {
             SqlCommand sc = new SqlCommand("Material_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
