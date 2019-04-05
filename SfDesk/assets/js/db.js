@@ -1,6 +1,6 @@
    var db = {
-
-       insertItem: function (insertingClient) {
+ 
+       insertItem: function (insertingClient,id) {
           
                 // this.clients.push(insertingClient);
                 $.ajax({
@@ -8,7 +8,7 @@
                     data: insertingClient,
                     url: "add",
                     success: function (d) {
-                        alert(d);
+                        
                         arr.push(insertingClient);
                         
                     },

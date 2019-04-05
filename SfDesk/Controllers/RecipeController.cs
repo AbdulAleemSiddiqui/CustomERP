@@ -10,20 +10,35 @@ namespace SfDesk.Controllers
     public class RecipeController : Controller
     {
         // GET: Recipe
-        public ActionResult Index()
+        public ActionResult Index(int pid)
         {
-            return View();
+
+            return Json(new Recipe() {P_ID =pid }.Recipe_Get_By_Product(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult Add(Recipe r)
-        {
-
-            return Json("jiye muthedaaa");
+            {
+            r.ID = int.Parse(r.E_ID.Remove(0,1));
+            r.Recipe_Add();
+            return Json("Add");
         }
         public ActionResult Add()
         {
             
-            return PartialView();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Update(Recipe r)
+        {
+            //r.ID = int.Parse(r.Name);
+            r.Recipe_Update();
+            return Json("Update");
+        }
+        public ActionResult Delete(Recipe r)
+        {
+            //r.ID = int.Parse(r.Name);
+            r.Recipe_Delete();
+            return Json("Add");
         }
     }
 }

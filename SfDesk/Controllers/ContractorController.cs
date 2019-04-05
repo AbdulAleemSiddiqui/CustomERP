@@ -26,7 +26,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Edit(int id)
         {
-            return PartialView("Edit", new Contractor() { C_ID = id }.Contractor_Get_By_ID());
+            return PartialView("Edit", new Contractor() { ID = id }.Contractor_Get_By_ID());
         }
         [HttpPost]
         public ActionResult Edit(Contractor c)
@@ -36,9 +36,16 @@ namespace SfDesk.Controllers
         }
         public ActionResult Delete(int id)
         {
-            new Contractor() { C_ID = id }.Contractor_Delete();
+            new Contractor() { ID = id }.Contractor_Delete();
             return RedirectToAction("index");
         }
+     
+        public ActionResult Contractor_GET_ALL()
+        {
+            List<Contractor> ls = new Contractor().Contractor_Get_All();
+          
+            return Json(ls, JsonRequestBehavior.AllowGet);
 
+        }
     }
 }
