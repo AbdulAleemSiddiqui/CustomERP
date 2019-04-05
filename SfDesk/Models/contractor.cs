@@ -9,11 +9,11 @@ namespace SfDesk.Models
 {
     public class Contractor
     {
-        public int C_ID { get; set; }
-        public string C_Name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string E_ID { get; set; }
         public decimal C_Amount { get; set; }
-        public string C_Unit { get; set; }
-
+        public string Unit { get; set; }
         public int Created_By { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -35,10 +35,11 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 Contractor u = new Contractor();
-                u.C_ID = (int)sdr["C_ID"];
-                u.C_Name= (string)sdr["C_Name"];
+                u.ID = (int)sdr["C_ID"];
+                u.E_ID = "C" + u.ID;
+                u.Name= (string)sdr["C_Name"];
                 u.C_Amount= (decimal)sdr["C_Amount"];
-                u.C_Unit = (string)sdr["C_Unit"];
+                u.Unit = (string)sdr["C_Unit"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
@@ -52,15 +53,15 @@ namespace SfDesk.Models
         {
             Contractor u = new Contractor();
             SqlCommand sc = new SqlCommand("Contractor_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@C_ID", C_ID);
+            sc.Parameters.AddWithValue("@C_ID", ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
-                u.C_ID = (int)sdr["C_ID"];
-                u.C_Name = (string)sdr["C_Name"];
+                u.ID = (int)sdr["C_ID"];
+                u.Name = (string)sdr["C_Name"];
                 u.C_Amount = (decimal)sdr["C_Amount"];
-                u.C_Unit = (string)sdr["C_Unit"];
+                u.Unit = (string)sdr["C_Unit"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
@@ -73,8 +74,8 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("Contractor_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
-            sc.Parameters.AddWithValue("@C_Name", C_Name);
-            sc.Parameters.AddWithValue("@C_Unit", C_Unit);
+            sc.Parameters.AddWithValue("@C_Name", Name);
+            sc.Parameters.AddWithValue("@C_Unit", Unit);
             sc.Parameters.AddWithValue("@C_Amount", C_Amount);
 
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
@@ -88,9 +89,9 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("Contractor_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
-            sc.Parameters.AddWithValue("@C_ID", C_ID);
-            sc.Parameters.AddWithValue("@C_Name", C_Name);
-            sc.Parameters.AddWithValue("@C_Unit", C_Unit);
+            sc.Parameters.AddWithValue("@C_ID", ID);
+            sc.Parameters.AddWithValue("@C_Name", Name);
+            sc.Parameters.AddWithValue("@C_Unit", Unit);
             sc.Parameters.AddWithValue("@C_Amount", C_Amount);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
@@ -101,7 +102,7 @@ namespace SfDesk.Models
         public void Contractor_Delete()
         {
             SqlCommand sc = new SqlCommand("Contractor_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@C_ID", C_ID);
+            sc.Parameters.AddWithValue("@C_ID", ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.ExecuteNonQuery();
         }

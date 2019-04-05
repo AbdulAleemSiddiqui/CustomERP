@@ -4,27 +4,30 @@
     ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_dashLayout.cshtml";
 }
+<style>
+
+</style>
 <link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
 <link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
 <div id="main-content">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card alert" >
-               
+            <div class="card alert">
+
                 <div>
                     <div class="col-sm-1" style="margin-top: 15px; width:10%">
                         <b>
-                         select Product:
-                         </b>
-                   
+                            select Product:
+                        </b>
+
                     </div>
 
                     <div class="col-sm-3 " style="padding-bottom:20px">
-                        @Html.DropDownListFor(model => model.R_ID, new SelectList(new SfDesk.Models.Product().Product_Get_All(), "P_ID", "P_Name"), new { @class = "form-control", @id="Pid"})
+                        @Html.DropDownListFor(model => model.R_ID, new SelectList(new SfDesk.Models.Product().Product_Get_All(), "P_ID", "P_Name"),"", new { @class = "form-control", @id = "Pid" })
                     </div>
 
                 </div>
-                
+
 
 
 
@@ -41,28 +44,41 @@
 
 @section scripts{
 
-<script src="~/assets/js/jsgrid.min.js"></script>
- <script src="~/assets/js/db.js"></script>
-<script>
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/db.js"></script>
+    <script>
 
 
-    var arr = [];
+        var arr = [
+            ];
     var unit = "";
-    var ma = [{ "M_ID": 0, "M_Name": "", "M_Type": "" }]
+    var ma = [{ "ID": 0, "Name": "", "Type": "", "E_ID": "" }]
     $(document).ready(function () {
+        console.log(arr);
+         $("#Pid").on("change",function(){
 
-        $("#Pid").on("change",function(){
+            $.ajax({
+                type: "GET",
+                url: "Index",
+                data: { pid: $(this).val() },
+                dataType: "json",
+                success: function (d) {
+                    
+                    if (d.ID != 0)
+                        arr=d
+                    my()
+                }
+            });
 
-            $(".jsgrid-insert-mode-button").click();
+
         });
+     
 
-       
-        $.ajax({
+         $.ajax({
             type: "GET",
             url: "/material/Material_GET_ALL",
             dataType: "json",
             success: function (d) {
-                d.splice(0, 0, [{ "M_ID": 0, "M_Name": "", "M_Type": "" }])
 
                 ma = d;
                 $.ajax({
@@ -75,7 +91,7 @@
                             ma.push(v);
                         })
 
-                        
+
 
 
                     }
@@ -83,13 +99,33 @@
                 my();
 
             }
-        });
-        var start = 0;
+         });
+     
 
     });
+    function loadData() {
+                
+            $.ajax({
+                type: "GET",
+                url: "Index",
+                data: { pid: $("#Pid").val() },
+                dataType: "json",
+                success: function (d) {
+
+                    if (d.ID != 0)
+                        arr = d
+                    my()
+                }
+            });
+
+
+     
+    }
     function my()
     {
-     $("#jsGrid").jsGrid({
+      
+        $("#jsGrid").jsGrid({
+          
             height: "auto",
             width: "100%",
             filtering: false,
@@ -102,9 +138,11 @@
             pageButtonCount: 5,
             deleteConfirm: "Do you rete the client?",
             controller: db,
+
             pagerContainer: null,
             pageIndex: 1,
             pageSize: 20,
+            data: arr,
             pageButtonCount: 15,
             pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
             pagePrevText: "Prev",
@@ -113,28 +151,25 @@
             pageLastText: "Last",
             pageNavigatorNextText: "...",
             pageNavigatorPrevText: "...",
-            onOptionChanged: function () {
-                var $result = jsGrid.fields.text.prototype.insertTemplate.call(this.fields[4]); // original input
-
-                $result.val($("#Pid").val());
-
-                return $result;
-
-            },
-            onItemInserted: function (args) {
-                $(".jsgrid-insert-mode-button").click();
           
+           onItemInserted: function (args) {
+               
+               jQuery("#jsGrid").jsGrid("destroy");
+               loadData();
+                   
+              
             },
-            onRefreshing: function (args) {
-            var my = this.fields[1];
-            my.items = ma;
-            var a = $(".abc")
-            $(".abc").empty().append(my.insertTemplate())
-
+          
+            onItemInserting: function (args) {
+                
+                var a = $("#Pid").val();
+                args.item["P_ID"] = a;
+               
+                
+                $("#grid").jsGrid("insertItem", args.item);
             },
-            
             invalidMessage: "Invalid data entered!",
-
+           
             fields: [
 
              {
@@ -143,6 +178,7 @@
                  items: [{ "name": "" }, { "name": "Material" }, { "name": "Contractor" }, { "name": "Pakaging Material" }],
                  valueField: "name", textField: "name",
                  insertcss: "department-insert",
+                 editing: false,
                  insertTemplate: function () {
                      var teamField = this._grid.fields[1];
                      var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
@@ -150,23 +186,23 @@
                      $insertControl.on("change", function () {
                          var selectedDepartment = $(this).find('option:selected').text();
                          var uri = "";
-                         if (selectedDepartment == "Material")
+                         if (selectedDepartment != "Contractor")
                          {
                              uri = "/material/Material_get_by_type";
                          }
                         else
                          {
-                             "/Contractor/Contractor_get_by_type";
+                             uri = "/Contractor/Contractor_get_All";
                          }
                          $.ajax({
                              type: "GET",
-                             url: "/material/Material_get_by_type",
+                             url: uri,
                              dataType: "json",
                              data: { m: selectedDepartment },
                              success: function (d) {
 
                                  var departmentTeam = d;
-                                 departmentTeam.splice(0, 0, [{ "M_ID": 0, "M_Name": "", "M_Type": "" }])
+                                 departmentTeam.splice(0, 0, [{ "ID": 0, "Name": "", "Type": "" }])
                                  teamField.items = departmentTeam;
                                  var a = $(".abc")
                                  $(".abc").empty().append(teamField.insertTemplate())
@@ -177,22 +213,30 @@
 
                      return $insertControl;
                  },
+     
              },
+ 
+
             {
-                name: "M_Name", title: "@Html.DisplayNameFor(m=>m.M_Name)",
+                name: "@Html.DisplayNameFor(x=> x.E_ID)",
+                title: "@Html.DisplayNameFor(x=> x.Name)",
                 type: "select",
-                valueField: "M_Name", textField: "M_Name",
-                insertcss: "abc",
                 items: ma,
+                valueField: "E_ID", textField: "Name",
+                insertcss: "abc",
+                editing: false,
+              
                 insertTemplate: function () {
                     var UnitFields = this._grid.fields[2];
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
 
-
+                    var m = this._grid.fields[1].items;
                     $insertControl.on("change", function () {
+                       
+
                         var $u = jsGrid.fields.text.prototype.insertTemplate.call(UnitFields);
                         var selectedDepartment = $(this).prop('selectedIndex')
-                        unit = (ma[selectedDepartment].M_Unit);
+                        unit = (m[selectedDepartment].Unit);
                         $u.val(unit)//val(unit);
                         $u.text(unit)//val(unit);
                         var a = $(".unit").empty();
@@ -201,37 +245,46 @@
                         a = $(".unit")
 
                     });
-
-
-
                     return $insertControl;
                 },
 
-
             },
 
-
+           
             {
                 name: "Unit",
                 title: "@Html.DisplayNameFor(m=>m.Unit)",
                 type: "text", width: 80,
                 validate: "required",
                 insertcss: "unit",
-               
+                editing: false,
+                    
             },
             { name: "Quantity", title: "@Html.DisplayNameFor(m=>m.Quantity)", type: "text", width: 80, validate: "required" },
              {
-                 name: "P_ID", title: "@Html.DisplayNameFor(m=>m.P_ID)", type: "text", width: 30,visible:false
+                 name: "P_ID",
+                 title: "",
+                 type: "text",
+                 visible: false
 
 
              },
+              {
+                  name: "@Html.DisplayNameFor(x=> x.R_ID)",
+                  title: "@Html.DisplayNameFor(x=> x.R_ID)",
+                  type: "text",
+                  editing: false,
+                  visible: false,
+
+              },
                 { type: "control" }
             ]
         });
+      
 
     }
-  
+     
 
-</script>
+    </script>
 
-    }
+}
