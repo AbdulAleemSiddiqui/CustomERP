@@ -19,7 +19,23 @@ namespace SfDesk.Controllers
             ViewBag.ctype = new string[] { "Company", "Individual", "Partnership" };
             ViewBag.status = new string[] { "Filer", "Non-Filer" };
             ViewBag.tt = new string[] { "Cash" , "Acc. Receivable" , "Both" };
-            return View();
+            return PartialView();
+        }
+        public ActionResult AddPartial()
+        {
+            ViewBag.ctype = new string[] { "Company", "Individual", "Partnership" };
+            ViewBag.status = new string[] { "Filer", "Non-Filer" };
+            ViewBag.tt = new string[] { "Cash", "Acc. Receivable", "Both" };
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult AddPartial(Vendor c)
+        {
+          c.Vendor_ID=  c.Vendor_Add();
+            ViewBag.ctype = new string[] { "Company", "Individual", "Partnership" };
+            ViewBag.status = new string[] { "Filer", "Non-Filer" };
+            ViewBag.tt = new string[] { "Cash", "Acc. Receivable", "Both" };
+            return Json(c,JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult Add(Vendor c)

@@ -9,30 +9,48 @@ namespace SfDesk.Models
 {
     public class PurchaseInventory
     {
-#region purchase Order master
+        #region purchase Order master
         [DisplayName("Transaction #")]
         public int Transaction_No { get; set; }
         [DisplayName("P.O #")]
         public int PO_No { get; set; }
         [DisplayName("Invoice #")]
         public string Invoice_No { get; set; }
+
+
         [DisplayName("Purchase Type")]
-        public string[] Purchase_Type { get; set; }={"","",""};
+        public int Purchase_Type_ID { get; set; }
+        public string Purchase_Type_Name { get; set; }
+
         [DisplayName("Purchase A/c")]
-        public string Purchase_ac { get; set; }
+        public int Purchase_Account_ID { get; set; }
+        public int Purchase_Account_Nane { get; set; }
+
         [DisplayName("Supllier Name")]
+        public string Suplier_ID { get; set; }
         public string Suplier_Name { get; set; }
+
+        [DisplayName("Account Payable")]
+        public int Account_Payable_ID { get; set; }
+        public string Account_Payable_Name { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+        [DataType(DataType.Date)]
         [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
+
         [DisplayName("Vehicle #")]
+        public int Vehicle_ID { get; set; }
         public string Vehicle_No { get; set; }
         [DisplayName("Transporter Name")]
+        public int Transporter_ID{ get; set; }
         public string Transporter_Name { get; set; }
         [DisplayName("Middle Man")]
-        public string Middle_Man { get; set; }
+        public int Middle_Man_ID { get; set; }
+        public string Middle_Man_Name { get; set; }
         #endregion
         #region Detail
         [DisplayName("Store / Godown")]
@@ -70,5 +88,9 @@ namespace SfDesk.Models
         public decimal Further_tax { get; set; }
        
         #endregion
+
+
+
+        
     }
 }

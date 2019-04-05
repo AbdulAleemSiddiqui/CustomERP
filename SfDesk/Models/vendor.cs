@@ -10,11 +10,7 @@ namespace SfDesk.Models
 {
     public class Vendor
     {
-        public Vendor()
-        {
-            this.Machine_Ip = Utility.GetIPAddress();
-            this.Mac_Address = Utility.GetMacAddress();
-        }
+      
         [DisplayName("Vendor ID")]
         public int Vendor_ID { get; set; }
         [DisplayName("Vendor Type")]
@@ -77,14 +73,24 @@ namespace SfDesk.Models
         public decimal Bank_Opening_Balance { get; set; }
 
         #endregion
+        #region Default
         public int Created_By { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
+        #endregion
+
+
+        public Vendor()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
+
         #region CRUD
-        public void Vendor_Add()
+        public int Vendor_Add()
         {
             SqlCommand sc = new SqlCommand("Vendor_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
@@ -118,8 +124,8 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
-            sc.ExecuteNonQuery();
-          
+            object a = sc.ExecuteScalar();
+            return Convert.ToInt32((decimal)a);
 
         }
         public void Vendor_Update()
@@ -253,6 +259,24 @@ namespace SfDesk.Models
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
                 u.Mac_Address = (string)sdr["Mac_Address"];
+                ls.Add(u);
+            }
+            sdr.Close();
+            return ls;
+        }
+        public List<Vendor> Vendor_Get_All_For_Lov()
+        {
+
+            List<Vendor> ls = new List<Vendor>();
+            SqlCommand sc = new SqlCommand("Vendor_Get_All_For_Lov", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                Vendor u = new Vendor();
+                u.Vendor_ID = (int)sdr["Vendor_ID"];
+                u.Business_Name = (string)sdr["Business_Name"];
+
                 ls.Add(u);
             }
             sdr.Close();

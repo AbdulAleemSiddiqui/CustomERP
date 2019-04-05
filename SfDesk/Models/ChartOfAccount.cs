@@ -11,6 +11,7 @@ namespace SfDesk.Models
 {
     public class ChartOfAccount
     {
+        #region Properties
         [DisplayName("ID")]
         public int COA_ID { get; set; }
         public int Code { get; set; }
@@ -45,7 +46,7 @@ namespace SfDesk.Models
         }
 
 
-
+        #endregion
 
         public void COA_Add()
         {

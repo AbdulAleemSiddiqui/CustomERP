@@ -225,6 +225,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
     <Compile Include="Controllers\SessionAttribute.cs" />
+    <Compile Include="Controllers\TransporterController.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -247,17 +248,21 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\MiddleMan.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
+    <Compile Include="Models\Purchase_Type.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\SaleOrder.cs" />
+    <Compile Include="Models\Transporter.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\Utility.cs" />
+    <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\vendor.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -800,6 +805,9 @@
     <Content Include="Views\Contractor\Add.cshtml" />
     <Content Include="Views\Contractor\Edit.cshtml" />
     <Content Include="Views\Contractor\Index.cshtml" />
+    <Content Include="Views\Vendor\AddPartial.cshtml" />
+    <Content Include="Views\Transporter\Add.cshtml" />
+    <Content Include="Views\Transporter\Add_Vehicle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

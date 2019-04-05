@@ -7,12 +7,13 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
+    [Session]
     public class PurchaseInventoryController : Controller
     {
         // GET: PurchaseInventory
         public ActionResult master()
         {
-            return View();
+            return View(new PurchaseInventory() { Invoice_No = "123" });
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory ps)
@@ -42,6 +43,10 @@ namespace SfDesk.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        public ActionResult Vehcile_Get_By_Transporter(int id)
+        {
+            return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(),JsonRequestBehavior.AllowGet);
+        }
     }
 }

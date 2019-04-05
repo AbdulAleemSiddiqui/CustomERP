@@ -6,8 +6,8 @@
 }
 <style>
     .form-group {
-    padding:0px;
-    margin:0px;
+        padding: 0px;
+        margin: 0px;
     }
 </style>
 <div class="card alert">
@@ -18,63 +18,74 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>PurchaseInventory</h4>
+                    <h4>Purchase</h4>
                     <hr />
                     <div class="col-md-6">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Transaction_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Transaction_No, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Transaction_No, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.PO_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.PO_No, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Invoice_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Invoice_No, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Invoice_No, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Purchase_Type, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-4">
-
-                                @Html.DropDownListFor(model => model.Purchase_Type, new SelectList(new SfDesk.Models.PurchaseInventory().Purchase_Type), "select type", htmlAttributes: new { @class = "form-control" })
-
-                                @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                                @Html.ValidationMessageFor(model => model.Purchase_Type, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Transaction_No, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Transaction_No, new { htmlAttributes = new { @class = "form-control"@*, @readonly = "readonly"*@ } })
+                                @Html.ValidationMessageFor(model => model.Transaction_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Purchase_ac, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Purchase_ac, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Purchase_ac, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Suplier_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Suplier_Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Suplier_Name, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PO_No, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.PO_No, new { htmlAttributes = new { @class = "form-control"@*, @readonly = "readonly"*@ } })
+                                @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Invoice_No, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Invoice_No, new { htmlAttributes = new { @class = "form-control"@*, @readonly = "readonly"*@ } })
+                                @Html.ValidationMessageFor(model => model.Invoice_No, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Purchase_Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+
+                                @Html.DropDownListFor(model => model.Purchase_Type_ID, new SelectList(new SfDesk.Models.Purchase_Type().Purchase_Type_Get_All(), "PT_ID", "PT_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+
+                                @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.Purchase_Type_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Suplier_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Suplier_ID, new SelectList(new SfDesk.Models.Vendor().Vendor_Get_All_For_Lov(), "Vendor_ID", "Business_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Suplier_ID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-sm btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="AddSupplier()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>New Supplier</button>
+                            </div>
                         </div>
                     </div>
-                        </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
@@ -82,7 +93,7 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
                             </div>
@@ -90,34 +101,47 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Vehicle_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Vehicle_No, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Vehicle_No, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Transporter_ID, new SelectList(new SfDesk.Models.Transporter().Transporter_Get_All(), "T_ID", "Trading_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                
+                                  @*  @Html.EditorFor(model => model.Transporter_ID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-sm btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="AddTrans()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>New Transporter
+                                </button>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Transporter_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Transporter_Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Transporter_Name, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Vehicle_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Vehicle_ID, new SelectList(new List<string>()), htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Vehicle_ID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2" @*style="display:none"*@>
+                                <button type="button" class="btn btn-sm btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="AddVehicle()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>New Supplier
+                                </button>
                             </div>
                         </div>
 
+
+
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Middle_Man, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Middle_Man, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Middle_Man, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Middle_Man_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Middle_Man_ID, new SelectList(new SfDesk.Models.MiddleMan().MiddleMan_Get_All(), "MM_ID", "Trading_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Middle_Man_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -129,21 +153,44 @@
                     </div>
                 </div>
             }
-          
+
             <div id="child"></div>
         </div>
     </div>
 </div>
+
+<div id='myModal' class='modal'>
+    <div class="modal-dialog" style="float:right">
+        <div class="modal-content col-lg-12" style="float:right;top: 220px;right: 100px; align-content:center" >
+            <div id='myModalContent'>
+
+            </div>
+        </div>
+    </div>
+
+</div>
 @section scripts
 {
 
-<script src="~/assets/js/jsgrid.min.js"></script>
-<script src="~/assets/js/db.js"></script>
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/db.js"></script>
     <script>
+        
         $("form").submit(function (e) {
             e.preventDefault();
-            $.post('ADD', $(this).serialize(), detail())
+            //$.post('ADD', $(this).serialize(), detail())
+            $.ajax({
+                url: this.action,
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: $(this).serialize()
+                },
+                success: function (data) {
+                    detail()
+                }
 
+            });
         });
 
 
@@ -153,7 +200,46 @@
             $.get('@Url.Action("detail", "PurchaseInventory")', function (data) { $("#child").html(data); });
             $("#done").hide()
         };
-       
+        function AddSupplier() {
+            $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });
+            $('#myModal').modal('show');
+
+        };
+        function AddTrans() {
+            $.get('@Url.Action("Add", "Transporter")', function (data) { $("#myModalContent").html(data); });
+            $('#myModal').modal('show');
+           
+        };
+        function AddVehicle() {
+            var id = $('#Transporter_ID').val();
+            if (id != 0) {
+                $.get('@Url.Action("Add_Vehicle", "Transporter")'+'?id='+id , function (data) { $("#myModalContent").html(data); });
+                $('#myModal').modal('show');
+            }
+        };
+
+        var id = 0;
+        function populate() {
+            id = parseInt($('#Transporter_ID').val())
+
+            $.ajax({
+                url: '/PurchaseInventory/Vehcile_Get_By_Transporter',
+                type: 'GET',
+                dataType: 'json',
+                data: { id: id },
+                success: function (d) {
+
+                    var ddlState = $('#Vehicle_ID');
+                    ddlState.empty();
+                    $("#Vehicle_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
+                    $.each(d, function (i, states) {
+
+                        ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                    });
+                }
+            });
+        }
+        $('#Transporter_ID').on("change", populate);
 
     </script>
 }
