@@ -178,20 +178,19 @@
         
         $("form").submit(function (e) {
             e.preventDefault();
-            //$.post('ADD', $(this).serialize(), detail())
-            $.ajax({
-                url: this.action,
-                type: 'Post',
-                dataType: 'json',
-                data: {
-                    pc: $(this).serialize()
-                },
-                success: function (data) {
-                    debugger;
-                    detail()
-                }
+            $.post(this.action, $(this).serialize(), detail())
+            //$.ajax({
+            //    url: this.action,
+            //    type: 'Post',
+            //    dataType: 'json',
+            //    data: {
+            //        c: $(this).serialize()
+            //    },
+            //    success: function (data) {
+            //        detail()
+            //    }
 
-            });
+            //});
         });
 
 
