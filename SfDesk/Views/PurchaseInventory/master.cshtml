@@ -184,9 +184,10 @@
                 type: 'Post',
                 dataType: 'json',
                 data: {
-                    c: $(this).serialize()
+                    pc: $(this).serialize()
                 },
                 success: function (data) {
+                    debugger;
                     detail()
                 }
 
