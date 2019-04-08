@@ -112,6 +112,34 @@
                         $totalRow.find("td").eq(1).remove();
                         args.grid._content.append($totalRow);
                     },
+                    onItemUpdated: function(args) {
+                        var items = args.grid.option("data");
+                        var total = { Name: "Total", "Rate":0,"Gross_Amount": 0,"Discount": 0,"Discount_Amount": 0,
+                            "Net_Amount":0,"Purchase_Quantitiy":0,"Received_Quantitiy":0, IsTotal: true };
+          
+                        items.forEach(function(item) {
+                            total.Rate += item.Rate; 
+                            total.Gross_Amount += item.Gross_Amount;
+                            total.Discount +=parseFloat( item.Discount);
+                            total.Discount_Amount +=  parseFloat(item.Discount_Amount);
+                            total.Net_Amount += item.Net_Amount;
+                            total.Purchase_Quantitiy += item.Purchase_Quantitiy;
+                            total.Received_Quantitiy += item.Received_Quantitiy;
+                        });
+                        total.Discount= parseFloat( total.Discount.toFixed(2));
+                        total.Discount_Amount= parseFloat( total.Discount_Amount.toFixed(2));
+                        var $totalRow = $("<tr>").addClass("total-row");
+                     
+                        args.grid._renderCells($totalRow, total);
+                        debugger;
+                        $totalRow.find("td").eq(0).html("<b>Total</b>");
+                        $totalRow.find("td").eq(0).attr('colspan',4);
+                        $totalRow.find("td").eq(0).css('text-align','right');
+                        $totalRow.find("td").eq(1).remove();
+                        $totalRow.find("td").eq(1).remove();
+                        $totalRow.find("td").eq(1).remove();
+                        args.grid._content.append($totalRow);
+                    },
                     fields: [
                     {name:"Store", title: "@Html.DisplayNameFor(m=>m.Store)", type: "text", width:  80, validate: "required",  },
                     {name:"Item_Code", title: "@Html.DisplayNameFor(m=>m.Item_Code)", type: "number", width:  80, validate: "required" },

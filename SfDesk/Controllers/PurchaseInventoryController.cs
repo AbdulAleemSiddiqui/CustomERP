@@ -36,17 +36,17 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult update(PurchaseInventory pi)
         {
-                       return View();
+            return Json("added sucessfully");
         }
         [HttpGet]
-        public ActionResult delete(int id )
+        public ActionResult delete(int id)
         {
-            return View();
+            return Json("added sucessfully");
         }
         [HttpGet]
         public ActionResult Vehcile_Get_By_Transporter(int id)
         {
-            return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(),JsonRequestBehavior.AllowGet);
+            return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
         }
     }
 }
