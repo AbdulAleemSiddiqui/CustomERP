@@ -121,9 +121,8 @@
                         items.forEach(function(item) {
                             total.Rate += item.Rate; 
                             total.Gross_Amount += item.Gross_Amount;
-                            total.Discount += item.Discount;
-                            
-                            total.Discount_Amount +=  item.Discount_Amount;
+                            total.Discount +=parseFloat( item.Discount);
+                            total.Discount_Amount +=  parseFloat(item.Discount_Amount);
                             total.Net_Amount += item.Net_Amount;
                             total.Purchase_Quantitiy += item.Purchase_Quantitiy;
                             total.Received_Quantitiy += item.Received_Quantitiy;

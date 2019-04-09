@@ -34,9 +34,9 @@ namespace SfDesk.Controllers
             return Json("added sucessfully");
         }
         [HttpPost]
-        public ActionResult update()
+        public ActionResult update(PurchaseInventory pi)
         {
-            return View();
+                       return View();
         }
         [HttpGet]
         public ActionResult delete(int id )

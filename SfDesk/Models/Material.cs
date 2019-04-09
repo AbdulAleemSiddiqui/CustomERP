@@ -98,7 +98,6 @@ namespace SfDesk.Models
             sdr.Close();
             return u;
         }
-  
         public void Material_Add()
         {
             SqlCommand sc = new SqlCommand("Material_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
