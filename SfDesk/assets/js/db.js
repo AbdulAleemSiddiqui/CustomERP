@@ -8,8 +8,8 @@
                     data: insertingClient,
                     url: "add",
                     success: function (d) {
-                        
-                        arr.push(insertingClient);
+                          alert(d);
+                       
                         
                     },
                 })
