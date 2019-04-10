@@ -175,7 +175,7 @@ namespace SfDesk.Models
         {
             Vendor u = new Vendor();
             SqlCommand sc = new SqlCommand("Vendor_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Vendor_ID", id);
+            sc.Parameters.AddWithValue("@Vender_ID", id);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

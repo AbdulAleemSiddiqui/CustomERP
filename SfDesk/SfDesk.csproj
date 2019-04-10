@@ -216,9 +216,9 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
-    <Compile Include="Controllers\Menu.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
@@ -808,6 +808,7 @@
     <Content Include="Views\Vendor\AddPartial.cshtml" />
     <Content Include="Views\Transporter\Add.cshtml" />
     <Content Include="Views\Transporter\Add_Vehicle.cshtml" />
+    <Content Include="Views\Form\Generate_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
