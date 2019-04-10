@@ -22,7 +22,7 @@
 <script>
     var arr;
     $(document).ready(function(){
-        var id=$('#T_ID').val();
+        var id=$('#Transporter_ID').val();
         $.ajax({
             type: "GET",
             url: "/Transporter/Vehcile_Get_By_Transporter",
@@ -49,6 +49,8 @@
                                 url: "/Transporter/Add_Vehicle",
                                 success: function (d) {
                                     alert(d);
+                                    $('#Vehicle_ID').append('<option value=' + d.V_ID + '>' + d.Vehicle_Type + ' </option>');
+
                                     arr.push(insertingClient);
 
                                 },
@@ -59,7 +61,7 @@
                     },
                     onItemInserting: function (args) {
 
-                        var a = $("#T_ID").val();
+                        var a = $("#Transporter_ID").val();
                         args.item["T_ID"] = a;
 
 

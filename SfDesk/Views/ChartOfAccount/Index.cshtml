@@ -15,16 +15,13 @@
 
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.COA_ID)
+                                    @Html.DisplayNameFor(model => model.Code)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.COA_Name)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Type_Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Code)
                                 </th>
                                 
                             
@@ -38,7 +35,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.COA_ID)
+                                        @Html.DisplayFor(modelItem => item.Code)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.COA_Name)
@@ -46,9 +43,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Type_Name)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Code)
-                                    </td>
+                                    
                                    
                                     <td>
                                         <button type="button" class="btn mini btn-info" onclick="Edit(@item.COA_ID)" })'"><i class="ti-pencil"></i> </button>
