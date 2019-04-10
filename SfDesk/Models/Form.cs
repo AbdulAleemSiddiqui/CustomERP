@@ -50,6 +50,31 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }
+        public List<Form> Get_All_Menu(int id)
+        {
+            List<Form> lst = new List<Form>();
+
+            SqlCommand sc = new SqlCommand("Menu_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@U_ID", id);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                Form u = new Form();
+                u.Form_ID = (int)sdr[0];
+                u.Form_Name = (string)sdr[1];
+                u.Text = (string)sdr[2];
+                u.Parent_ID = (int)sdr[3];
+                u.isDisable = (bool)sdr[4];
+                u.isDisplay = (bool)sdr[5];
+                u.RedirectController = (string)sdr[6];
+                u.RedirectAction = (string)sdr[7];
+                u.Module_ID = (int)sdr[8];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
 
         public List<Form> Get_All_Menu()
         {
