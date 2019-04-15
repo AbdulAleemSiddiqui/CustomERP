@@ -132,7 +132,6 @@ namespace SfDesk.Models
             return Convert.ToInt32((decimal)sc.ExecuteScalar());
         }
 
-
         public int PI_Detail_Add()
         {
             SqlCommand sc = new SqlCommand("PI_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -146,7 +145,10 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
             sc.Parameters.AddWithValue("@Commision", Commision);
             sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
             sc.Parameters.AddWithValue("@Discount", Discount);
+            sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);
+            sc.Parameters.AddWithValue("@Net_Amount", Net_Amount);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -169,10 +171,11 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
             sc.Parameters.AddWithValue("@Commision", Commision);
             sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
             sc.Parameters.AddWithValue("@Discount", Discount);
+            sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);
+            sc.Parameters.AddWithValue("@Net_Amount", Net_Amount);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-
-
             sc.ExecuteNonQuery();
         }
         public void PI_Detail_Delete()
@@ -204,7 +207,10 @@ namespace SfDesk.Models
                 u.Received_Quantitiy = (int)sdr["Received_Quantity"];
                 u.Commision = (decimal)sdr["Commision"];
                 u.Rate = (decimal)sdr["Rate"];
+                u.Gross_Amount = (decimal)sdr["Gross_Amount"];
                 u.Discount = (decimal)sdr["Discount"];
+                u.Discount_Amount = (decimal)sdr["Discount_Amount"];
+                u.Net_Amount = (decimal)sdr["Net_Amount"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
