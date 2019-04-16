@@ -160,7 +160,6 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("PI_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
-            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Store", Store);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Product_Name", Product_Name);
