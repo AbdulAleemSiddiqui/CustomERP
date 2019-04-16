@@ -223,8 +223,8 @@
                         var th= this;
                         $insertControl.on("change", function () {
                        
-                            var amount = th._grid.fields[8];
-                            var rate =  th._grid.fields[7].insertControl.val();
+                            var amount = th._grid.fields[7];
+                            var rate =  th._grid.fields[6].insertControl.val();
                            
                             var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
                             var p_Q = this.value;
@@ -244,8 +244,8 @@
                         var th= this;
                         $editControl.on("change", function () {
                                 
-                            var amount = th._grid.fields[8];
-                            var  rate=  th._grid.fields[7].editControl.val();
+                            var amount = th._grid.fields[7];
+                            var  rate=  th._grid.fields[6].editControl.val();
                            
                             var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
                             var p_Q = this.value;
@@ -257,7 +257,7 @@
                             $(".amount").append($u);
                             a = $(".amount")
                             
-                            var dscnt = th._grid.fields[9].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
+                            var dscnt = th._grid.fields[8].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
                           
 
                         });
@@ -265,14 +265,13 @@
                     },
                 },
                 {name:"Received_Quantitiy", title: "@Html.DisplayNameFor(m=>m.Received_Quantitiy)", type: "number", width:  80, validate: "required" },
-                {name:"Commision", title: "@Html.DisplayNameFor(m=>m.Commision)", type: "text", width:  60, validate: "required" },
                 {name:"Rate", title: "@Html.DisplayNameFor(m=>m.Rate)", type: "text", width:  60, validate: "required",
                     insertTemplate: function () {
                         var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                         var th= this;
                         $insertControl.on("change", function () {
                        
-                            var amount = th._grid.fields[8];
+                            var amount = th._grid.fields[7];
                             var p_Q =  th._grid.fields[4].insertControl.val();
                            
                             var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
@@ -293,7 +292,7 @@
                         var th= this;
                         $editControl.on("change", function () {
                             debugger;
-                            var amount = th._grid.fields[8];
+                            var amount = th._grid.fields[7];
                             var p_Q =  th._grid.fields[4].editControl.val();
                            
                             var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
@@ -317,10 +316,10 @@
                         var th= this;
                         $insertControl.on("change", function () {
                             debugger;
-                            var D_amount = th._grid.fields[10];
-                            var N_amount = th._grid.fields[11];
+                            var D_amount = th._grid.fields[9];
+                            var N_amount = th._grid.fields[10];
 
-                            var Gross_Amount =  parseFloat(th._grid.fields[8].insertControl.val());
+                            var Gross_Amount =  parseFloat(th._grid.fields[7].insertControl.val());
                            
                             var $u = jsGrid.fields.text.prototype.insertTemplate.call(D_amount);
                             var $n = jsGrid.fields.text.prototype.insertTemplate.call(N_amount);
@@ -347,10 +346,10 @@
                         var th= this;
                         $editControl.on("change", function () {
                             debugger;
-                            var D_amount = th._grid.fields[10];
-                            var N_amount = th._grid.fields[11];
+                            var D_amount = th._grid.fields[9];
+                            var N_amount = th._grid.fields[10];
 
-                            var Gross_Amount =  th._grid.fields[8].editControl.val();
+                            var Gross_Amount =  th._grid.fields[7].editControl.val();
                            
                             var $u = jsGrid.fields.text.prototype.editTemplate.call(D_amount);
                             var $n = jsGrid.fields.text.prototype.editTemplate.call(N_amount);

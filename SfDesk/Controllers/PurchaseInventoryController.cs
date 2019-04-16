@@ -43,9 +43,9 @@ namespace SfDesk.Controllers
             return Json("updated sucessfully");
         }
         [HttpGet]
-        public ActionResult delete(int id)
+        public ActionResult delete(int Detail_ID)
         {
-           new PurchaseInventory() { Detail_ID = id }.PI_Detail_Delete();
+           new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
             return Json("delete sucessfully");
         }
         [HttpGet]
