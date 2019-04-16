@@ -122,6 +122,54 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
+        public List<ChartOfAccount> COA_Get_All_For_Account_Payable()
+        {
+            List<ChartOfAccount> lst = new List<ChartOfAccount>();
+
+            SqlCommand sc = new SqlCommand("COA_Get_All_For_Account_Payable", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Company_Code", ((user)HttpContext.Current.Session["ID"]).CompanyCode);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                ChartOfAccount u = new ChartOfAccount();
+                u.COA_ID = (int)sdr["Coa_ID"];
+                u.COA_Name = (string)sdr["COA_Name"];
+                u.Code = (int)sdr["Code"];
+                u.Type_ID = (int)sdr["Type_ID"];
+                u.Type_Name = (string)sdr["Type_Name"];
+                u.Group_ID = (int)sdr["Group_ID"];
+                u.Group_Name = (string)sdr["G_Name"];
+                u.Nature = (string)sdr["Nature"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
+        public List<ChartOfAccount>COA_Get_All_For_Purchase_Account()
+        {
+            List<ChartOfAccount> lst = new List<ChartOfAccount>();
+
+            SqlCommand sc = new SqlCommand("COA_Get_All_For_Purchase_Account", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Company_Code", ((user)HttpContext.Current.Session["ID"]).CompanyCode);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                ChartOfAccount u = new ChartOfAccount();
+                u.COA_ID = (int)sdr["Coa_ID"];
+                u.COA_Name = (string)sdr["COA_Name"];
+                u.Code = (int)sdr["Code"];
+                u.Type_ID = (int)sdr["Type_ID"];
+                u.Type_Name = (string)sdr["Type_Name"];
+                u.Group_ID = (int)sdr["Group_ID"];
+                u.Group_Name = (string)sdr["G_Name"];
+                u.Nature = (string)sdr["Nature"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
         public int COA_Get_Last_Code()
         {
             List<ChartOfAccount> lst = new List<ChartOfAccount>();

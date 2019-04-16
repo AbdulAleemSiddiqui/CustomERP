@@ -18,30 +18,34 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
         {
-            return Json("");
+            int id = c.Purchase_Inventory_Add();
+            return Json(id,JsonRequestBehavior.AllowGet);
         }
         public ActionResult detail()
         {
-            List<PurchaseInventory> ls = new List<PurchaseInventory>();
-            ls.Add(new PurchaseInventory() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Purchase_Quantitiy = 100, Received_Quantitiy = 99, Commision = 99, Rate = 99.0m, Gross_Amount = 00, Discount = 9.9m, Discount_Amount = 9.9m, Net_Amount = 9098 });
-            ls.Add(new PurchaseInventory() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Purchase_Quantitiy = 100, Received_Quantitiy = 99, Commision = 99, Rate = 99.0m, Gross_Amount = 00, Discount = 9.9m, Discount_Amount = 9.9m, Net_Amount = 9098 });
-            ls.Add(new PurchaseInventory() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Purchase_Quantitiy = 100, Received_Quantitiy = 99, Commision = 99, Rate = 99.0m, Gross_Amount = 00, Discount = 9.9m, Discount_Amount = 9.9m, Net_Amount = 9098 });
-            return PartialView("detail", ls);
+            return PartialView("detail",new List<PurchaseInventory>());
+        }
+        public ActionResult Index(int PI_ID)
+        {
+            return Json(new PurchaseInventory() { PI_ID = PI_ID }.PI_Detail_Get_All(),JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)
         {
+            ViewBag.detail_id= pi.PI_Detail_Add();
             return Json("added sucessfully");
         }
         [HttpPost]
         public ActionResult update(PurchaseInventory pi)
         {
-            return Json("added sucessfully");
+            pi.PI_Detail_Update();
+            return Json("updated sucessfully");
         }
         [HttpGet]
         public ActionResult delete(int id)
         {
-            return Json("added sucessfully");
+           new PurchaseInventory() { Detail_ID = id }.PI_Detail_Delete();
+            return Json("delete sucessfully");
         }
         [HttpGet]
         public ActionResult Vehcile_Get_By_Transporter(int id)

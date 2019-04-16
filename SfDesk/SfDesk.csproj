@@ -710,6 +710,7 @@
     <Content Include="bin\SfDesk.dll.config" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\SfDesk.csprojResolveAssemblyReference.cache" />
+    <None Include="Properties\PublishProfiles\SFDesk.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -20,6 +20,7 @@
                 <div class="form-horizontal">
                     <h4>Purchase</h4>
                     <hr />
+                    <input hidden="hidden" name="PI_ID" id="PI_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
@@ -58,14 +59,14 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -77,8 +78,8 @@
                                 @Html.ValidationMessageFor(model => model.Suplier_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-3">
-                                <button type="button" class="btn btn-sm btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="AddSupplier()" style="margin-top:6px">
-                                    <i class="ti-plus"></i>New Supplier</button>
+                                <button type="button" class="btn mini btn-primary" onclick="AddSupplier()" style="margin-top:6px">
+                                    <i class="ti-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -116,8 +117,8 @@
                                 @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-sm btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="AddTrans()" style="margin-top:6px">
-                                    <i class="ti-plus"></i>New Transporter
+                                <button type="button" class="btn mini btn-primary" onclick="AddTrans()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>
                                 </button>
                             </div>
                         </div>
@@ -129,8 +130,8 @@
                                 @Html.ValidationMessageFor(model => model.Vehicle_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2" @*style="display:none"*@>
-                                <button type="button" class="btn btn-sm btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="AddVehicle()" style="margin-top:6px">
-                                    <i class="ti-plus"></i>New Supplier
+                                <button type="button" class="btn mini btn-primary" onclick="AddVehicle()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>
                                 </button>
                             </div>
                         </div>
@@ -145,7 +146,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-6">
                             <input type="submit" value="Create" class="btn btn-default" id="done" />
@@ -176,9 +176,14 @@
     <script src="~/assets/js/db.js"></script>
     <script>
         
+        var Master_Id = 0;
         $("form").submit(function (e) {
             e.preventDefault();
-            $.post(this.action, $(this).serialize(), detail())
+            $.post(this.action, $(this).serialize(), function(data){
+                detail()
+                debugger;
+                Master_Id = data;
+            })
             //$.ajax({
             //    url: this.action,
             //    type: 'Post',
@@ -220,7 +225,7 @@
 
         var id = 0;
         function populate() {
-            id = parseInt($('#Transporter_ID').val())
+            id =$('#Transporter_ID').val()
 
             $.ajax({
                 url: '/PurchaseInventory/Vehcile_Get_By_Transporter',

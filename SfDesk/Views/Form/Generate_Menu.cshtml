@@ -4,8 +4,6 @@
     @if (Session["ID"] != null)
     {
 
-
-
         foreach (var l1 in Model.Where(x => x.Parent_ID == 0))
         {
             var sub = Model.Where(x => x.Parent_ID == l1.Form_ID);
