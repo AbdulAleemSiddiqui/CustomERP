@@ -103,10 +103,12 @@ namespace SfDesk.Models
 
         public string Mac_Address { get; set; }
         #endregion
+        public List<PI_Charge> charges { get; set; }
         public PurchaseInventory()
         {
             this.Machine_Ip = Utility.GetIPAddress();
             this.Mac_Address = Utility.GetMacAddress();
+            charges = new List<PI_Charge>();
         }
         public int Purchase_Inventory_Add()
         {
@@ -219,6 +221,16 @@ namespace SfDesk.Models
             }
             sdr.Close();
             return ls;
+        }
+
+
+        public void PI_Charges_Add()
+        {
+            foreach (var item in charges)
+            {
+                item.PI_ID = this.PI_ID;
+                item.PI_Charge_Add();
+            }
         }
 
     }

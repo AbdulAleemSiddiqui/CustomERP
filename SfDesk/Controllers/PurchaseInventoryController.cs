@@ -19,8 +19,7 @@ namespace SfDesk.Controllers
         public ActionResult master(PurchaseInventory c)
         {
             int id = c.Purchase_Inventory_Add();
-
-            return Json(id,JsonRequestBehavior.AllowGet);
+            return Json(2,JsonRequestBehavior.AllowGet);
         }
         public ActionResult detail()
         {
@@ -52,6 +51,11 @@ namespace SfDesk.Controllers
         public ActionResult Vehcile_Get_By_Transporter(int id)
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Save_Charges(PurchaseInventory p)
+        {
+            p.PI_Charges_Add();
+            return Json("");
         }
     }
 }

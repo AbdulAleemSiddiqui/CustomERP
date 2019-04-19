@@ -66,6 +66,51 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
+        public List<Vehicle> Vehcile_Get_All()
+        {
+            List<Vehicle> lst = new List<Vehicle>();
+            SqlCommand sc = new SqlCommand("Vehcile_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                Vehicle u = new Vehicle();
+                u.V_ID = (int)sdr["V_ID"];
+                u.Vehicle_Type= (string)sdr["Vehicle_Type"];
+                u.Vehicle_No = (string)sdr["Vehicle_No"];
+                u.Rate = (decimal)sdr["Rate"];
+                u.T_ID = (int)sdr["T_ID"];
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
+        public Vehicle Vehcile_Get_By_ID()
+        {
+            Vehicle u = new Vehicle();
+            SqlCommand sc = new SqlCommand("Vehcile_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@V_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                u.V_ID = (int)sdr["V_ID"];
+                u.Vehicle_Type = (string)sdr["Vehicle_Type"];
+                u.Vehicle_No = (string)sdr["Vehicle_No"];
+                u.Rate = (decimal)sdr["Rate"];
+                u.T_ID = (int)sdr["T_ID"];
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
+            }
+            sdr.Close();
+            return u;
+        }
         public int Vehcile_Add()
         {
             SqlCommand sc = new SqlCommand("Vehicle_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -81,7 +126,25 @@ namespace SfDesk.Models
             object a = sc.ExecuteScalar();
             return Convert.ToInt32((decimal)a);
         }
+        public void Vehcile_Update()
+        {
+            SqlCommand sc = new SqlCommand("Vehcile_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
+            sc.Parameters.AddWithValue("@V_ID", V_ID);
+            sc.Parameters.AddWithValue("@Vehicle_Type", Vehicle_Type);
+            sc.Parameters.AddWithValue("@Vehicle_N", Vehicle_No);
+            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@T_ID", T_ID);
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            sc.ExecuteNonQuery();
+        }
+        public void Vehcile_Delele()
+        {
+            SqlCommand sc = new SqlCommand("Vehcile_Delele", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
+            sc.Parameters.AddWithValue("@V_ID", V_ID);
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            sc.ExecuteNonQuery();
+        }
     }
 }
