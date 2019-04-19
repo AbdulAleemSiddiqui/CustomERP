@@ -43,8 +43,9 @@
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
-                <ul>
-                    <li class="label">Main</li>
+                <ul id="menu">
+                  
+                  
                     @*<li class="active">
                         <a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -102,7 +103,7 @@
                     }*@
                    
                    
-                    <li id="menu"></li>
+                   
                    
                     @*var lst = new SfDesk.Models.User_Role() { U_ID = ((SfDesk.Models.user)Session["ID"]).U_Id }.User_Role_Get_By_U_ID();
                         var modules = lst.Select(x => x.M_Name).Distinct().ToList();

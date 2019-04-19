@@ -221,6 +221,8 @@
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\PurchaseRequisitionController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
@@ -812,6 +814,10 @@
     <Content Include="Views\Transporter\Add.cshtml" />
     <Content Include="Views\Transporter\Add_Vehicle.cshtml" />
     <Content Include="Views\Form\Generate_Menu.cshtml" />
+    <Content Include="Views\PurchaseRequisition\master.cshtml" />
+    <Content Include="Views\PurchaseRequisition\detail.cshtml" />
+    <Content Include="Views\PurchaseOrder\detail.cshtml" />
+    <Content Include="Views\PurchaseOrder\master.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -62,6 +62,8 @@ namespace SfDesk.Controllers
 
         public ActionResult Logout()
         {
+            var action = Url.Action("generate_Menu", "form", new { id = ((SfDesk.Models.user)Session["ID"]).U_Id });
+            Response.RemoveOutputCacheItem(action);
             Session["ID"] = null;
             Session["isMenuCreated"] = null;
             return RedirectToAction("Login");
