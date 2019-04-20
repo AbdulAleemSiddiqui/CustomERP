@@ -1,13 +1,19 @@
 ﻿@model IEnumerable<SfDesk.Models.Form>
 
 
+
     @if (Session["ID"] != null)
     {
+        <li class="label">Main</li>
 
         foreach (var l1 in Model.Where(x => x.Parent_ID == 0))
         {
+
+
             var sub = Model.Where(x => x.Parent_ID == l1.Form_ID);
             Session["isMenuCreated"] = true;
+
+
             <li>
                 <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>@l1.Text<span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
                 @if (sub.Count() != 0)
@@ -22,6 +28,7 @@
 
                                 @if (sub_sub.Count() != 0)
                             {
+
                                     <ul>
                                         @foreach (var l3 in sub_sub)
                                         {
@@ -35,8 +42,8 @@
                         }
                     </ul>
                 }
-
             </li>
+
         }
 
     }
