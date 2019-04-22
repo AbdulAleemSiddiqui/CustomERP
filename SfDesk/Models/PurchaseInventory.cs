@@ -13,13 +13,14 @@ namespace SfDesk.Models
         #region purchase Order master
         public int PI_ID { get; set; }
 
-        [DisplayName("Transaction #")]
-        public int Transaction_No { get; set; }
+        [DisplayName("P.R #")]
+        public string PR_No { get; set; }
         [DisplayName("P.O #")]
-        public int PO_No { get; set; }
+        public string PO_No { get; set; } 
         [DisplayName("Invoice #")]
-        public string Invoice_No { get; set; }
+        public string Invoice_No { get; set; } = "pending";
 
+        public string App_Status { get; set; }
 
         [DisplayName("Purchase Type")]
         public int Purchase_Type_ID { get; set; }
@@ -114,7 +115,7 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
-            sc.Parameters.AddWithValue("@Transaction_No", Transaction_No);
+            sc.Parameters.AddWithValue("@PR_No", PR_No);
             sc.Parameters.AddWithValue("@PO_No", PO_No);
             sc.Parameters.AddWithValue("@Invoice_No", Invoice_No);
             sc.Parameters.AddWithValue("@Purchase_Type_ID", Purchase_Type_ID);
@@ -222,8 +223,6 @@ namespace SfDesk.Models
             sdr.Close();
             return ls;
         }
-
-
         public void PI_Charges_Add()
         {
             foreach (var item in charges)

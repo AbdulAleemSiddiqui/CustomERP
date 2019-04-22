@@ -11,14 +11,21 @@ namespace SfDesk.Controllers
     {
         public ActionResult master()
         {
-            return View(new PurchaseInventory() { Invoice_No = "123" });
+            return View(new PurchaseInventory() { PR_No = "123" });
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
         {
-            int id = c.Purchase_Inventory_Add();
-
-            return Json(id, JsonRequestBehavior.AllowGet);
+            try
+            {
+                int id = c.Purchase_Inventory_Add();
+                return Json(id, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                string a =ex.Message;
+                return Json("Error Occure", JsonRequestBehavior.AllowGet);
+            }
         }
         public ActionResult detail()
         {
@@ -51,6 +58,10 @@ namespace SfDesk.Controllers
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
         }
-      
+        public ActionResult Save_Charges(PurchaseInventory p)
+        {
+            p.PI_Charges_Add();
+            return Json("");
+        }
     }
 }
