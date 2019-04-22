@@ -117,18 +117,12 @@
             var a= na.Store;
 
             arr.push({
-                "Store": na.Store,
+                
                 "Item_Code": na.Item_Code,
                 "Product_Name": na.Product_Name,
                 "Product_Description": na.Product_Description,
                 "Purchase_Quantitiy": na.Purchase_Quantitiy,
-                "Received_Quantitiy": na.Received_Quantitiy,
-                "Commision": na.Commision,
-                "Rate": na.Rate,
-                "Gross_Amount": na.Gross_Amount,
-                "Discount": na.Discount,
-                "Discount_Amount": na.Discount_Amount,
-                "Net_Amount": na.Net_Amount
+               
 
 
             })
@@ -167,18 +161,7 @@
             invalidMessage: "Invalid data entered!",
             onRefreshed: function(args) {
                 var items = args.grid.option("data");
-                var total = { Name: "Total", "Rate":0,"Gross_Amount": 0,"Discount": 0,"Discount_Amount": 0,
-                    "Net_Amount":0,"Purchase_Quantitiy":0,"Received_Quantitiy":0, IsTotal: true };
-
-                items.forEach(function(item) {
-                    total.Rate += parseFloat(item.Rate);
-                    total.Gross_Amount += parseFloat(item.Gross_Amount);
-                    total.Discount +=parseFloat( item.Discount);
-                    total.Discount_Amount +=  parseFloat(item.Discount_Amount);
-                    total.Net_Amount += parseFloat(item.Net_Amount);
-                    total.Purchase_Quantitiy += parseFloat(item.Purchase_Quantitiy);
-                    total.Received_Quantitiy +=parseFloat( item.Received_Quantitiy);
-                });
+            
                 total.Discount= parseFloat( total.Discount.toFixed(2));
                 total.Rate = parseFloat(total.Rate.toFixed(2));
                 total.Discount_Amount= parseFloat( total.Discount_Amount.toFixed(2));
@@ -194,34 +177,7 @@
                 $totalRow.find("td").eq(1).remove();
                 args.grid._content.append($totalRow);
             },
-            //onRefreshed: function(args) {
-            //    var items = args.grid.option("data");
-            //    var total = { Name: "Total", "Rate":0,"Gross_Amount": 0,"Discount": 0,"Discount_Amount": 0,
-            //        "Net_Amount":0,"Purchase_Quantitiy":0,"Received_Quantitiy":0, IsTotal: true };
-
-            //    items.forEach(function(item) {
-            //        total.Rate += item.Rate;
-            //        total.Gross_Amount += parseFloat(item.Gross_Amount);
-            //        total.Discount +=parseFloat( item.Discount);
-            //        total.Discount_Amount +=  parseFloat(item.Discount_Amount);
-            //        total.Net_Amount += parseFloat(item.Net_Amount);
-            //        total.Purchase_Quantitiy += parseFloat(item.Purchase_Quantitiy);
-            //        total.Received_Quantitiy +=parseFloat( item.Received_Quantitiy);
-            //    });
-            //    total.Discount= parseFloat( total.Discount.toFixed(2));
-            //    total.Discount_Amount= parseFloat( total.Discount_Amount.toFixed(2));
-            //    var $totalRow = $("<tr>").addClass("total-row");
-
-            //    args.grid._renderCells($totalRow, total);
-            //    debugger;
-            //    $totalRow.find("td").eq(0).html("<b>Total</b>");
-            //    $totalRow.find("td").eq(0).attr('colspan',4);
-            //    $totalRow.find("td").eq(0).css('text-align','right');
-            //    $totalRow.find("td").eq(1).remove();
-            //    $totalRow.find("td").eq(1).remove();
-            //    $totalRow.find("td").eq(1).remove();
-            //    args.grid._content.append($totalRow);
-            //},
+     
             onItemUpdated: function(args) {
                 $('#jsGrid').jsGrid("refresh");
             },
@@ -249,161 +205,15 @@
             {name:"Purchase_Quantitiy", title: "@Html.DisplayNameFor(m=>m.Purchase_Quantitiy)", type: "number", width:  80,
                 validate: "required",
 
-                insertTemplate: function () {
-                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
-                    var th= this;
-                    $insertControl.on("change", function () {
-
-                        var amount = th._grid.fields[8];
-                        var rate =  th._grid.fields[7].insertControl.val();
-
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
-                        var p_Q = this.value;
-
-                        $u.val(rate*p_Q)//val(unit);
-                        $u.text(rate*p_Q)//val(unit);
-                        var a = $(".amount").empty();
-
-                        $(".amount").append($u);
-                        a = $(".amount")
-
-                    });
-                    return $insertControl;
-                },
-                editTemplate: function (args) {
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                    $editControl.on("change", function () {
-
-                        var amount = th._grid.fields[8];
-                        var  rate=  th._grid.fields[7].editControl.val();
-
-                        var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
-                        var p_Q = this.value;
-
-                        $u.val(rate*p_Q)//val(unit);
-                        $u.text(rate*p_Q)//val(unit);
-                        var a = $(".amount").empty();
-
-                        $(".amount").append($u);
-                        a = $(".amount")
-
-                        var dscnt = th._grid.fields[9].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
-
-
-                    });
-                    return $editControl;
-                },
+     
             },
             {name:"Received_Quantitiy", title: "@Html.DisplayNameFor(m=>m.Received_Quantitiy)", type: "number", width:  80, validate: "required" },
             {name:"Commision", title: "@Html.DisplayNameFor(m=>m.Commision)", type: "text", width:  60, validate: "required" },
             {name:"Rate", title: "@Html.DisplayNameFor(m=>m.Rate)", type: "text", width:  60, validate: "required",
-                insertTemplate: function () {
-                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
-                    var th= this;
-                    $insertControl.on("change", function () {
-
-                        var amount = th._grid.fields[8];
-                        var p_Q =  th._grid.fields[4].insertControl.val();
-
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
-                        var rate = this.value;
-
-                        $u.val(rate*p_Q)//val(unit);
-                        $u.text(rate*p_Q)//val(unit);
-                        var a = $(".amount").empty();
-
-                        $(".amount").append($u);
-                        a = $(".amount")
-
-                    });
-                    return $insertControl;
-                },
-                editTemplate: function (args) {
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                    $editControl.on("change", function () {
-                        debugger;
-                        var amount = th._grid.fields[8];
-                        var p_Q =  th._grid.fields[4].editControl.val();
-
-                        var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
-                        var rate = this.value;
-
-                        $u.val(rate*p_Q)//val(unit);
-                        $u.text(rate*p_Q)//val(unit);
-                        var a = $(".amount").empty();
-
-                        $(".amount").append($u);
-                        a = $(".amount")
-
-                    });
-                    return $editControl;
-                },},
+            },
             {name:"Gross_Amount", title: "@Html.DisplayNameFor(m=>m.Gross_Amount)", type: "text",insertcss:"amount",editcss:"amount", width:  80, validate: "required" },
             {name:"Discount", title: "@Html.DisplayNameFor(m=>m.Discount)", type: "text", width:  90,
-                validate: "required" ,
-                insertTemplate: function () {
-                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
-                    var th= this;
-                    $insertControl.on("change", function () {
-                        debugger;
-                        var D_amount = th._grid.fields[10];
-                        var N_amount = th._grid.fields[11];
-
-                        var Gross_Amount =  parseFloat(th._grid.fields[8].insertControl.val());
-
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(D_amount);
-                        var $n = jsGrid.fields.text.prototype.insertTemplate.call(N_amount);
-                        var DisPercent = this.value /100;
-                        var ans =(Gross_Amount*DisPercent);
-                        $u.val(ans)//val(unit);
-                        $u.text(ans)//val(unit);
-                        $n.val(Gross_Amount-ans)//val(unit);
-                        $n.text(Gross_Amount-ans)//val(unit);
-                        $(".Damount").empty();
-
-                        $(".Damount").append($u);
-
-                        $(".Namount").empty();
-
-                        $(".Namount").append($n);
-
-
-                    });
-                    return $insertControl;
-                },
-                editTemplate: function (args) {
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                    $editControl.on("change", function () {
-                        debugger;
-                        var D_amount = th._grid.fields[10];
-                        var N_amount = th._grid.fields[11];
-
-                        var Gross_Amount =  th._grid.fields[8].editControl.val();
-
-                        var $u = jsGrid.fields.text.prototype.editTemplate.call(D_amount);
-                        var $n = jsGrid.fields.text.prototype.editTemplate.call(N_amount);
-                        var DisPercent = this.value /100;
-                        var ans =(Gross_Amount*DisPercent);
-                        $u.val(ans)//val(unit);
-                        $u.text(ans)//val(unit);
-                        $n.val(Gross_Amount-ans)//val(unit);
-                        $n.text(Gross_Amount-ans)//val(unit);
-                        $(".Damount").empty();
-
-                        $(".Damount").append($u);
-
-                        $(".Namount").empty();
-
-                        $(".Namount").append($n);
-
-
-                    });
-                    return $editControl;
-                },
-
+                validate: "required" 
             },
             {name:"Discount_Amount", title: "@Html.DisplayNameFor(m=>m.Discount_Amount)", type: "text", width:  80,insertcss :"Damount",editcss:"Damount",
                 validate: "required"},
