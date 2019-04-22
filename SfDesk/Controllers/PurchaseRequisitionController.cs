@@ -27,6 +27,11 @@ namespace SfDesk.Controllers
                 return Json("Error Occure", JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult showAll()
+        {
+            //new PurchaseInventory().PR_Show_All();
+            return View();
+        }
         public ActionResult detail()
         {
             return PartialView("detail", new List<PurchaseInventory>());
