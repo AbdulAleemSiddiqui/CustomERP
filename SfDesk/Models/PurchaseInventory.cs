@@ -23,6 +23,8 @@ namespace SfDesk.Models
 
         [DisplayName("Purchase Type")]
         public int Purchase_Type_ID { get; set; }
+
+   
         public string Purchase_Type_Name { get; set; }
 
         [DisplayName("Purchase A/c")]
