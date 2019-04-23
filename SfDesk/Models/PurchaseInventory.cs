@@ -19,6 +19,7 @@ namespace SfDesk.Models
         public string PO_No { get; set; } 
         [DisplayName("Invoice #")]
         public string Invoice_No { get; set; } = "pending";
+        public string Department { get; set; }
 
         public string App_Status { get; set; }
 
@@ -35,7 +36,6 @@ namespace SfDesk.Models
         [DisplayName("Supllier Name")]
         public int Suplier_ID { get; set; }
         public string Suplier_Name { get; set; }
-
         [DisplayName("Account Payable")]
         public int Account_Payable_ID { get; set; }
         public string Account_Payable_Name { get; set; }
@@ -113,6 +113,41 @@ namespace SfDesk.Models
             this.Mac_Address = Utility.GetMacAddress();
             charges = new List<PI_Charge>();
         }
+        public List<PurchaseInventory> PR_Show_All()
+        {
+
+            List<PurchaseInventory> lst = new List<PurchaseInventory>();
+            SqlCommand sc = new SqlCommand("PR_Show_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_Status",App_Status);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                PurchaseInventory u = new PurchaseInventory();
+                u.PI_ID = (int)sdr["PI_ID"];
+                u.Detail_ID = (int)sdr["Detail_ID"];
+                u.Store = (string)sdr["Store"];
+                u.Item_Code = (int)sdr["Item_Code"];
+                u.Product_Name = (string)sdr["Product_Name"];
+                u.Product_Description = (string)sdr["Description"];
+                u.Purchase_Quantitiy = (int)sdr["Purchase_Quantity"];
+                u.Received_Quantitiy = (int)sdr["Received_Quantity"];
+                u.Commision = (decimal)sdr["Commision"];
+                u.Rate = (decimal)sdr["Rate"];
+                u.Gross_Amount = (decimal)sdr["Gross_Amount"];
+                u.Discount = (decimal)sdr["Discount"];
+                u.Discount_Amount = (decimal)sdr["Discount_Amount"];
+                u.Net_Amount = (decimal)sdr["Net_Amount"];
+
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
         public int Purchase_Inventory_Add()
         {
             SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -134,7 +169,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
-            return Convert.ToInt32((decimal)sc.ExecuteScalar());
+            return 0;//Convert.ToInt32((decimal)sc.ExecuteScalar());
         }
 
         public int PI_Detail_Add()
