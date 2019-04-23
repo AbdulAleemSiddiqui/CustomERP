@@ -198,7 +198,6 @@
 
             },
             fields: [
-            {name:"Store", title: "@Html.DisplayNameFor(m=>m.Store)", type: "text", width:  80, validate: "required",  },
             {name:"Item_Code", title: "@Html.DisplayNameFor(m=>m.Item_Code)", type: "number", width:  80, validate: "required" },
             {name:"Product_Name", title: "@Html.DisplayNameFor(m=>m.Product_Name)", type: "text", width:  80, validate: "required" },
             {name:"Product_Description", title: "@Html.DisplayNameFor(m=>m.Product_Description)", type: "text", width:  80, validate: "required" },
@@ -207,26 +206,7 @@
 
      
             },
-            {name:"Received_Quantitiy", title: "@Html.DisplayNameFor(m=>m.Received_Quantitiy)", type: "number", width:  80, validate: "required" },
-            {name:"Commision", title: "@Html.DisplayNameFor(m=>m.Commision)", type: "text", width:  60, validate: "required" },
-            {name:"Rate", title: "@Html.DisplayNameFor(m=>m.Rate)", type: "text", width:  60, validate: "required",
-            },
-            {name:"Gross_Amount", title: "@Html.DisplayNameFor(m=>m.Gross_Amount)", type: "text",insertcss:"amount",editcss:"amount", width:  80, validate: "required" },
-            {name:"Discount", title: "@Html.DisplayNameFor(m=>m.Discount)", type: "text", width:  90,
-                validate: "required" 
-            },
-            {name:"Discount_Amount", title: "@Html.DisplayNameFor(m=>m.Discount_Amount)", type: "text", width:  80,insertcss :"Damount",editcss:"Damount",
-                validate: "required"},
-
-             {name:"Net_Amount", title: "@Html.DisplayNameFor(m=>m.Net_Amount)", type: "text",insertcss :"Namount",editcss:"Namount", width:  80, validate: "required" },
-             {
-                 name: "Detail_ID",
-                 title: "",
-                 type: "text",
-                 visible: false
-
-
-             },
+         
             { type: "control",
                 itemTemplate: function(_, item) {
                     if(item.IsTotal)
