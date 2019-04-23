@@ -31,7 +31,8 @@ namespace SfDesk.Models
         {
             List<PI_Charge> lst = new List<PI_Charge>();
             SqlCommand sc = new SqlCommand("PI_Charge_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@App_PI_Charge_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@@PI_ID", PI_ID);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
@@ -50,10 +51,10 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
-        public PI_Charge PI_Charge_Get_By_PI_Charge_ID()
+        public PI_Charge PI_Charge_Get_BY_ID()
         {
             PI_Charge u = new PI_Charge();
-            SqlCommand sc = new SqlCommand("PI_Charge_Get_By_PI_Charge_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("PI_Charge_Get_BY_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@PI_Charge_ID", PI_Charge_ID);
             sc.Parameters.AddWithValue("@App_PI_Charge_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -102,6 +103,16 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@PI_Charge_ID", PI_Charge_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
+        }
+
+        public List<PI_Charge> PI_Charge_Default_List()
+        {
+            return new List<PI_Charge>()
+            {
+                new PI_Charge() {Charge_Name="Less / Add Commision" },
+                new PI_Charge() {Charge_Name="GST" },
+                new PI_Charge() {Charge_Name="Further Tax" }
+            };
         }
     }
 }
