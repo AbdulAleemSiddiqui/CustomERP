@@ -11,14 +11,15 @@ namespace SfDesk.Controllers
     {
         public ActionResult master()
         {
-            return View(new PurchaseInventory() { PR_No = "123" });
+            return View(new PurchaseInventory()  );
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
         {
             try
             {
-                int id = c.Purchase_Inventory_Add();
+             
+                int id =c.Purchase_Inventory_Add();
                 return Json(id, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)

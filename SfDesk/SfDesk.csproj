@@ -245,6 +245,7 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\contractor.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
