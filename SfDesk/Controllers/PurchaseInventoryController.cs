@@ -19,7 +19,7 @@ namespace SfDesk.Controllers
         public ActionResult master(PurchaseInventory c)
         {
             int id = c.Purchase_Inventory_Add();
-            return Json(2,JsonRequestBehavior.AllowGet);
+            return Json(id,JsonRequestBehavior.AllowGet);
         }
     
         public ActionResult detail()

@@ -20,7 +20,7 @@
                 <div class="form-horizontal">
                     <h4>Purchase</h4>
                     <hr />
-                    <input hidden="hidden" name="PI_ID" id="PI_ID" />
+                    <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID"/>
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
@@ -30,7 +30,7 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control"@*, @readonly = "readonly"*@ }
+                                   @class = "form-control", @readonly = "readonly" }
                            })
                                 @Html.ValidationMessageFor(model => model.PR_No, "", new { @class = "text-danger" })
                             </div>
@@ -43,18 +43,20 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control"@*, @readonly = "readonly"*@ }
+                                   @class = "form-control", @readonly = "readonly"}
                            })
                                 @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Department, new{ htmlAttributes = new { @class = "form-control"@*, @readonly = "readonly"*@ }
-                           })
-                                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+
+                                @Html.DropDownListFor(model => model.Department_ID, new SelectList(new SfDesk.Models.Department().Department_Get_All(), "D_ID", "D_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+
+                                @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -152,9 +154,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-6">
-                            <input type="submit" value="Create" class="btn btn-default" id="done" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-6">
+                                <input type="submit" value="Create" class="btn btn-default" id="create" />
+                                <input type="button" value="Approved" class="btn btn-default" id="approve" />
+                                <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
+                                <input type="button" value="Reject" class="btn btn-default" id="reject" />
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
             }
@@ -180,7 +189,20 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        if ($('#PI_ID').val() != 0) {
+            Master_Id = $('#PI_ID').val();
+            detail();
 
+        }
+        $('#cancel').click(function () {
+            window.location.href = '/User/Index/';
+        });
+        $('#approve').click(function () {
+            debugger;
+            $.post('@Url.Action("Approve", "PurchaseRequisition")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+            })
+        });
         var Master_Id = 0;
         $("form").submit(function (e) {
             e.preventDefault();

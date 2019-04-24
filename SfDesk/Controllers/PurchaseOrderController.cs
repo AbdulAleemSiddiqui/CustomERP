@@ -9,18 +9,35 @@ namespace SfDesk.Controllers
 {
     public class PurchaseOrderController : Controller
     {
-        public ActionResult master()
+        public ActionResult master(int? id)
         {
-            return View(new PurchaseInventory() { Invoice_No = "123" });
+            if (id != null)
+            {
+                PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "PR_Approve" };
+                p = p.PR_Get_All().Find(x => x.PI_ID == id);
+                return View(p == null ? new PurchaseInventory() : p);
+            }
+            return View(new PurchaseInventory());
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
         {
-            int id = c.Purchase_Inventory_Add();
-
-            return Json(id, JsonRequestBehavior.AllowGet);
+            c.App_Status = "PO_Created";
+            c.PO_Add();
+            //change krna hai 
+            return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult showAll()
+        {
+            return View(new PurchaseInventory() { App_Status = "PR_Approve" }.PR_Get_All());
+        }
+        [HttpPost]
+        public ActionResult Approve(PurchaseInventory p)
+        {
+            p.App_Status = "PO_Created";
+            p.PR_Approve();
+            return View();
+        }
         public ActionResult detail()
         {
             return PartialView("detail", new List<PurchaseInventory>());

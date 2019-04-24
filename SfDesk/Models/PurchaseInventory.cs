@@ -19,7 +19,7 @@ namespace SfDesk.Models
         public string PO_No { get; set; } = "0";
         [DisplayName("Invoice #")]
         public string Invoice_No { get; set; } = "pending";
-
+        public string App_Status { get; set; }
         [DisplayName("Department")]
         public int Department_ID { get; set; }
         public string Department_Name { get; set; }
@@ -40,10 +40,10 @@ namespace SfDesk.Models
         public string Account_Payable_Name { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Parse("2001/01/01");
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
-        public DateTime Due_Date { get; set; }
+        public DateTime Due_Date { get; set; } = DateTime.Parse("2001/01/01");
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; } = "";
 
@@ -112,41 +112,8 @@ namespace SfDesk.Models
             this.Mac_Address = Utility.GetMacAddress();
             charges = new List<PI_Charge>();
         }
-        public List<PurchaseInventory> PR_Show_All()
-        {
 
-            List<PurchaseInventory> lst = new List<PurchaseInventory>();
-            SqlCommand sc = new SqlCommand("PR_Show_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@App_Status",App_Status);
-            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
-            {
-                PurchaseInventory u = new PurchaseInventory();
-                u.PI_ID = (int)sdr["PI_ID"];
-                u.Detail_ID = (int)sdr["Detail_ID"];
-                u.Store = (string)sdr["Store"];
-                u.Item_Code = (int)sdr["Item_Code"];
-                u.Product_Name = (string)sdr["Product_Name"];
-                u.Product_Description = (string)sdr["Description"];
-                u.Purchase_Quantitiy = (int)sdr["Purchase_Quantity"];
-                u.Received_Quantitiy = (int)sdr["Received_Quantity"];
-                u.Commision = (decimal)sdr["Commision"];
-                u.Rate = (decimal)sdr["Rate"];
-                u.Gross_Amount = (decimal)sdr["Gross_Amount"];
-                u.Discount = (decimal)sdr["Discount"];
-                u.Discount_Amount = (decimal)sdr["Discount_Amount"];
-                u.Net_Amount = (decimal)sdr["Net_Amount"];
-
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
-                lst.Add(u);
-            }
-            sdr.Close();
-            return lst;
-        }
+        #region PR
         public int Purchase_Inventory_Add()
         {
             SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -169,8 +136,81 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
-            return 0;//Convert.ToInt32((decimal)sc.ExecuteScalar());
+            return Convert.ToInt32((decimal)sc.ExecuteScalar());
         }
+
+        public List<PurchaseInventory> PR_Get_All()
+        {
+            List<PurchaseInventory> lst = new List<PurchaseInventory>();
+            SqlCommand sc = new SqlCommand("PR_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@App_Status", App_Status);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                PurchaseInventory u = new PurchaseInventory();
+                u.PI_ID = (int)sdr["PI_ID"];
+                u.PR_No = (string)sdr["PR_No"];
+                u.Department_ID = (int)sdr["Department_ID"];
+                u.Department_Name = (string)sdr["D_Name"];
+                u.Date = (DateTime)sdr["Date"];
+                u.Comments = (string)sdr["Comments"];
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
+        public void PR_Approve()
+        {
+            SqlCommand sc = new SqlCommand("PR_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+
+            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
+            sc.Parameters.AddWithValue("@App_Status", App_Status);
+            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
+            sc.Parameters.AddWithValue("@Purchase_Type_ID", Purchase_Type_ID);
+            sc.Parameters.AddWithValue("@Account_Payable_ID", Account_Payable_ID);
+            sc.Parameters.AddWithValue("@Purchase_Account_ID", Purchase_Account_ID);
+            sc.Parameters.AddWithValue("@Supplier_ID", Suplier_ID);
+            sc.Parameters.AddWithValue("@Date", Date);
+            sc.Parameters.AddWithValue("@Due_Date", Due_Date);
+            sc.Parameters.AddWithValue("@Comments", Comments);
+            sc.Parameters.AddWithValue("@Transporter_ID", Transporter_ID);
+            sc.Parameters.AddWithValue("@Vehicle_ID", Vehicle_ID);
+            sc.Parameters.AddWithValue("@Middle_Man_ID", Middle_Man_ID);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
+            sc.ExecuteNonQuery();
+        }
+
+        #endregion
+        public int PO_Add()
+        {
+            SqlCommand sc = new SqlCommand("PO_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+
+            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
+            sc.Parameters.AddWithValue("@App_Status", App_Status);
+            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
+            sc.Parameters.AddWithValue("@Purchase_Type_ID", Purchase_Type_ID);
+            sc.Parameters.AddWithValue("@Account_Payable_ID", Account_Payable_ID);
+            sc.Parameters.AddWithValue("@Purchase_Account_ID", Purchase_Account_ID);
+            sc.Parameters.AddWithValue("@Supplier_ID", Suplier_ID);
+            sc.Parameters.AddWithValue("@Date", Date);
+            sc.Parameters.AddWithValue("@Due_Date", Due_Date);
+            sc.Parameters.AddWithValue("@Comments", Comments);
+            sc.Parameters.AddWithValue("@Transporter_ID", Transporter_ID);
+            sc.Parameters.AddWithValue("@Vehicle_ID", Vehicle_ID);
+            sc.Parameters.AddWithValue("@Middle_Man_ID", Middle_Man_ID);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
+            sc.ExecuteNonQuery();
+            return PI_ID;
+        }
+
+        #region Detail
 
         public int PI_Detail_Add()
         {
@@ -268,6 +308,6 @@ namespace SfDesk.Models
                 item.PI_Charge_Add();
             }
         }
-
+        #endregion
     }
 }

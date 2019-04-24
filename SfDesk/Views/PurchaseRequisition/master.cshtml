@@ -18,9 +18,9 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Purchase</h4>
+                    <h4>Purchase Requisition</h4>
                     <hr />
-                    <input hidden="hidden" name="PI_ID" id="PI_ID" />
+                    <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
@@ -37,13 +37,13 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
 
-                                @Html.DropDownListFor(model => model.Department, new SelectList(new SfDesk.Models.Purchase_Type().Purchase_Type_Get_All(), "PT_ID", "PT_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.Department_ID, new SelectList(new SfDesk.Models.Department().Department_Get_All(), "D_ID", "D_Name"), "select type", htmlAttributes: new { @class = "form-control" })
 
                                 @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                    
@@ -69,12 +69,13 @@
 
                       
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" >
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
                                 <input type="submit" value="Create" class="btn btn-default" id="create" />
                                 <input type="button" value="Approved" class="btn btn-default" id="approve" />
                                 <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
+                                <input type="button" value="Reject" class="btn btn-default" id="reject" />
                             </div>
                         </div>
 
@@ -108,7 +109,22 @@
         $('#cancel').click(function () {
             window.location.href = '/User/Index/';
         });
+        $('#approve').click(function () {
+            debugger;
+            $.post('@Url.Action("Approve", "PurchaseRequisition")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+            })
+        });
         $(document).ready(function () {   // Help for the HTML4 version.
+            if ($('#PI_ID').val() != 0)
+            {
+                Master_Id = $('#PI_ID').val();
+                detail();
+
+            }
+
+
+
             $('select[name=Account_Payable_Name]').change(function () {
                 $('input[name=other]').val($(this).val());
             });
@@ -151,6 +167,8 @@
 
             $.get('@Url.Action("detail", "PurchaseRequisition")', function (data) { $("#child").html(data); });
             $("#done").hide()
+            debugger;
+
         };
         function AddSupplier() {
             $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });

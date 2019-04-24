@@ -15,40 +15,7 @@
                     <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
                     <br />
 
-                    <div id="tax" style="float:right">
-                        <form action="/PurchaseRequisition/Save_Charges" method="post" id="charges_form">
-                            <table border="1" style="table-layout: fixed; width: 20%;float:right"  class="abc">
-                                <tr>
-                                    <th style="width: 200px">Charges</th>
-                                    <th style="width:80px">Percent</th>
-                                    <th style="width: 150px">Total</th>
-                                </tr>
-                                @{int i = 0; }
-                                @foreach (var item in new SfDesk.Models.PI_Charge().PI_Charge_Default_List())
-                                {
-                                    <tr>
-                                        <td style="width: 200px">
-                                            <input name="charges[@i].Charge_Name" value="@item.Charge_Name" hidden="hidden" />
-                                            <label>@item.Charge_Name</label>
-                                        </td>
-                                        <td style="width: 80px">
-                                            <input type="text" class="" name="charges[@i].Charge_Percent" onchange="total(this,'c_'+@i)" style="width:80px" placeholder="%" />
-                                        </td>
-                                        <td style="width:150px"><input id='c_@i' name="charges[@i].Charge_Total" readonly="readonly" style="width:150px" /></td>
-                                    </tr>
-                                    i++;
-                                }
-
-                                <tr>
-                                    <td style="width: auto"><b>Total</b></td>
-                                    <td style="width: auto"><b></b></td>
-                                    <td style="width: auto"><label id="total">0</label></td>
-                                </tr>
-
-                            </table>
-                            <input type="submit" value="Save" class="btn btn-default" style="float:right" />
-                        </form>
-                    </div>
+                   
                 </div>
             </div>
             <!-- /# card -->
@@ -69,14 +36,14 @@
         $.post(this.action,charges );
     });
     function loadData() {
-
+        debugger;
         $.ajax({
             type: "GET",
-            url: "Index",
+            url: "/PurchaseRequisition/Index",
             data: { PI_ID: Master_Id },
             dataType: "json",
             success: function (d) {
-
+                
                 if (d.ID != 0)
                     arr = d
                 my()
@@ -159,24 +126,7 @@
             pageNavigatorPrevText: "...",
 
             invalidMessage: "Invalid data entered!",
-            onRefreshed: function(args) {
-                var items = args.grid.option("data");
-            
-                total.Discount= parseFloat( total.Discount.toFixed(2));
-                total.Rate = parseFloat(total.Rate.toFixed(2));
-                total.Discount_Amount= parseFloat( total.Discount_Amount.toFixed(2));
-                var $totalRow = $("<tr>").addClass("total-row");
-                net_total = total.Net_Amount;
-                args.grid._renderCells($totalRow, total);
-                debugger;
-                $totalRow.find("td").eq(0).html("<b>Total</b>");
-                $totalRow.find("td").eq(0).attr('colspan',4);
-                $totalRow.find("td").eq(0).css('text-align','right');
-                $totalRow.find("td").eq(1).remove();
-                $totalRow.find("td").eq(1).remove();
-                $totalRow.find("td").eq(1).remove();
-                args.grid._content.append($totalRow);
-            },
+          
      
             onItemUpdated: function(args) {
                 $('#jsGrid').jsGrid("refresh");
