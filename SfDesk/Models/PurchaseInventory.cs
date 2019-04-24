@@ -14,24 +14,23 @@ namespace SfDesk.Models
         public int PI_ID { get; set; }
 
         [DisplayName("P.R #")]
-        public string PR_No { get; set; }
+        public string PR_No { get; set; } = "0";
         [DisplayName("P.O #")]
-        public string PO_No { get; set; } 
+        public string PO_No { get; set; } = "0";
         [DisplayName("Invoice #")]
         public string Invoice_No { get; set; } = "pending";
-        public string Department { get; set; }
 
-        public string App_Status { get; set; }
+        [DisplayName("Department")]
+        public int Department_ID { get; set; }
+        public string Department_Name { get; set; }
 
         [DisplayName("Purchase Type")]
         public int Purchase_Type_ID { get; set; }
-
-   
-        public string Purchase_Type_Name { get; set; }
+        public string Purchase_Type_Name { get; set; } = "";
 
         [DisplayName("Purchase A/c")]
         public int Purchase_Account_ID { get; set; }
-        public int Purchase_Account_Nane { get; set; }
+        public string Purchase_Account_Nane { get; set; } = "";
 
         [DisplayName("Supllier Name")]
         public int Suplier_ID { get; set; }
@@ -46,7 +45,7 @@ namespace SfDesk.Models
         [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; }
         [DataType(DataType.MultilineText)]
-        public string Comments { get; set; }
+        public string Comments { get; set; } = "";
 
         [DisplayName("Vehicle #")]
         public int Vehicle_ID { get; set; }
@@ -61,13 +60,13 @@ namespace SfDesk.Models
         #region Detail
         public int Detail_ID { get; set; }
         [DisplayName("Store / Godown")]
-        public string Store { get; set; }
+        public string Store { get; set; } = "";
         [DisplayName("Item Code")]
         public int Item_Code { get; set; }
         [DisplayName("Product Name")]
-        public string Product_Name { get; set; }
+        public string Product_Name { get; set; } = "";
         [DisplayName("Product Description")]
-        public string Product_Description { get; set; }
+        public string Product_Description { get; set; } = "";
         [DisplayName("Purchase Quantitiy")]
         public int Purchase_Quantitiy { get; set; }
         [DisplayName("Received Quantitiy")]
@@ -151,10 +150,11 @@ namespace SfDesk.Models
         public int Purchase_Inventory_Add()
         {
             SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-
+           
             sc.Parameters.AddWithValue("@PR_No", PR_No);
             sc.Parameters.AddWithValue("@PO_No", PO_No);
             sc.Parameters.AddWithValue("@Invoice_No", Invoice_No);
+            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
             sc.Parameters.AddWithValue("@Purchase_Type_ID", Purchase_Type_ID);
             sc.Parameters.AddWithValue("@Account_Payable_ID", Account_Payable_ID);
             sc.Parameters.AddWithValue("@Purchase_Account_ID", Purchase_Account_ID);
