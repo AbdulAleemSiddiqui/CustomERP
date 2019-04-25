@@ -10,7 +10,6 @@ namespace SfDesk.Models
 {
     public class PurchaseInventory
     {
-        public int MyProperty { get; set; }
         #region purchase Order master
         public int PI_ID { get; set; }
 
