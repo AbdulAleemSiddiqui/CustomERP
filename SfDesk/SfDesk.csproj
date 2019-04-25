@@ -415,6 +415,7 @@
     <Content Include="assets\images\user-profile.jpg" />
     <Content Include="assets\images\user.jpg" />
     <Content Include="assets\images\video-cam.png" />
+    <Content Include="assets\js\db2.js" />
     <Content Include="assets\js\jsgrid.js" />
     <Content Include="assets\js\jsgrid.min.js" />
     <Content Include="assets\js\lib\barRating\barRating.init.js" />

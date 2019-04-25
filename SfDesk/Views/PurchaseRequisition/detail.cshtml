@@ -136,8 +136,12 @@
 
                 args.item["PI_ID"] = Master_Id;
 
-
-                $("#grid").jsGrid("insertItem", args.item);
+                debugger;
+                if (typeof (history.pushState) != "undefined") {
+                   
+                    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
+                }
+                $("#grid").jsGrid("insertItem");
             },
 
             onItemInserted: function (args) {

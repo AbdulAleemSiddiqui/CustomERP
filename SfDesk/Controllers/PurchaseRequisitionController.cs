@@ -10,7 +10,7 @@ namespace SfDesk.Controllers
     public class PurchaseRequisitionController : Controller
     {
         public ActionResult master(int? id)
-        {
+         {
             if (id != null)
             {
                 PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value ,App_Status="I"};
