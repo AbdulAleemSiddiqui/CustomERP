@@ -15,6 +15,13 @@ namespace SfDesk.Controllers
             {
                 PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "PR_Approve" };
                 p = p.PR_Get_All().Find(x => x.PI_ID == id);
+                
+                if(p==null)
+                {
+                    p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "PO_Created" };
+                    p = p.PO_Get_All().Find(x => x.PI_ID == id);
+                    ViewBag.vehicle = new Vehicle() { V_ID = p.Vehicle_ID, Vehicle_No = p.Vehicle_No };
+                }
                 return View(p == null ? new PurchaseInventory() : p);
             }
             return View(new PurchaseInventory());
@@ -31,10 +38,14 @@ namespace SfDesk.Controllers
         {
             return View(new PurchaseInventory() { App_Status = "PR_Approve" }.PR_Get_All());
         }
+        public ActionResult showAll_Created()
+        {
+            return View(new PurchaseInventory() { App_Status = "PO_Created" }.PO_Get_All());
+        }
         [HttpPost]
         public ActionResult Approve(PurchaseInventory p)
         {
-            p.App_Status = "PO_Created";
+            p.App_Status = "PO_Approve";
             p.PR_Approve();
             return View();
         }

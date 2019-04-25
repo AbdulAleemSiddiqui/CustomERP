@@ -76,6 +76,7 @@
                                 <input type="button" value="Approved" class="btn btn-default" id="approve" />
                                 <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
                                 <input type="button" value="Reject" class="btn btn-default" id="reject" />
+                                <input type="button" value="Done" class="btn btn-default" id="done" />
                             </div>
                         </div>
 
@@ -105,9 +106,13 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+      
 
         $('#cancel').click(function () {
             window.location.href = '/User/Index/';
+        });
+        $('#done').click(function () {
+            window.location.href ='@Url.Action("Showall", "PurchaseRequisition")';
         });
         $('#approve').click(function () {
             debugger;
@@ -116,6 +121,9 @@
             })
         });
         $(document).ready(function () {   // Help for the HTML4 version.
+
+            document.getElementById("Date").valueAsDate = new Date();
+
             if ($('#PI_ID').val() != 0)
             {
                 Master_Id = $('#PI_ID').val();

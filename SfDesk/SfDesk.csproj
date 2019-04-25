@@ -821,6 +821,9 @@
     <Content Include="Views\PurchaseOrder\detail.cshtml" />
     <Content Include="Views\PurchaseOrder\master.cshtml" />
     <Content Include="Views\PurchaseRequisition\showAll.cshtml" />
+    <Content Include="Views\PurchaseOrder\showAll.cshtml" />
+    <Content Include="Views\PurchaseInventory\ShowAll.cshtml" />
+    <Content Include="Views\PurchaseOrder\showAll_Created.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

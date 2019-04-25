@@ -136,14 +136,34 @@
 
                 args.item["PI_ID"] = Master_Id;
 
-                debugger;
                 if (typeof (history.pushState) != "undefined") {
                    
                     window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 }
                 $("#grid").jsGrid("insertItem");
             },
+            onItemUpdating: function (args) {
 
+
+                args.item["PI_ID"] = Master_Id;
+
+                if (typeof (history.pushState) != "undefined") {
+                   
+                    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
+                }
+                $("#grid").jsGrid("insertItem");
+            },
+            onItemDeleting  : function (args) {
+
+
+                args.item["PI_ID"] = Master_Id;
+
+                if (typeof (history.pushState) != "undefined") {
+                   
+                    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
+                }
+                $("#grid").jsGrid("insertItem");
+            },
             onItemInserted: function (args) {
                 debugger;
                 jQuery("#jsGrid").jsGrid("destroy");

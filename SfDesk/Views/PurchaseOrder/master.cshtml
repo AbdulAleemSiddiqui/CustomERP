@@ -20,7 +20,8 @@
                 <div class="form-horizontal">
                     <h4>Purchase</h4>
                     <hr />
-                    <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID"/>
+                    <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />
+                    <input hidden="hidden" name="V_ID" id="V_ID" value="@Model.Vehicle_ID"/>
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
@@ -133,7 +134,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Vehicle_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Vehicle_ID, new SelectList(new List<string>()), htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.Vehicle_ID, new SelectList(new List<string>() { Model.Vehicle_No }), htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Vehicle_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2" @*style="display:none"*@>
@@ -189,6 +190,16 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        document.getElementById("Date").valueAsDate = new Date();
+        $(document).ready(function () {
+            debugger;
+            var g =$('#Transporter_ID').val();
+            if(g!=null )
+            {
+                populate();
+
+            }
+        });
         if ($('#PI_ID').val() != 0) {
             Master_Id = $('#PI_ID').val();
             detail();
@@ -199,8 +210,8 @@
         });
         $('#approve').click(function () {
             debugger;
-            $.post('@Url.Action("Approve", "PurchaseRequisition")', $('form').serialize(), function (data) {
-                window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+            $.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
             })
         });
         var Master_Id = 0;
@@ -210,6 +221,8 @@
                 detail()
                 debugger;
                 Master_Id = data;
+                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+
             })
             //$.ajax({
             //    url: this.action,
@@ -263,10 +276,15 @@
 
                     var ddlState = $('#Vehicle_ID');
                     ddlState.empty();
-                    $("#Vehicle_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
+                    $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
                     $.each(d, function (i, states) {
-
-                        ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                        if ($('#V_ID').val() == states.V_ID)
+                        {
+                            ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
+                        }
+                        else {
+                            ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                        }
                     });
                 }
             });

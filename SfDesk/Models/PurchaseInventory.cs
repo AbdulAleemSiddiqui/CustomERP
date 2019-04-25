@@ -31,7 +31,7 @@ namespace SfDesk.Models
 
         [DisplayName("Purchase A/c")]
         public int Purchase_Account_ID { get; set; }
-        public string Purchase_Account_Nane { get; set; } = "";
+        public string Purchase_Account_Name { get; set; } = "";
 
         [DisplayName("Supllier Name")]
         public int Suplier_ID { get; set; }
@@ -165,6 +165,60 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
+
+        public List<PurchaseInventory> PO_Get_All()
+        {
+            List<PurchaseInventory> lst = new List<PurchaseInventory>();
+            SqlCommand sc = new SqlCommand("PO_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@App_Status", App_Status);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                PurchaseInventory u = new PurchaseInventory();
+                u.PI_ID = (int)sdr["PI_ID"];
+                u.PR_No = (string)sdr["PR_No"];
+                u.PO_No = (string)sdr["PO_No"];
+
+                u.Department_ID = (int)sdr["Department_ID"];
+                u.Department_Name = (string)sdr["D_Name"];
+
+                u.Purchase_Type_ID = (int)sdr["PT_ID"];
+                u.Purchase_Type_Name= (string)sdr["PT_Name"];
+
+                u.Account_Payable_ID = (int)sdr["Account_Payable_ID"];
+                u.Account_Payable_Name = (string)sdr["Account_Payable_Name"];
+
+                u.Purchase_Account_ID= (int)sdr["Purchase_Account_ID"];
+                u.Purchase_Account_Name= (string)sdr["Purchase_Account_Name"];
+
+                u.Suplier_ID = (int)sdr["Suplier_ID"];
+                u.Suplier_Name = (string)sdr["Suplier_Name"];
+
+                u.Transporter_ID = (int)sdr["Transporter_ID"];
+                u.Transporter_Name= (string)sdr["Transporter_Name"];
+
+                u.Vehicle_ID = (int)sdr["Vehicle_ID"];
+                u.Vehicle_No = (string)sdr["Vehicle_No"];
+
+                u.Middle_Man_ID = (int)sdr["Middle_Man_ID"];
+                u.Middle_Man_Name = (string)sdr["Middle_Man_Name"];
+
+                u.Date = (DateTime)sdr["Date"];
+                u.Comments = (string)sdr["Comments"];
+
+
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
+
+
         public void PR_Approve()
         {
             SqlCommand sc = new SqlCommand("PR_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;

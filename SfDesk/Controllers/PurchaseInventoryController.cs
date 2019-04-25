@@ -19,21 +19,24 @@ namespace SfDesk.Controllers
         public ActionResult master(PurchaseInventory c)
         {
             int id = c.Purchase_Inventory_Add();
-            return Json(id,JsonRequestBehavior.AllowGet);
+            return Json(id, JsonRequestBehavior.AllowGet);
         }
-    
+        public ActionResult ShowAll()
+        {
+            return View(new PurchaseInventory() { App_Status = "PO_Approve" }.PR_Get_All());
+        }
         public ActionResult detail()
         {
-            return PartialView("detail",new List<PurchaseInventory>());
+            return PartialView("detail", new List<PurchaseInventory>());
         }
         public ActionResult Index(int PI_ID)
         {
-            return Json(new PurchaseInventory() { PI_ID = PI_ID }.PI_Detail_Get_All(),JsonRequestBehavior.AllowGet);
+            return Json(new PurchaseInventory() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)
         {
-            ViewBag.detail_id= pi.PI_Detail_Add();
+            ViewBag.detail_id = pi.PI_Detail_Add();
             return Json("added sucessfully");
         }
         [HttpPost]
@@ -45,7 +48,7 @@ namespace SfDesk.Controllers
         [HttpGet]
         public ActionResult delete(int Detail_ID)
         {
-           new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
+            new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
             return Json("delete sucessfully");
         }
         [HttpGet]

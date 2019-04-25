@@ -42,7 +42,8 @@ namespace SfDesk.Controllers
         {
             p.App_Status = "PR_Approve";
             p.PR_Approve();
-            return View();
+            return Json("kuch bhi", JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult detail(int? id)
         {
