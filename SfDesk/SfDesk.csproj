@@ -819,6 +819,7 @@
     <Content Include="Views\PurchaseRequisition\detail.cshtml" />
     <Content Include="Views\PurchaseOrder\detail.cshtml" />
     <Content Include="Views\PurchaseOrder\master.cshtml" />
+    <Content Include="Views\PurchaseRequisition\showAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
