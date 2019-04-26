@@ -46,7 +46,7 @@ namespace SfDesk.Controllers
         }
         [HttpPost]
         public ActionResult Update(Transporter c)
-        {
+      {
             c.Transporter_Update();
             return RedirectToAction("index");
         }

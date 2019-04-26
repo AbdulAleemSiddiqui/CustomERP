@@ -3,17 +3,17 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Transporter</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-       
-                @Html.HiddenFor(model => model.T_ID, new { htmlAttributes = new { @class = "form-control" } })
-             
+
+        @Html.HiddenFor(model => model.T_ID, new { htmlAttributes = new { @class = "form-control" } })
+
         <div class="form-group">
             @Html.LabelFor(model => model.Trading_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.Trading_Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Trading_Name, "", new { @class = "text-danger" })
             </div>
@@ -21,7 +21,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.NTN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.NTN, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NTN, "", new { @class = "text-danger" })
             </div>
@@ -29,7 +29,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.STRN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.STRN, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.STRN, "", new { @class = "text-danger" })
             </div>
@@ -37,7 +37,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Contact_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.Contact_Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Contact_Name, "", new { @class = "text-danger" })
             </div>
@@ -45,73 +45,49 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
             </div>
         </div>
 
+       
+        @{
+            List<SfDesk.Models.ChartOfAccount> a = (new SfDesk.Models.ChartOfAccount().COA_Get_All());
+        }
         <div class="form-group">
-            @Html.LabelFor(model => model.Exp_Acc_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Exp_Acc_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Exp_Acc_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            @Html.LabelFor(model => model.Exp_Acc_Name, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-5">
+                @Html.Hidden("Exp_Acc_ID")
+                <input type="text" name="Exp_Acc_Name" list="Purchase_Account_List" id="Exp_Acc_Name" class="form-control text-box">
+                <datalist id="Purchase_Account_List">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Exp_Acc_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Exp_Acc_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Exp_Acc_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pay_Acc_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @foreach (var item in a)
+                    {
+                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Code</option>
+                    }
+                </datalist>
+                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.Pay_Acc_ID, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.Pay_Acc_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pay_Acc_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pay_Acc_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-5">
+                @Html.Hidden("Pay_Acc_ID")
+                <input type="text" name="Pay_Acc_Name" list="Purchase_Account_List" id="Pay_Acc_Name" class="form-control text-box">
+                <datalist id="Purchase_Account_List">
+                  
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Created_By, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Created_By, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Created_By, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Created_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Created_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Created_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Machine_Ip, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Machine_Ip, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Machine_Ip, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Mac_Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Mac_Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Mac_Address, "", new { @class = "text-danger" })
+                    @foreach (var item in a)
+                    {
+                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Code</option>
+                    }
+                </datalist>
+                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.Pay_Acc_ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -121,6 +97,26 @@
             </div>
         </div>
     </div>
+                        }
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('select[name=Pay_Acc_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+            $('select[name=Exp_Acc_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+        });
+        $('#Pay_Acc_Name').on('change', function () {
+            var id = $("option").filter("[value='" + $('#Pay_Acc_Name').val() + "']").data("id");
+            $("[name='Pay_Acc_ID']").val(id);
+        });
+        $('#Exp_Acc_Name').on('change', function () {
+            var id = $("option").filter("[value='" + $('#Exp_Acc_Name').val() + "']").data("id");
+            $("[name='Exp_Acc_ID']").val(id);
+        });
+    </script>
 }
-
 

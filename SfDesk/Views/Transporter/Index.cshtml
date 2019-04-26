@@ -76,19 +76,26 @@
     <!-- /# column -->
 </div>
 <div id='myModal' class='modal'>
-    <div class="modal-dialog">
-        <div class="modal-content" style="height:-webkit-fill-available">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:auto;height:80%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
             <div id='myModalContent'>
 
             </div>
         </div>
     </div>
 
-</div>
+</div>  
 
 
 @section scripts {
     <script>
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
      function detail (id) {
          $.get('@Url.Action("Detail", "customer")', { id: id }, function (data) { $("#myModalContent").html(data); });
 
