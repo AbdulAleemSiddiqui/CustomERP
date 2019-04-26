@@ -34,7 +34,10 @@ namespace SfDesk.Controllers
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(),JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult Index()
+        {
+            return View(new Transporter().Transporter_Get_All());
+        }
 
     }
 }
