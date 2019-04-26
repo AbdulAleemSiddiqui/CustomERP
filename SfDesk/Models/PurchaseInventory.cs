@@ -10,6 +10,7 @@ namespace SfDesk.Models
 {
     public class PurchaseInventory
     {
+        public int MyProperty { get; set; }
         #region purchase Order master
         public int PI_ID { get; set; }
 
@@ -112,7 +113,7 @@ namespace SfDesk.Models
             this.Mac_Address = Utility.GetMacAddress();
             charges = new List<PI_Charge>();
         }
-
+        
         #region PR
         public int Purchase_Inventory_Add()
         {
