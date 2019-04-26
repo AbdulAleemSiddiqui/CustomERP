@@ -78,6 +78,7 @@ namespace SfDesk.Models
             Transporter u= new Transporter();
             SqlCommand sc = new SqlCommand("Transporter_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            sc.Parameters.AddWithValue("@T_ID", T_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {

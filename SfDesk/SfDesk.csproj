@@ -753,6 +753,7 @@
     <Content Include="Views\PurchaseInventory\ShowAll.cshtml" />
     <Content Include="Views\PurchaseOrder\showAll_Created.cshtml" />
     <Content Include="Views\Transporter\Index.cshtml" />
+    <Content Include="Views\Transporter\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

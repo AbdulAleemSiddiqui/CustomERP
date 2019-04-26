@@ -20,6 +20,7 @@ namespace SfDesk.Controllers
            t.T_ID= t.Transporter_Add();
             return Json(t,JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult Add_Vehicle(int id)
         {
             return PartialView("Add_Vehicle",new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter());
@@ -38,6 +39,21 @@ namespace SfDesk.Controllers
         {
             return View(new Transporter().Transporter_Get_All());
         }
+        public ActionResult Update(int id)
+        {
+            return PartialView("Update", new Transporter() { T_ID = id }.Transporter_Get_By_ID());
 
+        }
+        [HttpPost]
+        public ActionResult Update(Transporter c)
+        {
+            c.Transporter_Update();
+            return RedirectToAction("index");
+        }
+        public ActionResult Delete(int id)
+        {
+            new Transporter() { T_ID= id }.Transporter_Delete();
+            return RedirectToAction("index");
+        }
     }
 }
