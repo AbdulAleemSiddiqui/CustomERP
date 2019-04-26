@@ -225,21 +225,28 @@
 </div>
 
 <div id='myModal' class='modal'>
-    <div class="modal-dialog" style="float:right">
-        <div class="modal-content col-lg-12" style="float:right;top: 220px;right: 100px; align-content:center">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:auto;height:80%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
             <div id='myModalContent'>
 
             </div>
         </div>
     </div>
 
-</div>
+</div>  
 @section scripts
 {
 
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
         $(document).ready(function () {   // Help for the HTML4 version.
             $('select[name=Account_Payable_Name]').change(function () {
                 $('input[name=other]').val($(this).val());
@@ -247,7 +254,10 @@
             $('select[name=Purchase_Account_Name]').change(function () {
                 $('input[name=other]').val($(this).val());
             });
-         
+            if (typeof (history.pushState) != "undefined") {
+
+                window.history.pushState({}, 'Purchaseorder', '/Purchaseorder/master');
+            }
                 var g = $('#Transporter_ID').val();
                 if (g != null) {
                     populate();

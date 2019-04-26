@@ -173,17 +173,20 @@
         </div>
     </div>
 </div>
-
 <div id='myModal' class='modal'>
-    <div class="modal-dialog" style="float:right">
-        <div class="modal-content col-lg-12" style="float:right;top: 220px;right: 100px; align-content:center">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:auto;height:80%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
             <div id='myModalContent'>
 
             </div>
         </div>
     </div>
 
-</div>
+</div>  
 @section scripts
 {
 
@@ -192,6 +195,10 @@
     <script>
         document.getElementById("Date").valueAsDate = new Date();
         $(document).ready(function () {
+            if (typeof (history.pushState) != "undefined") {
+
+                window.history.pushState({}, 'Purchaseorder', '/Purchaseorder/master');
+            }
             debugger;
             var g =$('#Transporter_ID').val();
             if(g!=null )
@@ -239,7 +246,9 @@
             //});
         });
 
-
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
         /*ye master ka he*/
         function detail() {
 
