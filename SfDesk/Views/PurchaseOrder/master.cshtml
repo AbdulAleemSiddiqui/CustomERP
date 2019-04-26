@@ -189,7 +189,9 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        var Master_Id = 0;
         if ($('#PI_ID').val() != 0) {
+            debugger;
             Master_Id = $('#PI_ID').val();
             detail();
 
@@ -203,7 +205,7 @@
                 window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
             })
         });
-        var Master_Id = 0;
+       
         $("form").submit(function (e) {
             e.preventDefault();
             $.post(this.action, $(this).serialize(), function(data){

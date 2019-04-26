@@ -51,7 +51,12 @@
     <script>
         var arr = [];
         function loadData() {
-                
+            var id =  $('#PI_ID').val()
+            if (typeof (history.pushState) != "undefined") {
+                   
+                window.history.pushState( {} , 'PurchaseOrder', '/PurchaseOrder/master' );
+            }
+            debugger
             $.ajax({
                 type: "GET",
                 url: "Index",
@@ -71,6 +76,7 @@
 
 
         $(function(){
+            debugger
             loadData();
             $(".taxVal").on("change",function(){
                 var row = $(this).closest('tr');
