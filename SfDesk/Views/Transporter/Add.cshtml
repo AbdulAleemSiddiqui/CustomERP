@@ -1,5 +1,7 @@
 ﻿@model SfDesk.Models.Transporter
-
+@{ 
+    Layout = "";
+}
 @using (Html.BeginForm("Add", "Transporter", FormMethod.Post, htmlAttributes: new { @id = "f2" }))
 {
     @Html.AntiForgeryToken()

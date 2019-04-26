@@ -12,7 +12,7 @@ namespace SfDesk.Controllers
         // GET: Transporter
         public ActionResult Add()
         {
-            return PartialView();
+            return View();
         }
         [HttpPost]
         public ActionResult Add(Transporter t)
