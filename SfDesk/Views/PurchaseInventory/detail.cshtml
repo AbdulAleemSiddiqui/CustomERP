@@ -64,11 +64,16 @@
 <script>
         var arr = [];
         function loadData() {
-
+            debugger
+            var id =  $('#PI_ID').val()
+            if (typeof (history.pushState) != "undefined") {
+                   
+                window.history.pushState( {} , 'PurchaseInventory', '/PurchaseInventory/master' );
+            }
             $.ajax({
                 type: "GET",
                 url: "Index",
-                data: { PI_ID: Master_Id },
+                data: { PI_ID:  $('#PI_ID').val() },
                 dataType: "json",
                 success: function (d) {
 

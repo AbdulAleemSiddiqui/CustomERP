@@ -47,7 +47,8 @@ namespace SfDesk.Controllers
         {
             p.App_Status = "PO_Approve";
             p.PR_Approve();
-            return View();
+            return Json("", JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult detail()
         {
@@ -66,6 +67,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult update(PurchaseInventory pi)
         {
+            pi.Store = pi.Store == null ? "" : pi.Store;
             pi.PI_Detail_Update();
             return Json("updated sucessfully");
         }

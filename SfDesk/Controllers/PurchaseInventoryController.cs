@@ -11,9 +11,16 @@ namespace SfDesk.Controllers
     public class PurchaseInventoryController : Controller
     {
         // GET: PurchaseInventory
-        public ActionResult master()
+        public ActionResult master(int? id)
         {
-            return View(new PurchaseInventory() { Invoice_No = "123" });
+
+            if (id != null)
+            {
+                PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "PO_Approve" };
+                p = p.PO_Get_All().Find(x => x.PI_ID == id);
+                return View(p == null ? new PurchaseInventory() : p);
+            }
+            return View(new PurchaseInventory()  );
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
@@ -32,6 +39,7 @@ namespace SfDesk.Controllers
         public ActionResult Index(int PI_ID)
         {
             return Json(new PurchaseInventory() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+
         }
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)

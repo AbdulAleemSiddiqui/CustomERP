@@ -60,7 +60,7 @@
             $.ajax({
                 type: "GET",
                 url: "Index",
-                data: { PI_ID: Master_Id },
+                data: { PI_ID: id },
                 dataType: "json",
                 success: function (d) {
 
@@ -200,7 +200,7 @@
                 onItemInserting: function (args) {
                 
                       
-                    args.item["PI_ID"] = Master_Id;
+                    args.item["PI_ID"] = $('#PI_ID').val();
                
                 
                     $("#grid").jsGrid("insertItem", args.item);
