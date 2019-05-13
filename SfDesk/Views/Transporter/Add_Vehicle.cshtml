@@ -20,28 +20,36 @@
 <script src="~/assets/js/db.js"></script>
 <script src="~/assets/js/jsgrid.js"></script>
 <script>
-    var arr;
+    var arr=[];
     $(document).ready(function(){
-        var id=$('#Transporter_ID').val();
+        debugger;
+        var id = $('#Transporter_ID').val();
+        if (id == null)
+        {
+            var id = $('#T_ID').val();
+        }
+       
         $.ajax({
             type: "GET",
             url: "/Transporter/Vehcile_Get_By_Transporter",
             dataType: "json",
             data: { id: id },
             success: function (d) {
-                arr= d;
+                arr = d;
+                my()
             }
         });
     });
      
-
-            $(function(){
+   
+    function my()
+    {
                 $("#jsGrid").jsGrid({
                     
                     controller: {
                         loadData: $.noop,
                         insertItem: function (insertingClient) {
-                            debugger;
+                            
                             // this.clients.push(insertingClient);
                             $.ajax({
                                 type: "POST",
@@ -60,8 +68,11 @@
                         deleteItem: $.noop
                     },
                     onItemInserting: function (args) {
-
-                        var a = $("#Transporter_ID").val();
+                        debugger
+                        var a = $('#Transporter_ID').val();
+                        if (a == null) {
+                            a = $('#T_ID').val();
+                        }
                         args.item["T_ID"] = a;
 
 
@@ -103,6 +114,6 @@
                     ]
                 });
 
-            });
+            };
 
 </script>

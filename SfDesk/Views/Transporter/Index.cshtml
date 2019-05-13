@@ -95,6 +95,7 @@
     <script>
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
+            location.reload()
         });
      function Add () {
          $.get('@Url.Action("add", "TRansporter")', function (data) { $("#myModalContent").html(data); });
