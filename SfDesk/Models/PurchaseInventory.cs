@@ -216,8 +216,6 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
-
-
         public void PR_Approve()
         {
             SqlCommand sc = new SqlCommand("PR_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -241,6 +239,14 @@ namespace SfDesk.Models
         }
 
         #endregion
+
+
+        public string PR_Get_New_PR_NO()
+        {
+            SqlCommand sc = new SqlCommand("PR_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            return (string)sc.ExecuteScalar();
+        }
         public int PO_Add()
         {
             SqlCommand sc = new SqlCommand("PO_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;

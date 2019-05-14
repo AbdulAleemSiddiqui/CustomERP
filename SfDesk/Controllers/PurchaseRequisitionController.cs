@@ -16,9 +16,12 @@ namespace SfDesk.Controllers
             {
                 PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value ,App_Status="I"};
                 p = p.PR_Get_All().Find(x => x.PI_ID == id);
-                return View(p==null?new PurchaseInventory():p);
+                if(p!=null)
+                {
+                    return View(p);
+                }
             }
-            return View(new PurchaseInventory());
+            return View(new PurchaseInventory() {PR_No=new PurchaseInventory().PR_Get_New_PR_NO() });
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
