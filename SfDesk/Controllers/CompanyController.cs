@@ -19,11 +19,21 @@ namespace SfDesk.Controllers
         {
             return View();
         }
+        public ActionResult Verify(string name)
+        {
+            return Json(new Company() { Company_Name=name}.Verify()==true?"verified":"Sorry, this company is already exsist.",JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult Add(Company c)
         {
-            c.Company_Add();
-          
+            if (c.Verify())
+            {
+                c.Company_Add();
+            }
+            else
+            {
+                ViewBag.message = "Old password is incorrect";
+            }
             return RedirectToAction("index");
         }
    

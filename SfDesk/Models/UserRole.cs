@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -11,14 +12,20 @@ namespace SfDesk.Models
         #region Properties
 
         public int UR_ID { get; set; }
+        [DisplayName("User ID")]
         public int U_ID { get; set; }
+        [DisplayName("Name")]
         public string U_Name { get; set; }
         public int R_ID { get; set; }
+        [DisplayName("Role")]
         public string R_Name { get; set; }
+        [DisplayName("Form")]
         public string F_Name { get; set; }
         public string M_Name { get; set; }
+        [DisplayName("Action")]
         public string A_Name { get; set; }
         public int C_ID { get; set; }
+        [DisplayName("Company")]
         public string C_Name { get; set; }
         public int Created_By { get; set; }
         public DateTime Created_Date { get; set; }

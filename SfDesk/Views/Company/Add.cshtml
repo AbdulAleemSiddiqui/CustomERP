@@ -190,6 +190,10 @@
         </div>
     </div>
 </div>
+<script src="~/assets/js/lib/jquery.min.js"></script>
+<script src="~/assets/js/lib/bootstrap.min.js"></script>
+<script src="~/assets/js/lib/sweetalert/sweetalert.min.js"></script>
+<script src="~/assets/js/lib/sweetalert/sweetalert.init.js"></script>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
@@ -197,6 +201,26 @@
 {
 
    <script>
+       $('#Company_Name').on("focusout", function () {
+               var Company_Name = $("#Company_Name").val();
+               $.ajax({
+                   url: '/Company/Verify',
+                   type: 'GET',
+                   dataType: 'json',
+                   data: { name: Company_Name},
+                   success: function (d) {
+                       if (d != "verified") {
+                           sweetAlert("Oops...", d, "error");
+                           $("#Company_Name").val("");
+                       }
+                   },
+                   error: function () {
+                       alert('Error!');
+                   }
+               });
+
+           });
+
     
         $("form").submit(function (e) {
             e.preventDefault();

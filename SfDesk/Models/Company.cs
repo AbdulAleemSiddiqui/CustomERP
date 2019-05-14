@@ -21,6 +21,9 @@ namespace SfDesk.Models
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Area { get; set; }
+
+     
+
         public string Province { get; set; }
         public string Country { get; set; }
 
@@ -140,7 +143,6 @@ namespace SfDesk.Models
             sdr.Close();
             return u;
         }
-
         public Company Company_Get_By_ID(int id)
         {
             Company u = new Company();
@@ -205,7 +207,6 @@ namespace SfDesk.Models
             sc.ExecuteNonQuery();
 
         }
-
         public void Company_Update()
         {
             SqlCommand sc = new SqlCommand("Company_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
@@ -239,5 +240,13 @@ namespace SfDesk.Models
             sc.ExecuteNonQuery();
         }
         #endregion
+        public bool Verify()
+        {
+            SqlCommand sc = new SqlCommand("Company_Check_Duplication", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Company_Name", Company_Name);
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            object return_Data =sc.ExecuteScalar();
+            return return_Data == null ? true : false;
+        }
     }
 }
