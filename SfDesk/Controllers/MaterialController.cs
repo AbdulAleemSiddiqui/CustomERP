@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
+    [Session]
     public class MaterialController : Controller
     {
         public ActionResult Index()

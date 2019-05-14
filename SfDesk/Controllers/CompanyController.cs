@@ -6,9 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 namespace SfDesk.Controllers
 {
+    [Session]
     public class CompanyController : Controller
     {
-       
+        
         #region company CRUD
         public ActionResult Index()
         {

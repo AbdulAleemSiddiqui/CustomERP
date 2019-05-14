@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
+    [Session]
     public class PurchaseRequisitionController : Controller
     {
         public ActionResult master(int? id)

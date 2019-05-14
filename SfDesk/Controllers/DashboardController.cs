@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
+    [Session]
     public class DashboardController : Controller
     {
         // GET: Dashboard
