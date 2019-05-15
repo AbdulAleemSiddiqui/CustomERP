@@ -15,28 +15,7 @@
                     <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
                     <br />
 
-                    <div id="tax" style="float:right">
-                        <table border="1" style="table-layout: fixed; width: 20%;float:right" >
-                            <tr>
-                                <td style="width: auto"><input type="text" class="taxVal"id="t1" style="width:120px" /></td>
-                                <td style="width: auto" id="t11">123</td>  
-                            </tr>                                          
-                            <tr>                                           
-                                <td style="width: auto"><input type="text" class="taxVal"id="t2" style="width:120px" />
-                                                                          
-                                <td style="width: auto"id="t22">123</td>  
-                            </tr>                                         
-                            <tr>                                          
-                                <td style="width: auto"><input type="text" class="taxVal"id="t3" style="width:120px" /></td>
-                                <td style="width: auto" id="t33">123</td>
-                            </tr>
-                            <tr>
-                                <td style="width: auto"><b>Total</b></td>
-                                <td style="width: auto" id="total">123</td>
-                            </tr>
-
-                        </table>
-                    </div>
+   
                 </div>
             </div>
             <!-- /# card -->
@@ -236,7 +215,8 @@
                             var a = $(".amount").empty();
 
                             $(".amount").append($u);
-                            a = $(".amount")
+                            var dscnt = th._grid.fields[6].insertControl.val(th._grid.fields[6].insertControl.val()).trigger("change");
+
 
                         });
                         return $insertControl;
@@ -283,6 +263,7 @@
                             var a = $(".amount").empty();
 
                             $(".amount").append($u);
+                            var dscnt = th._grid.fields[6].insertControl.val(th._grid.fields[6].insertControl.val()).trigger("change");
                           
 
                         });
@@ -293,7 +274,7 @@
                         var th= this;
                         $editControl.on("change", function () {
                             debugger;
-                            var amount = th._grid.fields[6];
+                            var amount = th._grid.fields[5];
                             var p_Q =  th._grid.fields[3].editControl.val();
                            
                             var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
@@ -305,6 +286,7 @@
 
                             $(".amount").append($u);
                             a = $(".amount")
+                            var dscnt = th._grid.fields[6].editControl.val(th._grid.fields[6].editControl.val()).trigger("change");
 
                         });
                         return $editControl;

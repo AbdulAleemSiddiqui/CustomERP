@@ -255,8 +255,8 @@
                 $('input[name=other]').val($(this).val());
             });
             if (typeof (history.pushState) != "undefined") {
+                window.history.pushState({}, 'PurchaseInventory', '/PurchaseInventory/master');
 
-                window.history.pushState({}, 'Purchaseorder', '/Purchaseorder/master');
             }
                 var g = $('#Transporter_ID').val();
                 if (g != null) {

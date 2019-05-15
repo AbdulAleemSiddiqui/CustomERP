@@ -113,17 +113,19 @@
                     sum+= parseFloat($("#c_"+i).val());
                 }
             }
+           var yum= $("#Net").val();
+            debugger;
             $('#total').html(sum.toFixed(2));
         }
         var net_total=0;
 
         $(function(){
             loadData();
-            $(".taxVal").on("change",function(){
-                var row = $(this).closest('tr');
-                row.find("td").eq(1).html("<b>Total</b>");
+            //$(".taxVal").on("change",function(){
+            //    var row = $(this).closest('tr');
+            //    row.find("td").eq(1).html("<b>Total</b>");
 
-            });
+            //});
             var array =@Html.Raw(Json.Encode(Model));
             var arr=[];
             $.each(array, function (key, value) {
@@ -282,6 +284,7 @@
 
                             $(".amount").append($u);
                             a = $(".amount")
+                            var dscnt = th._grid.fields[8].insertControl.val(th._grid.fields[8].insertControl.val()).trigger("change");
 
                         });
                         return $insertControl;
@@ -428,7 +431,8 @@
                      name: "Detail_ID",
                      title: "",
                      type: "text",
-                     visible: false
+                     visible: false,
+                     css : "Net"
 
 
                  },
