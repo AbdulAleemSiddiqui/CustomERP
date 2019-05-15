@@ -73,17 +73,60 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.Hidden("Account_Payable_ID")
+                                <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
+                                <datalist id="Account_Payable_List">
+                                    @{
+                                        List<SfDesk.Models.ChartOfAccount> ab = (new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable());
+                                        List<string> type = ab.Select(x => x.Type_Name).Distinct().ToList();
+                                    }
+                                    @foreach (var t in type)
+                                    {
+                                        <option disabled="" style="font-size:12px; text-align:left; font-family:Arial Black">@t</option>
+                                        foreach (var item in ab.FindAll(x => x.Type_Name == t))
+                                        {
+                                            <option data-id="@item.COA_ID" value="@item.COA_Name">@t-@item.Code</option>
+                                        }
+
+                                    }
+                                </datalist>
+                                @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.Hidden("Purchase_Account_ID")
+                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                <datalist id="Purchase_Account_List">
+                                    @{
+                                        List<SfDesk.Models.ChartOfAccount> a = (new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account());
+                                        List<string> types = a.Select(x => x.Type_Name).Distinct().ToList();
+                                    }
+                                    @foreach (var t in types)
+                                    {
+                                        <option disabled="" style="font-size:12px; text-align:left; font-family:Arial Black">@t</option>
+                                        foreach (var item in a.FindAll(x => x.Type_Name == t))
+                                        {
+                                            <option data-id="@item.COA_ID" value="@item.COA_Name">@t-@item.Code</option>
+                                        }
+
+                                    }
+                                </datalist>
+
+
+
+
+
+
+
+                                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
+
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Suplier_ID, htmlAttributes: new { @class = "control-label col-md-4" })

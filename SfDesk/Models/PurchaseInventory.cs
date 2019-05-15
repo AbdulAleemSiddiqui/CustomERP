@@ -245,7 +245,7 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("PR_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            return (string)sc.ExecuteScalar();
+            return sc.ExecuteScalar().ToString();
         }
         public int PO_Add()
         {
