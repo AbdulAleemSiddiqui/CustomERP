@@ -22,6 +22,7 @@ namespace SfDesk.Models
         public string App_Status { get; set; }
         [DisplayName("Department")]
         public int Department_ID { get; set; }
+        [DisplayName("Department")]
         public string Department_Name { get; set; }
 
         [DisplayName("Purchase Type")]
