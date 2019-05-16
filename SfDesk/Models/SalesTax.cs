@@ -99,7 +99,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
-            sc.Parameters.AddWithValue("@[Opening Balance]", Opening_Balance );
+            sc.Parameters.AddWithValue("@Opening Balance", Opening_Balance );
             
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
