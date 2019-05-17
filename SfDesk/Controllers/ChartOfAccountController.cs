@@ -13,7 +13,8 @@ namespace SfDesk.Controllers
         // GET: ChartOfAccount
         public ActionResult Index()
         {
-            return View(new ChartOfAccount().COA_Get_All());
+            Session["COA"] = new ChartOfAccount().COA_Get_All();
+            return View(Session["COA"]);
         }
         [HttpGet]
         public ActionResult Add()

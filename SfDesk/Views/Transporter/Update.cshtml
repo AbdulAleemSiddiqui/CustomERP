@@ -54,7 +54,9 @@
             </div>
         </div>
         @{
-            List<SfDesk.Models.ChartOfAccount> lst = new SfDesk.Models.ChartOfAccount().COA_Get_All();
+            //List<SfDesk.Models.ChartOfAccount> lst = new SfDesk.Models.ChartOfAccount().COA_Get_All();
+            List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+
         }
         <div class="form-group">
             @Html.LabelFor(model => model.Exp_Acc_ID, htmlAttributes: new { @class = "control-label col-md-2" })

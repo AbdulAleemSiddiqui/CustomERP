@@ -44,13 +44,13 @@ namespace SfDesk.Models
             {
                 SalesTax u = new SalesTax();
                 u.SalesTax_ID = (int)sdr["SalesTax_ID"];
-                u.SalesTax_Name = (string)sdr["SalesTax_Name"];
+                u.SalesTax_Name = (string)sdr["Name"];
                 u.Code = (string)sdr["Code"];
-                u.Account_ID = (int)sdr["Acccount_ID"];
+                u.Account_ID = (int)sdr["Account_ID"];
                 u.TaxType = (string)sdr["TaxType"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Rate_Type = (string)sdr["RateType"];
-                u.Opening_Balance = (decimal)sdr["[Opening Balance]"];
+                u.Opening_Balance = (decimal)sdr["Opening Balance"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -78,7 +78,7 @@ namespace SfDesk.Models
                 u.TaxType = (string)sdr["TaxType"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Rate_Type = (string)sdr["RateType"];
-                u.Opening_Balance = (decimal)sdr["[Opening Balance]"];
+                u.Opening_Balance = (decimal)sdr["Opening Balance"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -99,7 +99,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
-            sc.Parameters.AddWithValue("@Opening Balance", Opening_Balance );
+            sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance );
             
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
@@ -119,7 +119,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
-            sc.Parameters.AddWithValue("@[Opening Balance]", Opening_Balance);
+            sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance);
 
            
             sc.ExecuteNonQuery();
