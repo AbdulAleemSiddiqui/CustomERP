@@ -93,14 +93,15 @@
 
 @section scripts {
     <script>
+        $(window).load(function() {
+           $.get('@Url.Action("add", "TRansporter")', function (data) { $("#myModalContent").html(data); });
+        });
         $('#myModal').on("hidden.bs.modal", function () {
-            $("#myModalContent").html("")
+            //$("#myModalContent").html("")
             location.reload()
         });
      function Add () {
-         $.get('@Url.Action("add", "TRansporter")', function (data) { $("#myModalContent").html(data); });
-
-          $('#myModal').modal('show');
+         $('#myModal').modal('show');
      };
         function Edit(id) {
             $.get('@Url.Action("Update", "Transporter")', { id: id }, function (data) { $("#myModalContent").html(data); });
