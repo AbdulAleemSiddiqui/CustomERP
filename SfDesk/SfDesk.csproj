@@ -228,6 +228,7 @@
     <Compile Include="Controllers\SaleOrderController.cs" />
     <Compile Include="Controllers\SalesTaxController.cs" />
     <Compile Include="Controllers\SessionAttribute.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\TransporterController.cs" />
     <Compile Include="Controllers\userController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\SaleOrder.cs" />
     <Compile Include="Models\SalesTax.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Transporter.cs" />
     <Compile Include="Models\user.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -758,6 +760,8 @@
     <Content Include="Views\Transporter\Update.cshtml" />
     <Content Include="Views\SalesTax\Index.cshtml" />
     <Content Include="Views\SalesTax\Add.cshtml" />
+    <Content Include="Views\Transaction\Index.cshtml" />
+    <Content Include="Views\Transaction\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
