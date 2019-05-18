@@ -37,6 +37,7 @@ namespace SfDesk.Controllers
                 case "OK":
                     u.User_Update_Login_Date();
                     Session["ID"] = u;
+                    Session["COA"] = new ChartOfAccount().COA_Get_All();
                     return RedirectToAction("Index","user");
                 default:
                     ViewBag.i = "Wronge Email or Password";
@@ -54,6 +55,7 @@ namespace SfDesk.Controllers
             if (u.User_Update_Password())
             {
                 Session["ID"] = u;
+                Session["COA"] = new ChartOfAccount().COA_Get_All();
                 return RedirectToAction("Index", "Company");
             }
             ViewBag.message = "Old password is incorrect";
@@ -65,7 +67,6 @@ namespace SfDesk.Controllers
             var action = Url.Action("generate_Menu", "form", new { id = ((SfDesk.Models.user)Session["ID"]).U_Id });
             Response.RemoveOutputCacheItem(action);
             Session["ID"] = null;
-            Session["isMenuCreated"] = null;
             return RedirectToAction("Login");
         }
     }

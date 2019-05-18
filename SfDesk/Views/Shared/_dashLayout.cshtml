@@ -381,10 +381,20 @@
     <script src="~/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="~/assets/js/lib/sweetalert/sweetalert.min.js"></script>
     <script>
+       
         $(function () {
-            $.get('@Url.Action("generate_Menu", "form",new { id= ((SfDesk.Models.user)Session["ID"]).U_Id })', function (data) { $("#menu").html(data); });
+            try{
 
+                $.get('@Url.Action("generate_Menu", "form",new { id= ((SfDesk.Models.user)Session["ID"]).U_Id })', function (data) { $("#menu").html(data); });
+            }
+            catch(err)
+            {
+
+            }
         })
+            
+     
+      
     </script> 
             @RenderSection("scripts", required: false)
 </body>

@@ -22,11 +22,9 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.TaxType, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <select>
-                                    <option>Input</option>
-                                    <option>Output</option>
-                                </select>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.TaxType, new SelectList(new string[] { "Input","Output" }), htmlAttributes: new { @class = "form-control" });
+
 
                                 @Html.ValidationMessageFor(model => model.TaxType, "", new { @class = "text-danger" })
                             </div>
@@ -34,7 +32,7 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
@@ -42,7 +40,7 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.SalesTax_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.SalesTax_Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.SalesTax_Name, "", new { @class = "text-danger" })
                             </div>
@@ -50,43 +48,38 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Account_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                              @Html.Hidden("Account_ID")
-                            <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
-                            <datalist id="Account_Payable_List">
-                                @{
-                                    List<SfDesk.Models.ChartOfAccount> ab = (new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable());
-                                    List<string> type = ab.Select(x => x.Type_Name).Distinct().ToList();
-                                }
-                                @foreach (var t in type)
-                                {
-                                    <option disabled="" style="font-size:12px; text-align:left; font-family:Arial Black">@t</option>
-                                    foreach (var item in ab.FindAll(x => x.Type_Name == t))
-                                    {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@t-@item.Code</option>
+                            <div class="col-md-4">
+                                @Html.Hidden("Account_ID")
+                                <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
+                                <datalist id="Account_Payable_List">
+                                    @{
+                                        List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                     }
 
-                                }
-                            </datalist>
+                                    @foreach (var item in lst)
+                                    {
+                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                    }
+
+                                </datalist>
 
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Rate_Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <select>
-                                    <option>Percentage</option>
-                                    <option>Flat</option>
-                                </select>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.Rate_Type, new SelectList(new string[] { "Percentage", "Flat" }), htmlAttributes: new { @class = "form-control" });
+
 
                                 @Html.ValidationMessageFor(model => model.Rate_Type, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
                             </div>
@@ -94,7 +87,7 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Opening_Balance, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Opening_Balance, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Opening_Balance, "", new { @class = "text-danger" })
                             </div>
@@ -102,16 +95,16 @@
 
 
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
+                            <div class="col-md-offset-2 col-md-4">
                                 <input type="submit" value="Create" class="btn btn-default" />
                             </div>
                         </div>
                     </div>
-                }
+                                        }
             </div>
         </div>
     </div>
-}
+                                        }
 <script>
     $(document).ready(function () {   // Help for the HTML4 version.
         $('select[name=Account_Payable_Name]').change(function () {
@@ -120,6 +113,6 @@
     });
     $('#Account_Payable_Name').on('change', function () {
         var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
-        $("[name='Account_Id']").val(id);
+        $("[name='Account_ID']").val(id);
     });
 </script>
