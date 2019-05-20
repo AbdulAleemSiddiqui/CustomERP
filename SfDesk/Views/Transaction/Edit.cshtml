@@ -1,7 +1,5 @@
 ﻿@model SfDesk.Models.Transaction
-@{
-    Layout = null;
-}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -10,7 +8,7 @@
         <h4>Transaction</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+        @Html.HiddenFor(model => model.T_ID, new { htmlAttributes = new { @class = "form-control" } })
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -55,7 +53,7 @@
                     </div>
                 </div>
             </div>
-   
+
 
         </div>
         <div class="col-md-6">
@@ -66,16 +64,25 @@
                     <input type="text" name="Purchase_ECGS_Name" list="Purchase_ECGS_List" id="Purchase_ECGS_Name" class="form-control text-box">
                     <datalist id="Purchase_ECGS_List">
                         @{
+                            SfDesk.Models.ChartOfAccount selected = null;
+
                             List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                         }
 
                         @foreach (var item in lst)
                         {
                             <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                            if (item.COA_ID == Model.Purchase_ECGS_ID)
+                            {
+                                selected = item;
+
+
+                            }
                         }
 
                     </datalist>
 
+                    <script>valueSelect(@lst.IndexOf(selected),"Purchase_ECGS_Name");</script>
                     @Html.ValidationMessageFor(model => model.Purchase_ECGS_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -90,9 +97,18 @@
                         @foreach (var item in lst)
                         {
                             <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                            if (item.COA_ID == Model.Purchaase_Party_ID)
+                            {
+                                selected = item;
+
+
+                            }
                         }
 
                     </datalist>
+
+                    <script>valueSelect(@lst.IndexOf(selected),"Purchaase_Party_Name");</script>
+
                     @Html.ValidationMessageFor(model => model.Purchaase_Party_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -107,9 +123,18 @@
                         @foreach (var item in lst)
                         {
                             <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                            if (item.COA_ID == Model.Sales_Party_ID)
+                            {
+                                selected = item;
+
+
+                            }
                         }
 
                     </datalist>
+
+                    <script>valueSelect(@lst.IndexOf(selected),"Sales_Party_Name");</script>
+
                     @Html.ValidationMessageFor(model => model.Sales_Party_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -124,9 +149,18 @@
                         @foreach (var item in lst)
                         {
                             <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                            if (item.COA_ID == Model.Sales_Account_ID)
+                            {
+                                selected = item;
+
+
+                            }
                         }
 
                     </datalist>
+
+                    <script>valueSelect(@lst.IndexOf(selected),"Sales_AccounName");</script>
+
                     @Html.ValidationMessageFor(model => model.Sales_Account_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -134,10 +168,11 @@
         </div>
 
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-                        }
+    </div>
+                            }
+

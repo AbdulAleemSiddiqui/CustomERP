@@ -102,21 +102,21 @@ namespace SfDesk.Models
         {
             Transaction u = new Transaction();
             SqlCommand sc = new SqlCommand("Transaction_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Transaction_ID", T_ID);
+            sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
-                u.T_ID = (int)sdr["Transaction_ID"];
-                u.Name = (string)sdr["Transaction_Name"];
+                u.T_ID = (int)sdr["T_ID"];
+                u.Name = (string)sdr["Name"];
                 u.Charge_Nature = (string)sdr["Charge_Nature"];
                 u.isTexable = (bool)sdr["isTexable"];
                 u.Rate = (decimal)sdr["Rate"];
-                u.Rate_Type = (string)sdr["RateType"];
+                u.Rate_Type = (string)sdr["Rate_Type"];
                 u.isPer_Apply = (bool)sdr["isPer_Apply"];
 
-                u.Purchaase_Party_ID = (int)sdr["Purchaase_Party_ID"];
-                u.Purchaase_Party_Name = (string)sdr["Purchaase_Party_Name"];
+                u.Purchaase_Party_ID = (int)sdr["Purchase_Party_ID"];
+                u.Purchaase_Party_Name = (string)sdr["Purchase_Party_Name"];
 
                 u.Purchase_ECGS_ID = (int)sdr["Purchase_ECGS_ID"];
                 u.Purchase_ECGS_Name = (string)sdr["Purchase_ECGS_Name"];
