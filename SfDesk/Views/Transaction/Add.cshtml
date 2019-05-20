@@ -2,101 +2,196 @@
 @{
     Layout = null;
 }
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Transaction</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-  
+
         <div class="col-md-6">
             <div class="form-group">
-                @Html.LabelFor(model => model.T_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.T_Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.T_Name, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.T_Charge_Nature, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.T_Charge_Nature, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.T_Charge_Nature, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Charge_Nature, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.Charge_Nature, new SelectList(new string[] { "Addition", "Deduction" }), htmlAttributes: new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.Charge_Nature, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.T_Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.T_Rate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.T_Rate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.T_Rate_Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.T_Rate_Type, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.T_Rate_Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Is_Taxable, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    <div class="checkbox col-md-8">
-                        @Html.EditorFor(model => model.Is_Taxable)
-                        @Html.ValidationMessageFor(model => model.Is_Taxable, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.isTexable, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isTexable, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.isTexable, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-            </div>
-        <div class="col-md-6">
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Purchase_ECGS, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Purchase_ECGS, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Purchase_ECGS, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Sale_EGCS, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Sale_EGCS, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Sale_EGCS, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Rate_Type, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.Rate_Type, new SelectList(new string[] { "Percentage", "Flat" }), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Rate_Type, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Sale_Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Sale_Amount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Sale_Amount, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.isPer_Apply, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isPer_Apply, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.isPer_Apply, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6" style="text-align:right">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Purchase_ECGS_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.Hidden("Purchase_ECGS_ID")
+                    <input type="text" name="Purchase_ECGS_Name" list="Purchase_ECGS_List" id="Purchase_ECGS_Name" class="form-control text-box">
+                    <datalist id="Purchase_ECGS_List">
+                        @{
+                            List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                        }
+
+                        @foreach (var item in lst)
+                        {
+                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                        }
+
+                    </datalist>
+
+                    @Html.ValidationMessageFor(model => model.Purchase_ECGS_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Purchase_Effect_Party, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Purchase_Effect_Party, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Purchase_Effect_Party, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Purchaase_Party_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.Hidden("Purchaase_Party_ID")
+                    <input type="text" name="Purchaase_Party_Name" list="Purchase_ECGS_List" id="Purchaase_Party_Name" class="form-control text-box">
+                    <datalist id="Purchase_ECGS_List">
+
+                        @foreach (var item in lst)
+                        {
+                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                        }
+
+                    </datalist>
+                    @Html.ValidationMessageFor(model => model.Purchaase_Party_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
-            </div>
-
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                @Html.LabelFor(model => model.Sales_Party_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.Hidden("Sales_Party_ID")
+                    <input type="text" name="Sales_Party_Name" list="Purchase_ECGS_List" id="Sales_Party_Name" class="form-control text-box">
+                    <datalist id="Purchase_ECGS_List">
+
+                        @foreach (var item in lst)
+                        {
+                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                        }
+
+                    </datalist>
+                    @Html.ValidationMessageFor(model => model.Sales_Party_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sales_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.Hidden("Sales_Account_ID")
+                    <input type="text" name="Sales_Account_Name" list="Purchase_ECGS_List" id="Sales_Account_Name" class="form-control text-box">
+                    <datalist id="Purchase_ECGS_List">
+
+                        @foreach (var item in lst)
+                        {
+                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                        }
+
+                    </datalist>
+                    @Html.ValidationMessageFor(model => model.Sales_Account_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6">
                     <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
-}
+    </div>
+                            }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Purchase_ECGS_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Purchase_ECGS_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Purchase_ECGS_Name').val() + "']").data("id");
+        $("[name='Purchase_ECGS_ID']").val(id);
+    });
+
+
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Purchaase_Party_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Purchaase_Party_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Purchaase_Party_Name').val() + "']").data("id");
+        $("[name='Purchaase_Party_ID']").val(id);
+    });
+
+
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Sales_Party_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Sales_Party_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Sales_Party_Name').val() + "']").data("id");
+        $("[name='Sales_Party_ID']").val(id);
+    });
+
+
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Sales_Account_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Sales_Account_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Sales_Account_Name').val() + "']").data("id");
+        $("[name='Sales_Account_ID']").val(id);
+    });
+</script>

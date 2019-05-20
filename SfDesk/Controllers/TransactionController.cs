@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
+    [Session]
     public class TransactionController : Controller
     {
         // GET: Transaction
@@ -23,7 +24,7 @@ namespace SfDesk.Controllers
         public ActionResult Add(Transaction s)
         {
             s.Transaction_Add();
-            return View();
+            return RedirectToAction("Index");
         }
         public ActionResult Edit(int id)
         {

@@ -16,24 +16,24 @@
                             <tr>
                                
                                 <th>
-                                    @Html.DisplayNameFor(model => model.T_Name)
+                                    @Html.DisplayNameFor(model => model.Name)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.T_Charge_Nature)
+                                    @Html.DisplayNameFor(model => model.Charge_Nature)
                                 </th>
 
                                 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Purchase_ECGS)
+                                    @Html.DisplayNameFor(model => model.Purchaase_Party_ID)
                                 </th>
                                 <th>
-                                      @Html.DisplayNameFor(model => model.Purchase_Effect_Party)
+                                      @Html.DisplayNameFor(model => model.Purchase_ECGS_ID)
                                     </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Sale_EGCS)
+                                    @Html.DisplayNameFor(model => model.Sales_Party_ID)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Is_Taxable)
+                                    @Html.DisplayNameFor(model => model.Sales_Account_ID)
                                 </th>
                               
                                 <th></th>
@@ -45,30 +45,28 @@
                                 <tr>
                                    
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.T_Name)
+                                        @Html.DisplayFor(modelItem => item.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.T_Charge_Nature)
+                                        @Html.DisplayFor(modelItem => item.Charge_Nature)
                                     </td>
                                     
                                      
                                    
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Purchase_ECGS)
+                                        @Html.DisplayFor(modelItem => item.Purchaase_Party_Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Purchase_Effect_Party)
+                                        @Html.DisplayFor(modelItem => item.Purchase_ECGS_Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Sale_EGCS)
+                                        @Html.DisplayFor(modelItem => item.Sales_Party_Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Sale_Amount)
+                                        @Html.DisplayFor(modelItem => item.Sales_Account_Name)
                                     </td>
                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Is_Taxable)
-                                    </td>
+                                   
                                     <td>
                                         <button type="button" class="btn mini btn-info" onclick="Edit(@item.T_ID)" })'"><i class="ti-pencil"></i> </button>
                                         <button type="button" class="btn mini btn-danger" onclick="ConfirmDelete(@item.T_ID)" })'"><i class="ti-trash"></i> </button>
