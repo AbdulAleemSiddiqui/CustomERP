@@ -130,7 +130,8 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("SalesTax_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
-            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.ExecuteNonQuery();
         }
 

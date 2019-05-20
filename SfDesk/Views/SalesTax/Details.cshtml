@@ -1,0 +1,99 @@
+﻿@model SfDesk.Models.SalesTax
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null; //"~/Views/Shared/_dashLayout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card alert">
+            <div class="card-body">
+                <div class="user-profile">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="user-photo m-b-30">
+                                @*  <img class="img-responsive" src="~/assets/images/user-profile.jpg" alt="" />*@
+                                <h1>Details</h1>
+                                <br />
+                            </div>
+                
+                        </div>
+                        <div class="col-lg-8">
+                      
+                            <div class="user-job-title"></div>
+
+                            <div class="user-send-message"><br /></div>
+                            <div class="custom-tab user-profile-tab">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">About</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="1">
+                                        <div class="contact-information">
+                                            <h4>Tax information</h4>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Tax Name:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.SalesTax_Name)
+                                                </span>
+
+                                            </div>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Code:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.Code)
+                                                </span>
+
+
+                                            </div>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Tax type:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.TaxType)
+                                                </span>
+
+                                            </div>
+                                            <div class="phone-content">
+                                                <span class="contact-title">Account Name:</span>
+                                                <span class="phone-number">
+                                                    @Html.DisplayFor(model => model.Account_Name)
+                                                </span>
+
+                                            </div>
+                                            <div class="address-content">
+                                                <span class="contact-title">RatevType:</span>
+                                                <span class="mail-address">
+                                                    @Html.DisplayFor(model => model.Rate_Type)
+                                                </span>
+                                            </div>
+                                            <div class="address-content">
+                                                <span class="contact-title">Rate:</span>
+                                                <span class="mail-address">
+                                                    @Html.DisplayFor(model => model.Rate)
+                                                </span>
+                                            </div>
+                                            <div class="address-content">
+                                                <span class="contact-title">Opening Balance:</span>
+                                                <span class="mail-address">
+                                                    @Html.DisplayFor(model => model.Opening_Balance)
+                                                </span>
+                                            </div>
+                                        </div>
+   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

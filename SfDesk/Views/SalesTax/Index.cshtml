@@ -77,6 +77,18 @@
 
 @section scripts {
     <script>
+        function valueSelect(index) {
+            var input = $('#Account_Payable_Name')
+            var list = $("#" + input.attr("list"))
+            var options = $($(list).prop("options"))
+            input.val(options.eq(index).val())
+           
+        };
+        function detail(id) {
+            $.get('@Url.Action("Details", "SalesTax")', { id: id }, function (data) { $("#myModalContent").html(data); });
+
+            $('#myModal').modal('show');
+        };
          function Edit (id) {
             $.get('@Url.Action("Edit", "SalesTax")', { id: id }, function (data) { $("#myModalContent").html(data); });
 

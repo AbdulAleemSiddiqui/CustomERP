@@ -761,8 +761,9 @@
     <Content Include="Views\SalesTax\Index.cshtml" />
     <Content Include="Views\SalesTax\Add.cshtml" />
     <Content Include="Views\Transaction\Index.cshtml" />
-    <Content Include="Views\SalesTax\Edit.cshtml" />
     <Content Include="Views\Transaction\Add.cshtml" />
+    <Content Include="Views\SalesTax\Edit.cshtml" />
+    <Content Include="Views\SalesTax\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
