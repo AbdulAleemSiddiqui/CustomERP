@@ -3,9 +3,6 @@
     ViewBag.Title = "Index";
     Layout = null;
 }
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
     <div class="card alert">
         <div class="card-header">
@@ -105,7 +102,7 @@
             </div>
         </div>
     </div>
-                                        }
+                                     
 <script>
     $(document).ready(function () {   // Help for the HTML4 version.
         $('select[name=Account_Payable_Name]').change(function () {
