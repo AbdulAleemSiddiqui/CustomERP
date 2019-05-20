@@ -167,10 +167,10 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Charge_Nature", Charge_Nature);
             sc.Parameters.AddWithValue("@isTexable", isTexable);
             sc.Parameters.AddWithValue("@Rate", Rate);
-            sc.Parameters.AddWithValue("@RateType", Rate_Type);
+            sc.Parameters.AddWithValue("@Rate_Type", Rate_Type);
             sc.Parameters.AddWithValue("@isPer_Apply", isPer_Apply);
 
-            sc.Parameters.AddWithValue("@Purchaase_Party_ID", Purchaase_Party_ID);
+            sc.Parameters.AddWithValue("@Purchase_Party_ID", Purchaase_Party_ID);
             sc.Parameters.AddWithValue("@Sales_Account_ID", Sales_Account_ID);
             sc.Parameters.AddWithValue("@Sales_Party_ID", Sales_Party_ID);
             sc.Parameters.AddWithValue("@Purchase_ECGS_ID", Purchase_ECGS_ID);
@@ -181,7 +181,8 @@ namespace SfDesk.Models
         public void Transaction_Delete()
         {
             SqlCommand sc = new SqlCommand("Transaction_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@id", T_ID);
+            sc.Parameters.AddWithValue("@T_ID", T_ID);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
         }
 

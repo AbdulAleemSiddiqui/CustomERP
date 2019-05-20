@@ -45,7 +45,14 @@
                     @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Rate_Type, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8 ">
+                    @Html.DropDownListFor(model => model.Rate_Type, new SelectList(new string[] { "Percentage", "Flat" }), htmlAttributes: new { @class = "form-control" })
 
+                    @Html.ValidationMessageFor(model => model.Rate_Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.isPer_Apply, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
@@ -117,8 +124,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Sales_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.Hidden("Sales_AccounID")
-                    <input type="text" name="Sales_AccounName" list="Purchase_ECGS_List" id="Sales_AccounName" class="form-control text-box">
+                    @Html.Hidden("Sales_Account_ID")
+                    <input type="text" name="Sales_Account_Name" list="Purchase_ECGS_List" id="Sales_Account_Name" class="form-control text-box">
                     <datalist id="Purchase_ECGS_List">
 
                         @foreach (var item in lst)
@@ -141,3 +148,47 @@
             </div>
         </div>
                         }
+<script>
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Purchase_ECGS_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Purchase_ECGS_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Purchase_ECGS_Name').val() + "']").data("id");
+        $("[name='Purchase_ECGS_ID']").val(id);
+    });
+
+
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Purchaase_Party_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Purchaase_Party_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Purchaase_Party_Name').val() + "']").data("id");
+        $("[name='Purchaase_Party_ID']").val(id);
+    });
+
+
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Sales_Party_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Sales_Party_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Sales_Party_Name').val() + "']").data("id");
+        $("[name='Sales_Party_ID']").val(id);
+    });
+
+
+    $(document).ready(function () {   // Help for the HTML4 version.
+        $('select[name=Sales_Account_Name]').change(function () {
+            $('input[name=other]').val($(this).val());
+        })
+    });
+    $('#Sales_Account_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Sales_Account_Name').val() + "']").data("id");
+        $("[name='Sales_Account_ID']").val(id);
+    });
+</script>
