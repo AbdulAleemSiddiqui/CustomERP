@@ -1,22 +1,19 @@
 ﻿@model SfDesk.Models.SalesTax
-@{
-    ViewBag.Title = "Index";
-    Layout = null;
-}  <div class="card alert">
+
+
+
+<div class="card alert">
     <div class="card-header">
         <div class="card-body">
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
 
-
-
-
                 <div class="form-horizontal">
-                    <h4>Add User</h4>
+                    <h4>SalesTax</h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @*@Html.HiddenFor(model=>model.SalesTax_ID)*@
+                    @Html.HiddenFor(model=>model.SalesTax_ID)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.TaxType, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -74,7 +71,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
@@ -90,27 +86,19 @@
                             @Html.ValidationMessageFor(model => model.Opening_Balance, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-4">
                             <input type="submit" value="Create" class="btn btn-default" />
                         </div>
                     </div>
-                </div>
-                                    }
             </div>
+            }
+            
         </div>
     </div>
-                                  
-            <script>
-                $(document).ready(function () {   // Help for the HTML4 version.
-                    $('select[name=Account_Payable_Name]').change(function () {
-                        $('input[name=other]').val($(this).val());
-                    })
-                });
-                $('#Account_Payable_Name').on('change', function () {
-                    var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
-                    $("[name='Account_ID']").val(id);
-                });
-            </script>
+</div>            
+                                        
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
