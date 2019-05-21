@@ -262,17 +262,18 @@
     </script>
     <script>
         $(window).load(function () {
-           var index = $("#Account_Payable_I").val()
-           var input = $("#Account_Payable_Name")
-            var list = $("#" + input.attr("list"))
-            var options = $($(list).prop("options"))
-            input.val(options.eq(index).val())
-            index = $("#Purchase_Account_I").val()
-            input = $("#Purchase_Account_Name")
-             list = $("#" + input.attr("list"))
-             options = $($(list).prop("options"))
-            input.val(options.eq(index).val())
-
+            if ($('#PI_ID').val() != 0) {
+                var index = $("#Account_Payable_I").val()
+                var input = $("#Account_Payable_Name")
+                var list = $("#" + input.attr("list"))
+                var options = $($(list).prop("options"))
+                input.val(options.eq(index).val())
+                index = $("#Purchase_Account_I").val()
+                input = $("#Purchase_Account_Name")
+                list = $("#" + input.attr("list"))
+                options = $($(list).prop("options"))
+                input.val(options.eq(index).val())
+            }
         })
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")

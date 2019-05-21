@@ -80,8 +80,8 @@
                                 <datalist id="Account_Payable_List">
                                     @{
                                         SfDesk.Models.ChartOfAccount selected = null;
-                                        int indexofAPL = 0;
-                                        int indexofPAN = 0;
+                                        int indexofAPL = -1;
+                                        int indexofPAN = -1;
                                         List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                         ab = ab.FindAll(x => x.Group_ID == 20);
                                     }
@@ -245,16 +245,19 @@
     <script>
         $(window).load(function () {
             var index = $("#Account_Payable_I").val()
-            var input = $("#Account_Payable_Name")
-            var list = $("#" + input.attr("list"))
-            var options = $($(list).prop("options"))
-            input.val(options.eq(index).val())
-            index = $("#Purchase_Account_I").val()
-            input = $("#Purchase_Account_Name")
-            list = $("#" + input.attr("list"))
-            options = $($(list).prop("options"))
-            input.val(options.eq(index).val())
+            if (index != -1) {
 
+                var index = $("#Account_Payable_I").val()
+                var input = $("#Account_Payable_Name")
+                var list = $("#" + input.attr("list"))
+                var options = $($(list).prop("options"))
+                input.val(options.eq(index).val())
+                index = $("#Purchase_Account_I").val()
+                input = $("#Purchase_Account_Name")
+                list = $("#" + input.attr("list"))
+                options = $($(list).prop("options"))
+                input.val(options.eq(index).val())
+            }
         })
         $(document).ready(function () {   // Help for the HTML4 version.
             $('select[name=Account_Payable_Name]').change(function () {
