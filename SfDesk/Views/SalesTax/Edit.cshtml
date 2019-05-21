@@ -50,17 +50,29 @@
                                 @Html.Hidden("Account_ID")
                                 <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
                                 <datalist id="Account_Payable_List">
-                                    @{
-                                        List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                    }
+                                    <select  name="Account_Payable_Name"  id="Account_Payable_Name">
+                                        @{
+                                            SfDesk.Models.ChartOfAccount selected = null;
+                                            List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                        }
 
-                                    @foreach (var item in lst)
-                                    {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                    }
+                                        @foreach (var item in lst)
+                                        {
+                                           
+                                                <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                            if (item.COA_ID == Model.Account_ID)
+                                            {
+                                                selected = item;
+                                           
 
+                                            }
+
+                                        }
+                                        
+
+                                    </select>
                                 </datalist>
-
+                                <script>valueSelect(@lst.IndexOf(selected));</script>
                             </div>
                         </div>
 
@@ -104,10 +116,12 @@
     </div>
                                      
 <script>
+   
     $(document).ready(function () {   // Help for the HTML4 version.
         $('select[name=Account_Payable_Name]').change(function () {
             $('input[name=other]').val($(this).val());
-        })
+        });
+        
     });
     $('#Account_Payable_Name').on('change', function () {
         var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
