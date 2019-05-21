@@ -84,6 +84,11 @@
             input.val(options.eq(index).val())
            
         };
+        function detail(id) {
+            $.get('@Url.Action("Details", "SalesTax")', { id: id }, function (data) { $("#myModalContent").html(data); });
+
+            $('#myModal').modal('show');
+        };
          function Edit (id) {
             $.get('@Url.Action("Edit", "SalesTax")', { id: id }, function (data) { $("#myModalContent").html(data); });
 

@@ -41,5 +41,9 @@ namespace SfDesk.Controllers
             new SalesTax() { SalesTax_ID = id }.SalesTax_Delete();
             return RedirectToAction("index");
         }
+        public ActionResult Details(int id)
+        {
+            return PartialView("Details", new SalesTax() {SalesTax_ID = id }.SalesTax_Get_By_ID());
+        }
     }
 }
