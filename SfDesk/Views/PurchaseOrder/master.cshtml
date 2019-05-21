@@ -95,7 +95,7 @@
                                     }
 
                                 </datalist>
-                                <input type="hidden" id="Account_Payable_ID" value="@indexofAPL" />
+                                <input type="hidden" id="Account_Payable_ID" name="Account_Payable_ID" value="@indexofAPL" />
                                 @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
@@ -123,7 +123,7 @@
                                     }
 
                                 </datalist>
-                                <input type="hidden" id="Purchase_Account_ID" value="@indexofPAN" />
+                                <input type="hidden" id="Purchase_Account_ID" name ="Purchase_Account_ID" value="@indexofPAN" />
                                 @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>

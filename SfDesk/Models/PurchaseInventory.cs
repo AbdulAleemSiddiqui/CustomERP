@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -137,7 +138,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
-            return Convert.ToInt32((decimal)sc.ExecuteScalar());
+          return Convert.ToInt32((decimal)sc.ExecuteScalar());
         }
 
         public List<PurchaseInventory> PR_Get_All()
@@ -246,7 +247,10 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("PR_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            return sc.ExecuteScalar().ToString();
+            sc.Parameters.Add("@a", SqlDbType.Int);
+            sc.Parameters["@a"].Direction = ParameterDirection.Output;
+            sc.ExecuteNonQuery();
+            return ((int)sc.Parameters["@a"].Value).ToString();
         }
         public int PO_Add()
         {
