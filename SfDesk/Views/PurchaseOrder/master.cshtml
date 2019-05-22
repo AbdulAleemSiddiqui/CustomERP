@@ -72,21 +72,30 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.Hidden("Account_Payable_ID")
+                            <div class="col-md-5">  
                                 <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
                                 <datalist id="Account_Payable_List">
                                     @{
+                                        SfDesk.Models.ChartOfAccount selected = null;
+                                        int indexofAPL = 0;
+                                        int indexofPAN = 0;
                                         List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                         ab = ab.FindAll(x => x.Group_ID == 20);
                                     }
-                                    
-                                        @foreach (var item in ab)
+
+                                    @foreach (var item in ab)
+                                    {
+                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        if (item.COA_ID == Model.Account_Payable_ID)
                                         {
-                                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                            selected = item;
+                                            indexofAPL = ab.IndexOf(item);
                                         }
 
+                                    }
+
                                 </datalist>
+                                <input type="hidden" id="Account_Payable_ID" value="@indexofAPL" />
                                 @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
@@ -98,22 +107,23 @@
                                 <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
                                 <datalist id="Purchase_Account_List">
                                     @{
-                                        ab= (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                        ab = ab.FindAll(x => x.Group_ID== 2 || x.Group_ID==5 ||  x.Group_ID == 4|| x.Group_ID == 24);
+                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
                                     }
 
                                     @foreach (var item in ab)
                                     {
                                         <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        if (item.COA_ID == Model.Account_Payable_ID)
+                                        {
+                                            selected = item;
+                                            indexofPAN = ab.IndexOf(item);
+                                        }
+
                                     }
+
                                 </datalist>
-
-
-
-
-
-
-
+                                <input type="hidden" id="Purchase_Account_ID" value="@indexofPAN" />
                                 @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>
