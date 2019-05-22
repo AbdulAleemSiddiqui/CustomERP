@@ -71,6 +71,9 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            @Html.Hidden("Account_Payable_ID")
+
+
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">  
                                 <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
@@ -95,15 +98,16 @@
                                     }
 
                                 </datalist>
-                                <input type="hidden" id="Account_Payable_ID" name="Account_Payable_ID" value="@indexofAPL" />
+                                <input type="hidden" id="Account_Payable_I" name="Account_Payable_I" value="@indexofAPL" />
                                 @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
+
+                            @Html.Hidden("Purchase_Account_ID")
                             @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.Hidden("Purchase_Account_ID")
                                 <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
                                 <datalist id="Purchase_Account_List">
                                     @{
@@ -114,7 +118,7 @@
                                     @foreach (var item in ab)
                                     {
                                         <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Account_Payable_ID)
+                                        if (item.COA_ID == Model.Purchase_Account_ID)
                                         {
                                             selected = item;
                                             indexofPAN = ab.IndexOf(item);
@@ -123,7 +127,7 @@
                                     }
 
                                 </datalist>
-                                <input type="hidden" id="Purchase_Account_ID" name ="Purchase_Account_ID" value="@indexofPAN" />
+                                <input type="hidden" id="Purchase_Account_I" name ="Purchase_Account_I" value="@indexofPAN" />
                                 @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>
@@ -239,6 +243,19 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        $(window).load(function () {
+            var index = $("#Account_Payable_I").val()
+            var input = $("#Account_Payable_Name")
+            var list = $("#" + input.attr("list"))
+            var options = $($(list).prop("options"))
+            input.val(options.eq(index).val())
+            index = $("#Purchase_Account_I").val()
+            input = $("#Purchase_Account_Name")
+            list = $("#" + input.attr("list"))
+            options = $($(list).prop("options"))
+            input.val(options.eq(index).val())
+
+        })
         $(document).ready(function () {   // Help for the HTML4 version.
             $('select[name=Account_Payable_Name]').change(function () {
                 $('input[name=other]').val($(this).val());
