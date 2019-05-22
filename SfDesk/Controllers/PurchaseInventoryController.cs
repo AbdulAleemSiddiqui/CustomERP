@@ -10,6 +10,10 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseInventoryController : Controller
     {
+        public ActionResult Get_Taxes()
+        {
+            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
+        }
         // GET: PurchaseInventory
         public ActionResult master(int? id)
         {
