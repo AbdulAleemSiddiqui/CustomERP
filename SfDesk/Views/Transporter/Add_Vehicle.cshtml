@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<SfDesk.Models.Vehicle>
 
-<link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
-<link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
+<link href="~/assets/css/jsGrid.min.css" rel="stylesheet" />
+<link href="~/assets/css/jsGrid-theme.min.css" rel="stylesheet" />
 <div id="main-content">
     <div class="row">
         <div class="col-lg-12">
             <div class="card alert">
-                <div class="jsgrid-table-panel">
-                    <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
+                <div class="jsGrid-table-panel">
+                    <div id="jssGrid" class="table table-striped table-bordered dataTable no-footer"></div>
                 </div>
             </div>
             <!-- /# card -->
@@ -18,7 +18,7 @@
 
 
 <script src="~/assets/js/db.js"></script>
-<script src="~/assets/js/jsgrid.js"></script>
+<script src="~/assets/js/jsGrid.js"></script>
 <script>
     var arr=[];
     $(document).ready(function(){
@@ -44,7 +44,7 @@
    
     function my()
     {
-                $("#jsGrid").jsGrid({
+                $("#jssGrid").jsGrid({
                     
                     controller: {
                         loadData: $.noop,
