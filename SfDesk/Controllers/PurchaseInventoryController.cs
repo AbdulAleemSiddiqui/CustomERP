@@ -29,8 +29,8 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
         {
-            int id = c.Purchase_Inventory_Add();
-            return Json(id, JsonRequestBehavior.AllowGet);
+            //int id = c.Purchase_Inventory_Add();
+            return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ShowAll()
         {

@@ -156,7 +156,7 @@ namespace SfDesk.Models
                 u.Department_ID = (int)sdr["Department_ID"];
                 u.Department_Name = (string)sdr["D_Name"];
                 u.Date = (DateTime)sdr["Date"];
-                u.Comments = (string)sdr["Comments"];
+                u.Comments = Connection.SafeGetString(sdr, 5);
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
