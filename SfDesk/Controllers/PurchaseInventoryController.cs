@@ -10,10 +10,7 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseInventoryController : Controller
     {
-        public ActionResult Get_Taxes()
-        {
-            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
-        }
+      
         // GET: PurchaseInventory
         public ActionResult master(int? id)
         {
@@ -68,9 +65,14 @@ namespace SfDesk.Controllers
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Save_Charges(PurchaseInventory p)
+        [HttpGet]
+        public ActionResult Get_Taxes()
         {
-            p.PI_Charges_Add();
+            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Save_Charges(int PI_ID, SalesTax s)
+        {
+          //  p.PI_Charges_Add();
             return Json("");
         }
     }
