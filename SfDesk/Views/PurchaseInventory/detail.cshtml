@@ -570,9 +570,12 @@
    
             { type: "control",editButton: false,
                 itemTemplate: function(_, item) {
-
-                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
-                }}
+                  
+                            if(item.IsTotal)
+                                return "";
+                            return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                        }}
+                
             ]
 
         });
