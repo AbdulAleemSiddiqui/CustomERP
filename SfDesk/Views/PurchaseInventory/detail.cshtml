@@ -91,6 +91,7 @@
             $.ajax({
                 type: "GET",
                 url: "Get_taxes",
+                data: {PI_ID : $('#PI_ID').val() },
                 dataType: "json",
                 success: function (d) {
 

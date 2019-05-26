@@ -70,13 +70,17 @@ namespace SfDesk.Controllers
         {
             return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Get_taxes_by_ID()
+        public ActionResult Get_taxes_by_ID(int PI_ID )
         {
-            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
+            PI_Charge p = new PI_Charge() { PI_ID = PI_ID };
+            return Json(p.PI_Charge_Get_All(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Save_Charges(int PI_ID, SalesTax s)
-        {   
-          //  p.PI_Charges_Add();
+        {
+            PI_Charge p = new PI_Charge();
+            p.PI_ID = PI_ID;
+            p.SalesTax_ID = s.SalesTax_ID;
+            p.PI_Charge_Add();
             return Json("");
         }
     }
