@@ -52,7 +52,7 @@
 
                 </div>
                 <div class="jsgrid-table-panel">
-                    <div id="Grid" class="table table-striped table-bordered dataTable no-footer"></div>
+                    <div id="Grid" class="table table-striped table-bordered dataTable no-footer" style="float:right"></div>
 
                 </div>
             <!-- /# card -->
@@ -67,6 +67,7 @@
 <script>
     var arr = [];
     var taxes =[];
+    var taxess = []
         function loadData() {
             debugger
             var id =  $('#PI_ID').val()
@@ -95,7 +96,21 @@
 
                     if (d.ID != 0)
                         taxes = d
-                    tax()
+                    $.ajax({
+                        type: "GET",
+                        url: "Get_taxes_by_ID",
+                        dataType: "json",
+                        success: function (f) {
+
+                            if (d.ID != 0)
+                                taxess = f
+                            taxess.forEach(function(item) {
+                                item.Total = net_total*(item.Rate/100);
+                                item.Total=item.Total.toFixed(2);
+                            });
+                            tax()
+                        }
+                    });
                 }
             });
 
@@ -448,7 +463,7 @@
             pageSize: 15,
             pageButtonCount: 5,
             deleteConfirm: "confirm",
-            data: [],
+            data: taxess,
             controller: {
                 insertItem: function (insertingClient) {
           
@@ -506,7 +521,7 @@
                 var total = { Name: "Total", "Rate":0,"Total":0, IsTotal: true };
                 debugger;
                 items.forEach(function(item) {
-                   
+                   item.Total = 
                     total.Total +=parseFloat( item.Total);
                 });
                 var  tax_total =  total.Total;
