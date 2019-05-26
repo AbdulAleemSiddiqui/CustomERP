@@ -39,8 +39,8 @@ namespace SfDesk.Models
                 u.PI_Charge_ID = (int)sdr["PI_Charge_ID"];
                 u.PI_ID = (int)sdr["PI_ID"];
                 u.SalesTax_ID = (int)sdr["ST_ID"];
-                u.SalesTax_Name = (string)sdr["ST_Name"];
-                u.Rate = (decimal)sdr["ST_Rate"];
+                u.SalesTax_Name = (string)sdr["Name"];
+                u.Rate = (decimal)sdr["Rate"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
