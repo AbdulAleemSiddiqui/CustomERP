@@ -16,7 +16,6 @@
     </div>
 </div>
 
-
 <script src="~/assets/js/db.js"></script>
 <script src="~/assets/js/jsGrid.js"></script>
 <script>
@@ -24,7 +23,7 @@
     $(document).ready(function(){
         debugger;
         var id = $('#Transporter_ID').val();
-        if (id == null)
+        if (id ==  null || id== "")
         {
             var id = $('#T_ID').val();
         }

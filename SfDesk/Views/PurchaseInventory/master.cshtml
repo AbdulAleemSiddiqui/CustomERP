@@ -32,7 +32,9 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control"@*, @readonly = "readonly"*@ }
+                                   @class = "form-control",
+                                   @readonly = "readonly"
+                               }
                            })
                                 @Html.ValidationMessageFor(model => model.PR_No, "", new { @class = "text-danger" })
                             </div>
@@ -45,7 +47,7 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control"@*, @readonly = "readonly"*@ }
+                                   @class = "form-control", @readonly = "readonly" }
                            })
                                 @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
                             </div>
@@ -273,6 +275,7 @@
                 list = $("#" + input.attr("list"))
                 options = $($(list).prop("options"))
                 input.val(options.eq(index).val())
+                Master_Id = $('#PI_ID').val();
             }
         })
         $('#myModal').on("hidden.bs.modal", function () {

@@ -27,6 +27,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }
+      
     }
 
 }

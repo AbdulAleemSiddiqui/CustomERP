@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SfDesk
 {
-    public class Connection
+    public static class Connection
     {
         static SqlConnection sc;
         public static SqlConnection Get()
@@ -19,6 +19,12 @@ namespace SfDesk
                 sc.Open();
             }
             return sc;
+        }
+        public static string SafeGetString(this SqlDataReader reader, int colIndex)
+        {
+            if (!reader.IsDBNull(colIndex))
+                return reader.GetString(colIndex);
+            return string.Empty;
         }
     }
 }
