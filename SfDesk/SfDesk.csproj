@@ -219,6 +219,7 @@
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
@@ -255,6 +256,9 @@
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\MiddleMan.cs" />
     <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Payment_Mode.cs" />
+    <Compile Include="Models\Payment_Detail.cs" />
     <Compile Include="Models\PI_Charge.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -929,6 +933,8 @@
     <Content Include="Views\SalesTax\Edit.cshtml" />
     <Content Include="Views\SalesTax\Details.cshtml" />
     <Content Include="Views\Transaction\Edit.cshtml" />
+    <Content Include="Views\Payment\Master.cshtml" />
+    <Content Include="Views\Payment\detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

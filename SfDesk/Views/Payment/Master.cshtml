@@ -1,0 +1,133 @@
+﻿@model SfDesk.Models.Payment
+
+@{
+    ViewBag.Title = "Master";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Payment</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                  
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Suplier_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Suplier_ID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Suplier_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Suplier_Name, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Suplier_Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Suplier_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.P_No, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.P_No, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.P_No, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.P_Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.P_Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.P_Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.ExRate, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.ExRate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ExRate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Job_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Job_ID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Job_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Job_Name, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Job_Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Job_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Naration, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.Naration, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Naration, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div id="child"></div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+              
+            }
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+@section scripts
+{
+
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/db.js">
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            detail()
+        });
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
+    
+
+        /*ye master ka he*/
+        function detail() {
+
+            $.get('@Url.Action("detail", "payment")', function (data) { $("#child").html(data); });
+            $("#done").hide()
+        };
+  
+
+    </script>
+}
