@@ -110,7 +110,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@NTN_Status", NTN_Status);
             sc.Parameters.AddWithValue("@STRN", STRN);
             sc.Parameters.AddWithValue("@STRN_Status", STRN_Status);
-            sc.Parameters.AddWithValue("@Transaction_Type", Transaction_type);
+            sc.Parameters.AddWithValue("@Transaction_type", Transaction_type);
             sc.Parameters.AddWithValue("@Person_Name", Person_Name);
             sc.Parameters.AddWithValue("@Person_Phone", Person_Phone);
             sc.Parameters.AddWithValue("@Person_Email", Person_Email);
@@ -124,7 +124,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
 
-            object a = sc.ExecuteScalar();
+           object a = sc.ExecuteScalar();
             return Convert.ToInt32((decimal)a);
 
         }

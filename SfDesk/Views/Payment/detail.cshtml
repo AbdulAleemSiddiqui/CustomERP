@@ -15,6 +15,8 @@
                 <div class="jsgrid-table-panel">
                     <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
                     <br />
+                    <hr />
+                    <div id="Grid" class="table table-striped table-bordered dataTable no-footer"></div>
 
                 </div>
                 <!-- /# card -->
@@ -90,9 +92,6 @@
                         },
                     })
                 },
-
-
-
                 deleteItem: function (deletingClient) {
                     $.ajax({
                         type: "GET",
@@ -155,6 +154,96 @@
             ]
 
         });
+        $("#Grid").jsGrid({
 
+            height: "auto",
+            width: "100%",
+            filtering: false,
+            editing: false,
+            inserting: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 15,
+            pageButtonCount: 5,
+            deleteConfirm: "confirm",
+            data: pdata,
+            controller: {
+                insertItem: function (insertingClient) {
+
+                    // this.clients.push(insertingClient);
+                    $.ajax({
+                        type: "POST",
+                        data: {PI_ID : $('#PI_ID').val() , s : insertingClient },
+                        url: "Save_Charges",
+                        success: function (d) {
+                            alert(d);
+
+
+                        },
+                    })
+                },
+
+
+
+                deleteItem: function (deletingClient) {
+                    $.ajax({
+                        type: "GET",
+                        data: deletingClient,
+                        url: "Delete",
+                        success: function (d) {
+                            alert(d);
+                        },
+                    })
+                }
+            },
+            pagerContainer: null,
+            pageIndex: 1,
+            pageSize: 20,
+            pageButtonCount: 15,
+            pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+            pagePrevText: "Prev",
+            pageNextText: "Next",
+            pageFirstText: "First",
+            pageLastText: "Last",
+            pageNavigatorNextText: "...",
+            pageNavigatorPrevText: "...",
+
+            invalidMessage: "Invalid data entered!",
+
+            onItemInserting: function (args) {
+
+
+                args.item["PI_ID"] = Master_Id;
+
+
+
+                $("#grid").jsGrid("insertItem", args.item);
+            },
+
+            fields: [
+
+            {
+                name: "Account_ID", title: "Ref. No", type: "text", width: 80, validate: "required" },
+            { name: "Description", title: "Trans Date",  type: "text", width: 80, validate: "required" },
+              
+          { name: "Amount", title: "Invoice Total", type: "text", width: 80, validate: "required" },
+          { name: "Amount", title: "Invoice Taxes", type: "number", width: 80, validate: "required" },  
+          { name: "Amount", title: "Due Amount", type: "text", width: 80, validate: "required" },
+          { name: "Amount", title: "Recipt", type: "number", width: 80, validate: "required" },
+          { name: "Amount", title: "Total", type: "number", width: 80, validate: "required" },
+
+
+            { type: "control",editButton: false,
+                itemTemplate: function(_, item) {
+
+                    if(item.IsTotal)
+                        return "";
+                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                }}
+
+            ]
+
+        });
     }
     </script>
