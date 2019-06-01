@@ -74,10 +74,12 @@
                             @Html.ValidationMessageFor(model => model.Naration, "", new { @class = "text-danger" })
                         </div>
                     </div>
+         
                     <div id="child"></div>
+                   
                     <div class="form-group">
                         <div class="col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Create" class="btn btn-default" id="submit"/>
                         </div>
                     </div>
                 </div>
@@ -86,33 +88,62 @@
             </div>
         </div>
     </div>
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+   
 
 @section scripts
 {
-
+    
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js">
     </script>
     <script>
+        var sup_ID = -1;
+        var inventory = []
+        var details = []
+        var pdata= []
+        var paydetail = []
+        var totalamount = []
+        var allocamount = []
         $(document).ready(function () {
 
-            detail()
+            $.get('@Url.Action("detail", "payment")', function (data) { $("#child").html(data); });
+
         });
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
         });
-    
 
-        /*ye master ka he*/
+        $("#Suplier_ID").on("change", function () {
+            sup_ID = $('option:selected', this).attr('value');
+
+            detail();
+        })
+        $("#submit").on("click", function (e) {
+            e.preventDefault();
+            if (allocamount == totalamount) {
+                alert("haan")
+            }
+            else {
+                alert("naaah")
+            }
+        })
+        
         function detail() {
 
-            $.get('@Url.Action("detail", "payment")', function (data) { $("#child").html(data); });
+            $.ajax({
+                type: "GET",
+                data: { id: sup_ID },
+                url: "Bill_Get_By_SID",
+                success: function (d) {
+                  
+
+                   inventory =d
+                },
+            })
+            $.get('@Url.Action("PaymentDetail", "payment")', function (data) { $("#child2").html(data); });
             $("#done").hide()
         };
-  
+
 
     </script>
 }

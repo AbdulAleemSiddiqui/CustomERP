@@ -18,14 +18,21 @@ namespace SfDesk.Controllers
         {
             return View();
         }
+        public ActionResult PaymentDetail()
+        {
+            return PartialView("PaymentDetail", new List<Payment_Detail>());
+
+        }
         public ActionResult detail()
         {
             return PartialView("detail", new List<Payment_Mode>());
         }
-        public ActionResult detail_2()
+      
+        public ActionResult Bill_Get_By_SID(int id)
         {
-            return PartialView("detail_2", new List<Payment_Detail>());
+            return Json( new Payment_Detail().Bill_Get_By_SID(id),JsonRequestBehavior.AllowGet);
         }
+
 
     }
 }

@@ -935,6 +935,7 @@
     <Content Include="Views\Transaction\Edit.cshtml" />
     <Content Include="Views\Payment\Master.cshtml" />
     <Content Include="Views\Payment\detail.cshtml" />
+    <Content Include="Views\Payment\PaymentDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

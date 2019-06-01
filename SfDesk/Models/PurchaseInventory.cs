@@ -43,6 +43,7 @@ namespace SfDesk.Models
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; } = DateTime.Parse("2001/01/01");
+        public string strngDate { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; } = DateTime.Parse("2001/01/01");
@@ -58,6 +59,10 @@ namespace SfDesk.Models
         [DisplayName("Middle Man")]
         public int Middle_Man_ID { get; set; }
         public string Middle_Man_Name { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal AllocatedAmount { get; set; }
+        public decimal DueAmount { get; set; }
+        public string AllocatedStatus { get; set; }
         #endregion
         #region Detail
         public int Detail_ID { get; set; }
@@ -94,6 +99,7 @@ namespace SfDesk.Models
         public decimal GST { get; set; }
         [DisplayName("Further Tax")]
         public decimal Further_tax { get; set; }
+        public decimal Total_Tax { get; set; }
 
         #endregion
         #region Default

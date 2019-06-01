@@ -27,10 +27,16 @@
                                     @Html.DisplayNameFor(model => model.Date)
                                 </th>
 
-
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Comments)
+                                    @Html.DisplayNameFor(model => model.TotalAmount)
                                 </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AllocatedAmount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AllocatedStatus)
+                                </th>
+
 
                                 <th></th>
                             </tr>
@@ -52,8 +58,14 @@
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Comments)
+                                        @Html.DisplayFor(modelItem => item.TotalAmount)
                                     </td>
+                                    <td>
+                                       @Html.DisplayFor(modelItem => item.AllocatedAmount)
+                                    </td>
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.AllocatedStatus)
+                                     </td>
 
                                     <td>
                                         <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("master", "PurchaseInventory",new { id = item.PI_ID })'"><i class="ti-pencil"></i> Verified </button>
