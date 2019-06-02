@@ -19,7 +19,7 @@ namespace SfDesk.Models
         [DisplayName("P.O #")]
         public string PO_No { get; set; } = "0";
         [DisplayName("Invoice #")]
-        public string Invoice_No { get; set; } = "pending";
+        public string Invoice_No { get; set; } = "0";
         public string App_Status { get; set; }
         [DisplayName("Department")]
         public int Department_ID { get; set; }
@@ -186,7 +186,7 @@ namespace SfDesk.Models
                 u.PI_ID = (int)sdr["PI_ID"];
                 u.PR_No = (string)sdr["PR_No"];
                 u.PO_No = (string)sdr["PO_No"];
-
+                u.Invoice_No = (string)sdr["Invoice_No"];
                 u.Department_ID = (int)sdr["Department_ID"];
                 u.Department_Name = (string)sdr["D_Name"];
 
@@ -212,7 +212,7 @@ namespace SfDesk.Models
                 u.Middle_Man_Name = (string)sdr["Middle_Man_Name"];
 
                 u.Date = (DateTime)sdr["Date"];
-                u.Comments = (string)sdr["Comments"];
+                u.Comments = Connection.SafeGetString(sdr, 15);
 
 
                 u.Created_By = (int)sdr["CreatedBy"];

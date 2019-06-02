@@ -46,7 +46,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Approve(PurchaseInventory p)
         {
-            p.App_Status = "PO_Approve";
+            p.App_Status = "Un-Allocated";
             p.PR_Approve();
             return Json("", JsonRequestBehavior.AllowGet);
 

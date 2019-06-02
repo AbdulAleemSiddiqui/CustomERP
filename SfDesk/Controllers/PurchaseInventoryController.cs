@@ -17,7 +17,7 @@ namespace SfDesk.Controllers
 
             if (id != null)
             {
-                PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "PO_Approve" };
+                PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "Un-Allocated" };
                 p = p.PO_Get_All().Find(x => x.PI_ID == id);
                 return View(p == null ? new PurchaseInventory() : p);
             }
@@ -31,7 +31,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult ShowAll()
         {
-            return View(new PurchaseInventory() { App_Status = "PO_Approve" }.PR_Get_All());
+            return View(new Payment_Detail().Bill_Get_All());
         }
         public ActionResult detail()
         {

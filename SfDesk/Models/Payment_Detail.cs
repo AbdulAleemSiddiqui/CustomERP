@@ -47,7 +47,7 @@ namespace SfDesk.Models
                 u.TotalAmount = (decimal)sdr["TotalAmount"];
                 u.Total_Tax = (decimal)sdr["Total_Tax"];
                 u.AllocatedAmount = (decimal)sdr["AllocatedAmount"];
-                u.DueAmount = u.Total_Tax - u.AllocatedAmount;
+                u.DueAmount = u.TotalAmount - u.AllocatedAmount;
                 u.AllocatedStatus = (string)sdr["App_Status"];
                 bills.Add(u);
             }
@@ -57,6 +57,29 @@ namespace SfDesk.Models
         }
 
 
+        public List<PurchaseInventory> Bill_Get_All()
+        {
+            List<PurchaseInventory> bills = new List<PurchaseInventory>();
+            SqlCommand sc = new SqlCommand("Bill_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                PurchaseInventory u = new PurchaseInventory();
+                u.PI_ID = (int)sdr["PI_ID"];
+                u.PR_No = (string)sdr["PR_No"];
+                u.Suplier_Name = (string)sdr["Business_Name"];
+                u.strngDate = ((DateTime)sdr["Date"]).ToShortDateString();
+                u.TotalAmount = (decimal)sdr["TotalAmount"];
+                u.Total_Tax = (decimal)sdr["Total_Tax"];
+                u.AllocatedAmount = (decimal)sdr["AllocatedAmount"];
+                u.DueAmount = u.TotalAmount - u.AllocatedAmount;
+                u.AllocatedStatus = (string)sdr["App_Status"];
+                bills.Add(u);
+            }
+            sdr.Close();
 
+            return bills;
+        }
     }
 }
