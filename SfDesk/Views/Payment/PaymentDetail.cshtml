@@ -61,6 +61,7 @@
                 debugger;
                 allocamount =0
                 items.forEach(function (item) {
+                    if (item.Amount != undefined)
                     allocamount += parseFloat(item.Amount);
 
                 });
