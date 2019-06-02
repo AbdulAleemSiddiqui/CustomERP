@@ -118,10 +118,31 @@
 
             detail();
         })
-        $("#submit").on("click", function (e) {
+        $("form").submit(function (e) {
             e.preventDefault();
+            var mydata = $(this).serialize()
             if (allocamount == totalamount) {
-                alert("haan")
+                
+                var deta = JSON.stringify(details);
+                var paydeta = JSON.stringify(paydetail);
+                var model = { mode: details, detail: paydetail }
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: "master",
+                    data: mydata,
+                    success: function (d) {
+                        $.ajax({
+                            type: "POST",
+                            url: "detail",
+                            contentType: 'application/json; charset=utf-8',
+                            data:  JSON.stringify(model),
+                            success: function (d) {
+
+                            },
+                        })
+                    },
+                })
             }
             else {
                 alert("naaah")

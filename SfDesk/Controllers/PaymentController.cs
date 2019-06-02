@@ -18,6 +18,11 @@ namespace SfDesk.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Master(Payment d )
+        {
+            return View();
+        }
         public ActionResult PaymentDetail()
         {
             return PartialView("PaymentDetail", new List<Payment_Detail>());
@@ -27,7 +32,11 @@ namespace SfDesk.Controllers
         {
             return PartialView("detail", new List<Payment_Mode>());
         }
-      
+        [HttpPost]
+        public ActionResult detail( PaymentViewModel p)
+        {
+            return PartialView("detail", new List<Payment_Mode>());
+        }
         public ActionResult Bill_Get_By_SID(int id)
         {
             return Json( new Payment_Detail().Bill_Get_By_SID(id),JsonRequestBehavior.AllowGet);

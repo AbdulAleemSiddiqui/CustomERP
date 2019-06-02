@@ -257,6 +257,7 @@
     <Compile Include="Models\MiddleMan.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\Payment_Mode.cs" />
     <Compile Include="Models\Payment_Detail.cs" />
     <Compile Include="Models\PI_Charge.cs" />
