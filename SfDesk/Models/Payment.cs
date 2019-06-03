@@ -18,7 +18,7 @@ namespace SfDesk.Models
         [DisplayName("Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime P_Date { get; set; }
+        public DateTime P_Date { get; set; } = DateTime.Parse("2001/01/01");
         public string Currency { get; set; }
         public decimal ExRate { get; set; }
         [DisplayName("Job")]
