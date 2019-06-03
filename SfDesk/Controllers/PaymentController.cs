@@ -39,7 +39,7 @@ namespace SfDesk.Controllers
             foreach (var item in p.mode)
             {
                 item.P_ID = p.id;
-                item.CheckNo = "123";
+                
                 item.Payment_Mode_Add();
             }
             foreach (var item in p.detail)
@@ -51,7 +51,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Bill_Get_By_SID(int id)
         {
-            return Json( new Payment_Detail().Bill_Get_By_SID(id),JsonRequestBehavior.AllowGet);
+            return Json( new Payment_Detail().Bill_Get_By_SID(id).FindAll(x=> x.TotalAmount > 0 && x.DueAmount>0),JsonRequestBehavior.AllowGet);
         }
 
 
