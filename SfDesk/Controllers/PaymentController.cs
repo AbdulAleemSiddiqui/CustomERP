@@ -21,7 +21,8 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Master(Payment d )
         {
-            return View();
+            int id =Convert.ToInt32(d.Payment_Add());
+            return Json(id,JsonRequestBehavior.AllowGet);
         }
         public ActionResult PaymentDetail()
         {
@@ -35,6 +36,17 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult detail( PaymentViewModel p)
         {
+            foreach (var item in p.mode)
+            {
+                item.P_ID = p.id;
+                item.CheckNo = "123";
+                item.Payment_Mode_Add();
+            }
+            foreach (var item in p.detail)
+            {
+                item.P_ID = p.id;
+                item.Payment_Detail_Add();
+            }
             return PartialView("detail", new List<Payment_Mode>());
         }
         public ActionResult Bill_Get_By_SID(int id)

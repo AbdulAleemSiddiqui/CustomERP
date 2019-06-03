@@ -125,13 +125,14 @@
                 
                 var deta = JSON.stringify(details);
                 var paydeta = JSON.stringify(paydetail);
-                var model = { mode: details, detail: paydetail }
+               
                 debugger;
                 $.ajax({
                     type: "POST",
                     url: "master",
                     data: mydata,
                     success: function (d) {
+                        var model = { mode: details, detail: paydetail ,id :d }
                         $.ajax({
                             type: "POST",
                             url: "detail",

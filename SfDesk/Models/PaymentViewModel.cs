@@ -7,7 +7,7 @@ namespace SfDesk.Models
 {
     public class PaymentViewModel
     {
-        public Payment payment { get; set; }
+        public int id { get; set; }
         public List<Payment_Mode> mode { get; set; }
         public List<Payment_Detail> detail { get; set; }
 
