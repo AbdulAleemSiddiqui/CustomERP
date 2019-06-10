@@ -217,6 +217,7 @@
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\GRNController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
+    <Compile Include="Models\GRN.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
@@ -937,6 +939,7 @@
     <Content Include="Views\Payment\Master.cshtml" />
     <Content Include="Views\Payment\detail.cshtml" />
     <Content Include="Views\Payment\PaymentDetail.cshtml" />
+    <Content Include="Views\GRN\Master.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
