@@ -102,12 +102,13 @@
         var details = []
         var pdata= []
         var paydetail = []
-        var totalamount = []
-        var allocamount = []
+        var totalamount = 0
+        var allocamount = 0
+        var dueammount =0
         $(document).ready(function () {
 
             $.get('@Url.Action("detail", "payment")', function (data) { $("#child").html(data); });
-
+            
         });
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
@@ -120,6 +121,7 @@
         })
         $("form").submit(function (e) {
             e.preventDefault();
+          
             var mydata = $(this).serialize()
             if (allocamount == totalamount) {
                 

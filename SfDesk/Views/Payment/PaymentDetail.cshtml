@@ -69,9 +69,16 @@
             },
             controller: {
                 updateItem: function (insertingClient) {
-
-                    paydetail.push(insertingClient);
                     
+                        
+                    var  due= parseFloat(insertingClient.DueAmount);
+                    var total = parseFloat(insertingClient.DueAmount);
+                    if (dueammount < total) {
+                        alert("incorrect ammount enter")
+                    }
+                    else {
+                        paydetail.push(insertingClient);
+                    }
                 },
 
 
@@ -104,10 +111,10 @@
             },
             { name: "strngDate", title: "Trans Date", type: "text", width: 80,  editing: false },
 
-          { name: "TotalAmount", title: "Invoice Total", type: "text", width: 80,  editing: false },
+          { name: "TotalAmount", title: "Invoice Total", type: "text", width: 80, editing: false, },
           { name: "Total_Tax", title: "Invoice Taxes", type: "number", width: 80,  editing: false },
           { name: "DueAmount", title: "Due Amount", type: "text", width: 80, editing: false },
-          { name: "Amount", title: "Recipt", type: "text", width: 80, validate: "required", css: "totalRecipt" },
+          { name: "Amount", title: "Recipt", type: "text", width: 80, validate: "required" },
           { name: "Total", title: "Total", type: "text", width: 80, validate: "required", editing: false },
 
 
