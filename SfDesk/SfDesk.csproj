@@ -253,6 +253,7 @@
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\GRN.cs" />
+    <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
@@ -940,6 +941,8 @@
     <Content Include="Views\Payment\detail.cshtml" />
     <Content Include="Views\Payment\PaymentDetail.cshtml" />
     <Content Include="Views\GRN\Master.cshtml" />
+    <Content Include="Views\GRN\Detail.cshtml" />
+    <Content Include="Views\GRN\Detail2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

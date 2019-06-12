@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SfDesk.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,17 @@ namespace SfDesk.Controllers
         }
         public ActionResult Detail()
         {
-            return View();
+            return PartialView("Detail", new List<GRN>());
+
+        }
+        public ActionResult Detail2()
+        {
+            return PartialView("Detail2", new List<GRN>());
+
+        }
+        public ActionResult Get_Taxes()
+        {
+            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
         }
     }
 }
