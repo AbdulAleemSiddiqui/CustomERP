@@ -36,7 +36,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult detail( PaymentViewModel p)
         {
-            foreach (var item in p.mode)
+            foreach (var item in p.mode) 
             {
                 item.P_ID = p.id;
                 

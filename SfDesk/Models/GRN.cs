@@ -9,7 +9,7 @@ namespace SfDesk.Models
 {
     public class GRN
     {
-        public int GRN_NO { get; set; }
+        public int GRN_ID { get; set; }
         [DisplayName("Suplier")]
         public int Suplier_ID { get; set; }
         public String Suplier_Name { get; set; }
@@ -27,5 +27,19 @@ namespace SfDesk.Models
         [DisplayName("Ex. Rate")]
 
         public decimal Exchange_Rate { get; set; }
+
+        #region default Properties
+        public int Created_By { get; set; }
+        public DateTime Created_Date { get; set; }
+        public string Machine_Ip { get; set; }
+        public string Mac_Address { get; set; }
+        #endregion
+        public GRN()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
+
+
     }
 }
