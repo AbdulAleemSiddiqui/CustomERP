@@ -72,23 +72,24 @@ namespace SfDesk.Models
             {
                 GRN u = new GRN();
                 SqlCommand sc = new SqlCommand("GRN_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-                sc.Parameters.AddWithValue("@ID", ID);
+                sc.Parameters.AddWithValue("@ID", GRN_NO);
                 sc.Parameters.AddWithValue("@App_Id", App.App_ID);
                 SqlDataReader sdr = sc.ExecuteReader();
                 while (sdr.Read())
                 {
-                    u.ID = (int)sdr["ID"];
-                    u.Suplier_ID = (string)sdr["Suplier_ID"];
-                    u.Trans_NO = (string)sdr["Trans_NO"];
-                    u.Trans_Date = (string)sdr["Trans_Date"];
-                    u.Due_Date = (string)sdr["Due_Date"];
-                    u.Currency = (string)sdr["Currency"];
-                    u.Ref_No = (string)sdr["Ref_No"];
-                    u.Created_By = (int)sdr["CreatedBy"];
-                    u.Created_Date = (DateTime)sdr["CreatedDate"];
-                    u.Machine_Ip = (string)sdr["Machine_Ip"];
-                    u.Mac_Address = (string)sdr["Mac_Address"];
-                }
+                u.GRN_NO = (int)sdr["ID"];
+                u.Suplier_ID = (int)sdr["Suplier_ID"];
+                u.Trans_NO = (int)sdr["Trans_NO"];
+                u.Trans_Date = (DateTime)sdr["Trans_Date"];
+                u.Due_Date = (DateTime)sdr["Due_Date"];
+                u.Currency = (string)sdr["Currency"];
+                u.Ref_No = (int)sdr["Ref_No"];
+                u.Exchange_Rate = (decimal)sdr["Exchange_Rate"];
+                u.Created_By = (int)sdr["CreatedBy"];
+                u.Created_Date = (DateTime)sdr["CreatedDate"];
+                u.Machine_Ip = (string)sdr["Machine_Ip"];
+                u.Mac_Address = (string)sdr["Mac_Address"];
+            }
                 sdr.Close();
                 return u;
             }
@@ -111,7 +112,7 @@ namespace SfDesk.Models
             public void GRN_Update()
             {
                 SqlCommand sc = new SqlCommand("GRN_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-                sc.Parameters.AddWithValue("@ID", ID);
+                sc.Parameters.AddWithValue("@ID", GRN_NO);
                 sc.Parameters.AddWithValue("@Suplier_ID", Suplier_ID);
                 sc.Parameters.AddWithValue("@Trans_NO", Trans_NO);
                 sc.Parameters.AddWithValue("@Trans_Date", Trans_Date);
@@ -124,10 +125,9 @@ namespace SfDesk.Models
             public void GRN_Delete()
             {
                 SqlCommand sc = new SqlCommand("GRN_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-                sc.Parameters.AddWithValue("@ID", ID);
+                sc.Parameters.AddWithValue("@ID", GRN_NO    );
                 sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
                 sc.ExecuteNonQuery();
             }
         }   
     }
-}
