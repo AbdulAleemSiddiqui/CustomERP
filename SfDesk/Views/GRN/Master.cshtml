@@ -108,7 +108,11 @@
      
         $("form").submit(function (e) {
             e.preventDefault();
+            $.post(this.action, $(this).serialize(), function (data) {
+                debugger;
+                window.location.href = '@Url.Action("Master", "Payment")';
 
+            })
             
         })
 

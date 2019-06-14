@@ -10,8 +10,14 @@ namespace SfDesk.Controllers
     public class GRNController : Controller
     {
         // GET: GRN
-        public ActionResult Master()
+        public ActionResult Master(int? id)
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Master(GRN grn)
+        {
+            grn.GRN_Add();
             return View();
         }
         public ActionResult Detail()
