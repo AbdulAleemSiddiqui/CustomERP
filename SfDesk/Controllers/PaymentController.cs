@@ -16,6 +16,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Master()
         {
+            
             return View();
         }
         [HttpPost]
