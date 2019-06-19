@@ -83,5 +83,22 @@ namespace SfDesk.Controllers
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Get_Taxes()
+        {
+            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Get_taxes_by_ID(int PI_ID)
+        {
+            PI_Charge p = new PI_Charge() { PI_ID = PI_ID };
+            return Json(p.PI_Charge_Get_All(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Save_Charges(int PI_ID, SalesTax s)
+        {
+            PI_Charge p = new PI_Charge();
+            p.PI_ID = PI_ID;
+            p.SalesTax_ID = s.SalesTax_ID;
+            p.PI_Charge_Add();
+            return Json("");
+        }
     }
 }
