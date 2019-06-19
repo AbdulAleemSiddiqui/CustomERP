@@ -264,6 +264,7 @@
     <Compile Include="Models\Payment_Mode.cs" />
     <Compile Include="Models\Payment_Detail.cs" />
     <Compile Include="Models\PI_Charge.cs" />
+    <Compile Include="Models\PI_Transactions.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />

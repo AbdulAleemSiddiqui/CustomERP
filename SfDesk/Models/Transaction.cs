@@ -98,6 +98,8 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
+
+
         public Transaction Transaction_Get_By_ID()
         {
             Transaction u = new Transaction();
@@ -186,5 +188,24 @@ namespace SfDesk.Models
             sc.ExecuteNonQuery();
         }
 
+
+        public List<Transaction> Transaction_Get_For_LOV()
+        {
+            List<Transaction> lst = new List<Transaction>();
+            SqlCommand sc = new SqlCommand("Transaction_Get_For_LOV", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                Transaction u = new Transaction();
+                u.T_ID = (int)sdr["T_ID"];
+                u.Name = (string)sdr["Name"];
+                u.Rate = (decimal)sdr["Rate"];
+
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
     }
 }
