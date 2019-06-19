@@ -12,7 +12,11 @@ namespace SfDesk.Controllers
         // GET: GRN
         public ActionResult Master(int? id)
         {
-            return View();
+            if(id==null)
+            {
+                return View();
+            }
+            return View(new GRN() { PI_ID = (int)id });
         }
         [HttpPost]
         public ActionResult Master(GRN grn)
