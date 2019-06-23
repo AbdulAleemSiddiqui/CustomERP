@@ -100,11 +100,54 @@
                 { name: "Description", title: "Description", type: "text", width: 80, validate: "required" },
                    {
                        name: "PaymentMode", title: "payment Mode", type: "select", width: 80, validate: "required",
-                       items: ["Cash", "Chaque","bank transfer","Credit Card"],
+                       items: ["Cash", "Chaque","bank transfer","Credit Card"] ,
+                       insertTemplate: function () {
+                           var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
+                           var th= this;
+                           $insertControl.on("change", function () {
+                               debugger;
+                               var check = th._grid.fields[3];
+                               var selected = this.value;
+                               if(selected == "1")
+                               {
+                                   check.inserting = true;
+                               }
+                               else
+                               {
+                                   check.inserting = false;
+                               }
+                               var $check = jsGrid.fields.text.prototype.insertTemplate.call(check);
 
+                               var a = $(".check").empty();
+                               $(".check").append($check);
+                           });
+                           return $insertControl;
+                       },
+                       editTemplate: function (args) {
+                           var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this,args);
+                           var th= this;
+                           $editControl.on("change", function () {
+                               var check = th._grid.fields[3];
+                               var selected = this.value;
+                               if(selected == "1")
+                               {
+                                   check.editing = true;
+                               }
+                               else
+                               {
+                                   check.editing = false;
+                               }
+                               var $check = jsGrid.fields.text.prototype.editTemplate.call(check);
+
+                               var a = $(".checke").empty();
+                               $(".checke").append($check);
+
+                           });
+                           return $editControl;
+                       },
                    },
-              { name: "CheckNO", title: "Check NO.", type: "text", width: 80, validate: "required" },
 
+              { name: "CheckNO", title: "Check NO.", type: "text", width: 80,editing: false,    inserting: false,insertcss:"check",editcss:"checke",},
               { name: "Amount", title: "Amount", type: "text", width: 80, validate: "required" , css: "totalAmount" },
 
 

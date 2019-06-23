@@ -75,12 +75,22 @@ namespace SfDesk.Controllers
             PI_Charge p = new PI_Charge() { PI_ID = PI_ID };
             return Json(p.PI_Charge_Get_All(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Get_Transasction()
+        {
+            return Json(new Transaction().Transaction_Get_For_LOV(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Save_Charges(int PI_ID, SalesTax s)
         {
             PI_Charge p = new PI_Charge();
             p.PI_ID = PI_ID;
             p.SalesTax_ID = s.SalesTax_ID;
             p.PI_Charge_Add();
+            return Json("");
+        }
+        public ActionResult Save_Transaction(int PI_ID, Transaction s)
+        {
+           
             return Json("");
         }
     }

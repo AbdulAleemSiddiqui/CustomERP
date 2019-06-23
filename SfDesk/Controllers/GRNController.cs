@@ -27,7 +27,7 @@ namespace SfDesk.Controllers
         public ActionResult Detail()
         {
             return PartialView("Detail", new List<GRN>());
-
+             
         }
         public ActionResult Detail2()
         {
