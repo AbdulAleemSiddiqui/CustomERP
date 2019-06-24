@@ -95,7 +95,7 @@ namespace SfDesk.Models
         }
         public void PI_Transactions_Delete()
         {
-            SqlCommand sc = new SqlCommand("PI_Transactions_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Transaction_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PIT_ID", PIT_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
