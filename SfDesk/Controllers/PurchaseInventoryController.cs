@@ -10,7 +10,7 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseInventoryController : Controller
     {
-      
+
         // GET: PurchaseInventory
         public ActionResult master(int? id)
         {
@@ -21,12 +21,17 @@ namespace SfDesk.Controllers
                 p = p.PO_Get_All().Find(x => x.PI_ID == id);
                 return View(p == null ? new PurchaseInventory() : p);
             }
-            return View(new PurchaseInventory()  );
+            return View(new PurchaseInventory());
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
         {
-            //int id = c.Purchase_Inventory_Add();
+            if (c.PI_ID == 0)
+            {
+                int id = c.PI_Add();
+                return Json(id, JsonRequestBehavior.AllowGet);
+
+            }
             return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ShowAll()
@@ -70,10 +75,16 @@ namespace SfDesk.Controllers
         {
             return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Get_taxes_by_ID(int PI_ID )
+        public ActionResult Get_taxes_by_ID(int PI_ID)
         {
             PI_Charge p = new PI_Charge() { PI_ID = PI_ID };
             return Json(p.PI_Charge_Get_All(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Get_trans_by_ID(int PI_ID)
+        {
+            PI_Transactions p = new PI_Transactions() { PI_ID = PI_ID };
+            return Json(p.PI_Transactions_Get_All(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Get_Transasction()
         {
@@ -90,7 +101,10 @@ namespace SfDesk.Controllers
         }
         public ActionResult Save_Transaction(int PI_ID, Transaction s)
         {
-           
+            PI_Transactions p = new PI_Transactions();
+            p.PI_ID = PI_ID;
+            p.T_ID = s.T_ID;
+            p.PI_Transactions_Add();
             return Json("");
         }
     }
