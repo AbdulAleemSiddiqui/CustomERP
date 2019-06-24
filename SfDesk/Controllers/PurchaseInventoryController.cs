@@ -108,14 +108,14 @@ namespace SfDesk.Controllers
             return Json("");
         }
 
-        public ActionResult Delete_Charges(SalesTax s)
+        public ActionResult Delete_Charges(PI_Charge s)
         {
-          
+            s.PI_Charge_Delete(); 
             return Json("");
         }
-        public ActionResult Delete_Transaction(Transaction s)
+        public ActionResult Delete_Transaction(PI_Transactions s)
         {
-           
+            s.PI_Transactions_Delete();
             return Json("");
         }
 

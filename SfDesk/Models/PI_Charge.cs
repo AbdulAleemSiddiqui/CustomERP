@@ -96,7 +96,7 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("PI_Charge_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_Charge_ID", PI_Charge_ID);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
         }
     }
