@@ -107,5 +107,17 @@ namespace SfDesk.Controllers
             p.PI_Transactions_Add();
             return Json("");
         }
+
+        public ActionResult Delete_Charges(SalesTax s)
+        {
+          
+            return Json("");
+        }
+        public ActionResult Delete_Transaction(Transaction s)
+        {
+           
+            return Json("");
+        }
+
     }
 }

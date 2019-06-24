@@ -494,7 +494,7 @@ function my(){
                     $.ajax({
                     type: "GET",
                         data: deletingClient,
-                        url: "Delete",
+                        url: "Delete_Charges",
                         success: function (d) {
                             alert(d);
                         },
@@ -588,6 +588,15 @@ function my(){
             },
             {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  80, validate: "required" },
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl1"},
+                           {
+                               name: "PI_Charge_ID",
+                               title: "",
+                               type: "text",
+                               visible: false,
+                               css : "Net"
+
+
+                           },
 
 
             { type: "control",editButton: false,
@@ -639,7 +648,7 @@ function my(){
                     $.ajax({
                         type: "GET",
                         data: deletingClient,
-                        url: "Delete",
+                        url: "Delete_Transaction",
                         success: function (d) {
                             alert(d);
                         },
@@ -739,7 +748,15 @@ function my(){
             {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required" },
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl"},
 
+                           {
+                               name: "PIT_ID",
+                               title: "",
+                               type: "text",
+                               visible: false,
+                               css : "Net"
 
+
+                           },
             { type: "control",editButton: false,
                 itemTemplate: function(_, item) {
 
