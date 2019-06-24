@@ -146,7 +146,28 @@ namespace SfDesk.Models
 
           return Convert.ToInt32((decimal)sc.ExecuteScalar());
         }
+        public int PI_Add()
+        {
+            SqlCommand sc = new SqlCommand("PI_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
+            sc.Parameters.AddWithValue("@Invoice_No", Invoice_No);
+            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
+            sc.Parameters.AddWithValue("@Purchase_Type_ID", Purchase_Type_ID);
+            sc.Parameters.AddWithValue("@Account_Payable_ID", Account_Payable_ID);
+            sc.Parameters.AddWithValue("@Purchase_Account_ID", Purchase_Account_ID);
+            sc.Parameters.AddWithValue("@Supplier_ID", Suplier_ID);
+            sc.Parameters.AddWithValue("@Date", Date);
+            sc.Parameters.AddWithValue("@Due_Date", Due_Date);
+            sc.Parameters.AddWithValue("@Comments", Comments);
+            sc.Parameters.AddWithValue("@Transporter_ID", Transporter_ID);
+            sc.Parameters.AddWithValue("@Vehicle_ID", Vehicle_ID);
+            sc.Parameters.AddWithValue("@Middle_Man_ID", Middle_Man_ID);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
+            return Convert.ToInt32((decimal)sc.ExecuteScalar());
+        }
         public List<PurchaseInventory> PR_Get_All()
         {
             List<PurchaseInventory> lst = new List<PurchaseInventory>();

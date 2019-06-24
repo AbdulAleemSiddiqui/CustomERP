@@ -84,7 +84,7 @@
             $.ajax({
                 type: "GET",
                 url: "index",
-                data: { PI_ID:  $('#PI_ID').val() },
+                data: { PI_ID:  Master_Id},
                 dataType: "json",
                 success: function (d) {
 
@@ -129,62 +129,32 @@
                 success: function (d) {
                     debugger;
                     if (d.ID != 0)
-                        
+                    {
                         transactions = d
-                    transactions.unshift({T_ID : ""})
-                    //$.ajax({
-                    //    type: "GET",
-                    //    url: "Get_taxes_by_ID",
-                    //    data: {PI_ID : $('#PI_ID').val() },
-                    //    dataType: "json",
-                    //    success: function (f) {
-
-                    //        if (d.ID != 0)
-                    //            taxess = f
-                    //        taxess.forEach(function(item) {
-                    //            item.Total = net_total*(item.Rate/100);
-                    //            item.Total=item.Total.toFixed(2);
-                    //        });
-                    //        tax()
+                        transactions.unshift({T_ID : ""})
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: "Get_trans_by_ID",
+                        data: {PI_ID : $('#PI_ID').val() },
+                        dataType: "json",
+                       
+                        success: function (f) {
+                            debugger;
+                            if (d.ID != 0)
+                                transactionsID = f
+                            transactionsID.forEach(function(item) {
+                                item.Total = net_total*(item.Rate/100);
+                                item.Total=item.Total.toFixed(2);
+                            });
+                            trans()
                          
-                    //    }
-                    //});
-                    trans();
+                        }
+                    });
       
                 }
             });
 
-        }
-        $("#charges_form").submit(function (e) {
-            e.preventDefault();
-            var charges = $(this).serialize()+ "&PI_ID="+Master_Id;
-            debugger;
-            $.post(this.action,charges );
-        });
-
-
-        function total(input,id)
-        {
-
-
-            var val =$(input).val();
-            var total = net_total*(val/100);
-            total=total.toFixed(2);
-            $("#"+id).val(total);
-            var sum=0;
-            for (var i = 0; i < 3; i++) {
-                debugger;
-                if(isNaN(parseFloat($("#c_"+i).val())))
-                {
-                }
-                else
-                {
-                    sum+= parseFloat($("#c_"+i).val());
-                }
-            }
-            sum+= net_total;
-            debugger;
-            $('#total').html(sum.toFixed(2));
         }
         var net_total=0;
         var  tax_total = 0;
@@ -192,11 +162,6 @@
         var grand_total =0;
 $(function(){
             loadData();
-            //$(".taxVal").on("change",function(){
-            //    var row = $(this).closest('tr');
-            //    row.find("td").eq(1).html("<b>Total</b>");
-
-            //});
             var array =@Html.Raw(Json.Encode(Model));
             var arr=[];
             $.each(array, function (key, value) {
@@ -293,12 +258,8 @@ function my(){
                     $('#jsGrid').jsGrid("refresh");
             },
                 onItemInserting: function (args) {
-
-
+                    debugger;
                 args.item["PI_ID"] = Master_Id;
-
-
-                    $("#grid").jsGrid("insertItem", args.item);
             },
 
                 onItemInserted: function (args) {
@@ -517,7 +478,7 @@ function my(){
                     // this.clients.push(insertingClient);
                     $.ajax({
                     type: "POST",
-                        data: {PI_ID : $('#PI_ID').val() , s : insertingClient },
+                        data: {PI_ID : Master_Id , s : insertingClient },
                         url: "Save_Charges",
                         success: function (d) {
                             alert(d);
@@ -556,12 +517,7 @@ function my(){
 
             onItemInserting: function (args) {
 
-
                 args.item["PI_ID"] = Master_Id;
-
-
-
-                $("#grid").jsGrid("insertItem", args.item);
             },
             onRefreshed: function(args) {
                 grand_total=net_total
@@ -670,7 +626,7 @@ function my(){
                     // this.clients.push(insertingClient);
                     $.ajax({
                         type: "POST",
-                        data: {PI_ID : $('#PI_ID').val() , s : insertingClient },
+                        data: {PI_ID : Master_Id, s : insertingClient },
                         url: "Save_Transaction",
                         success: function (d) {
                             alert(d);
@@ -704,13 +660,8 @@ function my(){
             pageNavigatorPrevText: "...",
             invalidMessage: "Invalid data entered!",
             onItemInserting: function (args) {
-
-
                 args.item["PI_ID"] = Master_Id;
 
-
-
-                $("#grid").jsGrid("insertItem", args.item);
             },
             onRefreshed: function(args) {
                 grand_total=net_total
@@ -762,9 +713,9 @@ function my(){
                                 $u.text(val["Rate"])//val(unit);
 
 
-                                var a = $(".abc").empty();
+                                var a = $(".abc2").empty();
 
-                                $(".abc").append($u);
+                                $(".abc2").append($u);
                                 var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
                                 debugger;
                                 var val =$u.val()
@@ -786,7 +737,7 @@ function my(){
                     return $insertControl;
                 },
             },
-            {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  80, validate: "required" },
+            {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required" },
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl"},
 
 
