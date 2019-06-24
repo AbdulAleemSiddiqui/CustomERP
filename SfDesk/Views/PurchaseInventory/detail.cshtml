@@ -529,12 +529,11 @@ function my(){
                  total.Total +=parseFloat( item.Total);
             });
             tax_total =  total.Total;
-            grand_total +=  total.Total;
-            grand_total=parseFloat( net_total+tax_total+trans_total);
-            $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
             total.Total= parseFloat( total.Total.toFixed(2));
             var $totalRow = $("<tr>").addClass("total-row");
-
+            grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
+            $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
+           
             args.grid._renderCells($totalRow, total);
            
             args.grid._content.append($totalRow);
@@ -575,9 +574,9 @@ function my(){
                             $t.text(total)//val(unit);
 
 
-                            var a = $(".ttl").empty();
+                            var a = $(".ttl1").empty();
 
-                            $(".ttl").append($t);
+                            $(".ttl1").append($t);
                             var sum=0;
 
                         }
@@ -588,7 +587,7 @@ function my(){
             },
             },
             {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  80, validate: "required" },
-            {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl"},
+            {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl1"},
 
 
             { type: "control",editButton: false,
@@ -676,10 +675,10 @@ function my(){
                 trans_total =  total.Total;
                
                
-               grand_total=parseFloat( net_total+tax_total+trans_total);
-
               
-
+              
+                grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
+           
                 $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
 
                 total.Total= parseFloat( total.Total.toFixed(2));
