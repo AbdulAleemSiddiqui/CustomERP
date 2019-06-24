@@ -109,8 +109,10 @@
                         dataType: "json",
                         success: function (f) {
 
-                            if (d.ID != 0)
+                            if (d.ID != 0){
                                 taxess = f
+                                taxess.unshift({T_ID : "",Rate:"",Total:""})
+                            }
                             taxess.forEach(function(item) {
                                 item.Total = net_total*(item.Rate/100);
                                 item.Total=item.Total.toFixed(2);
@@ -131,7 +133,7 @@
                     if (d.ID != 0)
                         
                         transactions = d
-                    transactions.unshift({T_ID : ""})
+                    transactions.unshift({T_ID : "",Rate:"",Total:""})
                     //$.ajax({
                     //    type: "GET",
                     //    url: "Get_taxes_by_ID",
