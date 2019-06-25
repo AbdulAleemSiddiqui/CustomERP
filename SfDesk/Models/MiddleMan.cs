@@ -78,6 +78,7 @@ namespace SfDesk.Models
                 MiddleMan u = new MiddleMan();
                 u.MM_ID = (int)sdr["MM_ID"];
                 u.Trading_Name = (string)sdr["Trading_Name"];
+                u.Rate = (decimal)sdr["Rate"];
                 lst.Add(u);
             }
             sdr.Close();
