@@ -947,6 +947,7 @@
     <Content Include="Views\GRN\Detail2.cshtml" />
     <Content Include="Views\MiddleMan\Index.cshtml" />
     <Content Include="Views\MiddleMan\Add.cshtml" />
+    <Content Include="Views\MiddleMan\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
