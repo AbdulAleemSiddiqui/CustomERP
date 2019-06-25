@@ -67,6 +67,59 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
+        public List<MiddleMan> MiddleMan_Get_For_LOV()
+        {
+            List<MiddleMan> lst = new List<MiddleMan>();
+            SqlCommand sc = new SqlCommand("MiddleMan_Get_For_LOV", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+            {
+                MiddleMan u = new MiddleMan();
+                u.MM_ID = (int)sdr["MM_ID"];
+                u.Trading_Name = (string)sdr["Trading_Name"];
+                lst.Add(u);
+            }
+            sdr.Close();
+            return lst;
+        }
+        public void MiddleMan_Add()
+        {
+            SqlCommand sc = new SqlCommand("MiddleMan_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
+            sc.Parameters.AddWithValue("@NTN", NTN);
+            sc.Parameters.AddWithValue("@STRN", STRN);
+            sc.Parameters.AddWithValue("@Contact_Name", Contact_Name);
+            sc.Parameters.AddWithValue("@Phone_Number", Phone_Number);
+            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Exp_Acc_ID", Exp_Acc_ID);
+            sc.Parameters.AddWithValue("@Pay_Acc_ID", Pay_Acc_ID);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+            sc.ExecuteNonQuery();
 
+        }
+        public void MiddleMan_Update()
+        {
+            SqlCommand sc = new SqlCommand("MiddleMan_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@MM_ID", MM_ID);
+            sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
+            sc.Parameters.AddWithValue("@NTN", NTN);
+            sc.Parameters.AddWithValue("@STRN", STRN);
+            sc.Parameters.AddWithValue("@Contact_Name", Contact_Name);
+            sc.Parameters.AddWithValue("@Phone_Number", Phone_Number);
+            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Exp_Acc_ID", Exp_Acc_ID);
+            sc.Parameters.AddWithValue("@Pay_Acc_ID", Pay_Acc_ID);
+            sc.ExecuteNonQuery();
+        }
+        public void MiddleMan_Delete()
+        {
+            SqlCommand sc = new SqlCommand("MiddleMan_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@MM_ID", MM_ID);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.ExecuteNonQuery();
+        }
     }
 }
