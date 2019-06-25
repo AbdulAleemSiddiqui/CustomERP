@@ -220,6 +220,7 @@
     <Compile Include="Controllers\GRNController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
+    <Compile Include="Controllers\MiddleManController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
@@ -944,6 +945,8 @@
     <Content Include="Views\GRN\Master.cshtml" />
     <Content Include="Views\GRN\Detail.cshtml" />
     <Content Include="Views\GRN\Detail2.cshtml" />
+    <Content Include="Views\MiddleMan\Index.cshtml" />
+    <Content Include="Views\MiddleMan\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

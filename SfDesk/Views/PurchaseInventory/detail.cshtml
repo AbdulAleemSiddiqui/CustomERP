@@ -51,15 +51,20 @@
                     </div>*@
 
                 </div>
-                <div class="jsgrid-table-panel">
-                    <div id="Grid" class="table table-striped table-bordered dataTable no-footer" style="float:left"></div>
+                <div class="jsgrid-table-panel col-lg-5" >
+                    <h5>Charges</h5>
 
-                </div>
-                <div class="jsgrid-table-panel">
                     <div id="transGrid" class="table table-striped table-bordered dataTable no-footer" style="float:left"></div>
 
                 </div>
-                <div id="Grand_Total" style="float:right"><h1 style="font-size:30px">Total</h1></div>
+                <div class="jsgrid-table-panel col-lg-5" >
+                    <h5>Taxes</h5>
+  
+                         <div id="Grid" class="table table-striped table-bordered dataTable no-footer" style="float:left"></div>
+
+                </div>
+        
+                <div id="Grand_Total" class="col-lg-2"  style="text-align:center"><h6></h6><br /><h1 style="font-size:30px">Total</h1></div>
             <!-- /# card -->
                 </div>
         <!-- /# column -->
@@ -241,7 +246,7 @@ function my(){
                 var $totalRow = $("<tr>").addClass("total-row");
                 net_total = total.Net_Amount;
                 grand_total = parseFloat( net_total.toFixed(2));
-                $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
+                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
                 args.grid._renderCells($totalRow, total);
                 debugger;
@@ -461,7 +466,7 @@ function my(){
         $("#Grid").jsGrid({
 
         height: "auto",
-            width: "30%",
+            width: "100%",
             filtering: false,
             editing: false,
             inserting: true,
@@ -522,7 +527,7 @@ function my(){
             onRefreshed: function(args) {
                 grand_total=net_total
                 var items = args.grid.option("data");
-                var total = { Name: "Total", "Rate":0,"Total":0, IsTotal: true };
+                var total = { Name: "Total", "Rate":"","Total":0, IsTotal: true };
             
             items.forEach(function(item) {
               
@@ -532,8 +537,8 @@ function my(){
             total.Total= parseFloat( total.Total.toFixed(2));
             var $totalRow = $("<tr>").addClass("total-row");
             grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
-            $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
-           
+            $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
+
             args.grid._renderCells($totalRow, total);
            
             args.grid._content.append($totalRow);
@@ -617,7 +622,7 @@ function my(){
         $("#transGrid").jsGrid({
 
             height: "auto",
-            width: "30%",
+            width: "100%",
             filtering: false,
             editing: false,
             inserting: true,
@@ -675,7 +680,7 @@ function my(){
                 grand_total=net_total
 
                 var items = args.grid.option("data");
-                var total = { Name: "Total", "Rate":0,"Total":0, IsTotal: true };
+                var total = { Name: "Total", "Rate":"","Total":0, IsTotal: true };
                 debugger;
                 items.forEach(function(item) {
                    
@@ -688,7 +693,7 @@ function my(){
               
                 grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
            
-                $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
+                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
                 total.Total= parseFloat( total.Total.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
