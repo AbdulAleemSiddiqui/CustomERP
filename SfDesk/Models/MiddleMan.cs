@@ -25,7 +25,9 @@ namespace SfDesk.Models
         [DisplayName("Paybal Account")]
         public int Pay_Acc_ID { get; set; }
         public string Pay_Acc_Name { get; set; }
-
+        public string Type { get; set; }
+        public string Tax_Status { get; set; }
+        public decimal WHT_Rate{ get; set; }
 
         #region Default
         public int Created_By { get; set; }
