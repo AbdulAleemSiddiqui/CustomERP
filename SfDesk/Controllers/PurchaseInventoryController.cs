@@ -88,7 +88,10 @@ namespace SfDesk.Controllers
         }
         public ActionResult Get_Transasction()
         {
-            return Json(new Transaction().Transaction_Get_For_LOV(), JsonRequestBehavior.AllowGet);
+            List<Transaction> lst = new Transaction().Transaction_Get_For_LOV();
+            lst.Add(new Transaction() { Name = "Middle Man" });
+            lst.Add(new Transaction() { Name = "Transporter" });
+            return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Save_Charges(int PI_ID, SalesTax s)

@@ -53,6 +53,7 @@ namespace SfDesk.Models
                 u.Rate = (decimal)sdr["Rate"];
                 u.Rate_Type = (string)sdr["RateType"];
                 u.Opening_Balance = (decimal)sdr["Opening Balance"];
+                u.Is_Claimable = (bool)sdr["Is_Claimable"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -81,6 +82,7 @@ namespace SfDesk.Models
                 u.Rate = (decimal)sdr["Rate"];
                 u.Rate_Type = (string)sdr["RateType"];
                 u.Opening_Balance = (decimal)sdr["Opening Balance"];
+                u.Is_Claimable = (bool)sdr["Is_Claimable"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -102,7 +104,8 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
             sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance );
-            
+            sc.Parameters.AddWithValue("@Is_Claimable", Is_Claimable);
+
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -122,8 +125,9 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
             sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance);
+            sc.Parameters.AddWithValue("@Is_Claimable", Is_Claimable);
 
-           
+
             sc.ExecuteNonQuery();
 
 
@@ -132,7 +136,6 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("SalesTax_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
-
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.ExecuteNonQuery();
         }
