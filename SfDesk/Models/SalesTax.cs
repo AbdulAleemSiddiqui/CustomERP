@@ -18,7 +18,9 @@ namespace SfDesk.Models
         public int Account_ID { get; set; }
         public decimal Rate { get; set; }
         public decimal Opening_Balance { get; set; }
+        public bool Is_Claimable { get; set; }
         public int Created_By { get; set; }
+
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
