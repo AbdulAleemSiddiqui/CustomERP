@@ -60,8 +60,8 @@ namespace SfDesk.Models
                 u.Exp_Acc_Name = (string)sdr["Exp_Acc_Name"];
                 u.Pay_Acc_ID = (int)sdr["Pay_Acc_ID"];
                 u.Pay_Acc_Name = (string)sdr["Pay_Acc_Name"];
-                u.Type = (string)sdr["Type"];
-                u.Tax_Status = (string)sdr["Tax_Status"];
+                //u.Type = (string)sdr["Type"];
+                //u.Tax_Status = (string)sdr["Tax_Status"];
                 u.Rate= (decimal)sdr["Rate"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -93,8 +93,8 @@ namespace SfDesk.Models
                 u.Exp_Acc_Name = (string)sdr["Exp_Acc_Name"];
                 u.Pay_Acc_ID = (int)sdr["Pay_Acc_ID"];
                 u.Pay_Acc_Name = (string)sdr["Pay_Acc_Name"];
-                u.Type = (string)sdr["Type"];
-                u.Tax_Status = (string)sdr["Tax_Status"];
+                //u.Type = (string)sdr["Type"];
+           //     u.Tax_Status = (string)sdr["Tax_Status"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];

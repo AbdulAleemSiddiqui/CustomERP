@@ -79,7 +79,9 @@
     var taxess = [];
     var transactions = [];
     var transactionsID = []
-        function loadData() {
+    function loadData() {
+        debugger;
+    
             debugger
             var id =  $('#PI_ID').val()
             if (typeof (history.pushState) != "undefined") {
@@ -166,7 +168,28 @@
         var  trans_total = 0;
         var grand_total =0;
 $(function(){
-            loadData();
+    loadData();
+    var mmid = $('#Middle_Man_ID :selected').val()
+    var vid = $('#Vehicle_ID').val();
+    debugger
+    $.ajax({
+        url: "MM_Get_By_ID",
+        type: 'GET',
+        dataType: 'json',
+        data: { id :  mmid},
+        success: function (d) {   debugger;
+            myOpts = d;
+        }
+    });
+    $.ajax({
+        url: "Vehicle_Get_BY_ID",
+        type: 'GET',
+        dataType: 'json',
+        data: { id : vid },
+        success: function (d) {   debugger;
+            mytrans = d;
+        }
+    });
             var array =@Html.Raw(Json.Encode(Model));
             var arr=[];
             $.each(array, function (key, value) {
@@ -714,40 +737,56 @@ function my(){
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
 
                     $insertControl.on("change", function () {
-                        var selectedDepartment1 = $(this).find('option:selected').val();
-                        debugger
-                        $.each( transactions, function( i,val) {
-                            
-                            if(val["T_ID"]==selectedDepartment1)
-                            {
-                                var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
+                        var selectedDepartment1 = $(this).find('option:selected').html();
+                      
 
-                                $u.val(val["Rate"])//val(unit);
-                                $u.text(val["Rate"])//val(unit);
-
-
-                                var a = $(".abc2").empty();
-
-                                $(".abc2").append($u);
-                                var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
+                            var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
+                            if (selectedDepartment1=="Middle Man"){
                                 debugger;
+                               var tt =myOpts[0].Rate;
+                               $u.val(tt)//val(unit);
+                               $u.text(tt)//val(unit);
+                            }
+                            else if (selectedDepartment1=="Transporter"){
+                               
+                                var tt =mytrans.Rate;
+                                $u.val(tt)//val(unit);
+                                $u.text(tt)//val(unit);
+                            }
+                            else{
+                                selectedDepartment1 = $(this).find('option:selected').val();
+
+                                $.each( transactions, function( i,val) {
+                                    if(val["T_ID"]==selectedDepartment1)
+                                    {
+                                
+
+                                        $u.val(val["Rate"])//val(unit);
+                                        $u.text(val["Rate"])//val(unit);
+                                    }
+                                });
+                            }
+                                $(".abc2").empty();
+                                $(".abc2").append($u);
+                              
+                                var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
+                                
                                 var val =$u.val()
                                 var total = net_total*(val/100);
                                 total=total.toFixed(2);
                                 $t.val(total)//val(unit);
                                 $t.text(total)//val(unit);
 
-
-                                var a = $(".ttl").empty();
+                                $(".ttl").empty();
 
                                 $(".ttl").append($t);
-                                var sum=0;
-
-                            }
+                               
+                            
+                               
                         });
-                    });
-
                     return $insertControl;
+
+                    
                 },
             },
             {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required" },

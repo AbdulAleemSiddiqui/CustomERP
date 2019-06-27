@@ -107,10 +107,20 @@ namespace SfDesk.Controllers
             p.PI_Transactions_Add();
             return Json("");
         }
+        [HttpGet]
+        public ActionResult Mm_Get_By_ID(int id)
+        {
+            return Json(new MiddleMan() { MM_ID =id}.MiddleMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
+        }
+        public ActionResult Vehicle_Get_By_ID(int id)
+        {
+            return Json(new Vehicle() { V_ID = id}.Vehcile_Get_By_ID(), JsonRequestBehavior.AllowGet);
+
+        }
         public ActionResult Delete_Charges(PI_Charge s)
         {
-            s.PI_Charge_Delete(); 
+            s.PI_Charge_Delete();
             return Json("");
         }
         public ActionResult Delete_Transaction(PI_Transactions s)
@@ -118,6 +128,5 @@ namespace SfDesk.Controllers
             s.PI_Transactions_Delete();
             return Json("");
         }
-
     }
 }
