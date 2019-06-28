@@ -88,9 +88,9 @@ namespace SfDesk.Controllers
         }
         public ActionResult Get_Transasction()
         {
-            List<Transaction> lst = new Transaction().Transaction_Get_For_LOV();
-            lst.Add(new Transaction() { Name = "Middle Man" });
-            lst.Add(new Transaction() { Name = "Transporter" });
+            List<Transaction> lst = new Transaction().Transaction_Get_All();
+            //lst.Add(new Transaction() { Name = "Middle Man" });
+            //lst.Add(new Transaction() { Name = "Transporter" });
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
@@ -102,12 +102,12 @@ namespace SfDesk.Controllers
             p.PI_Charge_Add();
             return Json("");
         }
-        public ActionResult Save_Transaction(int PI_ID, Transaction s)
+        public ActionResult Save_Transaction(int PI_ID, PI_Transactions s)
         {
-            PI_Transactions p = new PI_Transactions();
-            p.PI_ID = PI_ID;
-            p.T_ID = s.T_ID;
-            p.PI_Transactions_Add();
+            s.is_MiddleMan = s.Name.ToLower() == "middle man";
+            s.is_Transporter= s.Name.ToLower() == "transporter";
+
+            s.PI_Transactions_Add();
             return Json("");
         }
         [HttpGet]

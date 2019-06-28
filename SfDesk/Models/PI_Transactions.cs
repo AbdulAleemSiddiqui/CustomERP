@@ -9,11 +9,14 @@ namespace SfDesk.Models
 
     public class PI_Transactions
     {
+        public int _ID { get; set; }
         public int PI_ID { get; set; }
         public int PIT_ID { get; set; }
         public int T_ID { get; set; }
-        public string T_Name { get; set; }
+        public string Name { get; set; }
         public decimal Rate { get; set; }
+        public bool is_Transporter { get; set; }
+        public bool is_MiddleMan { get; set; }
 
         #region default Properties
         public int Created_By { get; set; }
@@ -40,8 +43,10 @@ namespace SfDesk.Models
                 u.PIT_ID = (int)sdr["PIT_ID"];
                 u.PI_ID = (int)sdr["PI_ID"];
                 u.T_ID = (int)sdr["T_ID"];
-                u.T_Name = (string)sdr["Name"];
+                u.Name = (string)sdr["Name"];
                 u.Rate = (decimal)sdr["Rate"];
+                u.is_MiddleMan = (bool)sdr["is_MiddleMan"];
+                u.is_Transporter = (bool)sdr["is_Transporter"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
@@ -64,8 +69,10 @@ namespace SfDesk.Models
                 u.PIT_ID = (int)sdr["PIT_ID"];
                 u.PI_ID = (int)sdr["PI_ID"];
                 u.T_ID = (int)sdr["ST_ID"];
-                u.T_Name = (string)sdr["ST_Name"];
+                u.Name = (string)sdr["ST_Name"];
                 u.Rate = (decimal)sdr["Rate"];
+                u.is_MiddleMan = (bool)sdr["is_MiddleMan"];
+                u.is_Transporter = (bool)sdr["is_Transporter"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
                 u.Machine_Ip = (string)sdr["Machine_Ip"];
@@ -79,6 +86,8 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("PI_Transaction_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@T_ID", T_ID);
+            sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
+            sc.Parameters.AddWithValue("@is_MiddleMan", is_MiddleMan);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -91,7 +100,9 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@PIT_ID", PIT_ID);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@ST_ID", T_ID);
-            sc.ExecuteNonQuery();
+            sc.Parameters.AddWithValue("@is_MiddleMan", is_MiddleMan);
+            sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
+            sc.ExecuteNonQuery();   
         }
         public void PI_Transactions_Delete()
         {

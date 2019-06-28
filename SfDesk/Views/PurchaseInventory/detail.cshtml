@@ -80,9 +80,9 @@
     var transactions = [];
     var transactionsID = []
     function loadData() {
-        debugger;
+        ;
     
-            debugger
+            
             var id =  $('#PI_ID').val()
             if (typeof (history.pushState) != "undefined") {
 
@@ -134,7 +134,7 @@
                 url: "Get_Transasction",
                 dataType: "json",
                 success: function (d) {
-                    debugger;
+                    ;
                     if (d.ID != 0)
                     {
                         transactions = d
@@ -147,7 +147,7 @@
                         dataType: "json",
                        
                         success: function (f) {
-                            debugger;
+                            ;
                             if (d.ID != 0)
                                 transactionsID = f
                             transactionsID.forEach(function(item) {
@@ -171,22 +171,48 @@ $(function(){
     loadData();
     var mmid = $('#Middle_Man_ID :selected').val()
     var vid = $('#Vehicle_ID').val();
-    debugger
+   
     $.ajax({
         url: "MM_Get_By_ID",
         type: 'GET',
         dataType: 'json',
         data: { id :  mmid},
-        success: function (d) {   debugger;
+        success: function (d) {   ;
             myOpts = d;
         }
     });
+    $("#Middle_Man_ID").on("change",function(){
+      
+        var mmid = $('#Middle_Man_ID :selected').val()
+        $.ajax({
+            url: "MM_Get_By_ID",
+            type: 'GET',
+            dataType: 'json',
+            data: { id :  mmid},
+            success: function (d) {   ;
+                myOpts = d;
+            }
+        });
+    });
+    $("#Vehicle_ID").on("change",function(){
+        var vid = $('#Vehicle_ID').val();
+        $.ajax({
+            url: "Vehicle_Get_BY_ID",
+            type: 'GET',
+            dataType: 'json',
+            data: { id : vid },
+            success: function (d) {   ;
+                mytrans = d;
+            }
+        });
+    });
+    
     $.ajax({
         url: "Vehicle_Get_BY_ID",
         type: 'GET',
         dataType: 'json',
         data: { id : vid },
-        success: function (d) {   debugger;
+        success: function (d) {   ;
             mytrans = d;
         }
     });
@@ -272,7 +298,7 @@ function my(){
                 $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
                 args.grid._renderCells($totalRow, total);
-                debugger;
+               
                     $totalRow.find("td").eq(0).html("<b>Total</b>");
                     $totalRow.find("td").eq(0).attr('colspan',4);
                     $totalRow.find("td").eq(0).css('text-align','right');
@@ -286,12 +312,12 @@ function my(){
                     $('#jsGrid').jsGrid("refresh");
             },
                 onItemInserting: function (args) {
-                    debugger;
+                    ;
                 args.item["PI_ID"] = Master_Id;
             },
 
                 onItemInserted: function (args) {
-                debugger;
+                ;
                 jQuery("#jsGrid").jsGrid("destroy");
                 loadData();
 
@@ -379,7 +405,7 @@ function my(){
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
                         $editControl.on("change", function () {
-                        debugger;
+                        ;
                         var amount = th._grid.fields[7];
                         var p_Q =  th._grid.fields[4].editControl.val();
 
@@ -403,7 +429,7 @@ function my(){
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                     var th= this;
                         $insertControl.on("change", function () {
-                        debugger;
+                        ;
                         var D_amount = th._grid.fields[9];
                         var N_amount = th._grid.fields[10];
 
@@ -433,7 +459,7 @@ function my(){
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
                         $editControl.on("change", function () {
-                        debugger;
+                        ;
                         var D_amount = th._grid.fields[9];
                         var N_amount = th._grid.fields[10];
 
@@ -562,8 +588,13 @@ function my(){
             grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
             $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
+          
             args.grid._renderCells($totalRow, total);
-           
+               
+            $totalRow.find("td").eq(0).html("<b>Total</b>");
+          
+            $totalRow.find("td").eq(0).css('text-align','right');
+            
             args.grid._content.append($totalRow);
         },
 
@@ -579,7 +610,7 @@ function my(){
 
                 $insertControl.on("change", function () {
                     var selectedDepartment1 = $(this).find('option:selected').val();
-                    debugger
+                    
                     $.each( taxes, function( i,val) {
                         console.log(val["SalesTax_ID"])
                         if(val["SalesTax_ID"]==selectedDepartment1)
@@ -594,7 +625,7 @@ function my(){
 
                             $(".abc").append($u);
                             var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
-                            debugger;
+                            ;
                             var val =$u.val()
                             var total = net_total*(val/100);
                             total=total.toFixed(2);
@@ -640,6 +671,9 @@ function my(){
         });
 
     }
+    var selectedDepartment1;
+    var isMM=false;
+    var isT=false;
     function trans(){
 
         $("#transGrid").jsGrid({
@@ -696,35 +730,48 @@ function my(){
             pageNavigatorPrevText: "...",
             invalidMessage: "Invalid data entered!",
             onItemInserting: function (args) {
+                debugger
                 args.item["PI_ID"] = Master_Id;
+                args.item["Name"] = selectedDepartment1;
+                if(isMM){
+                    args.item["_ID"]  =myOpts[0].MM_ID;
+                }
+                else if (isT){
+                    args.item["_ID"]  =mytrans.T_ID;
+
+                }
 
             },
             onRefreshed: function(args) {
                 grand_total=net_total
-
+                
                 var items = args.grid.option("data");
-                var total = { Name: "Total", "Rate":"","Total":0, IsTotal: true };
-                debugger;
+                var total = { Name: "Total Charged", "Rate":"","Total":0, IsTotal: true };
+               
                 items.forEach(function(item) {
                    
                      total.Total +=parseFloat( item.Total);
                 });
                 trans_total =  total.Total;
                
-               
               
-              
-                grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
-           
-                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
                 total.Total= parseFloat( total.Total.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
 
                 args.grid._renderCells($totalRow, total);
-                debugger;
-
+               
+                $totalRow.find("td").eq(0).html("<b>Total</b>");
+          
+                $totalRow.find("td").eq(0).css('text-align','right');
+            
                 args.grid._content.append($totalRow);
+
+             
+                
+                grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
+           
+                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
             },
             fields: [
 
@@ -737,23 +784,27 @@ function my(){
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
 
                     $insertControl.on("change", function () {
-                        var selectedDepartment1 = $(this).find('option:selected').html();
+                         selectedDepartment1 = $(this).find('option:selected').html();
                       
-
-                            var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
+                        debugger
+                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
                             if (selectedDepartment1=="Middle Man"){
-                                debugger;
-                               var tt =myOpts[0].Rate;
-                               $u.val(tt)//val(unit);
+                                isMM = true;
+                                isT = false;
+                                var tt =myOpts[0].Rate;
+                                $u.val(tt)//val(unit);
                                $u.text(tt)//val(unit);
                             }
                             else if (selectedDepartment1=="Transporter"){
-                               
+                                isT = true;
+                                isMM = false;
                                 var tt =mytrans.Rate;
                                 $u.val(tt)//val(unit);
                                 $u.text(tt)//val(unit);
                             }
                             else{
+                                isT = false;
+                                isMM = false;
                                 selectedDepartment1 = $(this).find('option:selected').val();
 
                                 $.each( transactions, function( i,val) {
@@ -781,6 +832,7 @@ function my(){
 
                                 $(".ttl").append($t);
                                
+                             
                             
                                
                         });
@@ -791,7 +843,7 @@ function my(){
             },
             {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required" },
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl"},
-
+             {name:"_ID", title: "", type: "text", visible: false, css:"_ID"},
                            {
                                name: "PIT_ID",
                                title: "",
