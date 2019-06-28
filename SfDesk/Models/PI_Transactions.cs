@@ -88,6 +88,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
             sc.Parameters.AddWithValue("@is_MiddleMan", is_MiddleMan);
+            sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
