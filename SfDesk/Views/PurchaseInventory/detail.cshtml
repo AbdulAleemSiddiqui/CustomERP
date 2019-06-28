@@ -841,7 +841,33 @@ function my(){
                     
                 },
             },
-            {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required" },
+            {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required",
+            insertTemplate: function () {
+                var teamField = this._grid.fields[2];
+              
+                var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+
+                $insertControl.on("change", function () {
+                    val = $(this).val()
+                      
+                    debugger
+                 
+                              
+                    var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
+                    var total = net_total*(val/100);
+                    total=total.toFixed(2);
+                    $t.val(total)//val(unit);
+                    $t.text(total)//val(unit);
+                    $(".ttl").empty();
+                    $(".ttl").append($t);
+                               
+                             
+                            
+                               
+                });
+                return $insertControl;
+            },
+            },
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl"},
              {name:"_ID", title: "", type: "text", visible: false, css:"_ID"},
                            {
