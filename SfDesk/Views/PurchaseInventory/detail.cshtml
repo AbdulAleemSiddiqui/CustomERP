@@ -181,6 +181,7 @@ $(function(){
             myOpts = d;
         }
     });
+  
     $("#Middle_Man_ID").on("change",function(){
       
         var mmid = $('#Middle_Man_ID :selected').val()
@@ -742,7 +743,12 @@ function my(){
                 }
 
             },
-            onRefreshed: function(args) {
+        
+            onItemInserted: function(args){ 
+                $("#transGrid").jsGrid("loadData");    
+            },
+                onRefreshed: function(args) {
+                
                 grand_total=net_total
                 
                 var items = args.grid.option("data");
@@ -817,9 +823,12 @@ function my(){
                                     }
                                 });
                             }
+                        
+                            
+
                                 $(".abc2").empty();
                                 $(".abc2").append($u);
-                              
+                               
                                 var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
                                 
                                 var val =$u.val()
@@ -830,81 +839,29 @@ function my(){
 
                                 $(".ttl").empty();
 
-                                $(".ttl").append($t);
-                               
-                             
-                            
+                                $(".ttl").append($t);       
                                
                         });
                     return $insertControl;
+                  
 
                     
                 },
             },
-            {name:"Rate", title: "Rate", insertcss:"abc2", type: "text", width:  80, validate: "required",
-                insertTemplate: function () {
-                    var teamField = this._grid.fields[1];
-                    var Total = this._grid.fields[2];
-                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
-
-                    $insertControl.on("change", function () {
-                        selectedDepartment1 = $(this).find('option:selected').html();
-                      
-                        debugger
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
-                        if (selectedDepartment1=="Middle Man"){
-                            isMM = true;
-                            isT = false;
-                            var tt =myOpts[0].Rate;
-                            $u.val(tt)//val(unit);
-                            $u.text(tt)//val(unit);
-                        }
-                        else if (selectedDepartment1=="Transporter"){
-                            isT = true;
-                            isMM = false;
-                            var tt =mytrans.Rate;
-                            $u.val(tt)//val(unit);
-                            $u.text(tt)//val(unit);
-                        }
-                        else{
-                            isT = false;
-                            isMM = false;
-                            selectedDepartment1 = $(this).find('option:selected').val();
-
-                            $.each( transactions, function( i,val) {
-                                if(val["T_ID"]==selectedDepartment1)
-                                {
-                                
-
-                                    $u.val(val["Rate"])//val(unit);
-                                    $u.text(val["Rate"])//val(unit);
-                                }
-                            });
-                        }
-                        $(".abc2").empty();
-                        $(".abc2").append($u);
-                              
-                        var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
-                                
-                        var val =$u.val()
-                        var total = net_total*(val/100);
-                        total=total.toFixed(2);
-                        $t.val(total)//val(unit);
-                        $t.text(total)//val(unit);
-
-                        $(".ttl").empty();
-
-                        $(".ttl").append($t);
-                               
-                             
-                            
-                               
-                    });
-                    return $insertControl;
-
-                    
-                },
-            },
+             {name:"Rate", title: "Rate", type: "text", width:  90,insertcss:"abc2",
+                 validate: "required" ,
+                 insertTemplate: function () {
+                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                     $insertControl.on("change", function () {
+                         alert("23242")
+                        
+                     });
+                     return $insertControl;
+                 },
+         
+        
+             },
+  
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl"},
              {name:"_ID", title: "", type: "text", visible: false, css:"_ID"},
                            {
