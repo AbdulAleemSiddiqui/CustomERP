@@ -248,23 +248,29 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        var myOpts = []
+        var mytrans = []
+        var Master_Id = 0;
         $(window).load(function () {
-            var index = $("#Account_Payable_I").val()
-            if (index != -1) {
 
-                var index = $("#Account_Payable_I").val()
-                var input = $("#Account_Payable_Name")
-                var list = $("#" + input.attr("list"))
-                var options = $($(list).prop("options"))
-                input.val(options.eq(index).val())
-                index = $("#Purchase_Account_I").val()
-                input = $("#Purchase_Account_Name")
-                list = $("#" + input.attr("list"))
-                options = $($(list).prop("options"))
-                input.val(options.eq(index).val())
+            if ($('#PI_ID').val() != 0) {
+                debugger;
+                Master_Id = $('#PI_ID').val();
+                detail();
+
             }
+       
         })
-        $(document).ready(function () {   // Help for the HTML4 version.
+        $(document).ready(function () {
+            $('#Account_Payable_Name').on('change', function () {
+                var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
+                $("[name='Account_Payable_ID']").val(id);
+            });
+            $('#Purchase_Account_Name').on('change', function () {
+                var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
+                $("[name='Purchase_Account_ID']").val(id);
+            });
+            // Help for the HTML4 version.
             $('select[name=Account_Payable_Name]').change(function () {
                 $('input[name=other]').val($(this).val());
             });
@@ -280,36 +286,11 @@
                 populate();
 
             }
-
-        });
-        $('#Account_Payable_Name').on('change', function () {
-            var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
-            $("[name='Account_Payable_ID']").val(id);
-        });
-        $('#Purchase_Account_Name').on('change', function () {
-            var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
-            $("[name='Purchase_Account_ID']").val(id);
+          
         });
         document.getElementById("Date").valueAsDate = new Date();
-        $(document).ready(function () {
-            if (typeof (history.pushState) != "undefined") {
-
-                window.history.pushState({}, 'Purchaseorder', '/Purchaseorder/master');
-            }
-            debugger;
-            var g =$('#Transporter_ID').val();
-            if(g!=null )
-            {
-                populate();
-
-            }
-        });
-        if ($('#PI_ID').val() != 0) {
-            debugger;
-            Master_Id = $('#PI_ID').val();
-            detail();
-
-        }
+       
+  
         $('#cancel').click(function () {
             window.location.href = '/User/Index/';
         });
@@ -319,7 +300,7 @@
                 window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
             })
         });
-        var Master_Id = 0;
+  
         $("form").submit(function (e) {
             e.preventDefault();
             $.post(this.action, $(this).serialize(), function(data){
