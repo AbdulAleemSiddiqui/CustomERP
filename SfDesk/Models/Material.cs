@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace SfDesk.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        [DisplayName("Type")]
         public string M_Type { get; set; }
         public string Unit{ get; set; }
          public string E_ID { get; set; } 

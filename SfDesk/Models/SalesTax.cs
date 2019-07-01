@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,15 +10,25 @@ namespace SfDesk.Models
 {
     public class SalesTax
     {
+        [DisplayName("ID")]
         public int SalesTax_ID { get; set; }
+        [DisplayName("Type")]
+
         public string TaxType { get; set; }
         public string Code{ get; set; }
+        [DisplayName("Tax Name")]
+
         public string SalesTax_Name { get; set; }
+        [DisplayName("Account Name")]
         public string Account_Name { get; set; }
+        [DisplayName("Rate Type")]
         public string Rate_Type { get; set; }
+        [DisplayName("Account")]
         public int Account_ID { get; set; }
         public decimal Rate { get; set; }
+        [DisplayName("Opening Balance")]
         public decimal Opening_Balance { get; set; }
+        [DisplayName("is Claimable")]
         public bool Is_Claimable { get; set; }
         public int Created_By { get; set; }
 

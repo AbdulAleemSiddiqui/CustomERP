@@ -11,11 +11,15 @@ namespace SfDesk.Models
     public class Transporter
     {
         #region Properties
+        [DisplayName("ID")]
         public int T_ID { get; set; }
+        [DisplayName("Trading Name")]
         public string Trading_Name { get; set; }
         public string NTN { get; set; }
         public string STRN { get; set; }
+        [DisplayName("Contact Name")]
         public string Contact_Name { get; set; }
+        [DisplayName("Phone #")]
         public string Phone_Number { get; set; }
 
         [DisplayName("Expense Account")]

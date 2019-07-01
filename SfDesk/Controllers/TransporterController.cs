@@ -32,6 +32,17 @@ namespace SfDesk.Controllers
             t.V_ID = t.Vehcile_Add();
             return Json(t, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult Update_Vehicle(Vehicle t)
+        {
+            t.Vehcile_Update();
+            return Json("Updated", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Delete_Vehicle(Vehicle t)
+        {
+            t.Vehcile_Delele();
+            return Json("Deleted", JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Vehcile_Get_By_Transporter(int id)
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(),JsonRequestBehavior.AllowGet);
