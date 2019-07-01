@@ -46,7 +46,7 @@
                 $("#jssGrid").jsGrid({
                     
                     controller: {
-                        loadData: $.noop,
+                        
                         insertItem: function (insertingClient) {
                             
                             // this.clients.push(insertingClient);
@@ -63,8 +63,34 @@
                                 },
                             })
                         },
-                        updateItem: $.noop,
-                        deleteItem: $.noop
+                        updateItem: function (updatingClient) {
+                            $.ajax({
+                                type: "POST",
+                                data: updatingClient,
+                                url: "update_vehicle",
+                                success: function (d) {
+                                    alert(d);
+                                },
+                            })
+                        },
+
+                        deleteItem: function (deletingClient) {
+                            $.ajax({
+                                type: "GET",
+                                data: deletingClient,
+                                url: "Delete_vehicle",
+                                success: function (d) {
+                                    alert(d);
+                                },
+                            })
+                        }
+                    },
+                    onItemInserted: function (args) {
+
+                        jQuery("#jsGrid").jsGrid("destroy");
+                        my();
+
+
                     },
                     onItemInserting: function (args) {
                         debugger
