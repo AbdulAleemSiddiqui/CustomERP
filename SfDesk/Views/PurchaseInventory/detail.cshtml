@@ -147,13 +147,10 @@
                         dataType: "json",
                        
                         success: function (f) {
-                            ;
+                            
                             if (d.ID != 0)
                                 transactionsID = f
-                            transactionsID.forEach(function(item) {
-                                item.Total = net_total*(item.Rate/100);
-                                item.Total=item.Total.toFixed(2);
-                            });
+                           
                             trans()
                          
                         }
@@ -676,7 +673,7 @@ function my(){
     var isMM=false;
     var isT=false;
     function trans(){
-
+    debugger
         $("#transGrid").jsGrid({
 
             height: "auto",
@@ -733,8 +730,7 @@ function my(){
             onItemInserting: function (args) {
                 debugger
                 args.item["PI_ID"] = Master_Id;
-                args.item["Name"] = selectedDepartment1;
-                args.item["Rate"] =   args.item["Total"];
+                args.item["Name"] = selectedDepartment1;    
 
                 if(isMM){
                     args.item["_ID"]  =myOpts[0].MM_ID;
@@ -762,7 +758,9 @@ function my(){
                      total.Total +=parseFloat( item.Total);
                 });
                 trans_total =  total.Total;
-               
+                grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
+           
+                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
               
 
                 total.Total= parseFloat( total.Total.toFixed(2));
@@ -778,9 +776,7 @@ function my(){
 
              
                 
-                grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
-           
-                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
+              
             },
             fields: [
 
@@ -795,21 +791,30 @@ function my(){
                     $insertControl.on("change", function () {
                          selectedDepartment1 = $(this).find('option:selected').html();
                       
-                        debugger
+                         debugger
+                         var val =0;
+                         var total = 0;
                         var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
                             if (selectedDepartment1=="Middle Man"){
                                 isMM = true;
                                 isT = false;
                                 var tt =myOpts[0].Rate;
-                                $u.val(tt)//val(unit);
-                               $u.text(tt)//val(unit);
+                               $u.val(tt)//val(unit);
+                                $u.text(tt)//val(unit);
+                               
+                                val = $u.val();
+                                total = parseInt(val);
                             }
                             else if (selectedDepartment1=="Transporter"){
                                 isT = true;
                                 isMM = false;
                                 var tt =mytrans.Rate;
-                                $u.val(tt)//val(unit);
+                                 $u.val(tt)//val(unit);
                                 $u.text(tt)//val(unit);
+                                val = $u.val();
+                                
+                                total = parseInt(val);
+                                
                             }
                             else{
                                 isT = false;
@@ -820,9 +825,43 @@ function my(){
                                     if(val["T_ID"]==selectedDepartment1)
                                     {
                         
+                                        var rate_Type = val["Rate_Type"];
+                                        var Nature = val["Charge_Nature"];  
                                         
-                                        $u.val(val["Rate"])//val(unit);
-                                        $u.text(val["Rate"])//val(unit);
+                                         $u.val(val["Rate"])//val(unit);
+                    
+                                         $u.text(val["Rate"])//val(unit);
+                                         val = $u.val();
+
+                                        if(rate_Type== "Flat")
+                                        {
+                                            if(Nature== "Deduction")
+                                            {
+                                                
+                                                total = -1*parseInt(val);
+                                            }
+                                            else
+                                            {
+                                               
+                                                total = parseInt(val);
+                                            }
+                                        
+                                        }
+                                        else
+                                        {
+                                            if(Nature== "Deduction")
+                                            {
+                                                
+                                                total =-1*net_total*(val/100);
+                                            }
+                                            else
+                                            {
+                                               
+                                                total = net_total*(val/100);
+                                            }
+                                        
+                                        }
+                                    
                                     }
                                 });
                             }
@@ -833,8 +872,7 @@ function my(){
                                 var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
                                 
                                 var val =$u.val()
-                                var total = net_total*(val/100);
-                                total=total.toFixed(2);
+                               
                                 $t.val(total)//val(unit);
                                 $t.text(total)//val(unit);
 
@@ -843,9 +881,7 @@ function my(){
                                 $(".abc2").empty();
 
                                 $u.on("change", function () {
-                                    var val =$u.val()
-                                    var total = net_total*(val/100);
-                                    total=total.toFixed(2);
+                                   
                                     $t.val(total)//val(unit);
                                     $t.text(total)//val(unit);
 

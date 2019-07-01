@@ -141,7 +141,7 @@ namespace SfDesk.Models
         }
         public void Transaction_Add()
         {
-            SqlCommand sc = new SqlCommand("Transactions_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transaction_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             
             sc.Parameters.AddWithValue("@Name", Name);
             sc.Parameters.AddWithValue("@Charge_Nature", Charge_Nature);

@@ -15,6 +15,7 @@ namespace SfDesk.Models
         public int T_ID { get; set; }
         public string Name { get; set; }
         public decimal Rate { get; set; }
+        public decimal Total { get; set; }
         public bool is_Transporter { get; set; }
         public bool is_MiddleMan { get; set; }
 
@@ -45,6 +46,7 @@ namespace SfDesk.Models
                 u.T_ID = (int)sdr["T_ID"];
                 u.Name = (string)sdr["Name"];
                 u.Rate = (decimal)sdr["Rate"];
+                u.Total = (decimal)sdr["Total"];
                 u.is_MiddleMan = (bool)sdr["is_MiddleMan"];
                 u.is_Transporter = (bool)sdr["is_Transporter"];
                 u.Created_By = (int)sdr["CreatedBy"];
@@ -71,6 +73,7 @@ namespace SfDesk.Models
                 u.T_ID = (int)sdr["ST_ID"];
                 u.Name = (string)sdr["ST_Name"];
                 u.Rate = (decimal)sdr["Rate"];
+                u.Total = (decimal)sdr["Total"];
                 u.is_MiddleMan = (bool)sdr["is_MiddleMan"];
                 u.is_Transporter = (bool)sdr["is_Transporter"];
                 u.Created_By = (int)sdr["CreatedBy"];
@@ -89,6 +92,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
             sc.Parameters.AddWithValue("@is_MiddleMan", is_MiddleMan);
             sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Total", Total);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
