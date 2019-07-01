@@ -734,6 +734,8 @@ function my(){
                 debugger
                 args.item["PI_ID"] = Master_Id;
                 args.item["Name"] = selectedDepartment1;
+                args.item["Rate"] =   args.item["Total"];
+
                 if(isMM){
                     args.item["_ID"]  =myOpts[0].MM_ID;
                 }
@@ -745,7 +747,8 @@ function my(){
             },
         
             onItemInserted: function(args){ 
-                $("#transGrid").jsGrid("loadData");    
+                jQuery("#transGrid").jsGrid("destroy");
+                loadData();
             },
                 onRefreshed: function(args) {
                 
@@ -826,8 +829,6 @@ function my(){
                         
                             
 
-                                $(".abc2").empty();
-                                $(".abc2").append($u);
                                
                                 var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
                                 
@@ -838,9 +839,24 @@ function my(){
                                 $t.text(total)//val(unit);
 
                                 $(".ttl").empty();
+                                $(".ttl").append($t);   
+                                $(".abc2").empty();
 
-                                $(".ttl").append($t);       
-                               
+                                $u.on("change", function () {
+                                    var val =$u.val()
+                                    var total = net_total*(val/100);
+                                    total=total.toFixed(2);
+                                    $t.val(total)//val(unit);
+                                    $t.text(total)//val(unit);
+
+                                    $(".ttl").empty();
+                                    $(".ttl").append($t);   
+
+                                });
+                                $(".abc2").append($u);   
+                     
+                          return $insertControl;
+                      
                         });
                     return $insertControl;
                   
@@ -853,7 +869,7 @@ function my(){
                  insertTemplate: function () {
                      var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                      $insertControl.on("change", function () {
-                         alert("23242")
+                         
                         
                      });
                      return $insertControl;
