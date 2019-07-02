@@ -128,7 +128,7 @@ namespace SfDesk.Models
         }
         public void Vehcile_Update()
         {
-            SqlCommand sc = new SqlCommand("Vehcile_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vehicle_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@V_ID", V_ID);
             sc.Parameters.AddWithValue("@Vehicle_Type", Vehicle_Type);
@@ -140,7 +140,7 @@ namespace SfDesk.Models
         }
         public void Vehcile_Delele()
         {
-            SqlCommand sc = new SqlCommand("Vehcile_Delele", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vehicle_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@V_ID", V_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);

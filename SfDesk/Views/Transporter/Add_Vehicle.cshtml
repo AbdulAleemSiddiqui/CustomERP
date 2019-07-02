@@ -67,7 +67,7 @@
                             $.ajax({
                                 type: "POST",
                                 data: updatingClient,
-                                url: "update_vehicle",
+                                url: "/Transporter/update_vehicle",
                                 success: function (d) {
                                     alert(d);
                                 },
@@ -78,7 +78,7 @@
                             $.ajax({
                                 type: "GET",
                                 data: deletingClient,
-                                url: "Delete_vehicle",
+                                url: "/Transporter/Delete_vehicle",
                                 success: function (d) {
                                     alert(d);
                                 },
