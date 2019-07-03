@@ -12,13 +12,14 @@ namespace SfDesk.Controllers
         // GET: MiddleMan
          public ActionResult Add()
         {
-           
+
             return View();
         }
         [HttpPost]
         public ActionResult Add(MiddleMan t)
         {
-            t.MiddleMan_Add();
+           
+          t.MM_ID=  t.MiddleMan_Add();
             return Json(t,JsonRequestBehavior.AllowGet);
         }
 

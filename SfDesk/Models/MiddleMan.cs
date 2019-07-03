@@ -36,6 +36,11 @@ namespace SfDesk.Models
         public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
+        public MiddleMan()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
 
         #endregion
 
@@ -122,7 +127,7 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
-        public void MiddleMan_Add()
+        public int MiddleMan_Add()
         {
             SqlCommand sc = new SqlCommand("MiddleMan_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
@@ -139,8 +144,8 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
-
+            object a = sc.ExecuteScalar();
+            return Convert.ToInt32((decimal)a);
         }
         public void MiddleMan_Update()
         {
