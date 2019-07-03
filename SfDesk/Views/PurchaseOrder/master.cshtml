@@ -252,10 +252,19 @@
         var mytrans = []
         var Master_Id = 0;
         $(window).load(function () {
-
             if ($('#PI_ID').val() != 0) {
-                debugger;
+                var index = $("#Account_Payable_I").val()
+                var input = $("#Account_Payable_Name")
+                var list = $("#" + input.attr("list"))
+                var options = $($(list).prop("options"))
+                input.val(options.eq(index).val())
+                index = $("#Purchase_Account_I").val()
+                input = $("#Purchase_Account_Name")
+                list = $("#" + input.attr("list"))
+                options = $($(list).prop("options"))
+                input.val(options.eq(index).val())
                 Master_Id = $('#PI_ID').val();
+            
                 detail();
 
             }

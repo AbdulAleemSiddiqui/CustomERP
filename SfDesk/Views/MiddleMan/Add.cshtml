@@ -67,31 +67,54 @@
                 @Html.ValidationMessageFor(model => model.Exp_Acc_ID, "", new { @class = "text-danger" })
             </div>
         </div>
+            <div class="form-group">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Exp_Acc_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Exp_Acc_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Exp_Acc_Name, "", new { @class = "text-danger" })
+                @Html.Hidden("Exp_Acc_ID")
+                @Html.LabelFor(model => model.Exp_Acc_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    <input type="text" name="Exp_Acc_Name" list="Exp_Acc_List" id="Exp_Acc_Name" class="form-control text-box">
+                    <datalist id="Exp_Acc_List">
+                        @{
+                           
+                            List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                        }
+
+                        @foreach (var item in ab)
+                        {
+                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                        }
+
+                    </datalist>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Pay_Acc_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pay_Acc_ID, "", new { @class = "text-danger" })
+
+    
+            <div class="form-group">
+
+                @Html.Hidden("Pay_Acc_ID")
+                @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    <input type="text" name="Pay_Acc_Name" list="Pay_Acc_List" id="Pay_Acc_Name" class="form-control text-box">
+                    <datalist id="Pay_Acc_List">
+                      
+
+                        @foreach (var item in ab)
+                        {
+                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                          
+
+                        }
+
+                    </datalist>
+                   </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pay_Acc_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Pay_Acc_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pay_Acc_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
+
+
+     
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-6">
