@@ -2,7 +2,7 @@
 @{
     Layout = "";
 }
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Add", "middleman", FormMethod.Post, htmlAttributes: new { @id = "f2" }))
 {
     @Html.AntiForgeryToken()
     
@@ -142,3 +142,15 @@
         </div>
     </div>
 }
+<script>
+    $("#f2").submit(function (e) {
+        debugger;
+        e.preventDefault();
+        $.post(this.action, $(this).serialize(),
+            function (data) {
+                $('#Transporter_ID').append('<option value=' + data.T_ID + '>' + data.Trading_Name + ' </option>');
+                $('#T_ID').val(data.T_ID);
+                detail()
+            })
+    });
+</script>

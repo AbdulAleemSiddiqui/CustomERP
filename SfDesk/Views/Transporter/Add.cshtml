@@ -102,8 +102,8 @@
         $.post(this.action, $(this).serialize(),
             function (data)
             {
-                $('#Transporter_ID').append('<option value=' + data.T_ID + '>' + data.Trading_Name + ' </option>');
-                $('#T_ID').val(data.T_ID);
+                $('#Middle_Man_ID').append('<option value=' + data.MM_ID + '>' + data.Trading_Name + ' </option>');
+                $('#MM_ID').val(data.MM_ID);
                 detail()
             })
     });
