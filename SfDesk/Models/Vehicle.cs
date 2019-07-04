@@ -93,7 +93,7 @@ namespace SfDesk.Models
         {
             Vehicle u = new Vehicle();
             SqlCommand sc = new SqlCommand("Vehcile_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@V_ID", App.App_ID);
+            sc.Parameters.AddWithValue("@V_ID",V_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

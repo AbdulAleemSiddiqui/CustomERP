@@ -383,18 +383,25 @@ function my(){
                     var th= this;
                         $insertControl.on("change", function () {
 
-                        var amount = th._grid.fields[7];
+                            var amount = th._grid.fields[7];
+                            var namount = th._grid.fields[10];
                         var p_Q =  th._grid.fields[4].insertControl.val();
 
                         var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
+                        var $nu = jsGrid.fields.text.prototype.insertTemplate.call(namount);
                         var rate = this.value;
 
                             $u.val(rate*p_Q)//val(unit);
                             $u.text(rate*p_Q)//val(unit);
+                            $nu.val(rate*p_Q)//val(unit);
+                            $nu.text(rate*p_Q)//val(unit);
                             var a = $(".amount").empty();
 
                             $(".amount").append($u);
-                        a = $(".amount")
+                            a = $(".amount")
+                            $(".Namount").empty();
+
+                            $(".Namount").append($nu);
 
                         });
                     return $insertControl;
@@ -416,6 +423,7 @@ function my(){
 
                             $(".amount").append($u);
                         a = $(".amount")
+                        var dscnt = th._grid.fields[8].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
 
                         });
                     return $editControl;
