@@ -226,14 +226,15 @@
                             </div>
                         </div>
                     </div>
+                    <div id="child"></div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-6">
-                            <input type="submit" value="Create" class="btn btn-default" id="done" />
+                            <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
                         </div>
                     </div>
                 </div>
 }
-                <div id="child"></div>
+              
 
             
 
@@ -263,9 +264,10 @@
     <script>
         var myOpts = []
         var mytrans = []
+        var Master_Id = 0;
         $(window).load(function () {
             
-               
+             detail()
             if ($('#PI_ID').val() != 0) {
                 var index = $("#Account_Payable_I").val()
                 var input = $("#Account_Payable_Name")
@@ -302,24 +304,41 @@
                     populate();
 
                 }
-                
+                $('#Account_Payable_Name').on('change', function () {
+                    var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
+                    $("[name='Account_Payable_ID']").val(id);
+                });
+                $('#Purchase_Account_Name').on('change', function () {
+                    var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
+                    $("[name='Purchase_Account_ID']").val(id);
+                });
         });
-        $('#Account_Payable_Name').on('change', function () {
-            var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
-            $("[name='Account_Payable_ID']").val(id);
-        });
-        $('#Purchase_Account_Name').on('change', function () {
-            var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
-            $("[name='Purchase_Account_ID']").val(id);
-        });
-        var Master_Id = 0;
-        $("form").submit(function (e) {
+    
+     
+        $("#create").click(function (e) {
             e.preventDefault();
-            $.post(this.action, $(this).serialize(), function (data) {
-                detail()
-                ;
-                Master_Id = data;
-            })
+            var data = {};
+            $("form").serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            data.transactions = myTransaction;
+            data.taxes = myTaxes;
+            $.ajax({
+                url: "master",
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseInventory")';
+                }
+
+            });
+            //$.post(this.action, $(this).serialize(), function (data) {
+            //    detail()
+            //    ;
+            //    Master_Id = data;
+            //})
       
         });
 
@@ -328,7 +347,7 @@
         function detail() {
 
             $.get('@Url.Action("detail", "PurchaseInventory")', function (data) { $("#child").html(data); });
-            $("#done").hide()
+         
         };
         function AddSupplier() {
             $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });

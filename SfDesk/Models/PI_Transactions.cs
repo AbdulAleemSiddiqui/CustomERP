@@ -18,6 +18,7 @@ namespace SfDesk.Models
         public decimal Total { get; set; }
         public bool is_Transporter { get; set; }
         public bool is_MiddleMan { get; set; }
+        public string action { get; set; }
 
         #region default Properties
         public int Created_By { get; set; }

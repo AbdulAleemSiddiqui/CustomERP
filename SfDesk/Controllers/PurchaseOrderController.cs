@@ -10,6 +10,7 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseOrderController : Controller
     {
+        private PurchaseInventory old;
         public ActionResult master(int? id)
         {
             if (id != null)
@@ -19,19 +20,99 @@ namespace SfDesk.Controllers
                 
                 if(p==null)
                 {
+                    
                     p = new PurchaseInventory() { PI_ID = id.Value, App_Status = "PO_Created" };
                     p = p.PO_Get_All().Find(x => x.PI_ID == id);
                     ViewBag.vehicle = new Vehicle() { V_ID = p.Vehicle_ID, Vehicle_No = p.Vehicle_No };
                 }
+                old = p;
                 return View(p == null ? new PurchaseInventory() : p);
             }
             return View(new PurchaseInventory());
         }
         [HttpPost]
-        public ActionResult master(PurchaseInventory c)
+        public ActionResult master(PurchaseInventory c, List<PI_Details> pi, List<PI_Details> pie)
         {
             c.App_Status = "PO_Created";
-            c.PO_Add();
+            if(c!=old)
+                c.PO_Add();
+            //if (pi != null)
+            //    foreach (var item in c.details)
+            //    {
+            //        item.PI_ID = c.PI_ID;
+            //        item.PI_Detail_Add();
+            //    }
+            //if (pie != null)
+            //    foreach (var item in pie)
+            //    {
+
+            //        item.PI_Detail_Update();
+            //    }
+
+            if (c.details != null &&c.details.Count > 0)
+            {
+                foreach (var item in c.details)
+                {
+                    if (item.action == "I")
+                    {
+                        item.PI_ID = c.PI_ID;
+                        item.PI_Detail_Add();
+                    }
+                    else if (item.action == "U")
+                    {
+                        item.PI_Detail_Update();
+                    }
+                    else if (item.action == "D")
+                    {
+                        item.PI_Detail_Delete();
+                    }
+
+                }
+            }
+            if (c.taxes != null && c.taxes.Count > 0)
+            {
+                foreach (var p in c.taxes)
+                {
+                    p.PI_ID = c.PI_ID;
+                    if (p.action == "I")
+                    {
+                        p.PI_ID = c.PI_ID;
+                        p.PI_Charge_Add();
+                    }
+                    else if (p.action == "U")
+                    {
+                        p.PI_Charge_Update();
+                    }
+                    else if (p.action == "D")
+                    {
+                        p.PI_Charge_Delete();
+                    }
+                    
+
+                }
+            }
+            if (c.transactions != null && c.transactions.Count > 0)
+            {
+                foreach (var p in c.transactions)
+                {
+                    p.PI_ID = c.PI_ID;
+                    if (p.action == "I")
+                    {
+                        p.PI_ID = c.PI_ID;
+                        p.PI_Transactions_Add();
+                    }
+                    else if (p.action == "U")
+                    {
+                        p.PI_Transactions_Update();
+                    }
+                    else if (p.action == "D")
+                    {
+                        p.PI_Transactions_Delete();
+                    }
+
+                }
+            }
+
             //change krna hai 
             return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
         }
@@ -44,10 +125,73 @@ namespace SfDesk.Controllers
             return View(new PurchaseInventory() { App_Status = "PO_Created" }.PO_Get_All());
         }
         [HttpPost]
-        public ActionResult Approve(PurchaseInventory p)
+        public ActionResult Approve(PurchaseInventory c)
         {
-            p.App_Status = "Un-Allocated";
-            p.PR_Approve();
+            c.App_Status = "Un-Allocated";
+            c.PR_Approve();
+            if (c.details != null && c.details.Count > 0)
+            {
+                foreach (var item in c.details)
+                {
+                    if (item.action == "I")
+                    {
+                        item.PI_ID = c.PI_ID;
+                        item.PI_Detail_Add();
+                    }
+                    else if (item.action == "U")
+                    {
+                        item.PI_Detail_Update();
+                    }
+                    else if (item.action == "D")
+                    {
+                        item.PI_Detail_Delete();
+                    }
+
+                }
+            }
+            if (c.taxes != null && c.taxes.Count > 0)
+            {
+                foreach (var p in c.taxes)
+                {
+                    p.PI_ID = c.PI_ID;
+                    if (p.action == "I")
+                    {
+                        p.PI_ID = c.PI_ID;
+                        p.PI_Charge_Add();
+                    }
+                    else if (p.action == "U")
+                    {
+                        p.PI_Charge_Update();
+                    }
+                    else if (p.action == "D")
+                    {
+                        p.PI_Charge_Delete();
+                    }
+
+
+                }
+            }
+            if (c.transactions != null && c.transactions.Count > 0)
+            {
+                foreach (var p in c.transactions)
+                {
+                    p.PI_ID = c.PI_ID;
+                    if (p.action == "I")
+                    {
+                        p.PI_ID = c.PI_ID;
+                        p.PI_Transactions_Add();
+                    }
+                    else if (p.action == "U")
+                    {
+                        p.PI_Transactions_Update();
+                    }
+                    else if (p.action == "D")
+                    {
+                        p.PI_Transactions_Delete();
+                    }
+
+                }
+            }
             return Json("", JsonRequestBehavior.AllowGet);
 
         }
@@ -62,20 +206,20 @@ namespace SfDesk.Controllers
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)
         {
-            ViewBag.detail_id = pi.PI_Detail_Add();
+           // ViewBag.detail_id = pi.PI_Detail_Add();
             return Json("added sucessfully");
         }
         [HttpPost]
         public ActionResult update(PurchaseInventory pi)
         {
-            pi.Store = pi.Store == null ? "" : pi.Store;
+         //   pi.Store = pi.Store == null ? "" : pi.Store;
             pi.PI_Detail_Update();
             return Json("updated sucessfully");
         }
         [HttpGet]
         public ActionResult delete(int Detail_ID)
         {
-            new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
+          //  new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
             return Json("delete sucessfully");
         }
         [HttpGet]

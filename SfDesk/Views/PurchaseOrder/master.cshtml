@@ -71,21 +71,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.Hidden("Account_Payable_ID")
-
-
+                            @Html.HiddenFor(Model => Model.Account_Payable_ID)
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">  
+                            <div class="col-md-5">
+
                                 <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
                                 <datalist id="Account_Payable_List">
                                     @{
                                         SfDesk.Models.ChartOfAccount selected = null;
-                                        int indexofAPL = -1;
-                                        int indexofPAN = -1;
+                                        int indexofAPL = 0;
+                                        int indexofPAN = 0;
                                         List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                         ab = ab.FindAll(x => x.Group_ID == 20);
                                     }
-
+                                    <option ></option>
                                     @foreach (var item in ab)
                                     {
                                         <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
@@ -99,18 +98,19 @@
 
                                 </datalist>
                                 <input type="hidden" id="Account_Payable_I" name="Account_Payable_I" value="@indexofAPL" />
+
                                 @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-
-                            @Html.Hidden("Purchase_Account_ID")
+                        @*<div class="form-group">
                             @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Purchase_Account_ID)
                                 <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
                                 <datalist id="Purchase_Account_List">
                                     @{
+
                                         ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                         ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
                                     }
@@ -127,7 +127,39 @@
                                     }
 
                                 </datalist>
-                                <input type="hidden" id="Purchase_Account_I" name ="Purchase_Account_I" value="@indexofPAN" />
+                                <input type="hidden" id="Purchase_Account_I" name="Purchase_Account_I" value="@indexofPAN" />
+
+                                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Purchase_Account_ID)
+                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                <datalist id="Purchase_Account_List">
+                                    @{
+
+                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                    }
+                                    <option></option>
+
+                                    @foreach (var item in ab)
+                                    {
+                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        if (item.COA_ID == Model.Purchase_Account_ID)
+                                        {
+                                            selected = item;
+                                            indexofPAN = ab.IndexOf(item);
+                                        }
+
+                                    }
+
+                                </datalist>
+                                <input type="hidden" id="Purchase_Account_I" name="Purchase_Account_I" value="@indexofPAN" />
+
                                 @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>
@@ -209,11 +241,13 @@
                             </div>
                         </div>
                     </div>
+                    <div id="child"></div>
+                    <br />
                     <div class="form-group">
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
-                                <input type="submit" value="Create" class="btn btn-default" id="create" />
-                                <input type="button" value="Approved" class="btn btn-default" id="approve" />
+                                <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
+                                <input type="button" value="Approved and Exit" class="btn btn-default" id="approve" />
                                 <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
                                 <input type="button" value="Reject" class="btn btn-default" id="reject" />
                             </div>
@@ -224,7 +258,7 @@
                 </div>
             }
 
-            <div id="child"></div>
+          
         </div>
     </div>
 </div>
@@ -248,10 +282,11 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
-        var myOpts = []
         var mytrans = []
+        var myOpts = []
         var Master_Id = 0;
         $(window).load(function () {
+            detail();
             if ($('#PI_ID').val() != 0) {
                 var index = $("#Account_Payable_I").val()
                 var input = $("#Account_Payable_Name")
@@ -264,13 +299,30 @@
                 options = $($(list).prop("options"))
                 input.val(options.eq(index).val())
                 Master_Id = $('#PI_ID').val();
-            
-                detail();
+
+              
 
             }
-       
+
         })
         $(document).ready(function () {
+            $('select[name=Account_Payable_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+
+            $('select[name=Purchase_Account_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+
+            if (typeof (history.pushstate) != "undefined") {
+                window.history.pushstate({}, 'purchaseorder', '/purchaseorder/master');
+
+            }
+            var g = $('#Transporter_ID').val();
+            if (g != "") {
+                populate();
+
+            }
             $('#Account_Payable_Name').on('change', function () {
                 var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
                 $("[name='Account_Payable_ID']").val(id);
@@ -279,58 +331,65 @@
                 var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
                 $("[name='Purchase_Account_ID']").val(id);
             });
-            // Help for the HTML4 version.
-            $('select[name=Account_Payable_Name]').change(function () {
-                $('input[name=other]').val($(this).val());
-            });
-            $('select[name=Purchase_Account_Name]').change(function () {
-                $('input[name=other]').val($(this).val());
-            });
-            if (typeof (history.pushState) != "undefined") {
-                window.history.pushState({}, 'PurchaseInventory', '/PurchaseInventory/master');
-
-            }
-            var g = $('#Transporter_ID').val();
-            if (g != null) {
-                populate();
-
-            }
-          
         });
+     
+        var Master_Id = 0;
         document.getElementById("Date").valueAsDate = new Date();
-       
-  
+
+
         $('#cancel').click(function () {
             window.location.href = '/User/Index/';
         });
         $('#approve').click(function () {
             debugger;
-            $.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
+            @*$.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
                 window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
-            })
+            })*@
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            data.transactions = myTransaction;
+            data.taxes = myTaxes;
+            $.ajax({
+                url: '@Url.Action("Approve", "PurchaseOrder")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+                }
+
+            });
         });
-  
-        $("form").submit(function (e) {
+
+        $("#create").click(function (e) {
             e.preventDefault();
-            $.post(this.action, $(this).serialize(), function(data){
+            @*$.post(this.action, $(this).serialize(), function (data) {
                 detail()
                 debugger;
                 Master_Id = data;
                 window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
 
-            })
-            //$.ajax({
-            //    url: this.action,
-            //    type: 'Post',
-            //    dataType: 'json',
-            //    data: {
-            //        c: $(this).serialize()
-            //    },
-            //    success: function (data) {
-            //        detail()
-            //    }
+            });*@
+            var data = {};
+            $(this).serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            data.transactions = myTransaction;
+            data.taxes = myTaxes;
+            $.ajax({
+                url: 'master',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+                }
 
-            //});
+            });
         });
 
         $('#myModal').on("hidden.bs.modal", function () {

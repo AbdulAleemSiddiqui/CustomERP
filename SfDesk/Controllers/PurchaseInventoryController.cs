@@ -28,10 +28,75 @@ namespace SfDesk.Controllers
         {
             if (c.PI_ID == 0)
             {
-                int id = c.PI_Add();
-                return Json(id, JsonRequestBehavior.AllowGet);
+                c.PI_ID = c.PI_Add();
+             
 
             }
+
+            if (c.details != null && c.details.Count > 0)
+            {
+                foreach (var item in c.details)
+                {
+                    if (item.action == "I")
+                    {
+                        item.PI_ID = c.PI_ID;
+                        item.PI_Detail_Add();
+                    }
+                    else if (item.action == "U")
+                    {
+                        item.PI_Detail_Update();
+                    }
+                    else if (item.action == "D")
+                    {
+                        item.PI_Detail_Delete();
+                    }
+
+                }
+            }
+            if (c.taxes != null && c.taxes.Count > 0)
+            {
+                foreach (var p in c.taxes)
+                {
+                    p.PI_ID = c.PI_ID;
+                    if (p.action == "I")
+                    {
+                        p.PI_ID = c.PI_ID;
+                        p.PI_Charge_Add();
+                    }
+                    else if (p.action == "U")
+                    {
+                        p.PI_Charge_Update();
+                    }
+                    else if (p.action == "D")
+                    {
+                        p.PI_Charge_Delete();
+                    }
+
+
+                }
+            }
+            if (c.transactions != null && c.transactions.Count > 0)
+            {
+                foreach (var p in c.transactions)
+                {
+                    p.PI_ID = c.PI_ID;
+                    if (p.action == "I")
+                    {
+                        p.PI_ID = c.PI_ID;
+                        p.PI_Transactions_Add();
+                    }
+                    else if (p.action == "U")
+                    {
+                        p.PI_Transactions_Update();
+                    }
+                    else if (p.action == "D")
+                    {
+                        p.PI_Transactions_Delete();
+                    }
+
+                }
+            }
+
             return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ShowAll()
@@ -50,7 +115,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)
         {
-            ViewBag.detail_id = pi.PI_Detail_Add();
+          //  ViewBag.detail_id = pi.PI_Detail_Add();
             return Json("added sucessfully");
         }
         [HttpPost]
@@ -62,7 +127,7 @@ namespace SfDesk.Controllers
         [HttpGet]
         public ActionResult delete(int Detail_ID)
         {
-            new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
+     //       new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
             return Json("delete sucessfully");
         }
         [HttpGet]

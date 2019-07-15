@@ -69,23 +69,24 @@
 
                       
                     </div>
+                    <div id="child"></div>
                     <div class="form-group" >
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
-                                <input type="submit" value="Create" class="btn btn-default" id="create" />
-                                <input type="button" value="Approved" class="btn btn-default" id="approve" />
+                                <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
+                                <input type="button" value="Approved and Exit" class="btn btn-default" id="approve" />
                                 <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
                                 <input type="button" value="Reject" class="btn btn-default" id="reject" />
-                                <input type="button" value="Done" class="btn btn-default" id="done" />
                             </div>
                         </div>
 
 
                     </div>
                 </div>
+
                                         }
 
-            <div id="child"></div>
+            
         </div>
     </div>
 </div>
@@ -106,7 +107,7 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
-     var details= [] 
+     var details= []
 
         $('#cancel').click(function () {
             window.location.href = '/PurchaseRequisition/Showall';
@@ -116,9 +117,31 @@
         });
         $('#approve').click(function () {
             debugger;
-            $.post('@Url.Action("Approve", "PurchaseRequisition")', $('form').serialize(), function (data) {
+            @*$.post('@Url.Action("Approve", "PurchaseRequisition")', $('form').serialize(), function (data) {
                 window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
-            })
+            })*@
+            //$.post(this.action, $(this).serialize(), function (data) {
+
+            //    Master_Id = data;
+            //    addDetails()
+            //})
+
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            debugger
+            $.ajax({
+                url: '@Url.Action("Approve", "PurchaseRequisition")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    p: data, pi: clients, pie: editedClients
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+                }
+
+            });
         });
         $(document).ready(function () {   // Help for the HTML4 version.
 
@@ -127,10 +150,10 @@
             if ($('#PI_ID').val() != 0)
             {
                 Master_Id = $('#PI_ID').val();
-                detail();
+
 
             }
-
+            detail();
 
 
             $('select[name=Account_Payable_Name]').change(function () {
@@ -149,24 +172,29 @@
             $("[name='Purchase_Account_ID']").val(id);
         });
         var Master_Id = 0;
-        $("form").submit(function (e) {
+        $("#create").click(function (e) {
             e.preventDefault();
-            $.post(this.action, $(this).serialize(), function (data) {
-                detail()
-                Master_Id = data;
-            })
-            //$.ajax({
-            //    url: this.action,
-            //    type: 'Post',
-            //    dataType: 'json',
-            //    data: {
-            //        c: $(this).serialize()
-            //    },
-            //    success: function (data) {
-            //        detail()
-            //    }
+            //$.post(this.action, $(this).serialize(), function (data) {
 
-            //});
+            //    Master_Id = data;
+            //    addDetails()
+            //})
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
+            data.details = clients;
+            $.ajax({
+                url: '@Url.Action("master", "PurchaseRequisition")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data, pi: clients, pie: editedClients
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+                }
+
+            });
         });
 
 

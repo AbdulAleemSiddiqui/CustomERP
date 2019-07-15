@@ -10,6 +10,9 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseRequisitionController : Controller
     {
+        private static PurchaseInventory old;
+        private static List<PI_Details> details =new List<PI_Details>();
+
         public ActionResult master(int? id)
          {
             if (id != null)
@@ -18,6 +21,7 @@ namespace SfDesk.Controllers
                 p = p.PR_Get_All().Find(x => x.PI_ID == id);
                 if(p!=null)
                 {
+                    old = p;
                     return View(p);
                 }
             }
@@ -26,16 +30,58 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
             {
-            try
+            // try
+            //{
+            int id = c.PI_ID;
+            if (c.PI_ID == 0)
+                id = c.Purchase_Inventory_Add();
+
+
+
+
+            //if (pi != null)
+            //    foreach (var item in c.details)
+            //    {
+            //        item.PI_ID = id;
+            //        item.PI_Detail_Add();
+            //    }
+            //if (pie != null)
+            //    foreach (var item in pie)
+            //    {
+
+            //        item.PI_Detail_Update();
+            //    }
+
+            if (c.details != null && c.details.Count > 0)
             {
-                int id = c.Purchase_Inventory_Add();
-                return Json(id, JsonRequestBehavior.AllowGet);
+                foreach (var item in c.details)
+                {
+                    if (item.action == "I")
+                    {
+                        item.PI_ID = id;
+                        item.PI_Detail_Add();
+                    }
+                    else if (item.action == "U")
+                    {
+                        item.PI_Detail_Update();
+                    }
+                    else if (item.action == "D")
+                    {
+                        item.PI_Detail_Delete();
+                    }
+
+                }
+
             }
-            catch (Exception ex)
-            {
-                string a = ex.Message;
-                return Json("Error Occure", JsonRequestBehavior.AllowGet);
-            }
+
+
+            return Json(id, JsonRequestBehavior.AllowGet);
+           // }
+            //catch (Exception ex)
+            //{
+            //    string a = ex.Message;
+            //    return Json("Error Occure", JsonRequestBehavior.AllowGet);
+            //}
         }
         public ActionResult showAll()
         {
@@ -44,7 +90,29 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Approve(PurchaseInventory p)
         {
+           
+            if (p.details != null && p.details.Count > 0)
+            {
+                foreach (var item in p.details)
+                {
+                    if (item.action == "I")
+                    {
+                        item.PI_Detail_Add();
+                    }
+                    else if (item.action == "U")
+                    {
+                        item.PI_Detail_Update();
+                    }
+                    else if (item.action == "D")
+                    {
+                        item.PI_Detail_Delete();
+                    }
+
+                }
+
+            }
             p.App_Status = "PR_Approve";
+
             p.PR_Approve();
             return Json("kuch bhi", JsonRequestBehavior.AllowGet);
 
@@ -55,29 +123,30 @@ namespace SfDesk.Controllers
         }
         public ActionResult Index(int PI_ID)
         {
-            return Json(new PurchaseInventory() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            details = new PI_Details() { PI_ID = PI_ID }.PI_Detail_Get_All();
+            return Json(details, JsonRequestBehavior.AllowGet);
         }
 
         #region Detail
         [HttpPost]
-        public JsonResult add(PurchaseInventory pi)
+        public JsonResult add(List<PurchaseInventory> pi,int PI_ID)
         {
 
 
-            ViewBag.detail_id = pi.PI_Detail_Add();
+           // ViewBag.detail_id = pi.PI_Detail_Add();
             return Json("added sucessfully");
         }
         [HttpPost]
         public ActionResult update(PurchaseInventory pi)
         {
-            pi.Store = "";
+           // pi.Store = "";
             pi.PI_Detail_Update();
             return Json("updated sucessfully");
         }
         [HttpGet]
         public ActionResult delete(int Detail_ID)
         {
-            new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
+        //    new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
             return Json("delete sucessfully");
         }
         [HttpGet]
