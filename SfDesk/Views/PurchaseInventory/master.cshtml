@@ -22,7 +22,7 @@
                     <h4>Purchase</h4>
                     <hr />
                     <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />
-                    <input hidden="hidden" name="V_ID" id="V_ID" value="@Model.Vehicle_ID"/>
+                    <input hidden="hidden" name="V_ID" id="V_ID" value="@Model.Vehicle_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
@@ -47,7 +47,9 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control", @readonly = "readonly" }
+                                   @class = "form-control",
+                                   @readonly = "readonly"
+                               }
                            })
                                 @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
                             </div>
@@ -66,19 +68,38 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            @Html.HiddenFor(Model => Model.Department_ID)
                             @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @{
+                                var Depart_list = new SfDesk.Models.Department().Department_Get_All();
+                            } 
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Department_ID, new SelectList(new SfDesk.Models.Department().Department_Get_All(), "D_ID", "D_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                  <input type="text" name="Department_Name" list="Department_List" id="Department_Name" class="form-control text-box">
+                                  <datalist id="Department_List">
+
+                                      @foreach (var item in Depart_list)
+                                      {
+                                          <option id="@item.D_ID" value="@item.D_Name"></option>
+                                      }
+                                  </datalist>
                                 @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
+                            @Html.HiddenFor(Model => Model.Purchase_Type_ID)
                             @Html.LabelFor(model => model.Purchase_Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
+                          @{ 
+                              var list = new SfDesk.Models.Purchase_Type().Purchase_Type_Get_All();
+                          }
+                              <div class="col-md-5">
+                                <input type="text" name="Purchase_Type_Name" list="Purchase_Type_List" id="Purchase_Type_Name" class="form-control text-box">
+                                <datalist id="Purchase_Type_List">
 
-                                @Html.DropDownListFor(model => model.Purchase_Type_ID, new SelectList(new SfDesk.Models.Purchase_Type().Purchase_Type_Get_All(), "PT_ID", "PT_Name"), "select type", htmlAttributes: new { @class = "form-control" })
-
-                                @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @foreach (var item in list)
+                                    {
+                                        <option id="@item.PT_ID" value="@item.PT_Name"></option>
+                                    }
+                                </datalist>
                                 @Html.ValidationMessageFor(model => model.Purchase_Type_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -86,32 +107,17 @@
                             @Html.HiddenFor(Model => Model.Account_Payable_ID)
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                               
                                 <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
                                 <datalist id="Account_Payable_List">
-                                    @{     
-                                        SfDesk.Models.ChartOfAccount selected = null;
-                                        int indexofAPL = 0;
-                                        int indexofPAN = 0;
+                                    @{
                                         List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                         ab = ab.FindAll(x => x.Group_ID == 20);
                                     }
-
                                     @foreach (var item in ab)
                                     {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Account_Payable_ID)
-                                        {
-                                            selected = item;
-                                            indexofAPL = ab.IndexOf(item);
-                                        }
-
+                                        <option id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                     }
-
                                 </datalist>
-                                <input type="hidden" id="Account_Payable_I" name="Account_Payable_I" value="@indexofAPL" />
-
-                                @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -122,33 +128,34 @@
                                 <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
                                 <datalist id="Purchase_Account_List">
                                     @{
-
                                         ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
                                         ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
                                     }
 
                                     @foreach (var item in ab)
                                     {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Purchase_Account_ID)
-                                        {
-                                            selected = item;
-                                            indexofPAN = ab.IndexOf(item);
-                                        }
-
+                                        <option id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                     }
-
                                 </datalist>
-                                <input type="hidden" id="Purchase_Account_I" name="Purchase_Account_I" value="@indexofPAN" />
-
-                                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Suplier_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Suplier_ID, new SelectList(new SfDesk.Models.Vendor().Vendor_Get_All_For_Lov(), "Vendor_ID", "Business_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                               @Html.HiddenFor(Model => Model.Suplier_ID)
+                            <input type="text" name="Suplier_Name" list="Suplier_List" id="Suplier_Name" class="form-control text-box">
+                            <datalist id="Suplier_List">
+                                @{
+                                    var Supplier_List = new SfDesk.Models.Vendor().Vendor_Get_All();
+                                }
+
+                                @foreach (var item in Supplier_List)
+                                {
+                                    <option id="@item.Vendor_ID" value="@item.Business_Name"></option>
+                                }
+                            </datalist>
+
                                 @Html.ValidationMessageFor(model => model.Suplier_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-3">
@@ -186,9 +193,18 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Transporter_ID, new SelectList(new SfDesk.Models.Transporter().Transporter_Get_All(), "T_ID", "Trading_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                @Html.HiddenFor(Model => Model.Transporter_ID)
+                                <input type="text" name="Transporter_Name" list="Transporter_List" id="Transporter_Name" class="form-control text-box">
+                                <datalist id="Transporter_List">
+                                    @{
+                                        var Transporter_List = new SfDesk.Models.Transporter().Transporter_Get_All();
+                                    }
 
-                                @*  @Html.EditorFor(model => model.Transporter_ID, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @foreach (var item in Transporter_List)
+                                    {
+                                        <option id="@item.T_ID" value="@item.Trading_Name"></option>
+                                    }
+                                </datalist>
                                 @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2">
@@ -216,7 +232,19 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Middle_Man_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Middle_Man_ID, new SelectList(new SfDesk.Models.MiddleMan().MiddleMan_Get_All(), "MM_ID", "Trading_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                              @Html.HiddenFor(Model => Model.Middle_Man_ID)
+                            <input type="text" name="Middle_Man_Name" list="Middle_Man_List" id="Middle_Man_Name" class="form-control text-box">
+                            <datalist id="Middle_Man_List">
+                                @{
+                                    var Middle_Man_List = new SfDesk.Models.MiddleMan().MiddleMan_Get_All();
+                                }
+
+                                @foreach (var item in Middle_Man_List)
+                                {
+                                    <option id="@item.MM_ID" value="@item.Trading_Name"></option>
+                                }
+                            </datalist>
+
                                 @Html.ValidationMessageFor(model => model.Middle_Man_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2" @*style="display:none"*@>
@@ -233,12 +261,12 @@
                         </div>
                     </div>
                 </div>
-}
-              
+                                        }
 
-            
 
-           
+
+
+
         </div>
     </div>
 </div>
@@ -255,66 +283,58 @@
         </div>
     </div>
 
-</div>  
+</div>
 @section scripts
 {
+    <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/jsgrid.min.js"></script>
-    <script src="~/assets/js/db.js" >
+    <script src="~/assets/js/db.js">
+
     </script>
     <script>
         var myOpts = []
         var mytrans = []
         var Master_Id = 0;
         $(window).load(function () {
-            
-             detail()
+
+            detail()
             if ($('#PI_ID').val() != 0) {
-                var index = $("#Account_Payable_I").val()
-                var input = $("#Account_Payable_Name")
-                var list = $("#" + input.attr("list"))
-                var options = $($(list).prop("options"))
-                input.val(options.eq(index).val())
-                index = $("#Purchase_Account_I").val()
-                input = $("#Purchase_Account_Name")
-                list = $("#" + input.attr("list"))
-                options = $($(list).prop("options"))
-                input.val(options.eq(index).val())
+                debugger;
+
+                DropDown_Fill("Department");
+                DropDown_Fill("Purchase_Type");
+                DropDown_Fill("Account_Payable");
+                DropDown_Fill("Purchase_Account");
+
+                DropDown_Fill("Suplier");
+                DropDown_Fill("Transporter");
+                DropDown_Fill("Middle_Man");
+                
                 Master_Id = $('#PI_ID').val();
             }
         })
-     
+
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
         });
         $(document).ready(function () {   // Help for the HTML4 version.
-            $('select[name=Account_Payable_Name]').change(function () {
-                $('input[name=other]').val($(this).val());
-            });
+            Typable_Dropdown('Department');
+            Typable_Dropdown('Purchase_Type');
+            Typable_Dropdown('Account_Payable');
+            Typable_Dropdown('Purchase_Account');
 
-            $('select[name=Purchase_Account_Name]').change(function () {
-                $('input[name=other]').val($(this).val());
-            });
-                //if (typeof (history.pushState) != "undefined") {
-                //    window.history.pushState({}, 'PurchaseInventory', '/PurchaseInventory/master');
-
-                //}
-            //
+            Typable_Dropdown('Suplier');
+            Typable_Dropdown('Transporter');
+            Typable_Dropdown('Middle_Man');
+           
             var g = $('#Transporter_ID').val();
-                if (g != null) {
-                    populate();
+            if (g != null) {
+                populate();
 
-                }
-                $('#Account_Payable_Name').on('change', function () {
-                    var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
-                    $("[name='Account_Payable_ID']").val(id);
-                });
-                $('#Purchase_Account_Name').on('change', function () {
-                    var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
-                    $("[name='Purchase_Account_ID']").val(id);
-                });
+            }
         });
-    
-     
+
+
         $("#create").click(function (e) {
             e.preventDefault();
             var data = {};
@@ -339,15 +359,15 @@
             //    ;
             //    Master_Id = data;
             //})
-      
+
         });
 
-      
+
         /*ye master ka he*/
         function detail() {
 
             $.get('@Url.Action("detail", "PurchaseInventory")', function (data) { $("#child").html(data); });
-         
+
         };
         function AddSupplier() {
             $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });

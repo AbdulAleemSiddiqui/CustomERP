@@ -18,7 +18,7 @@ namespace SfDesk.Models
         public string PR_No { get; set; } = "0";
         [DisplayName("P.O #")]
         public string PO_No { get; set; } = "0";
-        [DisplayName("Invoice #")]
+        [DisplayName("Invoice/Ref #")]
         public string Invoice_No { get; set; } = "0";
         public string App_Status { get; set; }
         [DisplayName("Department")]

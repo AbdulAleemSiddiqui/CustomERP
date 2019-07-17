@@ -542,6 +542,7 @@
     <Content Include="assets\js\lib\sweetalert\sweetalert.min.js" />
     <Content Include="assets\js\lib\toastr\toastr.init.js" />
     <Content Include="assets\js\lib\toastr\toastr.min.js" />
+    <Content Include="assets\js\TypableDropdown.js" />
     <Content Include="assets\js\lib\vector-map\country\jquery.vmap.algeria.js" />
     <Content Include="assets\js\lib\vector-map\country\jquery.vmap.argentina.js" />
     <Content Include="assets\js\lib\vector-map\country\jquery.vmap.brazil.js" />

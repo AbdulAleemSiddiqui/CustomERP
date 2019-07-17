@@ -31,7 +31,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Update(int id)
         {
-            return PartialView("Update", new MiddleMan() { MM_ID = id }.MiddleMan_Get_All());
+            return PartialView("Update", new MiddleMan() { MM_ID = id }.MiddleMan_Get_By_ID());
 
         }
         [HttpPost]
