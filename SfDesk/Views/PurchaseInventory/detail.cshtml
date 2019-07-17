@@ -86,7 +86,7 @@
     var transactions = [];
     var transactionsID = [];
 
-    var net_total=0;
+    var Gross_total=0;
     var  tax_total = 0;
     var  trans_total = 0;
     var grand_total =0;
@@ -136,11 +136,12 @@
                              
                             }
                             taxess.forEach(function(item) {
-                                item.Total = net_total*(item.Rate/100);
+                                item.Total = Gross_total*(item.Rate/100);
                                 item.Total=item.Total.toFixed(2);
                             });
                             tax()
-
+    
+                            newRow("Grid") 
                         }
                     });
 
@@ -169,6 +170,8 @@
                                 transactionsID = f
 
                             trans()
+    
+                            newRow("transGrid") 
 
                         }
                     });
@@ -180,6 +183,7 @@
     function newRow(id)
     {
         $("#"+id).jsGrid({ inserting: true });
+      
         var tr = $("#"+id+" .jsgrid-insert-row").closest("tr"); 
         if(id==="jsGrid"){
             var disble=tr.find("td:eq(7)")
@@ -203,7 +207,7 @@
             if(e.keyCode === 13 || e.keyCode === 9 ) {
                 $("#"+id).jsGrid("insertItem").done(function(){
                     $("#"+id).jsGrid("clearInsert");
-                    newRow()
+                    newRow(id)
                 });
                 return false;
             }
@@ -311,9 +315,6 @@ $(function(){
                 "Commision": na.Commision,
                 "Rate": na.Rate,
                 "Gross_Amount": na.Gross_Amount,
-                "Discount": na.Discount,
-                "Discount_Amount": na.Discount_Amount,
-                "Net_Amount": na.Net_Amount
 
 
                 })
@@ -322,9 +323,9 @@ $(function(){
         })
 
 function my(){
-            $("#jsGrid").jsGrid({
+$("#jsGrid").jsGrid({
 
-            height: "auto",
+                height: "auto",
                 width: "100%",
                 filtering: false,
                 editing: true,
@@ -353,27 +354,23 @@ function my(){
                 onRefreshed: function(args) {
 
           
-                    grand_total=net_total
+                    grand_total=Gross_total
 
                     var items = args.grid.option("data");
-                    var total = { Name: "Total", "Rate":0,"Gross_Amount": 0,"Discount": 0,"Discount_Amount": 0,
-                        "Net_Amount":0,"Purchase_Quantitiy":0,"Received_Quantitiy":0, IsTotal: true };
+                    var total = { Name: "Total", "Rate":0,"Gross_Amount": 0,"Purchase_Quantitiy":0,"Received_Quantitiy":0, IsTotal: true };
 
                 items.forEach(function(item) {
                     total.Rate += parseFloat(item.Rate);
                     total.Gross_Amount += parseFloat(item.Gross_Amount);
-                    total.Discount +=parseFloat( item.Discount);
-                    total.Discount_Amount +=  parseFloat(item.Discount_Amount);
-                    total.Net_Amount += parseFloat(item.Net_Amount);
-                    total.Purchase_Quantitiy += parseFloat(item.Purchase_Quantitiy);
+                   total.Purchase_Quantitiy += parseFloat(item.Purchase_Quantitiy);
                     total.Received_Quantitiy +=parseFloat( item.Received_Quantitiy);
                 });
-                total.Discount= parseFloat( total.Discount.toFixed(2));
                 total.Rate = parseFloat(total.Rate.toFixed(2));
-                total.Discount_Amount= parseFloat( total.Discount_Amount.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
-                net_total = total.Net_Amount;
-                grand_total = parseFloat( net_total.toFixed(2));
+                Gross_total = total.Gross_Amount;
+                grand_total=parseFloat( Gross_total+tax_total+trans_total).toFixed(2);
+                $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
+              
                 $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
                 args.grid._renderCells($totalRow, total);
@@ -407,7 +404,11 @@ function my(){
                     args.item["PI_ID"] = Master_Id;
                     args.item["action"] = 'U';
                     clients.push(args.item)
-
+                    var tr = $("#jsGrid .jsgrid-insert-row").closest("tr"); 
+                   
+                        var disble=tr.find("td:eq(7)")
+                        var txtdisabled=disble.find("input:eq(0)").attr("disabled", "disabled");
+                    
                     //if (typeof (history.pushState) != "undefined") {
 
                     //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
@@ -477,45 +478,31 @@ function my(){
                     insertTemplate: function () {
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                     var th= this;
-                        $insertControl.on("change", function () {
+                    $insertControl.on("keyup change", function () {
 
-                        var amount = th._grid.fields[7];
+                     
                         var rate =  th._grid.fields[6].insertControl.val();
 
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
+                      
                         var p_Q = this.value;
-                        $u.attr("disabled", "disabled");
-                            $u.val(rate*p_Q)//val(unit);
-                            $u.text(rate*p_Q)//val(unit);
-                            var a = $(".amount").empty();
-
-                            $(".amount").append($u);
-                        a = $(".amount")
-                            var dscnt = th._grid.fields[8].insertControl.val(th._grid.fields[8].insertControl.val()).trigger("change");
-
+                        th._grid.fields[7].insertControl.val(rate*p_Q)//val(unit);
+                            
+                         
                     });
                     return $insertControl;
                 },
                     editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
-                        $editControl.on("change", function () {
+                    $editControl.on("keyup change", function () {
 
-                        var amount = th._grid.fields[7];
-                        var  rate=  th._grid.fields[6].editControl.val();
+                        var rate =  th._grid.fields[6].editControl.val();
 
-                        var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
+                      
                         var p_Q = this.value;
-                        $u.attr("disabled", "disabled");
-
-                            $u.val(rate*p_Q)//val(unit);
-                            $u.text(rate*p_Q)//val(unit);
-                            var a = $(".amount").empty();
-
-                            $(".amount").append($u);
-                        a = $(".amount")
-
-                            var dscnt = th._grid.fields[8].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
+                        th._grid.fields[7].editControl.val(rate*p_Q)//val(unit);
+                            
+                            //var dscnt = th._grid.fields[8].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
 
                         });
                         update_on_enter($editControl,"jsGrid");
@@ -528,173 +515,52 @@ function my(){
                     insertTemplate: function () {
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                     var th= this;
-                        $insertControl.on("change", function () {
+                     
+                        insert_on_enter(this.insertControl,"jsGrid");
+                  
+                       
+                        $insertControl.on("keyup", function () {
 
-                            var amount = th._grid.fields[7];
-                            var namount = th._grid.fields[10];
                         var p_Q =  th._grid.fields[4].insertControl.val();
 
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(amount);
-                        var $nu = jsGrid.fields.text.prototype.insertTemplate.call(namount);
+                     
                         var rate = this.value;
-                        $u.attr("disabled", "disabled");
+                        //$u.attr("disabled", "disabled");
 
-                            $u.val(rate*p_Q)//val(unit);
-                            $u.text(rate*p_Q)//val(unit);
-                            $nu.val(rate*p_Q)//val(unit);
-                            $nu.text(rate*p_Q)//val(unit);
-                            var a = $(".amount").empty();
-
-                            $(".amount").append($u);
-                            a = $(".amount")
-                            $(".Namount").empty();
-
-                            $(".Namount").append($nu);
-                           
+                        
+                       amount =th._grid.fields[7].insertControl.val(rate*p_Q);
+                       
+                          
                   
                             
                 });
                             
 
-                       
+                            
+
                       
                     return $insertControl;
                 },
                     editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
-                        $editControl.on("change", function () {
-                        ;
-                        var amount = th._grid.fields[7];
+                    $editControl.on("keyup", function () {
                         var p_Q =  th._grid.fields[4].editControl.val();
 
-                        var $u = jsGrid.fields.text.prototype.editTemplate.call(amount);
-                        var rate = this.value;
-                        $u.attr("disabled", "disabled");
+                     
+                            var rate = this.value;
 
-                            $u.val(rate*p_Q)//val(unit);
-                            $u.text(rate*p_Q)//val(unit);
-                            var a = $(".amount").empty();
-
-                            $(".amount").append($u);
-                        a = $(".amount")
-                        var dscnt = th._grid.fields[8].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
-                        update_on_enter($editControl,"jsGrid");
-                        });
+                        
+                            amount =th._grid.fields[7].editControl.val(rate*p_Q);
+                       
+                          
+                    });
+                    update_on_enter($editControl,"jsGrid");
                     return $editControl;
                 },},
-                {name:"Gross_Amount", title: "Gross Amount", type: "text",insertcss:"amount",editcss:"amount", width:  80, validate: "required",
-              
-                },
-                {name:"Discount", title: "Discount %", type: "text", width:  90,insertcss:"d",
-                    validate: "required" ,
-                    insertTemplate: function () {
-                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
-                    var th= this;
-                        $insertControl.on("change", function () {
-                        
-                        var D_amount = th._grid.fields[9];
-                        var N_amount = th._grid.fields[10];
-
-                        var Gross_Amount =  parseFloat(th._grid.fields[7].insertControl.val());
-
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(D_amount);
-                        var $n = jsGrid.fields.text.prototype.insertTemplate.call(N_amount);
-                        var DisPercent = this.value /100;
-                        var ans =(Gross_Amount*DisPercent);
-                            $u.val(ans)//val(unit);
-                            $u.text(ans)//val(unit);
-                            $n.val(Gross_Amount-ans)//val(unit);
-                            $n.text(Gross_Amount-ans)//val(unit);
-                            $(".Damount").empty();
-
-                            $(".Damount").append($u);
-                            $u.on("focusin", function(){
-                             
-
-                                insert_on_enter($u,"jsGrid");
-                                return $u  ;
-                            })
-                      
-                            $(".Namount").empty();
-
-                            $(".Namount").append($n);
-                          
-
-                        });
-                        
-                       
-                        return $insertControl;
-                        
-
-                    },
-    
-                    editTemplate: function (args) {
-                            
-                    
-                         
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                        $editControl.on("change", function () {
-                        ;
-                        var D_amount = th._grid.fields[9];
-                        var N_amount = th._grid.fields[10];
-
-                        var Gross_Amount =  th._grid.fields[7].editControl.val();
-
-                        var $u = jsGrid.fields.text.prototype.editTemplate.call(D_amount);
-                        var $n = jsGrid.fields.text.prototype.editTemplate.call(N_amount);
-                        var DisPercent = this.value /100;
-                        var ans =(Gross_Amount*DisPercent);
-                            $u.val(ans)//val(unit);
-                            $u.text(ans)//val(unit);
-                            $n.val(Gross_Amount-ans)//val(unit);
-                            $n.text(Gross_Amount-ans)//val(unit);
-                            $(".Damount").empty();
-
-                            $(".Damount").append($u);
-
-                            $(".Namount").empty();
-
-                            $(".Namount").append($n);
-
-                            update_on_enter($editControl,"jsGrid");
-                    });
-                    return $editControl;
-                },
-
-                },
-                {name:"Discount_Amount", title: "Discount Amount", type: "text", width:  80,insertcss :"Damount",editcss:"Damount",
-                validate: "required",
-                                 
-                     //insertTemplate: function(value) { 
-                     //    this.insertControl = $("<input>");
-                     //    insert_on_enter(this.insertControl,"jsGrid");
-                     //    return this.insertControl;
-                     //},
-                    editTemplate: function (args) {
-                        var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                        update_on_enter($editControl,"jsGrid");
-                    
-                        return $editControl;
-                    },
-                },
-
-                 {name:"Net_Amount", title: "Net Amount", type: "text",insertcss :"Namount",editcss:"Namount", width:  80, validate: "required" ,
-                    
-                     insertTemplate: function(value) { 
-                         this.insertControl = $("<input>");
-                         insert_on_enter(this.insertControl,"jsGrid");
-                         return this.insertControl;
-                     },
-               
-         editTemplate: function (args) {
-             var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-             update_on_enter($editControl,"jsGrid");
-                    
-             return $editControl;
-         },
-                 },
+                {name:"Gross_Amount", title: "Gross Amount", type: "text",insertcss:"amount",editcss:"amount", width:  80, validate: "required"               },
+     
+           
                  {
             name: "Detail_ID",
                      title: "",
@@ -787,15 +653,12 @@ function my(){
             },
             onItemUpdating: function (args) {
 
-
+                
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'U';
                 myTaxes.push(args.item)
 
-                //if (typeof (history.pushState) != "undefined") {
-
-                //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //}
+               
             },
             onItemDeleting  : function (args) {
 
@@ -811,8 +674,9 @@ function my(){
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 //}
             },
+            
             onRefreshed: function(args) {
-                grand_total=net_total
+                grand_total=Gross_total
                 var items = args.grid.option("data");
                 var total = { Name: "Total", "Rate":0,"Total":0, IsTotal: true };
 
@@ -822,7 +686,7 @@ function my(){
                 });
                 tax_total =  total.Total;
                 grand_total +=  total.Total;
-                grand_total=parseFloat( net_total+tax_total+trans_total).toFixed(2);
+                grand_total=parseFloat( Gross_total+tax_total+trans_total).toFixed(2);
                 $("#Grand_Total").html('<h1 style="font-size:30px">Total: '+grand_total +'</h1>')
                 total.Total= parseFloat( total.Total.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
@@ -838,8 +702,8 @@ function my(){
             {name:"SalesTax_ID", title: "Tax", type: "select", width:  80, validate: "required",
             items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
             insertTemplate: function () {
-                var teamField = this._grid.fields[1];
-                var Total = this._grid.fields[2];
+              var teamField = this._grid.fields[1];
+               var Total = this._grid.fields[2];
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
 
                 $insertControl.on("change", function () {
@@ -849,39 +713,44 @@ function my(){
                         console.log(val["SalesTax_ID"])
                         if(val["SalesTax_ID"]==selectedDepartment1)
                         {
-                            var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
+                            //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
 
-                            $u.val(val["Rate"])//val(unit);
-                            $u.text(val["Rate"])//val(unit);
-
-
-                            var a = $(".abc").empty();
-
-                            $(".abc").append($u);
-                            var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
-                            ;
-                            var val =$u.val()
-                            var total = net_total*(val/100);
+                            teamField.insertControl.val(val["Rate"])//val(unit);
+                            
+                           
+                            var val =teamField.insertControl.val()
+                            var total = Gross_total*(val/100);
                             total=total.toFixed(2);
-                            $t.val(total)//val(unit);
-                            $t.text(total)//val(unit);
+                            Total.insertControl.val(total)//val(unit);
+                            
 
-                            insert_on_enter($t,"Grid");
-                            var a = $(".ttl1").empty();
+                            //insert_on_enter($t,"Grid");
+                            //var a = $(".ttl1").empty();
 
-                            $(".ttl1").append($t);
+                            //$(".ttl1").append($t);
                             var sum=0;
 
                         }
                     });
                 });
-
                 focusChange($insertControl,"Grid");
                 return $insertControl;
             },
             },
-            {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  80, validate: "required" },
-            {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl1"},
+            {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  80, validate: "required",
+            
+                insertTemplate: function () {
+
+                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+
+                    insert_on_enter($insertControl,"Grid");
+                    return $insertControl;
+                },
+            },
+            {
+                name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl1"
+          
+             },
                            {
                                name: "PI_Charge_ID",
                                title: "",
@@ -1031,7 +900,7 @@ function my(){
             },
                 onRefreshed: function(args) {
 
-                grand_total=net_total
+                grand_total=Gross_total
 
                 var items = args.grid.option("data");
                 var total = { Name: "Total Charged", "Rate":"","Total":0, IsTotal: true };
@@ -1041,7 +910,7 @@ function my(){
                      total.Total +=parseFloat( item.Total);
                 });
                 trans_total =  total.Total;
-                grand_total=parseFloat(( net_total+tax_total+trans_total).toFixed(2));
+                grand_total=parseFloat(( Gross_total+tax_total+trans_total).toFixed(2));
 
                 $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
 
@@ -1077,24 +946,23 @@ function my(){
                          debugger
                          var val =0;
                          var total = 0;
-                        var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
+                        //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
                             if (selectedDepartment1=="Middle Man"){
                                 isMM = true;
                                 isT = false;
                                 var tt =myOpts[0].Rate;
-                               $u.val(tt)//val(unit);
-                                $u.text(tt)//val(unit);
-
-                                val = $u.val();
+                                teamField.insertControl.val(tt)//val(unit);
+                             
+                                val =   teamField.insertControl.val();
                                 total = parseInt(val);
                             }
                             else if (selectedDepartment1=="Transporter"){
                                 isT = true;
                                 isMM = false;
                                 var tt =mytrans.Rate;
-                                 $u.val(tt)//val(unit);
-                                $u.text(tt)//val(unit);
-                                val = $u.val();
+                                teamField.insertControl.val(tt)//val(unit);
+                              
+                                val = teamField.insertControl.val();
 
                                 total = parseInt(val);
 
@@ -1111,10 +979,9 @@ function my(){
                                         var rate_Type = val["Rate_Type"];
                                         var Nature = val["Charge_Nature"];
 
-                                         $u.val(val["Rate"])//val(unit);
-
-                                         $u.text(val["Rate"])//val(unit);
-                                         val = $u.val();
+                                        teamField.insertControl.val(val["Rate"])//val(unit);
+;
+                                        val = teamField.insertControl.val();
 
                                         if(rate_Type== "Flat")
                                         {
@@ -1135,12 +1002,12 @@ function my(){
                                             if(Nature== "Deduction")
                                             {
 
-                                                total =-1*net_total*(val/100);
+                                                total =-1*Gross_total*(val/100);
                                             }
                                             else
                                             {
 
-                                                total = net_total*(val/100);
+                                                total = Gross_total*(val/100);
                                             }
 
                                         }
@@ -1152,35 +1019,21 @@ function my(){
 
 
 
-                                var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
                                 
-                                var val =$u.val()
+                            var val =teamField.insertControl.val()
 
-                                $t.val(total)//val(unit);
-                                $t.text(total)//val(unit);
-
-                                $(".ttl").empty();
-                                $(".ttl").append($t);
-                                $(".abc2").empty();
-                                                        
+                            Total.insertControl.val(total)//val(unit);
+                               
                                    
-                                      insert_on_enter($t,"transGrid");
+                                    
                                   
                                   
                                     
                     
                                    
                                 
-                                $u.on("change", function () {
-
-                                    $t.val(total)//val(unit);
-                                    $t.text(total)//val(unit);
-
-                                    $(".ttl").empty();
-                                    $(".ttl").append($t);
-
-                                });
-                                $(".abc2").append($u);
+                           
+                             
                                 
                           return $insertControl;
 
@@ -1195,10 +1048,56 @@ function my(){
              {name:"Rate", title: "Rate", type: "text", width:  90,insertcss:"abc2",
                  validate: "required" ,
                  insertTemplate: function () {
+                    
+                     var Total = this._grid.fields[2];
+                     var th =this
                      var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                    
                      $insertControl.on("change", function () {
+                         var  value = th.insertControl.val();
+                         $.each( transactions, function( i,val) {
+                             if(val["T_ID"]==selectedDepartment1)
+                             {
 
+                                 var rate_Type = val["Rate_Type"];
+                                 var Nature = val["Charge_Nature"];
 
+                                 
+                                 
+
+                                 if(rate_Type== "Flat")
+                                 {
+                                     if(Nature== "Deduction")
+                                     {
+
+                                         total = -1*parseInt(value);
+                                     }
+                                     else
+                                     {
+
+                                         total = parseInt(value);
+                                     }
+
+                                 }
+                                 else
+                                 {
+                                     if(Nature== "Deduction")
+                                     {
+
+                                         total =-1*Gross_total*(value/100);
+                                     }
+                                     else
+                                     {
+
+                                         total = Gross_total*(value/100);
+                                     }
+
+                                 }
+
+                             }
+                         });
+
+                         Total.insertControl.val(total)
                      });
                      return $insertControl;
                  },
@@ -1209,7 +1108,7 @@ function my(){
             {name:"Total", title: "total", type: "text", width:  80, validate: "required", insertcss:"ttl",
             insertTemplate: function(value) { 
                 this.insertControl = $("<input>");
-                insert_on_enter(this.insertControl,"tranGrid");
+                insert_on_enter(this.insertControl,"transGrid");
                 return this.insertControl;
             },
                
