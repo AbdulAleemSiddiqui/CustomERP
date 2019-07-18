@@ -25,7 +25,7 @@ namespace SfDesk.Controllers
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
-        {
+            {
             if (c.PI_ID == 0)
             {
                 c.PI_ID = c.PI_Add();

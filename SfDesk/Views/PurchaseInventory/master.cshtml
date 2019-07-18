@@ -14,11 +14,11 @@
 <div class="card alert">
     <div class="card-header">
         <div class="card-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("master","purchaseinventory",FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
+                            <div class="form-horizontal">
                     <h4>Purchase</h4>
                     <hr />
                     <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />
@@ -79,7 +79,7 @@
 
                                       @foreach (var item in Depart_list)
                                       {
-                                          <option id="@item.D_ID" value="@item.D_Name"></option>
+                                          <option id="@item.D_ID" data-id="@item.D_ID" value="@item.D_Name"></option>
                                       }
                                   </datalist>
                                 @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
@@ -97,7 +97,7 @@
 
                                     @foreach (var item in list)
                                     {
-                                        <option id="@item.PT_ID" value="@item.PT_Name"></option>
+                                        <option id="@item.PT_ID" data-id="@item.PT_ID" value="@item.PT_Name"></option>
                                     }
                                 </datalist>
                                 @Html.ValidationMessageFor(model => model.Purchase_Type_ID, "", new { @class = "text-danger" })
@@ -115,7 +115,7 @@
                                     }
                                     @foreach (var item in ab)
                                     {
-                                        <option id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                     }
                                 </datalist>
                                 @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
@@ -134,7 +134,7 @@
 
                                     @foreach (var item in ab)
                                     {
-                                        <option id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID"  value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                     }
                                 </datalist>
                                 @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
@@ -152,7 +152,7 @@
 
                                 @foreach (var item in Supplier_List)
                                 {
-                                    <option id="@item.Vendor_ID" value="@item.Business_Name"></option>
+                                    <option id="@item.Vendor_ID" data-id="@item.Vendor_ID" value="@item.Business_Name"></option>
                                 }
                             </datalist>
 
@@ -202,7 +202,7 @@
 
                                     @foreach (var item in Transporter_List)
                                     {
-                                        <option id="@item.T_ID" value="@item.Trading_Name"></option>
+                                        <option id="@item.T_ID" data-id="@item.T_ID" value="@item.Trading_Name"></option>
                                     }
                                 </datalist>
                                 @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
@@ -241,7 +241,7 @@
 
                                 @foreach (var item in Middle_Man_List)
                                 {
-                                    <option id="@item.MM_ID" value="@item.Trading_Name"></option>
+                                    <option id="@item.MM_ID" data-id="@item.MM_ID" value="@item.Trading_Name"></option>
                                 }
                             </datalist>
 
@@ -252,12 +252,22 @@
                                     <i class="ti-plus"></i>
                                 </button>
                             </div>
-                        </div>
-                    </div>
+                        </div><div class="form-group">
+    @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-5">
+        
+        @Html.TextBoxFor(a => a.Attachment, new { @type = "file", @accept = "image/* , .pdf" })
+
+
+    </div>
+ 
+</div>
+ </div>
+                   
                     <div id="child"></div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-6">
-                            <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
+                            <input type="submit" value="Save and Exit" class="btn btn-default" id="create" />
                         </div>
                     </div>
                 </div>
@@ -335,15 +345,16 @@
         });
 
 
-        $("#create").click(function (e) {
+        $("form").submit(function (e) {
+            alert("Sadasdasd?")
             e.preventDefault();
             var data = {};
-            $("form").serializeArray().map(function (x) { data[x.name] = x.value; });
+            $(this).serializeArray().map(function (x) { data[x.name] = x.value; });
             data.details = clients;
             data.transactions = myTransaction;
             data.taxes = myTaxes;
             $.ajax({
-                url: "master",
+                url: this.action,
                 type: 'Post',
                 dataType: 'json',
                 data: {
@@ -353,7 +364,7 @@
                     window.location.href = '@Url.Action("ShowAll", "PurchaseInventory")';
                 }
 
-            });
+            })
             //$.post(this.action, $(this).serialize(), function (data) {
             //    detail()
             //    ;

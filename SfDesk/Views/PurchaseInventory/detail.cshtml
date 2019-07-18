@@ -432,7 +432,7 @@ $("#jsGrid").jsGrid({
               
 
                 fields: [
-                {name:"Store", title: "Store", type: "text", width:  80, validate: "required", 
+                {name:"Store", title: "Store", type: "text", width:  40, validate: "required", 
                 insertTemplate: function(value) { 
                     this.insertControl = $("<input>");
             
@@ -449,14 +449,14 @@ $("#jsGrid").jsGrid({
                     return $editControl;
                 },
                 },
-                {name:"Item_Code", title: "Item Code ", type: "number", width:  80, validate: "required",          
+                {name:"Item_Code", title: "Item Code ", type: "number", width:  40, validate: "required",          
                     editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
                     update_on_enter($editControl,"jsGrid");
                     return $editControl;
                 }, },
-                {name:"Product_Name", title: "Product Name", type: "text", width:  80, validate: "required",
+                {name:"Product_Name", title: "Product Name", type: "text", width:  120, validate: "required",
                 editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
@@ -464,7 +464,7 @@ $("#jsGrid").jsGrid({
                     return $editControl;
                 },
                 },
-                {name:"Product_Description", title: "Product Description", type: "text", width:  80, validate: "required",
+                {name:"Product_Description", title: "Product Description", type: "text", width:  180, validate: "required",
                 editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                     var th= this;
@@ -472,7 +472,7 @@ $("#jsGrid").jsGrid({
                     return $editControl;
                 },
                 },
-                {name:"Purchase_Quantitiy", title: "Purchase Quantitiy", type: "number", width:  80,
+                {name:"Purchase_Quantitiy", title: "Purchase Qty", type: "number", width: 50,
                     validate: "required",
 
                     insertTemplate: function () {
@@ -510,7 +510,7 @@ $("#jsGrid").jsGrid({
                     return $editControl;
                 },
                 },
-                {name:"Received_Quantitiy", title: "Received Quantitiy", type: "number", width:  80, validate: "required" },
+                {name:"Received_Quantitiy", title: "Received Qty", type: "number", width:  50, validate: "required" },
                 {name:"Rate", title: "Rate", type: "text", width:  60, validate: "required",
                     insertTemplate: function () {
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
@@ -558,7 +558,7 @@ $("#jsGrid").jsGrid({
                     update_on_enter($editControl,"jsGrid");
                     return $editControl;
                 },},
-                {name:"Gross_Amount", title: "Gross Amount", type: "text",insertcss:"amount",editcss:"amount", width:  80, validate: "required"               },
+                {name:"Gross_Amount", title: "Gross Amount", type: "text",insertcss:"amount",editcss:"amount", width:  60, validate: "required"               },
      
            
                  {
@@ -570,7 +570,7 @@ $("#jsGrid").jsGrid({
 
 
                  },
-                { type: "control",
+                { type: "control",width : 25,
                     editButton : false,
                     itemTemplate: function(_, item) {
                     if(item.IsTotal)
@@ -699,7 +699,7 @@ $("#jsGrid").jsGrid({
             fields: [
 
 
-            {name:"SalesTax_ID", title: "Tax", type: "select", width:  80, validate: "required",
+            {name:"SalesTax_ID", title: "Tax", type: "select", width:  100, validate: "required",
             items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
             insertTemplate: function () {
               var teamField = this._grid.fields[1];
@@ -737,7 +737,7 @@ $("#jsGrid").jsGrid({
                 return $insertControl;
             },
             },
-            {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  80, validate: "required",
+            {name:"Rate", title: "Rate", insertcss:"abc", type: "text", width:  50, validate: "required",
             
                 insertTemplate: function () {
 
@@ -762,7 +762,7 @@ $("#jsGrid").jsGrid({
                            },
 
 
-            { type: "control",editButton: false,
+            { type: "control",editButton: false,width:20,
                 itemTemplate: function(_, item) {
 
                 if(item.IsTotal)
@@ -933,7 +933,7 @@ $("#jsGrid").jsGrid({
             fields: [
 
 
-            {name:"T_ID", title: "Name", type: "select", width:  80, validate: "required",
+            {name:"T_ID", title: "Name", type: "select", width:  100, validate: "required",
             items: transactions, valueField: "T_ID", textField: "Name",
             insertTemplate: function () {
              
@@ -1045,7 +1045,7 @@ $("#jsGrid").jsGrid({
 
                 },
             },
-             {name:"Rate", title: "Rate", type: "text", width:  90,insertcss:"abc2",
+             {name:"Rate", title: "Rate", type: "text", width:  50,insertcss:"abc2",
                  validate: "required" ,
                  insertTemplate: function () {
                     
@@ -1123,7 +1123,7 @@ $("#jsGrid").jsGrid({
 
 
                            },
-            { type: "control",editButton: false,
+            { type: "control",width:20,editButton: false,
                 itemTemplate: function(_, item) {
 
                     if(item.IsTotal)
