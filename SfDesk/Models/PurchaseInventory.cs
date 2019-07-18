@@ -67,6 +67,9 @@ namespace SfDesk.Models
         public List<PI_Details> details{get;set;}
         public List<PI_Transactions> transactions{get;set;}
         public List<PI_Charge> taxes{get;set;}
+        [Display(Name = "attach file")]
+        [FileExtensions(Extensions = "txt,doc,docx,pdf", ErrorMessage = "Please upload valid format")]
+        public HttpPostedFileBase Attachment { get; set; }
         #region Tax
         [DisplayName("Less / Add Commision")]
         public decimal Less_add_Commision { get; set; }
