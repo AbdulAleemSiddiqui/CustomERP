@@ -125,7 +125,7 @@
                             @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
                                 @Html.HiddenFor(Model => Model.Purchase_Account_ID)
-                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" autocomplete="on" class="form-control text-box">
                                 <datalist id="Purchase_Account_List">
                                     @{
                                         ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
@@ -169,7 +169,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control date",@type="text" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -342,6 +342,9 @@
                 populate();
 
             }
+            $('input[class$=Date]').datepicker({
+                //dateFormat: 'dd-mm-yy'
+            });
         });
 
 

@@ -190,7 +190,7 @@
             var txtdisabled=disble.find("input:eq(0)").attr("disabled", "disabled");
         }
         var td=tr.find("td:eq(0)")
-        debugger
+        
        
     
         inout=td.find("select:eq(0)")
@@ -202,7 +202,7 @@
     function insert_on_enter(field,id) {
         
         field.on("keydown", function(e) {
-            debugger
+            
 
             if(e.keyCode === 13 || e.keyCode === 9 ) {
                 $("#"+id).jsGrid("insertItem").done(function(){
@@ -228,7 +228,7 @@
         });
     }  // isme change he
     function focusChange(field,id){
-        debugger
+        
          field.on("keydown", function(e) {
             if((field.val()==="") && (e.keyCode === 13 || e.keyCode === 9) ) {
                 if(id==="jsGrid"){
@@ -247,7 +247,8 @@
             }
         });
     }
-$(function(){
+    $(function(){
+      
     loadData();
     var mmid = $('#Middle_Man_ID :selected').val()
     var vid = $('#Vehicle_ID').val();
@@ -416,7 +417,7 @@ $("#jsGrid").jsGrid({
                 },
                 onItemDeleting  : function (args) {
 
-                    debugger
+                    
                     args.item["PI_ID"] = Master_Id;
                     args.item["action"] = 'D';
                     clients.push(args.item);
@@ -662,7 +663,7 @@ $("#jsGrid").jsGrid({
             },
             onItemDeleting  : function (args) {
 
-                debugger
+                
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 myTaxes.push(args.item);
@@ -779,7 +780,7 @@ $("#jsGrid").jsGrid({
     var isMM=false;
     var isT=false;
     function trans(){
-    debugger
+    
         $("#transGrid").jsGrid({
 
             height: "auto",
@@ -879,7 +880,7 @@ $("#jsGrid").jsGrid({
             },
             onItemDeleting  : function (args) {
 
-                debugger
+                
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 myTransaction.push(args.item);
@@ -894,7 +895,7 @@ $("#jsGrid").jsGrid({
             },
             onItemInserted: function(args){
                 var ae =transactionsID;
-                debugger
+                
                 jQuery("#transGrid").jsGrid("refresh");
                 // trans()
             },
@@ -943,7 +944,7 @@ $("#jsGrid").jsGrid({
                     $insertControl.on("change", function () {
                          selectedDepartment1 = $(this).find('option:selected').html();
 
-                         debugger
+                         
                          var val =0;
                          var total = 0;
                         //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);

@@ -41,8 +41,8 @@ namespace SfDesk.Models
         public int Account_Payable_ID { get; set; }
         public string Account_Payable_Name { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; } = DateTime.Parse("2001/01/01");
+     
+        public DateTime Date { get; set; } = DateTime.Parse("01/01/2001");
         public string strngDate { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
