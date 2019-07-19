@@ -1,6 +1,7 @@
 ﻿using SfDesk.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -98,6 +99,22 @@ namespace SfDesk.Controllers
             }
 
             return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveImage(HttpPostedFileBase file,int P_ID)
+        {
+            if (file != null)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                fileName = "PI_" + fileName;
+                var path = Path.Combine(Server.MapPath("~/Images/PI_Images"), fileName);
+                file.SaveAs(path);
+
+                PurchaseInventory c = new PurchaseInventory();
+                c.PI_ID = P_ID;
+                c.ImagePath = "~/Images/PI_Images/" + fileName;
+                c.PI_SaveImage();
+            }
+            return View();
         }
         public ActionResult ShowAll()
         {

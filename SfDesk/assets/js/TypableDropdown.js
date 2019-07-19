@@ -6,7 +6,7 @@
 
     });
     $('#' + a + '_Name').on('change', function () {
-        debugger;
+    
         var value = $('#' + a + '_Name').val();
         var name = "#" + a + "_List";
         name = name + " option[value='" + value+ "']";
