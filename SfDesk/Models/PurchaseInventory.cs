@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -41,9 +42,12 @@ namespace SfDesk.Models
         public int Account_Payable_ID { get; set; }
         public string Account_Payable_Name { get; set; }
 
-     
-        public DateTime Date { get; set; } = DateTime.Parse("01/01/2001");
+        [DataType(DataType.Date)]
+        [DisplayName("Invoice Date")]
+        public DateTime Date { get; set; } = DateTime.Parse("2001/01/01");
+
         public string strngDate { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; } = DateTime.Parse("2001/01/01");
@@ -67,9 +71,11 @@ namespace SfDesk.Models
         public List<PI_Details> details{get;set;}
         public List<PI_Transactions> transactions{get;set;}
         public List<PI_Charge> taxes{get;set;}
-        [Display(Name = "attach file")]
-        [FileExtensions(Extensions = "txt,doc,docx,pdf", ErrorMessage = "Please upload valid format")]
-        public HttpPostedFileBase Attachment { get; set; }
+        //[Display(Name = "attach file")]
+        //[FileExtensions(Extensions = "txt,doc,docx,pdf", ErrorMessage = "Please upload valid format")]
+        //public HttpPostedFileBase Attachment { get; set; }
+
+        public string ImagePath { get; set; }
         #region Tax
         [DisplayName("Less / Add Commision")]
         public decimal Less_add_Commision { get; set; }
@@ -246,7 +252,15 @@ namespace SfDesk.Models
         }
 
         #endregion
-
+        public void PI_SaveImage()
+        {
+            SqlCommand sc = new SqlCommand("PI_SaveImage", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+         
+            sc.Parameters.AddWithValue("@imagePath", ImagePath);
+            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.ExecuteNonQuery();
+        }
 
         public string PR_Get_New_PR_NO()
         {

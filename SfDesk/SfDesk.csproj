@@ -953,6 +953,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
+    <Folder Include="Images\PI_Images\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
