@@ -842,9 +842,13 @@ $("#jsGrid").jsGrid({
                 args.item["T_ID"] = parseInt(args.item["T_ID"]);
                 if(isMM){
                     args.item["_ID"]  =myOpts.MM_ID;
+                    
+                    args.item["is_MiddleMan"]= true;
                 }
                 else if (isT){
                     args.item["_ID"]  =mytrans.T_ID;
+                    
+                    args.item["is_Transporter"] = true
 
                 }
 
@@ -866,10 +870,11 @@ $("#jsGrid").jsGrid({
                 args.item["T_ID"] = parseInt(args.item["T_ID"]);
                 if(isMM){
                     args.item["_ID"]  =myOpts.MM_ID;
+                    args.item["is_MiddleMan"]= true;
                 }
                 else if (isT){
                     args.item["_ID"]  =mytrans.T_ID;
-
+                    args.item["is_Transporter"] = true
                 }
                 myTransaction.push(args.item)
 
