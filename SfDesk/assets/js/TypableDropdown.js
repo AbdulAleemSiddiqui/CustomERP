@@ -27,7 +27,7 @@
         var name = "#" + a + "_List";
         name = name + " option[value='" + value+ "']";
         value = $(name).data('id');
-
+        debugger
         $("[name='" + a + "_ID']").val(value);
     });
     

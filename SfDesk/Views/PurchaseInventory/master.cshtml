@@ -448,6 +448,12 @@
 
         var id = 0;
         function populate() {
+            debugger;
+            var value = $('#Transporter_Name').val();
+            var name = "#Transporter_List";
+            name = name + " option[value='" + value + "']";
+            value = $(name).data('id');
+            $('#Transporter_ID').val(value);
             id = $('#Transporter_ID').val()
 
             $.ajax({
@@ -471,7 +477,7 @@
                 }
             });
         }
-        $('#Transporter_Name').on("change", populate);
+        $('#Transporter_Name ').on("change", populate);
 
     </script>
 }
