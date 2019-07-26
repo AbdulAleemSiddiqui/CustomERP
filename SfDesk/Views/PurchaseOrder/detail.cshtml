@@ -247,12 +247,24 @@
         }
 
         $(function(){
-            debugger;
             loadData();
+            debugger;
+            var mmid = $('#Middle_Man_ID').val()
+            var vid = $('#Vehicle_ID').val();
+           
+            $.ajax({
+                url: "MM_Get_By_ID",
+                type: 'GET',
+                dataType: 'json',
+                data: { id :  mmid},
+                success: function (d) {   ;
+                    myOpts = d;
+                }
+            });
 
-            $("#Middle_Man_ID").on("change",function(){
+            $("#Middle_Man_Name").on("change",function(){
 
-                var mmid = $('#Middle_Man_ID :selected').val()
+                var mmid = $('#Middle_Man_ID').val()
                 $.ajax({
                     url: "MM_Get_By_ID",
                     type: 'GET',
@@ -275,17 +287,7 @@
                     }
                 });
             });
-            if( $('#Middle_Man_ID :selected').val() != ""){
-               $.ajax({
-                url: "MM_Get_By_ID",
-                type: 'GET',
-                dataType: 'json',
-                data: { id :  mmid},
-                success: function (d) {   ;
-                       myOpts = d;
-            }
-            });
-                $.ajax({
+            $.ajax({
                 url: "Vehicle_Get_BY_ID",
                 type: 'GET',
                 dataType: 'json',
@@ -294,7 +296,6 @@
                     mytrans = d;
                 }
             });
-        }
             var array =@Html.Raw(Json.Encode(Model));
             var arr=[];
             $.each(array, function (key, value) {
