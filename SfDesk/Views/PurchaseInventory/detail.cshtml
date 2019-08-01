@@ -646,7 +646,8 @@ $("#jsGrid").jsGrid({
 
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'I';
-                myTaxes.push(args.item)
+                args.item["SalesTax_ID"] = parseInt(  args.item["SalesTax_ID"] )
+                 myTaxes.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
 
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
