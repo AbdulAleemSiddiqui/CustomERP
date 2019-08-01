@@ -29,19 +29,13 @@ namespace SfDesk.Models
         [DisplayName("% apply on (rate * qty)")]
         public bool isPer_Apply { get; set; }
 
-        [DisplayName("PER. Effect CGS")]
-        public int Purchase_ECGS_ID { get; set; }
-        public string Purchase_ECGS_Name { get; set; }
 
-        [DisplayName("SAL. Effect CGS")]
-        public int Purchaase_Party_ID { get; set; }
-        public string Purchaase_Party_Name { get; set; }
 
-        [DisplayName("Account")]
-        public int Sales_Party_ID{ get; set; }
-        public string Sales_Party_Name { get; set; }
+        [DisplayName("Pay. Account")]
+        public int Pay_Account_ID{ get; set; }
+        public string Pay_Account_Name { get; set; }
 
-        [DisplayName("SAL. Effect Party")]
+        [DisplayName("Expense Account")]
         public int Sales_Account_ID { get; set; }
         public string Sales_Account_Name{ get; set; }
 
@@ -76,17 +70,11 @@ namespace SfDesk.Models
                 u.Rate_Type = (string)sdr["Rate_Type"];
                 u.isPer_Apply = (bool)sdr["isPer_Apply"];
 
-                u.Purchaase_Party_ID = (int)sdr["Purchase_Party_ID"];
-                u.Purchaase_Party_Name = (string)sdr["Purchase_Party_Name"];
-
-                u.Purchase_ECGS_ID = (int)sdr["Purchase_ECGS_ID"];
-                u.Purchase_ECGS_Name= (string)sdr["Purchase_ECGS_Name"];
-
                 u.Sales_Account_ID = (int)sdr["Sales_Account_ID"];
                 u.Sales_Account_Name  = (string)sdr["Sales_Account_Name"];
 
-                u.Sales_Party_ID = (int)sdr["Sales_Party_ID"];
-                u.Sales_Party_Name= (string)sdr["Sales_Party_Name"];
+                u.Pay_Account_ID = (int)sdr["Pay_Account_ID"];
+                u.Pay_Account_Name= (string)sdr["Pay_Account_Name"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -117,17 +105,12 @@ namespace SfDesk.Models
                 u.Rate_Type = (string)sdr["Rate_Type"];
                 u.isPer_Apply = (bool)sdr["isPer_Apply"];
 
-                u.Purchaase_Party_ID = (int)sdr["Purchase_Party_ID"];
-                u.Purchaase_Party_Name = (string)sdr["Purchase_Party_Name"];
-
-                u.Purchase_ECGS_ID = (int)sdr["Purchase_ECGS_ID"];
-                u.Purchase_ECGS_Name = (string)sdr["Purchase_ECGS_Name"];
 
                 u.Sales_Account_ID = (int)sdr["Sales_Account_ID"];
                 u.Sales_Account_Name = (string)sdr["Sales_Account_Name"];
 
-                u.Sales_Party_ID = (int)sdr["Sales_Party_ID"];
-                u.Sales_Party_Name = (string)sdr["Sales_Party_Name"];
+                u.Pay_Account_ID = (int)sdr["Pay_Account_ID"];
+                u.Pay_Account_Name = (string)sdr["Pay_Account_Name"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -149,10 +132,8 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@Rate_Type", Rate_Type);
             sc.Parameters.AddWithValue("@isPer_Apply", isPer_Apply);
-            sc.Parameters.AddWithValue("@Purchase_Party_ID", Purchaase_Party_ID);
             sc.Parameters.AddWithValue("@Sales_Account_ID", Sales_Account_ID);
-            sc.Parameters.AddWithValue("@Sales_Party_ID", Sales_Party_ID);
-            sc.Parameters.AddWithValue("@Purchase_ECGS_ID", Purchase_ECGS_ID);
+            sc.Parameters.AddWithValue("@Pay_Account_ID", Pay_Account_ID);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -172,10 +153,8 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Rate_Type", Rate_Type);
             sc.Parameters.AddWithValue("@isPer_Apply", isPer_Apply);
 
-            sc.Parameters.AddWithValue("@Purchase_Party_ID", Purchaase_Party_ID);
             sc.Parameters.AddWithValue("@Sales_Account_ID", Sales_Account_ID);
-            sc.Parameters.AddWithValue("@Sales_Party_ID", Sales_Party_ID);
-            sc.Parameters.AddWithValue("@Purchase_ECGS_ID", Purchase_ECGS_ID);
+            sc.Parameters.AddWithValue("@Pay_Account_ID", Pay_Account_ID);
             sc.ExecuteNonQuery();
 
 

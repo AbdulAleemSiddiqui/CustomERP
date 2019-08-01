@@ -507,7 +507,16 @@ namespace SfDesk.Models
             //u.Created_Date = (DateTime)sdr["CreatedDate"];
             
 
-            return Convert.ToInt32((decimal)sc.ExecuteScalar());
+            object a = sc.ExecuteScalar();
+            if(typeof(int)==a.GetType())
+            {
+                return (int)a;
+            }
+            else if(typeof(decimal) == a.GetType())
+            {
+                return Convert.ToInt32((decimal)a);
+            }
+            return 0;
         }
     }
 }

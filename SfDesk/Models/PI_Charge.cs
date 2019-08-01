@@ -79,6 +79,8 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("PI_Charge_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@ST_ID", SalesTax_ID);
+            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Total", Total);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);

@@ -215,6 +215,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GRNController.cs" />
+    <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\MiddleManController.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Models\GRN.cs" />
     <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Ledger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\MiddleMan.cs" />
@@ -855,6 +857,7 @@
     <Content Include="Views\MiddleMan\Index.cshtml" />
     <Content Include="Views\MiddleMan\Add.cshtml" />
     <Content Include="Views\MiddleMan\Update.cshtml" />
+    <Content Include="Views\Ledger\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

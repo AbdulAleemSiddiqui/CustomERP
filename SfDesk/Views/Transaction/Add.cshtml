@@ -65,15 +65,16 @@
 
         </div>
         <div class="col-md-6">
+           
+            @{
+                List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+            }
             <div class="form-group">
-                @Html.LabelFor(model => model.Purchase_ECGS_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.LabelFor(model => model.Pay_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.Hidden("Purchase_ECGS_ID")
-                    <input type="text" name="Purchase_ECGS_Name" list="Purchase_ECGS_List" id="Purchase_ECGS_Name" class="form-control text-box">
-                    <datalist id="Purchase_ECGS_List">
-                        @{
-                            List<SfDesk.Models.ChartOfAccount> lst = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                        }
+                    @Html.Hidden("Pay_Account_ID")
+                    <input type="text" name="Pay_Account_Name" list="Pay_Account_List" id="Pay_Account_Name" class="form-control text-box">
+                    <datalist id="Pay_Account_List">
 
                         @foreach (var item in lst)
                         {
@@ -81,42 +82,7 @@
                         }
 
                     </datalist>
-
-                    @Html.ValidationMessageFor(model => model.Purchase_ECGS_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Purchaase_Party_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @Html.Hidden("Purchaase_Party_ID")
-                    <input type="text" name="Purchaase_Party_Name" list="Purchase_ECGS_List" id="Purchaase_Party_Name" class="form-control text-box">
-                    <datalist id="Purchase_ECGS_List">
-
-                        @foreach (var item in lst)
-                        {
-                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                        }
-
-                    </datalist>
-                    @Html.ValidationMessageFor(model => model.Purchaase_Party_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Sales_Party_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @Html.Hidden("Sales_Party_ID")
-                    <input type="text" name="Sales_Party_Name" list="Purchase_ECGS_List" id="Sales_Party_Name" class="form-control text-box">
-                    <datalist id="Purchase_ECGS_List">
-
-                        @foreach (var item in lst)
-                        {
-                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                        }
-
-                    </datalist>
-                    @Html.ValidationMessageFor(model => model.Sales_Party_ID, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Pay_Account_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -124,8 +90,8 @@
                 @Html.LabelFor(model => model.Sales_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
                     @Html.Hidden("Sales_Account_ID")
-                    <input type="text" name="Sales_Account_Name" list="Purchase_ECGS_List" id="Sales_Account_Name" class="form-control text-box">
-                    <datalist id="Purchase_ECGS_List">
+                    <input type="text" name="Sales_Account_Name" list="Sales_Account_List" id="Sales_Account_Name" class="form-control text-box">
+                    <datalist id="Sales_Account_List">
 
                         @foreach (var item in lst)
                         {
@@ -160,13 +126,13 @@
 
 
     $(document).ready(function () {   // Help for the HTML4 version.
-        $('select[name=Purchaase_Party_Name]').change(function () {
+        $('select[name=Pay_Account_Name]').change(function () {
             $('input[name=other]').val($(this).val());
         })
     });
-    $('#Purchaase_Party_Name').on('change', function () {
-        var id = $("option").filter("[value='" + $('#Purchaase_Party_Name').val() + "']").data("id");
-        $("[name='Purchaase_Party_ID']").val(id);
+    $('#Pay_Account_Name').on('change', function () {
+        var id = $("option").filter("[value='" + $('#Pay_Account_Name').val() + "']").data("id");
+        $("[name='Pay_Account_ID']").val(id);
     });
 
 

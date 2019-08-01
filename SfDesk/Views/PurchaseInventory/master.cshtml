@@ -365,10 +365,33 @@
             Typable_Dropdown('Transporter');
             Typable_Dropdown('Middle_Man');
 
-            var g = $('#Transporter_ID').val();
-            if (g != null) {
-                populate();
+            id = $('#Transporter_ID').val();
+            if (id != 0) {
+              
+                id = $('#Transporter_ID').val()
 
+                $.ajax({
+                    url: '/PurchaseInventory/Vehcile_Get_By_Transporter',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { id: id },
+                    success: function (d) {
+
+                        var ddlState = $('#Vehicle_ID');
+                        ddlState.empty();
+                        $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
+                        $.each(d, function (i, states) {
+                            if ($('#V_ID').val() == states.V_ID) {
+
+                                ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
+                            }
+                            else {
+                                ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                            }
+                        });
+                    }
+                });
+            
             }
         });
 
@@ -471,6 +494,7 @@
                     $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
                     $.each(d, function (i, states) {
                         if ($('#V_ID').val() == states.V_ID) {
+
                             ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
                         }
                         else {
