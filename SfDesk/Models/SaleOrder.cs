@@ -10,16 +10,18 @@ namespace SfDesk.Models
     public class SaleOrder
     {
         #region Sales Order master
-        [DisplayName("Transaction #")]
-        public int Transaction_No { get; set; }
+        [DisplayName("S ID #")]
+        public int SO_ID { get; set; }
         [DisplayName("S.O #")]
         public int SO_No { get; set; }
-        [DisplayName("Invoice #")]
-        public string Invoice_No { get; set; }
-        [DisplayName("Sale Type")]
-        public string[] Sale_Type { get; set; } = { "", "", "" };
+        [DisplayName("PR #")]
+        public string PR_No { get; set; }
+        [DisplayName("Sale Mode")]
+        public string[] Sale_Mode { get; set; }
+        public int Sale_Account_ID { get; set; }
         [DisplayName("Sale A/c")]
         public string Sale_ac { get; set; }
+        public int Customer_ID { get; set; }
         [DisplayName("Customer Name")]
         public string Customer_Name { get; set; }
         public DateTime Date { get; set; }
@@ -27,36 +29,18 @@ namespace SfDesk.Models
         public DateTime Due_Date { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
+
         [DisplayName("Vehicle #")]
+        public int Vehicle_ID { get; set; }
         public string Vehicle_No { get; set; }
         [DisplayName("Transporter Name")]
+        public int Transporter_ID { get; set; }
         public string Transporter_Name { get; set; }
         [DisplayName("Sales Man")]
-        public string Sales_Man { get; set; }
+        public int Sales_Man_ID { get; set; }
+        public string Sales_Man_Name { get; set; }
         #endregion
-        #region Detail
-        [DisplayName("Store / Godown")]
-        public string Store { get; set; }
-        [DisplayName("Item Code")]
-        public int Item_Code { get; set; }
-        [DisplayName("Product Name")]
-        public string Product_Name { get; set; }
-        [DisplayName("Product Description")]
-        public string Product_Description { get; set; }
-      
-        public int Quantitiy { get; set; }
-        public decimal Rate { get; set; }
-        public decimal Amount { get; set; }
-        [DisplayName("Salesmen Commission")]
-        public decimal Commision { get; set; }
-        public decimal Discount { get; set; }
-        [DisplayName("Discount Amount")]
-        public decimal Discount_Amount { get; set; }
-        [DisplayName("Net Amount")]
-        public decimal Net_Amount { get; set; }
-
-
-        #endregion
+ 
         #region Tax
         [DisplayName("Less / Add Commision")]
         public decimal Less_add_Commision { get; set; }

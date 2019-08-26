@@ -260,7 +260,7 @@
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\Payment_Mode.cs" />
-    <Compile Include="Models\Payment_Detail.cs" />
+    <Compile Include="Models\PI_Details.cs" />
     <Compile Include="Models\PI_Charge.cs" />
     <Compile Include="Models\PI_Transactions.cs" />
     <Compile Include="Models\Product.cs" />
@@ -272,6 +272,7 @@
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\SaleOrder.cs" />
     <Compile Include="Models\SalesTax.cs" />
+    <Compile Include="Models\SO_Details.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Transporter.cs" />
     <Compile Include="Models\user.cs" />
@@ -860,6 +861,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="Images\PI_Images\" />
+    <Folder Include="Views\SalesOrder\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
   <ItemGroup>

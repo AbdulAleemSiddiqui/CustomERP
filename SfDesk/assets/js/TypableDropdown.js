@@ -15,7 +15,7 @@
             var list = $("#" + input.attr("list"))
             var options = $($(list).prop("options"))
             written = $('#' + a + '_Name').val();
-            options.
+       
             input.val(options.eq(0).val())
 
         }
