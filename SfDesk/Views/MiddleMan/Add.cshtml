@@ -142,7 +142,14 @@
         </div>
     </div>
 }
+
+<script src="~/assets/js/TypableDropdown.js"></script>
 <script>
+    DropDown_Fill("Exp_Acc");
+    Typable_Dropdown('Exp_Acc');
+    DropDown_Fill("Pay_Acc");
+    Typable_Dropdown('Pay_Acc');
+
     $("#f2").submit(function (e) {
         debugger;
         e.preventDefault();

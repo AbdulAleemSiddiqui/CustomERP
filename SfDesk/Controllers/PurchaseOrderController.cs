@@ -201,7 +201,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Index(int PI_ID)
         {
-            return Json(new PurchaseInventory() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new PI_Details() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)
@@ -213,7 +213,7 @@ namespace SfDesk.Controllers
         public ActionResult update(PurchaseInventory pi)
         {
          //   pi.Store = pi.Store == null ? "" : pi.Store;
-            pi.PI_Detail_Update();
+           // pi.PI_Detail_Update();
             return Json("updated sucessfully");
         }
         [HttpGet]

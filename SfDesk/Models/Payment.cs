@@ -25,7 +25,7 @@ namespace SfDesk.Models
         public int Job_ID { get; set; }
 
 
-
+        [DisplayName("Job")]
         public string Job_Name { get; set; }
         [DataType(DataType.MultilineText)]
         public string Naration { get; set; }

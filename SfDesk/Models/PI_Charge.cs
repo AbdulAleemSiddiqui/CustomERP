@@ -8,6 +8,7 @@ namespace SfDesk.Models
 {
     public class PI_Charge
     {
+        #region PI_Charge
         public int PI_Charge_ID { get; set; }
         public int PI_ID { get; set; }
         public int SalesTax_ID { get; set; }
@@ -15,6 +16,7 @@ namespace SfDesk.Models
         public decimal  Rate { get; set; }
         public decimal Total { get; set; }
         public string action { get; set; }
+        #endregion
         #region default Properties
         public int Created_By { get; set; }
         public DateTime Created_Date { get; set; }

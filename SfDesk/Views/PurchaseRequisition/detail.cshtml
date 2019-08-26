@@ -244,7 +244,7 @@
                
             }, 
             fields: [
-            {name:"Item_Code", title: "Item_Code", type: "number", width:  80, validate: "required", 
+            {name:"Item_Code", title: "Code", type: "number", width:  80, validate: "required", 
             insertTemplate: function(value) { 
                 this.insertControl = $("<input>");
             
@@ -260,20 +260,20 @@
                     
                 return $editControl;
             }, },
-            {name:"Product_Name", title: "Product_Name", type: "text", width:  80, validate: "required",             editTemplate: function (args) {
+            {name:"Product_Name", title: "Product", type: "text", width:  80, validate: "required",             editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                 update_on_enter($editControl);
                     
                 return $editControl;
             }, },
-            {name:"Product_Description", title: "Product_Description", type: "text", width:  80, validate: "required"  ,
+            {name:"Product_Description", title: "Description", type: "text", width:  80, validate: "required"  ,
                 editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                 update_on_enter($editControl);
                     
                 return $editControl;
             }, },
-            {name:"Purchase_Quantitiy", title: "Purchase_Quantitiy", type: "number", width:  80,
+            {name:"Purchase_Quantitiy", title: "Quantitiy", type: "number", width:  80,
                 validate: "required",
                 insertTemplate: function(value) { 
                     this.insertControl = $("<input>");

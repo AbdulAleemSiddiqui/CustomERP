@@ -61,17 +61,34 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Exp_Acc_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.Exp_Acc_ID, new SelectList(lst, "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Exp_Acc_ID, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(Model => Model.Exp_Acc_ID)
+                    <input type="text" name="Exp_Acc_Name" list="Exp_Acc_List" id="Exp_Acc_Name" class="form-control text-box">
+                    <datalist id="Exp_Acc_List" class="control-label col-md-4">
+
+                        @foreach (var item in lst)
+                        {
+                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name"></option>
+                        }
+                    </datalist> @Html.ValidationMessageFor(model => model.Exp_Acc_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.Pay_Acc_ID, new SelectList(lst, "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Pay_Acc_ID, "", new { @class = "text-danger" })
-                </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.HiddenFor(Model => Model.Pay_Acc_ID)
+                <input type="text" name="Pay_Acc_Name" list="Pay_Acc_List" id="Pay_Acc_Name" class="form-control text-box">
+                <datalist id="Pay_Acc_List" class="control-label col-md-4">
+
+                    @foreach (var item in lst)
+                    {
+                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name"></option>
+                    }
+                </datalist> @Html.ValidationMessageFor(model => model.Exp_Acc_ID, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+
 
 
 
@@ -87,8 +104,16 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script src="~/assets/js/TypableDropdown.js"></script>
 
 <script>
+    
+    
+    DropDown_Fill("Exp_Acc");
+    Typable_Dropdown('Exp_Acc');
+
+    DropDown_Fill("Pay_Acc");
+    Typable_Dropdown('Pay_Acc');
     function detail() {
         debugger;
         $.get('@Url.Action("Add_Vehicle", "Transporter")' + '?id=' + $('#T_ID').val(), function (data) { $("#nephew").html(data); });

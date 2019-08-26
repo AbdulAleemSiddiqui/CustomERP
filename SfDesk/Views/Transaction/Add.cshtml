@@ -113,47 +113,17 @@
             </div>
         </div>
                         }
+<script src="~/assets/js/TypableDropdown.js"></script>
+
 <script>
-    $(document).ready(function () {   // Help for the HTML4 version.
-        $('select[name=Purchase_ECGS_Name]').change(function () {
-            $('input[name=other]').val($(this).val());
-        })
-    });
-    $('#Purchase_ECGS_Name').on('change', function () {
-        var id = $("option").filter("[value='" + $('#Purchase_ECGS_Name').val() + "']").data("id");
-        $("[name='Purchase_ECGS_ID']").val(id);
-    });
-
 
     $(document).ready(function () {   // Help for the HTML4 version.
-        $('select[name=Pay_Account_Name]').change(function () {
-            $('input[name=other]').val($(this).val());
-        })
-    });
-    $('#Pay_Account_Name').on('change', function () {
-        var id = $("option").filter("[value='" + $('#Pay_Account_Name').val() + "']").data("id");
-        $("[name='Pay_Account_ID']").val(id);
-    });
 
 
-    $(document).ready(function () {   // Help for the HTML4 version.
-        $('select[name=Sales_Party_Name]').change(function () {
-            $('input[name=other]').val($(this).val());
-        })
-    });
-    $('#Sales_Party_Name').on('change', function () {
-        var id = $("option").filter("[value='" + $('#Sales_Party_Name').val() + "']").data("id");
-        $("[name='Sales_Party_ID']").val(id);
-    });
-
-
-    $(document).ready(function () {   // Help for the HTML4 version.
-        $('select[name=Sales_Account_Name]').change(function () {
-            $('input[name=other]').val($(this).val());
-        })
-    });
-    $('#Sales_Account_Name').on('change', function () {
-        var id = $("option").filter("[value='" + $('#Sales_Account_Name').val() + "']").data("id");
-        $("[name='Sales_Account_ID']").val(id);
+        DropDown_Fill("Pay_Account");
+        Typable_Dropdown('Pay_Account');
+        DropDown_Fill("Sales_Account");
+        Typable_Dropdown('Sales_Account');
+        
     });
 </script>

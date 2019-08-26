@@ -140,7 +140,7 @@ namespace SfDesk.Controllers
         public ActionResult update(PurchaseInventory pi)
         {
            // pi.Store = "";
-            pi.PI_Detail_Update();
+           // pi.PI_Detail_Update();
             return Json("updated sucessfully");
         }
         [HttpGet]

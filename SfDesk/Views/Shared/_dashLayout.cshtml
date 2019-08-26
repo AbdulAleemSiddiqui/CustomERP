@@ -45,67 +45,67 @@
         <div class="nano">
             <div class="nano-content">
                 <ul id="menu">
-                  
-                  
+
+
                     @*<li class="active">
-                        <a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="index-v1.html">Dashboard 2</a></li>
+                            <a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                                <li><a href="index.html">Dashboard 1</a></li>
+                                <li><a href="index-v1.html">Dashboard 2</a></li>
 
-                            <li><a href="index-school.html">Dashboard 3</a></li>
-                            <li><a href="index-restaurant.html">Dashboard 4</a></li>
-                        </ul>
+                                <li><a href="index-school.html">Dashboard 3</a></li>
+                                <li><a href="index-restaurant.html">Dashboard 4</a></li>
+                            </ul>
 
-                        }
-                    </li>*@
-                   
+                            }
+                        </li>*@
+
 
                     @*@if (Session["ID"] != null )
-                    {
-
-                        var lst = new SfDesk.Models.Form().Get_All_Menu();
-
-                        foreach (var l1 in lst.Where(x => x.Parent_ID == 0))
                         {
-                            var sub = lst.Where(x => x.Parent_ID == l1.Form_ID);
-                            Session["isMenuCreated"] = true;
-                            <li>
-                                <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>@l1.Text<span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                                @if (sub.Count() != 0)
-                                {
-                                    <ul>
-                                        @foreach (var l2 in sub)
-                                        {
-                                            var sub_sub = lst.Where(x => x.Parent_ID == l2.Form_ID);
 
-                                            <li>
-                                                <a href="@Url.Action(l2.RedirectAction, l2.RedirectController)">@l2.Text</a>
-                                 
-                                                @if (sub_sub.Count() != 0)
-                                                {
-                                                    <ul>
-                                                        @foreach (var l3 in sub_sub)
-                                                        {
-                                                            <li>
-                                                                <a href="@Url.Action(l3.RedirectAction, l3.RedirectController)">@l3.Text</a>
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                }
-                                            </li>
-                                        }
-                                    </ul>
-                                }
+                            var lst = new SfDesk.Models.Form().Get_All_Menu();
 
-                            </li>
-                        }
+                            foreach (var l1 in lst.Where(x => x.Parent_ID == 0))
+                            {
+                                var sub = lst.Where(x => x.Parent_ID == l1.Form_ID);
+                                Session["isMenuCreated"] = true;
+                                <li>
+                                    <a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>@l1.Text<span class="badge badge-primary">28</span><span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                                    @if (sub.Count() != 0)
+                                    {
+                                        <ul>
+                                            @foreach (var l2 in sub)
+                                            {
+                                                var sub_sub = lst.Where(x => x.Parent_ID == l2.Form_ID);
 
-                    }*@
-                   
-                   
-                   
-                   
+                                                <li>
+                                                    <a href="@Url.Action(l2.RedirectAction, l2.RedirectController)">@l2.Text</a>
+
+                                                    @if (sub_sub.Count() != 0)
+                                                    {
+                                                        <ul>
+                                                            @foreach (var l3 in sub_sub)
+                                                            {
+                                                                <li>
+                                                                    <a href="@Url.Action(l3.RedirectAction, l3.RedirectController)">@l3.Text</a>
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    }
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+
+                                </li>
+                            }
+
+                        }*@
+
+
+
+
                     @*var lst = new SfDesk.Models.User_Role() { U_ID = ((SfDesk.Models.user)Session["ID"]).U_Id }.User_Role_Get_By_U_ID();
                         var modules = lst.Select(x => x.M_Name).Distinct().ToList();
                         foreach (var item in modules)
@@ -164,7 +164,7 @@
                                 <li><a href="school-transport.html">Transport</a></li>
                             </ul>
                         </li>*@
-                 
+
                 </ul>
 
             </div>
@@ -383,22 +383,25 @@
     <script src="~/assets/js/lib/data-table/datatables-init.js"></script>
     <script src="~/assets/js/lib/sweetalert/sweetalert.min.js"></script>
     <script>
-       
+
         $(function () {
-            try{
-
-                $.get('@Url.Action("generate_Menu", "form",new { id= ((SfDesk.Models.user)Session["ID"]).U_Id })', function (data) { $("#menu").html(data); });
+            try {
+                //if (Session["ID"].U_Id != 0) {
+                    $.get('@Url.Action("generate_Menu", "form",new { id= ((SfDesk.Models.user)Session["ID"]).U_Id })', function (data) { $("#menu").html(data); });
+                @*}
+                else {
+                    window.location.href = "@Url.Action("Login", "LoginUser")";
+                }*@
             }
-            catch(err)
-            {
+            catch (err) {
 
             }
-        })  
-            
-     
-      
-    </script> 
-            @RenderSection("scripts", required: false)
+        })
+
+
+
+    </script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 

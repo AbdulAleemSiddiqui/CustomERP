@@ -19,17 +19,28 @@
                   
 
                     <div class="form-group col-md-4">
+                        @Html.HiddenFor(Model => Model.Suplier_ID)
                         @Html.LabelFor(model => model.Suplier_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.DropDownListFor(model => model.Suplier_ID, new SelectList(new SfDesk.Models.Vendor().Vendor_Get_All_For_Lov(), "Vendor_ID", "Business_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                        @{
+                            var Depart_list = new SfDesk.Models.Vendor().Vendor_Get_All();
+                        }
+                        <div class="col-md-8">
+
+                            <input type="text" name="Suplier_Name" list="Suplier_List" id="Suplier_Name" class="form-control text-box">
+                            <datalist id="Suplier_List" class="control-label col-md-4">
+
+                                @foreach (var item in Depart_list)
+                                {
+                                    <option id="@item.Vendor_ID" data-id="@item.Vendor_ID" value="@item.Business_Name"></option>
+                                }
+                            </datalist>
                             @Html.ValidationMessageFor(model => model.Suplier_ID, "", new { @class = "text-danger" })
-</div>
+                        </div>
                     </div>
 
-    
                     <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.P_Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.P_Date, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.P_Date, "", new { @class = "text-danger" })
                         </div>
@@ -37,7 +48,7 @@
 
                     <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
                         </div>
@@ -45,7 +56,7 @@
 
                     <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.ExRate, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.ExRate, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.ExRate, "", new { @class = "text-danger" })
                         </div>
@@ -53,23 +64,15 @@
 
                     <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.Job_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.Job_ID, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Job_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Job_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.Job_Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Job_Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.Naration, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.Naration, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Naration, "", new { @class = "text-danger" })
                         </div>
@@ -96,6 +99,8 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js">
     </script>
+<script src="~/assets/js/TypableDropdown.js"></script>
+
     <script>
         var sup_ID = -1;
         var inventory = []
@@ -104,11 +109,12 @@
         var paydetail = []
         var totalamount = 0
         var allocamount = 0
-        var dueammount =0
+        var dueammount = 0
+        DropDown_Fill("Suplier");
+        Typable_Dropdown('Suplier');
         $(document).ready(function () {
-
             $.get('@Url.Action("detail", "payment")', function (data) { $("#child").html(data); });
-            
+
         });
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
@@ -121,13 +127,13 @@
         })
         $("form").submit(function (e) {
             e.preventDefault();
-          
+
             var mydata = $(this).serialize()
             if (allocamount == totalamount) {
-                
+
                 var deta = JSON.stringify(details);
                 var paydeta = JSON.stringify(paydetail);
-               
+
                 debugger;
                 $.ajax({
                     type: "POST",
@@ -153,7 +159,7 @@
                 alert("naaah")
             }
         })
-        
+
         function detail() {
 
             $.ajax({
@@ -161,7 +167,7 @@
                 data: { id: sup_ID },
                 url: "Bill_Get_By_SID",
                 success: function (d) {
-                  
+
 
                    inventory =d
                 },

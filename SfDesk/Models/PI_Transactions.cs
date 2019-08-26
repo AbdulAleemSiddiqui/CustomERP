@@ -25,13 +25,13 @@ namespace SfDesk.Models
         public DateTime Created_Date { get; set; }
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
-        #endregion
+      
         public PI_Transactions()
         {
             this.Machine_Ip = Utility.GetIPAddress();
             this.Mac_Address = Utility.GetMacAddress();
         }
-
+        #endregion
         public List<PI_Transactions> PI_Transactions_Get_All()
         {
             List<PI_Transactions> lst = new List<PI_Transactions>();
@@ -59,7 +59,6 @@ namespace SfDesk.Models
             sdr.Close();
             return lst;
         }
-
         public PI_Transactions PI_Transactions_Get_BY_ID()
         {
             PI_Transactions u = new PI_Transactions();

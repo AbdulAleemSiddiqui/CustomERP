@@ -1,26 +1,23 @@
 ﻿function Typable_Dropdown( a)
 {
-    debugger;
     $('select[name='+a+'_Name]').change(function () {
         $('input[name=other]').val($(this).val());
-       
-
-
     });
     $('#' + a + '_Name').on('keydown', function (e) {
-        debugger
         if (e.keyCode === 9) {
-
-            var input = $(this)
-            var list = $("#" + input.attr("list"))
-            var options = $($(list).prop("options"))
-            written = $('#' + a + '_Name').val();
-            options.
-            input.val(options.eq(0).val())
-
+            debugger;
+            var s = $(this).val();
+            var list=$('#' + a + '_List').find('option');
+            for (var i = 0; i < list.length; i++) {
+                var z = $(list[i]).val();
+                if (z.toLowerCase().indexOf(s.toLowerCase()) != -1) {
+                    $(this).val($(list[i]).val());
+                    break;
+                }
+              
+            }
         }
     });
-   
     $('#' + a + '_Name').on('change', function () {
     
         var value = $('#' + a + '_Name').val();

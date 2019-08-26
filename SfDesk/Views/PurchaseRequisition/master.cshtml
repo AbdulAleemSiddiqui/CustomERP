@@ -37,16 +37,24 @@
                         </div>
 
                         <div class="form-group">
+                            @Html.HiddenFor(Model => Model.Department_ID)
                             @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @{
+                                var Depart_list = new SfDesk.Models.Department().Department_Get_All();
+                            }
                             <div class="col-md-5">
 
-                                @Html.DropDownListFor(model => model.Department_ID, new SelectList(new SfDesk.Models.Department().Department_Get_All(), "D_ID", "D_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                <input type="text" name="Department_Name" list="Department_List" id="Department_Name" class="form-control text-box">
+                                <datalist id="Department_List" class="control-label col-md-4">
 
-                                @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @foreach (var item in Depart_list)
+                                    {
+                                        <option id="@item.D_ID" data-id="@item.D_ID" value="@item.D_Name"></option>
+                                    }
+                                </datalist>
                                 @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                   
                     </div>
                     <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
@@ -57,8 +65,6 @@
                             </div>
                         </div>
 
-             
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -67,10 +73,9 @@
                             </div>
                         </div>
 
-                      
                     </div>
                     <div id="child"></div>
-                    <div class="form-group" >
+                    <div class="form-group">
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
                                 <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
@@ -84,9 +89,9 @@
                     </div>
                 </div>
 
-                                        }
+            }
 
-            
+
         </div>
     </div>
 </div>
@@ -105,15 +110,17 @@
 {
 
     <script src="~/assets/js/jsgrid.min.js"></script>
+<script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
-     var details= []
-
+        var details = []
+        DropDown_Fill("Department");
+        Typable_Dropdown('Department');
         $('#cancel').click(function () {
             window.location.href = '/PurchaseRequisition/Showall';
         });
         $('#done').click(function () {
-            window.location.href ='@Url.Action("Showall", "PurchaseRequisition")';
+            window.location.href = '@Url.Action("Showall", "PurchaseRequisition")';
         });
         $('#approve').click(function () {
             debugger;
@@ -147,8 +154,7 @@
 
             document.getElementById("Date").valueAsDate = new Date();
 
-            if ($('#PI_ID').val() != 0)
-            {
+            if ($('#PI_ID').val() != 0) {
                 Master_Id = $('#PI_ID').val();
 
 
@@ -156,22 +162,9 @@
             detail();
 
 
-            $('select[name=Account_Payable_Name]').change(function () {
-                $('input[name=other]').val($(this).val());
-            });
-            $('select[name=Purchase_Account_Name]').change(function () {
-                $('input[name=other]').val($(this).val());
-            });
+           
         });
-        $('#Account_Payable_Name').on('change', function () {
-            var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
-            $("[name='Account_Payable_ID']").val(id);
-        });
-        $('#Purchase_Account_Name').on('change', function () {
-            var id = $("option").filter("[value='" + $('#Purchase_Account_Name').val() + "']").data("id");
-            $("[name='Purchase_Account_ID']").val(id);
-        });
-        var Master_Id = 0;
+     
         $("#create").click(function (e) {
             e.preventDefault();
             //$.post(this.action, $(this).serialize(), function (data) {
