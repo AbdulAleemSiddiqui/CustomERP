@@ -26,14 +26,11 @@ namespace SfDesk.Controllers
         }
         [HttpPost]
         public ActionResult master(PurchaseInventory c)
-            {
+        {
             if (c.PI_ID == 0)
             {
                 c.PI_ID = c.PI_Add();
-             
-
             }
-
             if (c.details != null && c.details.Count > 0)
             {
                 foreach (var item in c.details)
@@ -100,7 +97,7 @@ namespace SfDesk.Controllers
 
             return Json(c.PI_ID, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult SaveImage(HttpPostedFileBase file,int P_ID)
+        public ActionResult SaveImage(HttpPostedFileBase file, int P_ID)
         {
             if (file != null)
             {
@@ -132,7 +129,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public JsonResult add(PurchaseInventory pi)
         {
-          //  ViewBag.detail_id = pi.PI_Detail_Add();
+            //  ViewBag.detail_id = pi.PI_Detail_Add();
             return Json("added sucessfully");
         }
         [HttpPost]
@@ -144,7 +141,7 @@ namespace SfDesk.Controllers
         [HttpGet]
         public ActionResult delete(int Detail_ID)
         {
-     //       new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
+            //       new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
             return Json("delete sucessfully");
         }
         [HttpGet]
@@ -187,7 +184,7 @@ namespace SfDesk.Controllers
         public ActionResult Save_Transaction(int PI_ID, PI_Transactions s)
         {
             s.is_MiddleMan = s.Name.ToLower() == "middle man";
-            s.is_Transporter= s.Name.ToLower() == "transporter";
+            s.is_Transporter = s.Name.ToLower() == "transporter";
 
             s.PI_Transactions_Add();
             return Json("");
@@ -195,12 +192,12 @@ namespace SfDesk.Controllers
         [HttpGet]
         public ActionResult Mm_Get_By_ID(int id)
         {
-            return Json(new MiddleMan() { MM_ID =id}.MiddleMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
+            return Json(new MiddleMan() { MM_ID = id }.MiddleMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Vehicle_Get_By_ID(int id)
         {
-            return Json(new Vehicle() { V_ID = id}.Vehcile_Get_By_ID(), JsonRequestBehavior.AllowGet);
+            return Json(new Vehicle() { V_ID = id }.Vehcile_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Delete_Charges(PI_Charge s)
