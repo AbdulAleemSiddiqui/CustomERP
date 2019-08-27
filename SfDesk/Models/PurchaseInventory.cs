@@ -31,13 +31,14 @@ namespace SfDesk.Models
         public int Purchase_Type_ID { get; set; }
         public string Purchase_Type_Name { get; set; } = "";
 
+    
+        [DisplayName("Supllier Name")]
+        public int Suplier_ID { get; set; }
+        public string Suplier_Name { get; set; }
         [DisplayName("Purchase A/c")]
         public int Purchase_Account_ID { get; set; }
         public string Purchase_Account_Name { get; set; } = "";
 
-        [DisplayName("Supllier Name")]
-        public int Suplier_ID { get; set; }
-        public string Suplier_Name { get; set; }
         [DisplayName("Account Payable")]
         public int Account_Payable_ID { get; set; }
         public string Account_Payable_Name { get; set; }
@@ -68,16 +69,24 @@ namespace SfDesk.Models
         public decimal DueAmount { get; set; }
         public string AllocatedStatus { get; set; }
         #endregion
-        public List<PI_Details> details { get; set; }
-        public List<PI_Transactions> transactions { get; set; }
-        public List<PI_Charge> taxes { get; set; }
+        public List<PI_Details> details{get;set;}
+        public List<PI_Transactions> transactions{get;set;}
+        public List<PI_Charge> taxes{get;set;}
         //[Display(Name = "attach file")]
         //[FileExtensions(Extensions = "txt,doc,docx,pdf", ErrorMessage = "Please upload valid format")]
         //public HttpPostedFileBase Attachment { get; set; }
 
         public string ImagePath { get; set; }
+        #region Tax
+        [DisplayName("Less / Add Commision")]
+        public decimal Less_add_Commision { get; set; }
+
+        public decimal GST { get; set; }
+        [DisplayName("Further Tax")]
+        public decimal Further_tax { get; set; }
         public decimal Total_Tax { get; set; }
 
+        #endregion
         #region Default
         public int Created_By { get; set; }
 
@@ -89,15 +98,15 @@ namespace SfDesk.Models
 
         public string Mac_Address { get; set; }
         #endregion
-        public List<PI_Charge> charges { get; set; }
+      
         public PurchaseInventory()
         {
             this.Machine_Ip = Utility.GetIPAddress();
             this.Mac_Address = Utility.GetMacAddress();
-            charges = new List<PI_Charge>();
+            taxes = new List<PI_Charge>();
         }
 
-        #region Methods
+        #region PR
         public int Purchase_Inventory_Add()
         {
             SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -243,15 +252,17 @@ namespace SfDesk.Models
             sc.ExecuteNonQuery();
         }
 
+        #endregion
         public void PI_SaveImage()
         {
             SqlCommand sc = new SqlCommand("PI_SaveImage", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-
+         
             sc.Parameters.AddWithValue("@imagePath", ImagePath);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
         }
+
         public string PR_Get_New_PR_NO()
         {
             SqlCommand sc = new SqlCommand("PR_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -283,102 +294,56 @@ namespace SfDesk.Models
             sc.ExecuteNonQuery();
             return PI_ID;
         }
+
+        #region Detail
+
+     
+     
         public void PI_Charges_Add()
         {
-            foreach (var item in charges)
+            foreach (var item in taxes)
             {
                 item.PI_ID = this.PI_ID;
                 item.PI_Charge_Add();
             }
         }
         #endregion
-
     }
     public class PI_Details
     {
-        #region Detail
-        public int PI_ID { get; set; }
-        public int Detail_ID { get; set; }
-        [DisplayName("Store / Godown")]
-        public string Store { get; set; } = "";
-        [DisplayName("Item Code")]
-        public int Item_Code { get; set; }
-        [DisplayName("Product Name")]
-        public string Product_Name { get; set; } = "";
-        [DisplayName("Product Description")]
-        public string Product_Description { get; set; } = "";
-        [DisplayName("Purchase Quantitiy")]
-        public int Purchase_Quantitiy { get; set; }
-        [DisplayName("Received Quantitiy")]
-        public int Received_Quantitiy { get; set; }
-
-        public decimal Commision { get; set; }
-
-        public decimal Rate { get; set; }
-        [DisplayName("Gross Amount")]
-        public decimal Gross_Amount { get; set; }
-        public decimal Discount { get; set; }
-        [DisplayName("Discount Amount")]
-        public decimal Discount_Amount { get; set; }
-        [DisplayName("Net Amount")]
-        public decimal Net_Amount { get; set; }
-        public string action { get; set; }
-
-        #endregion
-        #region Default
-        public int Created_By { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
-
-        public string Machine_Ip { get; set; }
-
-        public string Mac_Address { get; set; }
-        #endregion
         public PI_Details()
         {
             this.Machine_Ip = Utility.GetIPAddress();
             this.Mac_Address = Utility.GetMacAddress();
         }
+        #region Detail
+        public int PI_ID { get; set; }
+        public int Detail_ID { get; set; }
+    [DisplayName("Store / Godown")]
+    public string Store { get; set; } = "";
+    [DisplayName("Item Code")]
+    public int Item_Code { get; set; }
+    [DisplayName("Product Name")]
+    public string Product_Name { get; set; } = "";
+    [DisplayName("Product Description")]
+    public string Product_Description { get; set; } = "";
+    [DisplayName("Purchase Quantitiy")]
+    public int Purchase_Quantitiy { get; set; }
+    [DisplayName("Received Quantitiy")]
+    public int Received_Quantitiy { get; set; }
 
-        #region CRUD
-        public int PI_Detail_Add()
-        {
-            SqlCommand sc = new SqlCommand("PI_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+    public decimal Commision { get; set; }
 
-            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
-            sc.Parameters.AddWithValue("@Store", Store);
-            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Product_Name", Product_Name);
-            sc.Parameters.AddWithValue("@Description", Product_Description);
-            sc.Parameters.AddWithValue("@P_Quantity", Purchase_Quantitiy);
-            sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
-            sc.Parameters.AddWithValue("@Commision", Commision);
-            sc.Parameters.AddWithValue("@Rate", Rate);
-            sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
-            sc.Parameters.AddWithValue("@Discount", Discount);
-            sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);
-            sc.Parameters.AddWithValue("@Net_Amount", Net_Amount);
-            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
-            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+    public decimal Rate { get; set; }
+    [DisplayName("Gross Amount")]
+    public decimal Gross_Amount { get; set; }
+    public decimal Discount { get; set; }
+    [DisplayName("Discount Amount")]
+    public decimal Discount_Amount { get; set; }
+    [DisplayName("Net Amount")]
+    public decimal Net_Amount { get; set; }
+        public string action { get; set; }
 
-
-            //u.Created_Date = (DateTime)sdr["CreatedDate"];
-
-
-            object a = sc.ExecuteScalar();
-            if (typeof(int) == a.GetType())
-            {
-                return (int)a;
-            }
-            else if (typeof(decimal) == a.GetType())
-            {
-                return Convert.ToInt32((decimal)a);
-            }
-            return 0;
-        }
         public void PI_Detail_Update()
         {
             SqlCommand sc = new SqlCommand("PI_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -441,7 +406,56 @@ namespace SfDesk.Models
             sdr.Close();
             return ls;
         }
-        #endregion
+        public int PI_Detail_Add()
+        {
+            SqlCommand sc = new SqlCommand("PI_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
+            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
+            sc.Parameters.AddWithValue("@Store", Store);
+            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
+            sc.Parameters.AddWithValue("@Product_Name", Product_Name);
+            sc.Parameters.AddWithValue("@Description", Product_Description);
+            sc.Parameters.AddWithValue("@P_Quantity", Purchase_Quantitiy);
+            sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
+            sc.Parameters.AddWithValue("@Commision", Commision);
+            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
+            sc.Parameters.AddWithValue("@Discount", Discount);
+            sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);
+            sc.Parameters.AddWithValue("@Net_Amount", Net_Amount);
+            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
+            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
+
+            //u.Created_Date = (DateTime)sdr["CreatedDate"];
+
+
+            object a = sc.ExecuteScalar();
+            if (typeof(int) == a.GetType())
+            {
+                return (int)a;
+            }
+            else if (typeof(decimal) == a.GetType())
+            {
+                return Convert.ToInt32((decimal)a);
+            }
+            return 0;
+        }
+
+
+        #endregion
+        #region Default
+        public int Created_By { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
+
+        public string Machine_Ip { get; set; }
+
+        public string Mac_Address { get; set; }
+        #endregion
+       
     }
 }

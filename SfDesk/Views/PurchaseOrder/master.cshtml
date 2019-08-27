@@ -75,7 +75,7 @@
                                 var list = new SfDesk.Models.Purchase_Type().Purchase_Type_Get_All();
                             }
                             <div class="col-md-5">
-                                <input type="text" name="Purchase_Type_Name" list="Purchase_Type_List" id="Purchase_Type_Name" class="form-control text-box">
+                                <input type="text" name="Purchase_Type_Name" list="Purchase_Type_List" id="Purchase_Type_Name"  autocomplete="off"  class="form-control text-box">
                                 <datalist id="Purchase_Type_List">
 
                                     @foreach (var item in list)
@@ -91,7 +91,7 @@
                             @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
 
-                                <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" class="form-control text-box">
+                                <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" autocomplete="off" class="form-control text-box">
                                 <datalist id="Account_Payable_List">
                                     @{
                                         SfDesk.Models.ChartOfAccount selected = null;

@@ -18,121 +18,323 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>SaleInventory</h4>
+                    <h4>Sales</h4>
                     <hr />
+                    <input hidden="hidden" name="SO_ID" id="SO_ID" value="@Model.SO_ID" />
+                    <input hidden="hidden" name="V_ID" id="V_ID" value="@Model.Vehicle_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Transaction_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Transaction_No, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Transaction_No, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.PR_No, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.PR_No, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   @readonly = "readonly"
+                               }
+                           })
+                                @Html.ValidationMessageFor(model => model.PR_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.SO_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.SO_No, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.SO_No, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   @readonly = "readonly"
+                               }
+                           })
                                 @Html.ValidationMessageFor(model => model.SO_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
+                        @*<div class="form-group">
+                            @Html.HiddenFor(Model => Model.Department_ID)
+                            @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @{
+                                var Depart_list = new SfDesk.Models.Department().Department_Get_All();
+                            }
+                            <div class="col-md-5">
+                                <input type="text" name="Department_Name" list="Department_List" id="Department_Name" class="form-control text-box">
+                                <datalist id="Department_List">
+
+                                    @foreach (var item in Depart_list)
+                                    {
+                                        <option id="@item.D_ID" data-id="@item.D_ID" value="@item.D_Name"></option>
+                                    }
+                                </datalist>
+                                @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Invoice_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Invoice_No, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Invoice_No, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Sale_Mode, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Sale_Mode, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Sale_Mode, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Sale_Type, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-4">
+                            @Html.HiddenFor(Model => Model.Account_Receivable_ID)
+                            @Html.LabelFor(model => model.Account_Receivable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
 
-                                @Html.DropDownListFor(model => model.Sale_Type, new SelectList(new SfDesk.Models.SaleOrder().Sale_Type), "select type", htmlAttributes: new { @class = "form-control" })
+                                <input type="text" name="Account_Receivable_Name" list="Account_Receivable_List" id="Account_Receivable_Name" autocomplete="off" class="form-control text-box">
+                                <datalist id="Account_Receivable_List">
+                                    @{
+                                        SfDesk.Models.ChartOfAccount selected = null;
+                                        int indexofAPL = 0;
+                                        int indexofPAN = 0;
+                                        List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                        ab = ab.FindAll(x => x.Group_ID == 20);
+                                    }
+                                    <option></option>
+                                    @foreach (var item in ab)
+                                    {
+                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        if (item.COA_ID == Model.Account_Receivable_ID)
+                                        {
+                                            selected = item;
+                                            indexofAPL = ab.IndexOf(item);
+                                        }
 
-                                @*    @Html.EditorFor(model => model.Customer_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                                @Html.ValidationMessageFor(model => model.Sale_Type, "", new { @class = "text-danger" })
+                                    }
+
+                                </datalist>
+                                <input type="hidden" id="Account_Receivable_I" name="Account_Receivable_I" value="@indexofAPL" />
+
+                                @*   @Html.DropDownListFor(model => model.Account_Receivable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Receivable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(model => model.Account_Receivable_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.Sale_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.HiddenFor(Model => Model.Sale_Account_ID)
+                                    <input type="text" name="Sale_Account_Name" list="Sale_Account_List" id="Sale_Account_Name" class="form-control text-box">
+                                    <datalist id="Sale_Account_List">
+                                        @{
+
+                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                        }
+
+                                        @foreach (var item in ab)
+                                        {
+                                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                            if (item.COA_ID == Model.Sale_Account_ID)
+                                            {
+                                                selected = item;
+                                                indexofPAN = ab.IndexOf(item);
+                                            }
+
+                                        }
+
+                                    </datalist>
+                                    <input type="hidden" id="Sale_Account_I" name="Sale_Account_I" value="@indexofPAN" />
+
+                                    @* @Html.DropDownListFor(model => model.Sale_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Sale_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Sale_Account_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Sale_ac, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Sale_ac, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Sale_ac, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Sale_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Sale_Account_ID)
+                                <input type="text" name="Sale_Account_Name" list="Sale_Account_List" id="Sale_Account_Name" class="form-control text-box">
+                                <datalist id="Sale_Account_List">
+                                    @{
+
+                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                    }
+                                    <option></option>
+
+                                    @foreach (var item in ab)
+                                    {
+                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        if (item.COA_ID == Model.Sale_Account_ID)
+                                        {
+                                            selected = item;
+                                            indexofPAN = ab.IndexOf(item);
+                                        }
+
+                                    }
+
+                                </datalist>
+                                <input type="hidden" id="Sale_Account_I" name="Sale_Account_I" value="@indexofPAN" />
+
+                                @* @Html.DropDownListFor(model => model.Sale_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Sale_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(model => model.Sale_Account_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
+
+
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Customer_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Customer_Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Customer_Name, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Customer_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Customer_ID)
+                                <input type="text" name="Customer_Name" list="Customer_List" id="Customer_Name" class="form-control text-box">
+                                <datalist id="Customer_List">
+                                    @{
+                                        var Supplier_List = new SfDesk.Models.Customer().Customer_Get_All();
+                                    }
+
+                                    @foreach (var item in Supplier_List)
+                                    {
+                                        <option id="@item.Customer_ID" data-id="@item.Customer_ID" value="@item.Business_Name"></option>
+                                    }
+                                </datalist>
+
+                                @Html.ValidationMessageFor(model => model.Customer_ID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn mini btn-primary" onclick="AddSupplier()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.Label("Date", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.Editor("ADate", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                <input id="Date" name="Date" type="text" class="form-control tbDate" />
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text -danger" })
                             </div>
                         </div>
 
+
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Vehicle_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Vehicle_No, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Vehicle_No, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Transporter_ID)
+                                <input type="text" name="Transporter_Name" list="Transporter_List" id="Transporter_Name" class="form-control text-box">
+                                <datalist id="Transporter_List">
+                                    @{
+                                        var Transporter_List = new SfDesk.Models.Transporter().Transporter_Get_All();
+                                    }
+
+                                    @foreach (var item in Transporter_List)
+                                    {
+                                        <option id="@item.T_ID" data-id="@item.T_ID" value="@item.Trading_Name"></option>
+                                    }
+                                </datalist>
+                                @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn mini btn-primary" onclick="AddTrans()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>
+                                </button>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Transporter_Name, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Transporter_Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Transporter_Name, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Vehicle_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(model => model.Vehicle_ID, new SelectList(new List<string>() { Model.Vehicle_No }), htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Vehicle_ID, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2" @*style="display:none"*@>
+                                <button type="button" class="btn mini btn-primary" onclick="AddVehicle()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>
+                                </button>
                             </div>
                         </div>
 
+
+
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Sales_Man, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.Sales_Man, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Sales_Man, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Sales_Man_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Sales_Man_ID)
+                                <input type="text" name="Sales_man_Name" list="Sales_man_List" id="Sales_man_Name" class="form-control text-box">
+                                <datalist id="Sales_man_List">
+                                    @{
+                                        var Sales_man_List = new SfDesk.Models.MiddleMan().MiddleMan_Get_All();
+                                    }
+
+                                    @foreach (var item in Sales_man_List)
+                                    {
+                                        <option id="@item.MM_ID" data-id="@item.MM_ID" value="@item.Trading_Name"></option>
+                                    }
+                                </datalist>
+
+                                @Html.ValidationMessageFor(model => model.Sales_Man_ID, "", new { @class = "text-danger" })
                             </div>
+                            <div class="col-md-2" @*style="display:none"*@>
+                                <button type="button" class="btn mini btn-primary" onclick="AddMM()" style="margin-top:6px">
+                                    <i class="ti-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Attachment", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+
+                                <input type="file" id="SO_Image" accept=".jpg,.jpeg,.png" onclick='ValidateSize(this);' />
+
+
+                            </div>
+
                         </div>
                     </div>
-
+                    <div id="child"></div>
+                    <br />
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-6">
-                            <input type="submit" value="Create" class="btn btn-default" id="done" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-6">
+                                <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
+                                <input type="button" value="Approved and Exit" class="btn btn-default" id="approve" />
+                                <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
+                                <input type="button" value="Reject" class="btn btn-default" id="reject" />
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
-            }
+                                        }
 
-            <div id="child"></div>
+
         </div>
     </div>
+</div>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:auto;height:80%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div id='myModalContent'>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 @section scripts
 {
@@ -140,20 +342,172 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
-        $("form").submit(function (e) {
-            e.preventDefault();
-            $.post('ADD', $(this).serialize(), detail())
+     var details= []
 
+        $('#cancel').click(function () {
+            window.location.href = '/SaleOrder/Showall';
         });
+        $('#done').click(function () {
+            window.location.href ='@Url.Action("Showall", "SaleOrder")';
+        });
+        $('#approve').click(function () {
+            debugger;
+            @*$.post('@Url.Action("Approve", "SaleOrder")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+            })*@
+            //$.post(this.action, $(this).serialize(), function (data) {
 
+            //    Master_Id = data;
+            //    addDetails()
+            //})
+
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            debugger
+            $.ajax({
+                url: '@Url.Action("Approve", "SaleOrder")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    p: data, pi: clients, pie: editedClients
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                }
+
+            });
+        });
+        $(document).ready(function () {   // Help for the HTML4 version.
+
+
+            if ($('#PI_ID').val() != 0)
+            {
+                Master_Id = $('#PI_ID').val();
+
+
+            }
+            debugger;
+            detail();
+
+
+            $('select[name=Account_Payable_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+            $('select[name=Sale_Account_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+        });
+        $('#Account_Payable_Name').on('change', function () {
+            var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
+            $("[name='Account_Payable_ID']").val(id);
+        });
+        $('#Sale_Account_Name').on('change', function () {
+            var id = $("option").filter("[value='" + $('#Sale_Account_Name').val() + "']").data("id");
+            $("[name='Sale_Account_ID']").val(id);
+        });
+        var Master_Id = 0;
+
+        $('#approve').click(function () {
+            debugger;
+            @*$.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+            })*@
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            data.transactions = myTransaction;
+            data.taxes = myTaxes;
+            $.ajax({
+                url: '@Url.Action("Approve", "PurchaseOrder")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+                }
+
+            });
+        })
+
+        $("#create").click(function (e) {
+            e.preventDefault();
+            @*$.post(this.action, $(this).serialize(), function (data) {
+                detail()
+                debugger;
+                Master_Id = data;
+                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+
+            });*@
+            var data = {};
+            $(this).serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            data.transactions = myTransaction;
+            data.taxes = myTaxes;
+            $.ajax({
+                url: 'master',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+                }
+
+            });
+        });
 
         /*ye master ka he*/
         function detail() {
 
-            $.get('@Url.Action("detail", "Saleorder")', function (data) { $("#child").html(data); });
+            $.get('@Url.Action("detail", "SaleOrder")', function (data) { $("#child").html(data); });
             $("#done").hide()
+            debugger;
+
+        };
+        function AddSupplier() {
+            $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });
+            $('#myModal').modal('show');
+
+        };
+        function AddTrans() {
+            $.get('@Url.Action("Add", "Transporter")', function (data) { $("#myModalContent").html(data); });
+            $('#myModal').modal('show');
+
+        };
+        function AddVehicle() {
+            var id = $('#Transporter_ID').val();
+            if (id != 0) {
+                $.get('@Url.Action("Add_Vehicle", "Transporter")' + '?id=' + id, function (data) { $("#myModalContent").html(data); });
+                $('#myModal').modal('show');
+            }
         };
 
+        var id = 0;
+        function populate() {
+            id = $('#Transporter_ID').val()
+
+            $.ajax({
+                url: '/SaleInventory/Vehcile_Get_By_Transporter',
+                type: 'GET',
+                dataType: 'json',
+                data: { id: id },
+                success: function (d) {
+
+                    var ddlState = $('#Vehicle_ID');
+                    ddlState.empty();
+                    $("#Vehicle_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
+                    $.each(d, function (i, states) {
+
+                        ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                    });
+                }
+            });
+        }
+        $('#Transporter_ID').on("change", populate);
 
     </script>
 }

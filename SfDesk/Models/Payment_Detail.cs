@@ -26,7 +26,7 @@ namespace SfDesk.Models
 
         public string Mac_Address { get; set; }
 
-        public Payment_Detail ()
+        public Payment_Detail()
         {
             this.Machine_Ip = Utility.GetIPAddress();
             this.Mac_Address = Utility.GetMacAddress();
@@ -145,7 +145,7 @@ namespace SfDesk.Models
             sc.ExecuteNonQuery();
 
         }
-     
+
         public void Payment_Detail_Delete()
         {
             SqlCommand sc = new SqlCommand("Payment_Detail_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;

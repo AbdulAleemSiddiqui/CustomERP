@@ -128,27 +128,8 @@ namespace SfDesk.Controllers
         }
 
         #region Detail
-        [HttpPost]
-        public JsonResult add(List<PurchaseInventory> pi,int PI_ID)
-        {
 
-
-           // ViewBag.detail_id = pi.PI_Detail_Add();
-            return Json("added sucessfully");
-        }
-        [HttpPost]
-        public ActionResult update(PurchaseInventory pi)
-        {
-           // pi.Store = "";
-           // pi.PI_Detail_Update();
-            return Json("updated sucessfully");
-        }
-        [HttpGet]
-        public ActionResult delete(int Detail_ID)
-        {
-        //    new PurchaseInventory() { Detail_ID = Detail_ID }.PI_Detail_Delete();
-            return Json("delete sucessfully");
-        }
+  
         [HttpGet]
         public ActionResult Vehcile_Get_By_Transporter(int id)
         {
