@@ -12,7 +12,7 @@ namespace SfDesk.Controllers
     {
         public ActionResult master()
         {
-            return View();
+            return View(new SaleOrder());
         }
         [HttpPost]
         public ActionResult master(SaleOrder ps)
@@ -22,9 +22,9 @@ namespace SfDesk.Controllers
         public ActionResult detail()
         {
             List<SaleOrder> ls = new List<SaleOrder>();
-            ls.Add(new SaleOrder() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Quantitiy = 100, Commision = 99, Rate = 99.0m, Amount = 00, Discount = 9.9m, Discount_Amount = 99999.999m, Net_Amount = 9098 });
-            ls.Add(new SaleOrder() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Quantitiy = 100, Commision = 99, Rate = 99.0m, Amount = 00, Discount = 9.9m, Discount_Amount = 99999.999m, Net_Amount = 9098 });
-            ls.Add(new SaleOrder() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Quantitiy = 100, Commision = 99, Rate = 99.0m, Amount = 00, Discount = 9.9m, Discount_Amount = 99999.999m, Net_Amount = 9098 });
+            //ls.Add(new SaleOrder() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Quantitiy = 100, Commision = 99, Rate = 99.0m, Amount = 00, Discount = 9.9m, Discount_Amount = 99999.999m, Net_Amount = 9098 });
+            //ls.Add(new SaleOrder() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Quantitiy = 100, Commision = 99, Rate = 99.0m, Amount = 00, Discount = 9.9m, Discount_Amount = 99999.999m, Net_Amount = 9098 });
+            //ls.Add(new SaleOrder() { Store = "asdas", Item_Code = 1111, Product_Name = "mouse", Product_Description = "this is my mousee", Quantitiy = 100, Commision = 99, Rate = 99.0m, Amount = 00, Discount = 9.9m, Discount_Amount = 99999.999m, Net_Amount = 9098 });
             return PartialView("detail", ls);
         }
         [HttpPost]
