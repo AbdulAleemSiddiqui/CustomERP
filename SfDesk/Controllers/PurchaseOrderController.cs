@@ -201,7 +201,8 @@ namespace SfDesk.Controllers
         }
         public ActionResult Index(int PI_ID)
         {
-            return Json(new PI_Details() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new List<PI_Details>(), JsonRequestBehavior.AllowGet);
+          //  return Json(new PI_Details() { PI_ID = PI_ID }.PI_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
 

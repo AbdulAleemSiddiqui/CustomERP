@@ -294,7 +294,7 @@
                             @Html.Label("Attachment", htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
 
-                                <input type="file" id="PI_Image" accept=".jpg,.jpeg,.png" onclick='ValidateSize(this);' />
+                                <input type="file" id="SO_Image" accept=".jpg,.jpeg,.png" onclick='ValidateSize(this);' />
 
 
                             </div>
@@ -339,79 +339,79 @@
 @section scripts
 {
 
-    <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/jsgrid.min.js"></script>
-    <script src="~/assets/js/db.js">
-
-    </script>
+    <script src="~/assets/js/db.js"></script>
     <script>
-        var mytrans = []
-        var myOpts = []
-        var Master_Id = 0;
-        $('#PI_Image').bind('change', function () {
-            //this.files[0].size gets the size of your file.
-            var size = this.files[0].size / 1024 / 1024;
-            if (size > 1) {
-                alert('File size exceeds 2 MB');
-                $('#PI_Image').val(null);
-            }
-        });
-        $(window).load(function () {
-            detail();
-            if ($('#PI_ID').val() != 0) {
-                debugger;
-                DropDown_Fill("Department");
-                DropDown_Fill("Account_Receivable");
-                DropDown_Fill("Sale_Account");  
-
-                DropDown_Fill("Customer");
-                DropDown_Fill("Transporter");
-                DropDown_Fill("Sales_man");
-                Master_Id = $('#PI_ID').val();
-
-            }
-
-
-            $('#myModal').on("hidden.bs.modal", function () {
-                $("#myModalContent").html("")
-            });
-
-        })
-        $(document).ready(function () {
-            $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
-            $('.tbDate').prop("readonly", true);
-            $('.tbDate').val("DD-MM-YY");
-            var date = new Date();
-            var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-
-            $("#ADate").val(formatted_date);
-
-            //Customer Js file which makes dropdown typable
-            Typable_Dropdown('Department');
-            Typable_Dropdown('Account_Receivable');
-            Typable_Dropdown('Sale_Account');
-
-            Typable_Dropdown('Customer');
-            Typable_Dropdown('Transporter');
-            Typable_Dropdown('Sales_man');
-            var g = $('#Transporter_ID').val();
-            if (g != "") {
-                populate();
-
-            }
-
-        });
-
-        var Master_Id = 0;
-
+     var details= []
 
         $('#cancel').click(function () {
-            window.location.href = '/User/Index/';
+            window.location.href = '/SaleOrder/Showall';
+        });
+        $('#done').click(function () {
+            window.location.href ='@Url.Action("Showall", "SaleOrder")';
         });
         $('#approve').click(function () {
             debugger;
-            @*$.post('@Url.Action("Approve", "SalesOrder")', $('form').serialize(), function (data) {
-                window.location.href = '@Url.Action("ShowAll", "SalesOrder")';
+            @*$.post('@Url.Action("Approve", "SaleOrder")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+            })*@
+            //$.post(this.action, $(this).serialize(), function (data) {
+
+            //    Master_Id = data;
+            //    addDetails()
+            //})
+
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            debugger
+            $.ajax({
+                url: '@Url.Action("Approve", "SaleOrder")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    p: data, pi: clients, pie: editedClients
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                }
+
+            });
+        });
+        $(document).ready(function () {   // Help for the HTML4 version.
+
+
+            if ($('#PI_ID').val() != 0)
+            {
+                Master_Id = $('#PI_ID').val();
+
+
+            }
+            debugger;
+            detail();
+
+
+            $('select[name=Account_Payable_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+            $('select[name=Sale_Account_Name]').change(function () {
+                $('input[name=other]').val($(this).val());
+            });
+        });
+        $('#Account_Payable_Name').on('change', function () {
+            var id = $("option").filter("[value='" + $('#Account_Payable_Name').val() + "']").data("id");
+            $("[name='Account_Payable_ID']").val(id);
+        });
+        $('#Sale_Account_Name').on('change', function () {
+            var id = $("option").filter("[value='" + $('#Sale_Account_Name').val() + "']").data("id");
+            $("[name='Sale_Account_ID']").val(id);
+        });
+        var Master_Id = 0;
+
+        $('#approve').click(function () {
+            debugger;
+            @*$.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
             })*@
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
@@ -419,14 +419,14 @@
             data.transactions = myTransaction;
             data.taxes = myTaxes;
             $.ajax({
-                url: '@Url.Action("Approve", "SalesOrder")',
+                url: '@Url.Action("Approve", "PurchaseOrder")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
                     c: data,
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "SalesOrder")';
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
                 }
 
             });
@@ -438,7 +438,7 @@
                 detail()
                 debugger;
                 Master_Id = data;
-                window.location.href = '@Url.Action("ShowAll", "SalesOrder")';
+                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
 
             });*@
             var data = {};
@@ -454,20 +454,19 @@
                     c: data,
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "SalesOrder")';
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
                 }
 
             });
         });
 
-        $('#myModal').on("hidden.bs.modal", function () {
-            $("#myModalContent").html("")
-        });
         /*ye master ka he*/
         function detail() {
 
-            $.get('@Url.Action("detail", "SalesOrder")', function (data) { $("#child").html(data); });
+            $.get('@Url.Action("detail", "SaleOrder")', function (data) { $("#child").html(data); });
             $("#done").hide()
+            debugger;
+
         };
         function AddSupplier() {
             $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });
@@ -479,32 +478,20 @@
             $('#myModal').modal('show');
 
         };
-        function MM() {
-            $.get('@Url.Action("Add", "middleman")', function (data) { $("#myModalContent").html(data); });
-            $('#myModal').modal('show');
-
-        };
         function AddVehicle() {
             var id = $('#Transporter_ID').val();
             if (id != 0) {
-                $.get('@Url.Action("Add_Vehicle", "Transporter")'+'?id='+id , function (data) { $("#myModalContent").html(data); });
+                $.get('@Url.Action("Add_Vehicle", "Transporter")' + '?id=' + id, function (data) { $("#myModalContent").html(data); });
                 $('#myModal').modal('show');
             }
         };
 
         var id = 0;
         function populate() {
-            debugger;
-            var value = $('#Transporter_Name').val();
-            var name = "#Transporter_List";
-            name = name + " option[value='" + value + "']";
-            value = $(name).data('id');
-            $('#Transporter_ID').val(value);
             id = $('#Transporter_ID').val()
 
-
             $.ajax({
-                url: '/SaleOrder/Vehcile_Get_By_Transporter',
+                url: '/SaleInventory/Vehcile_Get_By_Transporter',
                 type: 'GET',
                 dataType: 'json',
                 data: { id: id },
@@ -512,21 +499,15 @@
 
                     var ddlState = $('#Vehicle_ID');
                     ddlState.empty();
-                    $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
+                    $("#Vehicle_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
                     $.each(d, function (i, states) {
-                        if ($('#V_ID').val() == states.V_ID)
-                        {
-                            ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
-                        }
-                        else {
-                            ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
-                        }
+
+                        ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
                     });
                 }
             });
         }
-        $('#Transporter_Name').on("change", populate);
+        $('#Transporter_ID').on("change", populate);
 
     </script>
 }
-

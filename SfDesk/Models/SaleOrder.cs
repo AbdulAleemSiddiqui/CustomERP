@@ -128,7 +128,27 @@ namespace SfDesk.Models
 
             return Convert.ToInt32((decimal)sc.ExecuteScalar());
         }
-  
+        public void SO_Approve()
+        {
+            SqlCommand sc = new SqlCommand("PR_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+
+            sc.Parameters.AddWithValue("@SO_ID", SO_ID);
+            sc.Parameters.AddWithValue("@App_Status", App_Status);
+            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
+            sc.Parameters.AddWithValue("@Sale_Mode", Sale_Mode);
+            sc.Parameters.AddWithValue("@Account_Receivable_ID", Account_Receivable_ID);
+            sc.Parameters.AddWithValue("@Sale_Account_ID", Sale_Account_ID);
+            sc.Parameters.AddWithValue("@Supplier_ID", Customer_ID);
+            sc.Parameters.AddWithValue("@Date", Date);
+            sc.Parameters.AddWithValue("@Due_Date", Due_Date);
+            sc.Parameters.AddWithValue("@Comments", Comments);
+            sc.Parameters.AddWithValue("@Transporter_ID", Transporter_ID);
+            sc.Parameters.AddWithValue("@Vehicle_ID", Vehicle_ID);
+            sc.Parameters.AddWithValue("@Sales_Man_ID", Sales_Man_ID);
+            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
+
+            sc.ExecuteNonQuery();
+        }
 
         public List<SaleOrder> SO_Get_All()
         {
