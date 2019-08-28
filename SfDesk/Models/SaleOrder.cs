@@ -110,9 +110,10 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("SO_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
-            sc.Parameters.AddWithValue("@SO_ID", SO_ID);
+            sc.Parameters.AddWithValue("@PR_No", PR_No);
+            sc.Parameters.AddWithValue("@App_Status", App_Status);
             sc.Parameters.AddWithValue("@Department_ID", Department_ID);
-            sc.Parameters.AddWithValue("@Sale_Mode", Sale_Mode);
+            sc.Parameters.AddWithValue("@SaleMode", Sale_Mode);
             sc.Parameters.AddWithValue("@Account_Receivable_ID", Account_Receivable_ID);
             sc.Parameters.AddWithValue("@Sale_Account_ID", Sale_Account_ID);
             sc.Parameters.AddWithValue("@Supplier_ID", Customer_ID);
@@ -213,7 +214,16 @@ namespace SfDesk.Models
         }
 
        
-   
+        public string SO_Get_New_ID()
+        {
+            SqlCommand sc = new SqlCommand("SO_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
+            sc.Parameters.Add("@a", SqlDbType.Int);
+            sc.Parameters["@a"].Direction = ParameterDirection.Output;
+            sc.ExecuteNonQuery();
+            return ((int)sc.Parameters["@a"].Value).ToString();
+        }
+
         public void SO_Charges_Add()
         {
             foreach (var item in taxes)

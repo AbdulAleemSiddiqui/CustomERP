@@ -13,8 +13,7 @@ namespace SfDesk.Controllers
        private SaleOrder old;
         public ActionResult master()
         {
-            
-                return View(new SaleOrder() );
+            return View(new SaleOrder() { SO_No = new SaleOrder().SO_Get_New_ID() });
          }
           
         
