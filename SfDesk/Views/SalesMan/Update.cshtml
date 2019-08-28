@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.SalesMan
+﻿@model SfDesk.Models.MiddleMan
 @{
     Layout = "";
 }
@@ -7,10 +7,10 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>SalesMan</h4>
+        <h4>MiddleMan</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.SM_ID, new { @class = "form-control" })
+        @Html.HiddenFor(model => model.MM_ID, new { @class = "form-control" })
 
 
         <div class="col-lg-6">
@@ -134,7 +134,7 @@
                             }
 <script src="~/assets/js/TypableDropdown.js"></script>
 <script>
-    //if($('#SM_ID').val)
+    //if($('#MM_ID').val)
     DropDown_Fill("Exp_Acc");   
     Typable_Dropdown('Exp_Acc');
     DropDown_Fill("Pay_Acc");
