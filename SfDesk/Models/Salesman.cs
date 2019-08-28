@@ -10,7 +10,8 @@ namespace SfDesk.Models
 {
     public class SalesMan
     {
-        public int S_ID { get; set; }
+
+        public int SM_ID { get; set; }
         public string Trading_Name { get; set; }
         public string NTN { get; set; }
         public string STRN { get; set; }
@@ -54,7 +55,7 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 SalesMan u = new SalesMan();
-                u.S_ID = (int)sdr["S_ID"];
+                u.SM_ID = (int)sdr["MM_ID"];
                 u.Trading_Name = (string)sdr["Trading_Name"];
                 u.NTN = (string)sdr["NTN"];
                 u.STRN = (string)sdr["STRN"];
@@ -82,12 +83,12 @@ namespace SfDesk.Models
             SalesMan u = new SalesMan();
 
             SqlCommand sc = new SqlCommand("SalesMan_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@S_ID", S_ID);
+            sc.Parameters.AddWithValue("@MM_ID", SM_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
-                u.S_ID = (int)sdr["S_ID"];
+                u.SM_ID = (int)sdr["MM_ID"];
                 u.Trading_Name = (string)sdr["Trading_Name"];
                 u.NTN = (string)sdr["NTN"];
                 u.STRN = (string)sdr["STRN"];
@@ -118,7 +119,7 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 SalesMan u = new SalesMan();
-                u.S_ID = (int)sdr["S_ID"];
+                u.SM_ID = (int)sdr["MM_ID"];
                 u.Trading_Name = (string)sdr["Trading_Name"];
                 u.Rate = (decimal)sdr["Rate"];
                 lst.Add(u);
@@ -149,7 +150,7 @@ namespace SfDesk.Models
         public void SalesMan_Update()
         {
             SqlCommand sc = new SqlCommand("SalesMan_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@S_ID", S_ID);
+            sc.Parameters.AddWithValue("@MM_ID", SM_ID);
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
             sc.Parameters.AddWithValue("@STRN", STRN);
@@ -166,10 +167,9 @@ namespace SfDesk.Models
         public void SalesMan_Delete()
         {
             SqlCommand sc = new SqlCommand("SalesMan_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@S_ID", S_ID);
+            sc.Parameters.AddWithValue("@MM_ID", SM_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
         }
     }
-
 }

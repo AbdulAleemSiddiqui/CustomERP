@@ -1,0 +1,163 @@
+﻿@model SfDesk.Models.SalesMan
+@{
+    Layout = "";
+}
+@using (Html.BeginForm("Add", "SalesMan", FormMethod.Post, htmlAttributes: new { @id = "f2" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>SalesMan</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   <div class="col-lg-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Trading_Name, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Trading_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Trading_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NTN, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.NTN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NTN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STRN, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.STRN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.STRN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contact_Name, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Contact_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contact_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-6">
+      
+            <div class="form-group">
+
+                @Html.Hidden("Exp_Acc_ID")
+                @Html.LabelFor(model => model.Exp_Acc_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    <input type="text" name="Exp_Acc_Name" list="Exp_Acc_List" id="Exp_Acc_Name" class="form-control text-box">
+                    <datalist id="Exp_Acc_List">
+                        @{
+                           
+                            List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                        }
+
+                        @foreach (var item in ab)
+                        {
+                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                        }
+
+                    </datalist>
+                </div>
+            </div>
+
+
+    
+            <div class="form-group">
+
+                @Html.Hidden("Pay_Acc_ID")
+                @Html.LabelFor(model => model.Pay_Acc_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    <input type="text" name="Pay_Acc_Name" list="Pay_Acc_List" id="Pay_Acc_Name" class="form-control text-box">
+                    <datalist id="Pay_Acc_List">
+                      
+
+                        @foreach (var item in ab)
+                        {
+                            <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                          
+
+                        }
+
+                    </datalist>
+                   </div>
+            </div>
+
+
+
+
+     
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tax_Status, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Tax_Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tax_Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WHT_Rate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.WHT_Rate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WHT_Rate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/assets/js/TypableDropdown.js"></script>
+<script>
+    DropDown_Fill("Exp_Acc");
+    Typable_Dropdown('Exp_Acc');
+    DropDown_Fill("Pay_Acc");
+    Typable_Dropdown('Pay_Acc');
+
+    $("#f2").submit(function (e) {
+        debugger;
+        e.preventDefault();
+        $.post(this.action, $(this).serialize(),
+            function (data) {
+                $('#Transporter_ID').append('<option value=' + data.T_ID + '>' + data.Trading_Name + ' </option>');
+                $('#T_ID').val(data.T_ID);
+                detail()
+            })
+    });
+</script>
