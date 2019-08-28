@@ -1,5 +1,11 @@
 ﻿function Typable_Dropdown( a)
 {
+    var s = $('#' + a + '_List').find('option').length;
+    if (s == 0)
+    {
+        $('#' + a + '_Name').val("No Data");
+        $('#' + a + '_Name').prop('disabled', true);
+    }
     $('select[name='+a+'_Name]').change(function () {
         $('input[name=other]').val($(this).val());
     });

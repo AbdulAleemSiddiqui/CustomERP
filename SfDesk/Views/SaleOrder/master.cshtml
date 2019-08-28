@@ -272,16 +272,15 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Sales_Man_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
+                                @{
+                                    var Sales_Man_List = new SfDesk.Models.SalesMan().SalesMan_Get_All();
+                                }
                                 @Html.HiddenFor(Model => Model.Sales_Man_ID)
-                                <input type="text" name="Sales_man_Name" list="Sales_man_List" id="Sales_man_Name" class="form-control text-box">
-                                <datalist id="Sales_man_List">
-                                    @{
-                                        var Sales_man_List = new SfDesk.Models.MiddleMan().MiddleMan_Get_All();
-                                    }
-
-                                    @foreach (var item in Sales_man_List)
+                                <input type="text" name="Sales_Man_Name" list="Sales_Man_List" id="Sales_Man_Name" class="form-control text-box">
+                                <datalist id="Sales_Man_List">
+                                    @foreach (var item in Sales_Man_List)
                                     {
-                                        <option id="@item.MM_ID" data-id="@item.MM_ID" value="@item.Trading_Name"></option>
+                                        <option id="@item.S_ID" data-id="@item.S_ID" value="@item.Trading_Name"></option>
                                     }
                                 </datalist>
 
@@ -364,7 +363,7 @@
             Typable_Dropdown('Sale_Account');
             Typable_Dropdown('Customer');
             Typable_Dropdown('Transporter');
-            Typable_Dropdown('Sales_man');
+            Typable_Dropdown('Sales_Man');
             
 
 
