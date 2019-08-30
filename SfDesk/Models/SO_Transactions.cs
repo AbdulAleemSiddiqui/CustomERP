@@ -86,11 +86,11 @@ namespace SfDesk.Models
         }
         public void SO_Transactions_Add()
         {
-            SqlCommand sc = new SqlCommand("PI_Transaction_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Transaction_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
-            sc.Parameters.AddWithValue("@is_MiddleMan", is_MiddleMan);
+            sc.Parameters.AddWithValue("@is_SalesMan", is_MiddleMan);
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@Total", Total);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);

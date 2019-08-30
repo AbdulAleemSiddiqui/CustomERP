@@ -79,8 +79,6 @@ namespace SfDesk.Models
         public string Mac_Address { get; set; }
         #endregion
 
-      
-
         #region SO
         public int SI_Add()
         {
@@ -116,7 +114,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@SaleMode", Sale_Mode);
             sc.Parameters.AddWithValue("@Account_Receivable_ID", Account_Receivable_ID);
             sc.Parameters.AddWithValue("@Sale_Account_ID", Sale_Account_ID);
-            sc.Parameters.AddWithValue("@Supplier_ID", Customer_ID);
+            sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
             sc.Parameters.AddWithValue("@Date", Date);
             sc.Parameters.AddWithValue("@Due_Date", Due_Date);
             sc.Parameters.AddWithValue("@Comments", Comments);
@@ -165,9 +163,7 @@ namespace SfDesk.Models
                 u.PR_No = (string)sdr["PR_No"];
                 u.SO_No = (string)sdr["SO_No"];
                 u.SO_ID = (int)sdr["SO_ID"];
-                u.Department_ID = (int)sdr["Department_ID"];
-                u.Department_Name = (string)sdr["D_Name"];
-
+                u.App_Status = App_Status;
                 u.Sale_Mode = (string)sdr["Sale_Mode"];
 
                 u.Account_Receivable_ID = (int)sdr["Account_Receivable_ID"];

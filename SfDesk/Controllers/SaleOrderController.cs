@@ -13,28 +13,15 @@ namespace SfDesk.Controllers
        private SaleOrder old;
         public ActionResult master()
         {
-            return View(new SaleOrder() { SO_No = new SaleOrder().SO_Get_New_ID() });
+            return View(new SaleOrder() { SO_No = new SaleOrder().SO_Get_New_ID(),Date=DateTime.Now });
          }
           
-        
         [HttpPost]
         public ActionResult master(SaleOrder c, List<SO_Details> SO, List<SO_Details> SOe)
         {
             c.App_Status = "SO_Created";
             if(c!=old)
-                c.SO_Add();
-            //if (SO != null)
-            //    foreach (var item in c.details)
-            //    {
-            //        item.SO_ID = c.SO_ID;
-            //        item.SO_Detail_Add();
-            //    }
-            //if (SOe != null)
-            //    foreach (var item in SOe)
-            //    {
-
-            //        item.SO_Detail_Update();
-            //    }
+               c.SO_ID= c.SO_Add();
 
             if (c.details != null &&c.details.Count > 0)
             {
@@ -103,9 +90,22 @@ namespace SfDesk.Controllers
             //change krna hai 
             return Json(c.SO_ID, JsonRequestBehavior.AllowGet);
         }
+         
+
+        public ActionResult ApproveMaster(int id)
+        {
+            if (id != 0)
+            {
+                SaleOrder p = new SaleOrder() { SO_ID = id, App_Status = "SO_Created" };
+                p = p.SO_Get_All().Find(x => x.SO_ID == id);
+                return View(p);
+            }
+            return View(new SaleOrder() { SO_No = new SaleOrder().SO_Get_New_ID(), Date = DateTime.Now });
+        }
+
         public ActionResult showAll()
         {
-            return View(new SaleOrder() { App_Status = "SO_Approve" }.SO_Get_All());
+            return View(new SaleOrder() { App_Status = "SO_Created" }.SO_Get_All());
         }
   
         [HttpPost]

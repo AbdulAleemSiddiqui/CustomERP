@@ -35,7 +35,6 @@ namespace SfDesk.Models
         {
             this.Machine_Ip = Utility.GetIPAddress();
             this.Mac_Address = Utility.GetMacAddress();
-            
         }
         public List<Recipe> Recipe_Get_All()
         {

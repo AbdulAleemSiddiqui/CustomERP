@@ -35,11 +35,8 @@ namespace SfDesk.Models
         public decimal Net_Amount { get; set; }
         public string action { get; set; }
 
-    
-
-
-
         #endregion
+
         #region Default
         public int Created_By { get; set; }
 
@@ -51,6 +48,13 @@ namespace SfDesk.Models
 
         public string Mac_Address { get; set; }
         #endregion
+
+
+        public SO_Details()
+        {
+            this.Machine_Ip = Utility.GetIPAddress();
+            this.Mac_Address = Utility.GetMacAddress();
+        }
         public void SO_Detail_Update()
         {
             SqlCommand sc = new SqlCommand("SO_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -120,20 +124,13 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Product_Name", Product_Name);
             sc.Parameters.AddWithValue("@Description", Product_Description);
-            sc.Parameters.AddWithValue("@P_Quantity", Quantity);
-            sc.Parameters.AddWithValue("@R_Quantity", Dispatch_Quantitiy);
+            sc.Parameters.AddWithValue("@Quantity", Quantity);
+            sc.Parameters.AddWithValue("@Dispatch_Quantity", Dispatch_Quantitiy);
             sc.Parameters.AddWithValue("@Rate", Rate);
             sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
-            sc.Parameters.AddWithValue("@Discount", Discount);
-            sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);
-            sc.Parameters.AddWithValue("@Net_Amount", Net_Amount);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-
-
-            //u.Created_Date = (DateTime)sdr["CreatedDate"];
-
 
             object a = sc.ExecuteScalar();
             if (typeof(int) == a.GetType())
