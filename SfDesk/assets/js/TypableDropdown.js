@@ -11,7 +11,6 @@
     });
     $('#' + a + '_Name').on('keydown', function (e) {
         if (e.keyCode === 9) {
-            debugger;
             var s = $(this).val();
             var list=$('#' + a + '_List').find('option');
             for (var i = 0; i < list.length; i++) {
@@ -24,13 +23,17 @@
             }
         }
     });
+
     $('#' + a + '_Name').on('change', function () {
-    
+        debugger;
         var value = $('#' + a + '_Name').val();
         var name = "#" + a + "_List";
         name = name + " option[value='" + value+ "']";
         value = $(name).data('id');
-        debugger
+        if (typeof value === "undefined") {
+            $('#' + a + '_Name').val("");
+            alert("Not Match");
+        }
         $("[name='" + a + "_ID']").val(value);
     });
     
