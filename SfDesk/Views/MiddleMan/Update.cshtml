@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.SalesMan
+﻿@model SfDesk.Models.MiddleMan
 @{
     Layout = "";
 }
@@ -10,7 +10,7 @@
         <h4>SalesMan</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.SM_ID, new { @class = "form-control" })
+        @Html.HiddenFor(model => model.MM_ID, new { @class = "form-control" })
 
 
         <div class="col-lg-6">
