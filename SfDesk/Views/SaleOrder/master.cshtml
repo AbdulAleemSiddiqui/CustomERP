@@ -99,12 +99,12 @@
                                     <option></option>
                                     @foreach (var item in ab)
                                     {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Account_Receivable_ID)
-                                        {
-                                            selected = item;
-                                            indexofAPL = ab.IndexOf(item);
-                                        }
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        //if (item.COA_ID == Model.Account_Receivable_ID)
+                                        //{
+                                        //    selected = item;
+                                        //    indexofAPL = ab.IndexOf(item);
+                                        //}
 
                                     }
 
@@ -160,7 +160,7 @@
 
                                     @foreach (var item in ab)
                                     {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                         if (item.COA_ID == Model.Sale_Account_ID)
                                         {
                                             selected = item;
@@ -350,10 +350,44 @@
 </script>
     <script>
      var details= []
-
+     var myOpts = []
+     var mytrans = []
+     editedClients = []
+     var Master_Id = 0;
      $(window).load(function () {
+
+         detail()
          if ($('#SO_ID').val() != 0) {
              debugger;
+             if (id != 0) {
+
+                 id = $('#Transporter_ID').val()
+
+                 $.ajax({
+                     url: '/PurchaseInventory/Vehcile_Get_By_Transporter',
+                     type: 'GET',
+                     dataType: 'json',
+                     data: { id: id },
+                     success: function (d) {
+
+                         var ddlState = $('#Vehicle_ID');
+                         ddlState.empty();
+                         $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
+                         $.each(d, function (i, states) {
+                             if ($('#V_ID').val() == states.V_ID) {
+
+                                 ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
+                             }
+                             else {
+                                 ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                             }
+                         });
+                     }
+                 });
+
+             }
+
+
 
              DropDown_Fill("Account_Receivable");
              DropDown_Fill("Sale_Account");
@@ -363,6 +397,7 @@
              DropDown_Fill("Sales_Man");
 
              Master_Id = $('#PI_ID').val();
+
          }
 
      });
@@ -380,17 +415,12 @@
             Typable_Dropdown('Customer');
             Typable_Dropdown('Transporter');
             Typable_Dropdown('Sales_Man');
+            id = $('#Transporter_ID').val();
         
-          
-            
-
 
         
-            debugger;
-            detail();
 
         });
-        var Master_Id = 0;
         $('#cancel').click(function () {
             window.location.href = '/SaleOrder/Showall';
         });
