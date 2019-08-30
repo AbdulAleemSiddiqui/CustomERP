@@ -40,8 +40,10 @@
 }
 function DropDown_Fill(a)
 {
+    debugger;
     var id = $("#" + a + "_ID").val();
     var name = "#" + a + "_List";
+    console.log(name)
     name = name + " option[id='" + id + "']";
 
     var value = $(name).val();

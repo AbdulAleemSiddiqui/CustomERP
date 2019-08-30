@@ -30,7 +30,7 @@ namespace SfDesk.Models
         public List<SO_Charges> SO_Charges_Get_All()
         {
             List<SO_Charges> lst = new List<SO_Charges>();
-            SqlCommand sc = new SqlCommand("SO_Charge_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("SO_Charges_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();

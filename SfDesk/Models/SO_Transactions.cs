@@ -47,7 +47,7 @@ namespace SfDesk.Models
                 u.Name = (string)sdr["Name"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Total = (decimal)sdr["Total"];
-                u.is_MiddleMan = (bool)sdr["is_MiddleMan"];
+                u.is_MiddleMan = (bool)sdr["is_SalesMan"];
                 u.is_Transporter = (bool)sdr["is_Transporter"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];

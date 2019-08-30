@@ -343,13 +343,29 @@
 @section scripts
 {
 
-    <script src="~/assets/js/jsgrid.min.js"></script>
-<script src="~/assets/js/db.js"></script>
-<script src="~/assets/js/TypableDropdown.js"></script>
+    <script src="~/assets/js/TypableDropdown.js"></script>
+<script src="~/assets/js/jsgrid.min.js"></script>
+<script src="~/assets/js/db.js">
+
+</script>
     <script>
      var details= []
 
-       
+     $(window).load(function () {
+         if ($('#SO_ID').val() != 0) {
+             debugger;
+
+             DropDown_Fill("Account_Receivable");
+             DropDown_Fill("Sale_Account");
+
+             DropDown_Fill("Customer");
+             DropDown_Fill("Transporter");
+             DropDown_Fill("Sales_Man");
+
+             Master_Id = $('#PI_ID').val();
+         }
+
+     });
         $(document).ready(function () {   // Help for the HTML4 version.
 
             var today = new Date();
@@ -359,22 +375,17 @@
 
             today = mm + '/' + dd + '/' + yyyy;
             $('#ADate').val(today);
-
-
             Typable_Dropdown('Account_Receivable');
             Typable_Dropdown('Sale_Account');
             Typable_Dropdown('Customer');
             Typable_Dropdown('Transporter');
             Typable_Dropdown('Sales_Man');
+        
+          
             
 
 
-            if ($('#PI_ID').val() != 0)
-            {
-                Master_Id = $('#PI_ID').val();
-
-
-            }
+        
             debugger;
             detail();
 

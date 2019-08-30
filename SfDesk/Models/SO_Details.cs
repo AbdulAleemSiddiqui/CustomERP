@@ -98,13 +98,10 @@ namespace SfDesk.Models
                 u.Item_Code = (int)sdr["Item_Code"];
                 u.Product_Name = (string)sdr["Product_Name"];
                 u.Product_Description = (string)sdr["Description"];
-                u.Quantity = (int)sdr["Purchase_Quantity"];
-                u.Dispatch_Quantitiy = (int)sdr["Dispatch_Quantitiy"];
+                u.Quantity = (int)sdr["Quantity"];
+                u.Dispatch_Quantitiy = (int)sdr["Dispatch_Quantity"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Gross_Amount = (decimal)sdr["Gross_Amount"];
-                u.Discount = (decimal)sdr["Discount"];
-                u.Discount_Amount = (decimal)sdr["Discount_Amount"];
-                u.Net_Amount = (decimal)sdr["Net_Amount"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];

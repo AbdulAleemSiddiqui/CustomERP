@@ -11,8 +11,14 @@ namespace SfDesk.Controllers
     public class SaleOrderController : Controller
     {
        private SaleOrder old;
-        public ActionResult master()
+        public ActionResult master(int? id)
         {
+            if (id != null)
+            {
+                SaleOrder p = new SaleOrder() { SO_ID = id.Value, App_Status = "SO_Created" };
+                p = p.SO_Get_All().Find(x => x.SO_ID == id);
+                return View(p);
+            }
             return View(new SaleOrder() { SO_No = new SaleOrder().SO_Get_New_ID(),Date=DateTime.Now });
          }
           
@@ -92,7 +98,7 @@ namespace SfDesk.Controllers
         }
          
 
-        public ActionResult ApproveMaster(int id)
+        public ActionResult SO_Approved(int id)
         {
             if (id != 0)
             {
