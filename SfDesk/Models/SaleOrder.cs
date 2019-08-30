@@ -91,7 +91,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Sale_Mode", Sale_Mode);
             sc.Parameters.AddWithValue("@Account_Receivable_ID", Account_Receivable_ID);
             sc.Parameters.AddWithValue("@Sale_Account_ID", Sale_Account_ID);
-            sc.Parameters.AddWithValue("@Supplier_ID", Customer_ID);
+            sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
             sc.Parameters.AddWithValue("@Date", Date);
             sc.Parameters.AddWithValue("@Due_Date", Due_Date);
             sc.Parameters.AddWithValue("@Comments", Comments);
@@ -129,15 +129,14 @@ namespace SfDesk.Models
         }
         public void SO_Approve()
         {
-            SqlCommand sc = new SqlCommand("PR_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
-            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
             sc.Parameters.AddWithValue("@Sale_Mode", Sale_Mode);
             sc.Parameters.AddWithValue("@Account_Receivable_ID", Account_Receivable_ID);
             sc.Parameters.AddWithValue("@Sale_Account_ID", Sale_Account_ID);
-            sc.Parameters.AddWithValue("@Supplier_ID", Customer_ID);
+            sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
             sc.Parameters.AddWithValue("@Date", Date);
             sc.Parameters.AddWithValue("@Due_Date", Due_Date);
             sc.Parameters.AddWithValue("@Comments", Comments);
