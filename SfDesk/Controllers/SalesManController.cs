@@ -19,7 +19,7 @@ namespace SfDesk.Controllers
         public ActionResult Add(SalesMan t)
         {
 
-            t.SM_ID = t.SalesMan_Add();
+            t.S_ID = t.SalesMan_Add();
             return Json(t, JsonRequestBehavior.AllowGet);
         }
 
@@ -31,7 +31,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Update(int id)
         {
-            return PartialView("Update", new SalesMan() { SM_ID = id }.SalesMan_Get_By_ID());
+            return PartialView("Update", new SalesMan() { S_ID = id }.SalesMan_Get_By_ID());
 
         }
         [HttpPost]
@@ -42,7 +42,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Delete(int id)
         {
-            new SalesMan() { SM_ID = id }.SalesMan_Delete();
+            new SalesMan() { S_ID = id }.SalesMan_Delete();
             return RedirectToAction("index");
         }
 
