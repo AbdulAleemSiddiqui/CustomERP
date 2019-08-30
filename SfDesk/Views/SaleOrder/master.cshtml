@@ -427,26 +427,7 @@
         $('#done').click(function () {
             window.location.href = '@Url.Action("Showall", "SaleOrder")';
         });
-        $('#approve').click(function () {
-            debugger;
-
-            var data = {};
-            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            data.details = clients;
-            debugger
-            $.ajax({
-                url: '@Url.Action("Approve", "SaleOrder")',
-                type: 'Post',
-                dataType: 'json',
-                data: {
-                    p: data, pi: clients, pie: editedClients
-                },
-                success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
-                }
-
-            });
-        });
+       
         $('#approve').click(function () {
             debugger;
             @*$.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
