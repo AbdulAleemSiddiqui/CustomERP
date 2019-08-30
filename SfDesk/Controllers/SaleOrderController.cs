@@ -22,7 +22,7 @@ namespace SfDesk.Controllers
             c.App_Status = "SO_Created";
             if(c!=old)
                c.SO_ID= c.SO_Add();
-
+            
             if (c.details != null &&c.details.Count > 0)
             {
                 foreach (var item in c.details)
@@ -92,16 +92,7 @@ namespace SfDesk.Controllers
         }
          
 
-        public ActionResult ApproveMaster(int id)
-        {
-            if (id != 0)
-            {
-                SaleOrder p = new SaleOrder() { SO_ID = id, App_Status = "SO_Created" };
-                p = p.SO_Get_All().Find(x => x.SO_ID == id);
-                return View(p);
-            }
-            return View(new SaleOrder() { SO_No = new SaleOrder().SO_Get_New_ID(), Date = DateTime.Now });
-        }
+      
 
         public ActionResult showAll()
         {
