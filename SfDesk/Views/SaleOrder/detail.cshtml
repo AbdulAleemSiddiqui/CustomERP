@@ -100,7 +100,7 @@
 
                 window.history.pushState( {} , 'SaleOrder', '/SaleOrder/master' );
             }
-            debugger
+            
             $.ajax({
                 type: "GET",
                 url: "Index",
@@ -187,7 +187,7 @@
                 var txtdisabled=disble.find("input:eq(0)").attr("disabled", "disabled");
             }
             var td=tr.find("td:eq(0)")
-            debugger
+            
 
 
             inout=td.find("select:eq(0)")
@@ -199,7 +199,7 @@
         function insert_on_enter(field,id) {
 
             field.on("keydown", function(e) {
-                debugger
+                
 
                 if(e.keyCode === 13 || e.keyCode === 9 ) {
                     $("#"+id).jsGrid("insertItem").done(function(){
@@ -226,7 +226,7 @@
             });
         }  // isme change he
         function focusChange(field,id){
-            debugger
+            
             field.on("keydown", function(e) {
                 if((field.val()==="") && (e.keyCode === 13 || e.keyCode === 9) ) {
                     if(id==="jsGrid"){
@@ -248,29 +248,30 @@
 
         $(function(){
             loadData();
-            debugger;
-            var mmid = $('#Middle_Man_ID').val()
+            ;
+            var mmid = $('#Sales_Man_ID').val()
             var vid = $('#Vehicle_ID').val();
 
             $.ajax({
-                url: "MM_Get_By_ID",
+                url: "SM_Get_By_ID",
                 type: 'GET',
                 dataType: 'json',
                 data: { id :  mmid},
-                success: function (d) {   ;
+                success: function (d) {  debugger
                     myOpts = d;
                 }
             });
 
-            $("#Middle_Man_Name").on("change",function(){
-
-                var mmid = $('#Middle_Man_ID').val()
+            $("#Sales_Man_Name").on("change",function(){
+                debugger
+                var mmid = $('#Sales_Man_ID').val()
                 $.ajax({
-                    url: "MM_Get_By_ID",
+                    url: "SM_Get_By_ID",
                     type: 'GET',
                     dataType: 'json',
                     data: { id :  mmid},
-                    success: function (d) {   ;
+                    success: function (d) {  
+                        debugger
                         myOpts = d;
                     }
                 });
@@ -287,15 +288,15 @@
                     }
                 });
             });
-            $.ajax({
-                url: "Vehicle_Get_BY_ID",
-                type: 'GET',
-                dataType: 'json',
-                data: { id : vid },
-                success: function (d) {   ;
-                    mytrans = d;
-                }
-            });
+            //$.ajax({
+            //    url: "Vehicle_Get_BY_ID",
+            //    type: 'GET',
+            //    dataType: 'json',
+            //    data: { id : vid },
+            //    success: function (d) {   ;
+            //        mytrans = d;
+            //    }
+            //});
             var array =@Html.Raw(Json.Encode(Model));
             var arr=[];
             $.each(array, function (key, value) {
@@ -388,7 +389,7 @@
                      grand_total=parseFloat( Gross_total+tax_total+trans_total).toFixed(2);
                     $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> '+grand_total +'</h1>')
                     args.grid._renderCells($totalRow, total);
-                    debugger;
+                    ;
                     $totalRow.find("td").eq(0).html("<b>Total</b>");
                     $totalRow.find("td").eq(0).attr('colspan',3);
                     $totalRow.find("td").eq(1).remove();
@@ -428,7 +429,6 @@
                 },
                 onItemDeleting  : function (args) {
 
-                    debugger
                     args.item["SO_ID"] = Master_Id;
                     args.item["action"] = 'D';
                     clients.push(args.item);
@@ -442,7 +442,7 @@
                 },
 
                 //onItemInserted: function (args) {
-                //    debugger;
+                //    ;
                 //    jQuery("#jsGrid").jsGrid("destroy");
                 //    loadData();
 
@@ -670,7 +670,7 @@
                 },
                 onItemDeleting  : function (args) {
 
-                    debugger
+                    
                     args.item["SO_ID"] = Master_Id;
                     args.item["action"] = 'D';
                     myTaxes.push(args.item);
@@ -715,7 +715,7 @@
 
                         $insertControl.on("change", function () {
                             var selectedDepartment1 = $(this).find('option:selected').val();
-                            debugger
+                        
                             $.each( taxes, function( i,val) {
                                 console.log(val["SalesTax_ID"])
                                 if(val["SalesTax_ID"]==selectedDepartment1)
@@ -730,7 +730,7 @@
 
                                     $(".abc").append($u);
                                     var $t = jsGrid.fields.text.prototype.insertTemplate.call(Total);
-                                    debugger;
+                                   
                                     var val =$u.val()
                                     var total = Gross_total*(val/100);
                                     total=total.toFixed(2);
@@ -771,7 +771,7 @@
         var isMM=false;
         var isT=false;
         function trans(){
-            debugger
+            
             $("#transGrid").jsGrid({
 
                 height: "auto",
@@ -832,7 +832,7 @@
 
                     args.item["T_ID"] = parseInt(args.item["T_ID"]);
                     if(isMM){
-                        args.item["_ID"]  =myOpts[0].MM_ID;
+                        args.item["_ID"]  =myOpts.SM_ID;
                     }
                     else if (isT){
                         args.item["_ID"]  =mytrans.T_ID;
@@ -856,7 +856,7 @@
 
                     args.item["T_ID"] = parseInt(args.item["T_ID"]);
                     if(isMM){
-                        args.item["_ID"]  =myOpts[0].MM_ID;
+                        args.item["_ID"]  =myOpts.SM_ID;
                     }
                     else if (isT){
                         args.item["_ID"]  =mytrans.T_ID;
@@ -871,7 +871,7 @@
                 },
                 onItemDeleting  : function (args) {
 
-                    debugger
+                    
                     args.item["SO_ID"] = Master_Id;
                     args.item["action"] = 'D';
                     myTransaction.push(args.item);
@@ -886,7 +886,7 @@
                 },
                 onItemInserted: function(args){
                     var ae =transactionsID;
-                    debugger
+                    
                     jQuery("#transGrid").jsGrid("refresh");
                    // trans()
                 },
@@ -939,10 +939,10 @@
                             var val =0;
                             var total = 0;
                             var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
-                            if (selectedDepartment1=="Middle Man"){
+                            if (selectedDepartment1=="Sales Man"){
                                 isMM = true;
                                 isT = false;
-                                var tt =myOpts[0].Rate;
+                                var tt =myOpts.Rate;
                                 $u.val(tt)//val(unit);
                                 $u.text(tt)//val(unit);
 

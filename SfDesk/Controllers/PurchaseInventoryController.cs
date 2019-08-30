@@ -159,6 +159,8 @@ namespace SfDesk.Controllers
             List<Transaction> lst = new Transaction().Transaction_Get_All();
             //lst.Add(new Transaction() { Name = "Middle Man" });
             //lst.Add(new Transaction() { Name = "Transporter" });
+
+            lst.Remove(lst.Find(x => x.Name.ToLower() == "sales man"));
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
 

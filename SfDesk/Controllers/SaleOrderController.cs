@@ -216,6 +216,8 @@ namespace SfDesk.Controllers
             List<Transaction> lst = new Transaction().Transaction_Get_All();
             //lst.Add(new Transaction() { Name = "Middle Man" });
             //lst.Add(new Transaction() { Name = "Transporter" });
+
+            lst.Remove(lst.Find(x => x.Name.ToLower() == "middle man"));
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
 
@@ -229,16 +231,16 @@ namespace SfDesk.Controllers
         }
         public ActionResult Save_Transaction(int SO_ID, SO_Transactions s)
         {
-            s.is_MiddleMan = s.Name.ToLower() == "middle man";
+            s.is_MiddleMan = s.Name.ToLower() == "Sales man";
             s.is_Transporter = s.Name.ToLower() == "transporter";
 
             s.SO_Transactions_Add();
             return Json("");
         }
         [HttpGet]
-        public ActionResult Mm_Get_By_ID(int id)
+        public ActionResult Sm_Get_By_ID(int id)
         {
-            return Json(new MiddleMan() { MM_ID = id }.MiddleMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
+            return Json(new SalesMan() { S_ID = id }.SalesMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Vehicle_Get_By_ID(int id)

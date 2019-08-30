@@ -272,12 +272,13 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Sales_Man_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @{
-                                    var Sales_Man_List = new SfDesk.Models.SalesMan().SalesMan_Get_All();
-                                }
                                 @Html.HiddenFor(Model => Model.Sales_Man_ID)
                                 <input type="text" name="Sales_Man_Name" list="Sales_Man_List" id="Sales_Man_Name" class="form-control text-box">
                                 <datalist id="Sales_Man_List">
+                                    @{
+                                        var Sales_Man_List = new SfDesk.Models.SalesMan().SalesMan_Get_All();
+                                    }
+
                                     @foreach (var item in Sales_Man_List)
                                     {
                                         <option id="@item.S_ID" data-id="@item.S_ID" value="@item.Trading_Name"></option>
