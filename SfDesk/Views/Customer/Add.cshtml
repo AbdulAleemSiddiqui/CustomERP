@@ -137,9 +137,6 @@
                         <b class="control-label col-md-2">Transaction type</b>
                         <div class="col-md-4">
                             @Html.DropDownListFor(model => model.Transaction_type, new SelectList(ViewBag.tt), "select type", htmlAttributes: new { @class = "form-control" })
-
-
-                           @* @Html.EditorFor(model => model.Transaction_type, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.Transaction_type, "", new { @class = "text-danger" })
                         </div>
                     </div>

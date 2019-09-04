@@ -222,6 +222,7 @@
     <Compile Include="Controllers\MiddleManController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PurchaseIndendController.cs" />
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PurchaseRequisitionController.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Item_Category.cs" />
     <Compile Include="Models\Ledger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
@@ -267,7 +269,10 @@
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\Payment_Detail.cs" />
     <Compile Include="Models\Payment_Mode.cs" />
+    <Compile Include="Models\PI.cs" />
     <Compile Include="Models\PI_Charge.cs" />
+    <Compile Include="Models\PI_Detail.cs" />
+    <Compile Include="Models\PI_Detail_ViewModel.cs" />
     <Compile Include="Models\PI_Transactions.cs" />
     <Compile Include="Models\PR.cs" />
     <Compile Include="Models\Product.cs" />
@@ -874,6 +879,7 @@
     <Content Include="Views\SalesMan\Update.cshtml" />
     <Content Include="Views\GDN\detaill.cshtml" />
     <Content Include="Views\GDN\Master.cshtml" />
+    <Content Include="Views\PurchaseIndend\Master.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
