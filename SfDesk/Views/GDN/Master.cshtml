@@ -1,0 +1,120 @@
+﻿@model SfDesk.Models.GDN
+
+@{
+    ViewBag.Title = "Master";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>GRN</h4>
+                    <hr />
+                    @Html.HiddenFor(model => model.SO_ID)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group col-md-4">
+                        @Html.HiddenFor(Model => Model.Customer_ID)
+                        @Html.LabelFor(model => model.Customer_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                        @{
+                            var Depart_list = new SfDesk.Models.Customer().Customer_Get_All();
+                        }
+                        <div class="col-md-8">
+
+                            <input type="text" name="Customer_Name" list="Customer_List" id="Customer_Name" class="form-control text-box">
+                            <datalist id="Customer_List" class="control-label col-md-4">
+
+                                @foreach (var item in Depart_list)
+                                {
+                                    <option id="@item.Customer_ID" data-id="@item.Customer_ID" value="@item.Business_Name"></option>
+                                }
+                            </datalist>
+                            @Html.ValidationMessageFor(model => model.Customer_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+
+                        @Html.LabelFor(model => model.GDN_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.GDN_NO, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.HiddenFor(model => model.GDN_NO, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.GDN_NO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Trans_Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Trans_Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Trans_Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+
+                        @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.is_SO, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.is_SO, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.is_SO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                  
+                    <div id="child"></div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                            }
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/TypableDropdown.js"></script>
+    <script src="~/assets/js/db.js">
+    </script>
+    <script>
+        DropDown_Fill("Customer");
+        Typable_Dropdown('Customer');
+        $(document).ready(function () {
+
+            $.get('@Url.Action("detail", "grn")', function (data) { $("#child").html(data); });
+        });
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
+
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            $.post(this.action, $(this).serialize(), function (data) {
+                debugger;
+                window.location.href = '@Url.Action("Master", "Payment")';
+
+            })
+
+        })
+
+
+    </script>
+}

@@ -85,7 +85,7 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("Sale_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PR_No", PR_No);
-            sc.Parameters.AddWithValue("@SO_No",SO_No);
+            sc.Parameters.AddWithValue("@is_SO",SO_No);
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@Department_ID", Department_ID);
             sc.Parameters.AddWithValue("@Sale_Mode", Sale_Mode);
@@ -160,7 +160,7 @@ namespace SfDesk.Models
                 SaleOrder u = new SaleOrder();
                 u.SO_ID = (int)sdr["SO_ID"];
                 u.PR_No = (string)sdr["PR_No"];
-                u.SO_No = (string)sdr["SO_No"];
+                u.SO_No = (string)sdr["is_SO"];
                 u.SO_ID = (int)sdr["SO_ID"];
                 u.App_Status = App_Status;
                 u.Sale_Mode = (string)sdr["Sale_Mode"];
