@@ -255,6 +255,7 @@
     <Compile Include="Models\GRN.cs" />
     <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Ledger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Models\Payment_Mode.cs" />
     <Compile Include="Models\PI_Charge.cs" />
     <Compile Include="Models\PI_Transactions.cs" />
+    <Compile Include="Models\PR.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />

@@ -22,10 +22,7 @@ namespace SfDesk.Models
         public int CompanyCode { get; set; }
 
         public string CompanyName { get; set; }
-
-        //[DisplayName("User Role")]
-        //public int UserRoleID { get; set; }
-        //public string UserRoleName { get; set; }a
+        public int Department_ID { get; set; } = 1;
 
         public int Created_By { get; set; }
         public DateTime Created_Date { get; set; }
