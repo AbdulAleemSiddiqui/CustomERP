@@ -214,6 +214,7 @@
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\GDNController.cs" />
     <Compile Include="Controllers\GRNController.cs" />
     <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
+    <Compile Include="Models\GDN.cs" />
     <Compile Include="Models\GRN.cs" />
     <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -764,9 +766,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\GRN\Home\About.cshtml" />
+    <Content Include="Views\GRN\Home\Contact.cshtml" />
+    <Content Include="Views\GRN\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -868,6 +870,8 @@
     <Content Include="Views\SalesMan\Add.cshtml" />
     <Content Include="Views\SalesMan\Index.cshtml" />
     <Content Include="Views\SalesMan\Update.cshtml" />
+    <Content Include="Views\GDN\detaill.cshtml" />
+    <Content Include="Views\GDN\Master.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

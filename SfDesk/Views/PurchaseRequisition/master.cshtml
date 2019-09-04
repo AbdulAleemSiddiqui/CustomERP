@@ -36,25 +36,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.HiddenFor(Model => Model.Department_ID)
-                            @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            @{
-                                var Depart_list = new SfDesk.Models.Department().Department_Get_All();
-                            }
-                            <div class="col-md-5">
-
-                                <input type="text" name="Department_Name" list="Department_List" id="Department_Name" class="form-control text-box">
-                                <datalist id="Department_List" class="control-label col-md-4">
-
-                                    @foreach (var item in Depart_list)
-                                    {
-                                        <option id="@item.D_ID" data-id="@item.D_ID" value="@item.D_Name"></option>
-                                    }
-                                </datalist>
-                                @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
@@ -115,8 +96,7 @@
     <script>
         var details = []
         var Master_Id = 0
-        DropDown_Fill("Department");
-        Typable_Dropdown('Department');
+      
         $('#cancel').click(function () {
             window.location.href = '/PurchaseRequisition/Showall';
         });

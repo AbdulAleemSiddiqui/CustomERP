@@ -260,8 +260,19 @@
                     
                 return $editControl;
             }, },
-            {name:"Product_Name", title: "Product", type: "text", width:  80, validate: "required",             editTemplate: function (args) {
-                var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
+            {name:"Product_Name", title: "Product", type: "select", width:  80, validate: "required",
+                items: items, valueField: "Item_ID", textField: "Item_Name",            editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
+                    $editControl.on("keyup change", function () {
+                        
+                     
+                        alert(this.value);
+                        //$u.attr("disabled", "disabled");
+
+                        
+                       
+                          
+                    });
                 update_on_enter($editControl);
                     
                 return $editControl;
