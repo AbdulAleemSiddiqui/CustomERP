@@ -39,9 +39,9 @@ namespace SfDesk.Models
             {
                 Item u = new Item();
                 u.Item_ID = (int)sdr["Item_ID"];
-                u.Item_No = (string)sdr["Item_No"];
+                //u.Item_No = (string)sdr["Item_No"];
                 u.Item_Name = (string)sdr["Item_Name"];
-                u.IC_ID = (int)sdr["IC_ID"];
+                u.IC_ID = (int)sdr["Cat_ID"];
                 u.Cat_Name = (string)sdr["Cat_Name"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];

@@ -128,8 +128,11 @@ namespace SfDesk.Controllers
         }
 
         #region Detail
+        public ActionResult Item_Get_All()
+        {
+            return Json(new Item().Item_Get_All(), JsonRequestBehavior.AllowGet);
+        }
 
-  
         [HttpGet]
         public ActionResult Vehcile_Get_By_Transporter(int id)
         {
