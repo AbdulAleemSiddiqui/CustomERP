@@ -44,7 +44,9 @@ function DropDown_Fill(a)
     var id = $("#" + a + "_ID").val();
     var name = "#" + a + "_List";
     console.log(name)
+    var dd = $(name);
     name = name + " option[id='" + id + "']";
+    var de= $(name);
 
     var value = $(name).val();
     $("#"+a+"_Name").val(value);
