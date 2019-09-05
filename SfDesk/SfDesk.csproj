@@ -274,9 +274,12 @@
     <Compile Include="Models\PI_Detail.cs" />
     <Compile Include="Models\PI_Detail_ViewModel.cs" />
     <Compile Include="Models\PI_Transactions.cs" />
+    <Compile Include="Models\PO.cs" />
+    <Compile Include="Models\PO_Details.cs" />
     <Compile Include="Models\PR.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\PR_Detail.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Purchase_Type.cs" />
     <Compile Include="Models\Recipe.cs" />

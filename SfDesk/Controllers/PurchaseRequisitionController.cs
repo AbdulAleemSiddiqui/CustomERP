@@ -10,31 +10,32 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseRequisitionController : Controller
     {
-        private static PurchaseInventory old;
-        private static List<PI_Details> details =new List<PI_Details>();
+        private static PR old;
+        private static List<PR_Details> details =new List<PR_Details>();
 
         public ActionResult master(int? id)
          {
             if (id != null)
             {
-                PurchaseInventory p = new PurchaseInventory() { PI_ID = id.Value ,App_Status="I"};
-                p = p.PR_Get_All().Find(x => x.PI_ID == id);
+                PR p = new PR() { PR_ID = id.Value ,App_Status="I"};
+                p = p.PR_Get_All().Find(x => x.PR_ID == id);
                 if(p!=null)
                 {
                     old = p;
                     return View(p);
                 }
             }
-            return View(new PurchaseInventory() {PR_No=new PurchaseInventory().PR_Get_New_PR_NO() });
+            // return View(new PR() {PR_No=new PR().PR_Get_New_PR_NO() });
+            return View(new PR());
         }
         [HttpPost]
-        public ActionResult master(PurchaseInventory c)
+        public ActionResult master(PR c)
             {
             // try
             //{
-            int id = c.PI_ID;
-            if (c.PI_ID == 0)
-                id = c.Purchase_Inventory_Add();
+            int id = c.PR_ID;
+            if (c.PR_ID == 0)
+               c.PR_Add();
 
 
 
@@ -42,14 +43,14 @@ namespace SfDesk.Controllers
             //if (pi != null)
             //    foreach (var item in c.details)
             //    {
-            //        item.PI_ID = id;
-            //        item.PI_Detail_Add();
+            //        item.PR_ID = id;
+            //        item.PR_Detail_Add();
             //    }
             //if (pie != null)
             //    foreach (var item in pie)
             //    {
 
-            //        item.PI_Detail_Update();
+            //        item.PR_Detail_Update();
             //    }
 
             if (c.details != null && c.details.Count > 0)
@@ -58,16 +59,16 @@ namespace SfDesk.Controllers
                 {
                     if (item.action == "I")
                     {
-                        item.PI_ID = id;
-                        item.PI_Detail_Add();
+                        item.PR_ID = id;
+                        item.PR_Detail_Add();
                     }
                     else if (item.action == "U")
                     {
-                        item.PI_Detail_Update();
+                        item.PR_Detail_Update();
                     }
                     else if (item.action == "D")
                     {
-                        item.PI_Detail_Delete();
+                        item.PR_Detail_Delete();
                     }
 
                 }
@@ -85,10 +86,10 @@ namespace SfDesk.Controllers
         }
         public ActionResult showAll()
         {
-            return View(new PurchaseInventory() { App_Status = "I" }.PR_Get_All());
+            return View(new PR() { App_Status = "I" }.PR_Get_All());
         }
         [HttpPost]
-        public ActionResult Approve(PurchaseInventory p)
+        public ActionResult Approve(PR p)
         {
            
             if (p.details != null && p.details.Count > 0)
@@ -97,15 +98,15 @@ namespace SfDesk.Controllers
                 {
                     if (item.action == "I")
                     {
-                        item.PI_Detail_Add();
+                        item.PR_Detail_Add();
                     }
                     else if (item.action == "U")
                     {
-                        item.PI_Detail_Update();
+                        item.PR_Detail_Update();
                     }
                     else if (item.action == "D")
                     {
-                        item.PI_Detail_Delete();
+                        item.PR_Detail_Delete();
                     }
 
                 }
@@ -113,17 +114,17 @@ namespace SfDesk.Controllers
             }
             p.App_Status = "PR_Approve";
 
-            p.PR_Approve();
+           // p.PR_Approve();
             return Json("kuch bhi", JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult detail(int? id)
         {
-            return PartialView("detail", new List<PurchaseInventory>());
+            return PartialView("detail", new List<PR>());
         }
-        public ActionResult Index(int PI_ID)
+        public ActionResult Index()//int PR_ID)
         {
-            details = new PI_Details() { PI_ID = PI_ID }.PI_Detail_Get_All();
+           // details = new PR_Details() { PR_ID = PR_ID }.PR_Detail_Get_All();
             return Json(details, JsonRequestBehavior.AllowGet);
         }
 
@@ -133,16 +134,7 @@ namespace SfDesk.Controllers
             return Json(new Item().Item_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult Vehcile_Get_By_Transporter(int id)
-        {
-            return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult Save_Charges(PurchaseInventory p)
-        {
-            p.PI_Charges_Add();
-            return Json("");
-        }
+   
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.PurchaseInventory
+﻿@model SfDesk.Models.PR
 
 @{
     ViewBag.Title = "master";
@@ -20,7 +20,7 @@
                 <div class="form-horizontal">
                     <h4>Purchase Requisition</h4>
                     <hr />
-                    <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />
+                    <input hidden="hidden" name="PR_ID" id="PR_ID" value="@Model.PR_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
