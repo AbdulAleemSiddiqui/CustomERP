@@ -44,7 +44,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="PR_Detail_tbl">
                                     @* <tr class="modules">*@
 
                                 </tbody>
@@ -72,6 +72,41 @@
 {
     <script>
         $('#Item_Cat_Id').change(function () {
+            var id = $('#Item_Cat_Id').val();
+            $.ajax({
+                url: '/PurchaseIndend/Get_PI_Detail',
+                type: 'GET',
+                dataType: 'json',
+                data: { Cat_ID: id },
+                success: function (details) {
+                    var tbl = $('#PR_Detail_tbl');
+                    debugger;
+
+                    tbl.html("");
+                    $.each(details, function (index, item) {
+
+                        var a = "<tr>" +
+                            "<td>" +
+                            "<input type='hidden'  id='PI_Details[" + index + "].PRD_ID' name='PI_Details[" + index + "].PRD_ID' value='" + item.PRD_ID + "' />" +
+                            "<input type='hidden'  id='PI_Details[" + index + "].Item_ID' name='PI_Details[" + index + "].Item_ID' value='"+item.Item_ID+"' />" +
+                            "<input  type='checkbox' id='PI_Details[" + index + "].is_Selected' name='PI_Details[" + index + "].is_Selected' value='true'/> " +
+                             "<input type='hidden' value='false'  name='PI_Details[" + index + "].is_Selected' /> </td>"+
+                        "<td>" +
+                            item.PR_No +
+                        "</td> <td>" +
+                        item.PR_Date +
+                        "</td> <td>" +
+                        item.Department_Name +
+                        "</td> <td>" +
+                        item.Item_Name +
+                        "</td> <td>" +
+                        item.Quantity +
+                        "</td>" +
+                            +"</tr>"
+                        tbl.append(a);
+                    });
+                }
+            });
 
         })
     </script>
