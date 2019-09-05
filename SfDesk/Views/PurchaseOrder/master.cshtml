@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.PurchaseInventory
+﻿@model SfDesk.Models.PO
 
 @{
     ViewBag.Title = "master";
@@ -20,23 +20,10 @@
                 <div class="form-horizontal">
                     <h4>Purchase</h4>
                     <hr />
-                    <input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />
-                    <input hidden="hidden" name="V_ID" id="V_ID" value="@Model.Vehicle_ID"/>
+                    @*<input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />*@
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PR_No, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.EditorFor(model => model.PR_No, new
-                           {
-                               htmlAttributes = new
-                               {
-                                   @class = "form-control", @readonly = "readonly" }
-                           })
-                                @Html.ValidationMessageFor(model => model.PR_No, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
+        
                         <div class="form-group">
                             @Html.LabelFor(model => model.PO_No, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -44,142 +31,33 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control", @readonly = "readonly"}
+                                   @class = "form-control"}
                            })
                                 @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
+               
                         <div class="form-group">
-                            @Html.HiddenFor(Model => Model.Department_ID)
-                            @Html.LabelFor(model => model.Department_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.HiddenFor(Model => Model.Item_Type_ID)
+                            @Html.LabelFor(model => model.Item_Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             @{
-                                var Depart_list = new SfDesk.Models.Department().Department_Get_All();
+                                var list = new SfDesk.Models.Item_Category().Item_Category_Get_All();
                             }
                             <div class="col-md-5">
-                                <input type="text" name="Department_Name" list="Department_List" id="Department_Name" class="form-control text-box">
-                                <datalist id="Department_List">
-
-                                    @foreach (var item in Depart_list)
-                                    {
-                                        <option id="@item.D_ID" data-id="@item.D_ID" value="@item.D_Name"></option>
-                                    }
-                                </datalist>
-                                @Html.ValidationMessageFor(model => model.Department_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.HiddenFor(Model => Model.Purchase_Type_ID)
-                            @Html.LabelFor(model => model.Purchase_Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            @{
-                                var list = new SfDesk.Models.Purchase_Type().Purchase_Type_Get_All();
-                            }
-                            <div class="col-md-5">
-                                <input type="text" name="Purchase_Type_Name" list="Purchase_Type_List" id="Purchase_Type_Name"  autocomplete="off"  class="form-control text-box">
-                                <datalist id="Purchase_Type_List">
+                                <input type="text" name="Item_Type_Name" list="Item_Type_List" id="Item_Type_Name"  autocomplete="off"  class="form-control text-box">
+                                <datalist id="Item_Type_List">
 
                                     @foreach (var item in list)
                                     {
-                                        <option id="@item.PT_ID" data-id="@item.PT_ID" value="@item.PT_Name"></option>
+                                        <option id="@item.IC_ID'" data-id="@item.IC_ID" value="@item.IC_Name"></option>
                                     }
                                 </datalist>
-                                @Html.ValidationMessageFor(model => model.Purchase_Type_ID, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Item_Type_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            @Html.HiddenFor(Model => Model.Account_Payable_ID)
-                            @Html.LabelFor(model => model.Account_Payable_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-
-                                <input type="text" name="Account_Payable_Name" list="Account_Payable_List" id="Account_Payable_Name" autocomplete="off" class="form-control text-box">
-                                <datalist id="Account_Payable_List">
-                                    @{
-                                        SfDesk.Models.ChartOfAccount selected = null;
-                                        int indexofAPL = 0;
-                                        int indexofPAN = 0;
-                                        List<SfDesk.Models.ChartOfAccount> ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                        ab = ab.FindAll(x => x.Group_ID == 20);
-                                    }
-                                    <option ></option>
-                                    @foreach (var item in ab)
-                                    {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Account_Payable_ID)
-                                        {
-                                            selected = item;
-                                            indexofAPL = ab.IndexOf(item);
-                                        }
-
-                                    }
-
-                                </datalist>
-                                <input type="hidden" id="Account_Payable_I" name="Account_Payable_I" value="@indexofAPL" />
-
-                                @*   @Html.DropDownListFor(model => model.Account_Payable_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Account_Payable(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
-                                @Html.ValidationMessageFor(model => model.Account_Payable_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        @*<div class="form-group">
-                            @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.HiddenFor(Model => Model.Purchase_Account_ID)
-                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                <datalist id="Purchase_Account_List">
-                                    @{
-
-                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                    }
-
-                                    @foreach (var item in ab)
-                                    {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Purchase_Account_ID)
-                                        {
-                                            selected = item;
-                                            indexofPAN = ab.IndexOf(item);
-                                        }
-
-                                    }
-
-                                </datalist>
-                                <input type="hidden" id="Purchase_Account_I" name="Purchase_Account_I" value="@indexofPAN" />
-
-                                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Purchase_Account_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.HiddenFor(Model => Model.Purchase_Account_ID)
-                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                <datalist id="Purchase_Account_List">
-                                    @{
-
-                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                    }
-                                    <option></option>
-
-                                    @foreach (var item in ab)
-                                    {
-                                        <option data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        if (item.COA_ID == Model.Purchase_Account_ID)
-                                        {
-                                            selected = item;
-                                            indexofPAN = ab.IndexOf(item);
-                                        }
-
-                                    }
-
-                                </datalist>
-                                <input type="hidden" id="Purchase_Account_I" name="Purchase_Account_I" value="@indexofPAN" />
-
-                                @* @Html.DropDownListFor(model => model.Purchase_Account_ID, new SelectList(new SfDesk.Models.ChartOfAccount().COA_Get_All_For_Purchase_Account(), "COA_ID", "COA_Name"), "select type", htmlAttributes: new { @class = "form-control" })*@
-                                @Html.ValidationMessageFor(model => model.Purchase_Account_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+           
+                      
 
 
 
@@ -207,15 +85,21 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
-                            @Html.Label("Date", htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Advance, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.Editor("ADate", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Advance, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control"
+                               }
+                           })
+                                @Html.ValidationMessageFor(model => model.Advance, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -234,43 +118,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.HiddenFor(Model => Model.Transporter_ID)
-                                <input type="text" name="Transporter_Name" list="Transporter_List" id="Transporter_Name" class="form-control text-box">
-                                <datalist id="Transporter_List">
-                                    @{
-                                        var Transporter_List = new SfDesk.Models.Transporter().Transporter_Get_All();
-                                    }
-
-                                    @foreach (var item in Transporter_List)
-                                    {
-                                        <option id="@item.T_ID" data-id="@item.T_ID" value="@item.Trading_Name"></option>
-                                    }
-                                </datalist>
-                                @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn mini btn-primary" onclick="AddTrans()" style="margin-top:6px">
-                                    <i class="ti-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Vehicle_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.DropDownListFor(model => model.Vehicle_ID, new SelectList(new List<string>() { Model.Vehicle_No }), htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Vehicle_ID, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-2" @*style="display:none"*@>
-                                <button type="button" class="btn mini btn-primary" onclick="AddVehicle()" style="margin-top:6px">
-                                    <i class="ti-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-
+                
 
 
                         <div class="form-group">
@@ -367,13 +215,10 @@
             detail();
             if ($('#PI_ID').val() != 0) {
                 debugger;
-                DropDown_Fill("Department");
-                DropDown_Fill("Purchase_Type");
-                DropDown_Fill("Account_Payable");
-                DropDown_Fill("Purchase_Account");
-
+              
+                DropDown_Fill("Item_Type");
+             
                 DropDown_Fill("Suplier");
-                DropDown_Fill("Transporter");
                 DropDown_Fill("Middle_Man");
                 Master_Id = $('#PI_ID').val();
 
@@ -395,19 +240,17 @@
             $("#ADate").val(formatted_date);
 
             //Customer Js file which makes dropdown typable
-            Typable_Dropdown('Department');
-            Typable_Dropdown('Purchase_Type');
-            Typable_Dropdown('Account_Payable');
-            Typable_Dropdown('Purchase_Account');
+           
+            Typable_Dropdown('Item_Type');
+     
 
             Typable_Dropdown('Suplier');
-            Typable_Dropdown('Transporter');
             Typable_Dropdown('Middle_Man');
-            var g = $('#Transporter_ID').val();
-            if (g != "") {
-                populate();
+            //var g = $('#Transporter_ID').val();
+            //if (g != "") {
+            //    populate();
 
-            }
+            //}
 
         });
 
@@ -483,58 +326,58 @@
             $('#myModal').modal('show');
 
         };
-        function AddTrans() {
+        @*function AddTrans() {
             $.get('@Url.Action("Add", "Transporter")', function (data) { $("#myModalContent").html(data); });
             $('#myModal').modal('show');
 
-        };
+        };*@
         function MM() {
             $.get('@Url.Action("Add", "middleman")', function (data) { $("#myModalContent").html(data); });
             $('#myModal').modal('show');
 
         };
-        function AddVehicle() {
+        @*function AddVehicle() {
             var id = $('#Transporter_ID').val();
             if (id != 0) {
                 $.get('@Url.Action("Add_Vehicle", "Transporter")'+'?id='+id , function (data) { $("#myModalContent").html(data); });
                 $('#myModal').modal('show');
             }
-        };
+        };*@
 
         var id = 0;
-        function populate() {
-            debugger;
-            var value = $('#Transporter_Name').val();
-            var name = "#Transporter_List";
-            name = name + " option[value='" + value + "']";
-            value = $(name).data('id');
-            $('#Transporter_ID').val(value);
-            id = $('#Transporter_ID').val()
+        //function populate() {
+        //    debugger;
+        //    var value = $('#Transporter_Name').val();
+        //    var name = "#Transporter_List";
+        //    name = name + " option[value='" + value + "']";
+        //    value = $(name).data('id');
+        //    $('#Transporter_ID').val(value);
+        //    id = $('#Transporter_ID').val()
 
 
-            $.ajax({
-                url: '/PurchaseRequisition/Vehcile_Get_By_Transporter',
-                type: 'GET',
-                dataType: 'json',
-                data: { id: id },
-                success: function (d) {
+        //    $.ajax({
+        //        url: '/PurchaseRequisition/Vehcile_Get_By_Transporter',
+        //        type: 'GET',
+        //        dataType: 'json',
+        //        data: { id: id },
+        //        success: function (d) {
 
-                    var ddlState = $('#Vehicle_ID');
-                    ddlState.empty();
-                    $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
-                    $.each(d, function (i, states) {
-                        if ($('#V_ID').val() == states.V_ID)
-                        {
-                            ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
-                        }
-                        else {
-                            ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
-                        }
-                    });
-                }
-            });
-        }
-        $('#Transporter_Name').on("change", populate);
+        //            var ddlState = $('#Vehicle_ID');
+        //            ddlState.empty();
+        //            $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
+        //            $.each(d, function (i, states) {
+        //                if ($('#V_ID').val() == states.V_ID)
+        //                {
+        //                    ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
+        //                }
+        //                else {
+        //                    ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+        //                }
+        //            });
+        //        }
+        //    });
+        //}
+        //$('#Transporter_Name').on("change", populate);
 
 </script>
 }
