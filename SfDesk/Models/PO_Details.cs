@@ -14,8 +14,8 @@ namespace SfDesk.Models
         #region Detail
         public int PO_ID { get; set; }
         public int POD_ID { get; set; }
-        public int PI_NO { get; set; }
-
+        public string PI_NO { get; set; }
+        public int PI_ID { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PI_Date { get; set; }
@@ -23,9 +23,12 @@ namespace SfDesk.Models
         public int Item_Code { get; set; }
         [DisplayName("Item Name")]
         public string Item_Name { get; set; } = "";
-      
+        [DisplayName("Item Desc.")]
+        public string Item_Description { get; set; } = "";
+        [DisplayName("PI Quantitiy")]
+        public int PI_Qty { get; set; }
         [DisplayName("PO Quantitiy")]
-        public int Quantitiy { get; set; }
+        public int PO_Qty { get; set; }
 
         public string action { get; set; }
 
@@ -36,7 +39,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@POD_ID", POD_ID);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Item_Name", Item_Name);
-            sc.Parameters.AddWithValue("@Quantity", Quantitiy);
+            sc.Parameters.AddWithValue("@Quantity", PO_Qty);
            
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
@@ -65,7 +68,7 @@ namespace SfDesk.Models
                
                 u.Item_Code = (int)sdr["Item_Code"];
                 u.Item_Name = (string)sdr["Item_Name"];
-              Quantitiy = (int)sdr["Quantity"];
+              PO_Qty = (int)sdr["Quantity"];
                 
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];

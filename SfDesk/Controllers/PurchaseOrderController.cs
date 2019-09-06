@@ -244,7 +244,13 @@ namespace SfDesk.Controllers
         }
         public ActionResult Index(int? PO_ID)
         {
-            return Json(new List<PO_Details>(), JsonRequestBehavior.AllowGet);
+            List<PO_Details> pd = new List<PO_Details>();
+            for (int i = 0; i < 10; i++)
+            {
+             pd.Add(new PO_Details() { PI_NO = DateTime.Now.Year.ToString() +"||"+ i,Item_Code = i,Item_Name = $"product {i}", Item_Description= $"product no {i}",PI_ID=i,PI_Qty = 12*i,PI_Date = DateTime.Now });
+            }
+         
+            return Json(pd, JsonRequestBehavior.AllowGet);
           //  return Json(new PO_Details() { PO_ID = PO_ID }.PO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
