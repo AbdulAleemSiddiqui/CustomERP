@@ -181,18 +181,13 @@
         {
             $("#"+id).jsGrid({ inserting: true });
             var tr = $("#"+id+" .jsgrid-insert-row").closest("tr");
-            if(id==="jsGrid"){
-               var disble=tr.find("td:eq(0)")
-               var txtdisabled=disble.find("input:eq(0)").attr("disabled", "disabled");
-               disble=tr.find("td:eq(1)")
-               disabled=disble.find("input:eq(0)").attr("disabled", "disabled");
-               disble=tr.find("td:eq(2)")
-               disabled=disble.find("input:eq(0)").attr("disabled", "disabled");
-               disble=tr.find("td:eq(3)")
-               disabled=disble.find("input:eq(0)").attr("disabled", "disabled");
-               disble=tr.find("td:eq(4)")
-               disabled=disble.find("input:eq(0)").attr("disabled", "disabled");
-            }
+            //if(id==="jsGrid"){
+            //   var disble=tr.find("td:eq(0)")
+            //   var txtdisabled=disble.find("input:eq(0)").attr("disabled", "disabled");
+            //   disble=tr.find("td:eq(1)")
+            //   disabled=disble.find("input:eq(0)").attr("disabled", "disabled");
+             
+            //}
             var td=tr.find("td:eq(0)")
             debugger
 
@@ -411,51 +406,21 @@
                     clients.push(args.item);
                 },
                 fields: [
-                {name:"PI_NO", title: "PI NO", type: "text", width:  80, validate: "required" ,
-                insertTemplate: function(value) {
-                    this.insertControl = $("<input>");
+                {name:"PI_NO", title: "PI NO", type: "text", width:  80 ,readOnly: true  ,editing: false
+             
+                },
+                {name:"PI_Date", title: "PI Date", type: "text", width:  80,readOnly: true   ,editing: false
+          
+                },
+                {name:"Item_Name", title: "Product Name", type: "text", width:  80 ,editing: false  
 
-                    focusChange(this.insertControl,"jsGrid");
-
-
-
-                    return this.insertControl;
+           
                 },
-
-                editTemplate: function (args) {
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                    update_on_enter($editControl,"jsGrid");
-                    return $editControl;
+                {name:"Item_Description", title: "Product Description", type: "text", width:  80, validate: "required",editing: false  
+        
                 },
-                },
-                {name:"PI_Date", title: "PI Date", type: "text", width:  80, validate: "required",
-                    editTemplate: function (args) {
-                        var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                        var th= this;
-                        update_on_enter($editControl,"jsGrid");
-                        return $editControl;
-                    },
-                },
-                {name:"Product_Name", title: "Product Name", type: "text", width:  80, validate: "required" ,
-
-                editTemplate: function (args) {
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                    update_on_enter($editControl,"jsGrid");
-                    return $editControl;
-                },
-                },
-                {name:"Product_Description", title: "Product Description", type: "text", width:  80, validate: "required",
-                    editTemplate: function (args) {
-                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    var th= this;
-                    update_on_enter($editControl,"jsGrid");
-                    return $editControl;
-                    },
-                },
-                {name:"PI_Quantitiy", title: "PI Quantitiy", type: "number", width:  80,
-                    validate: "required",
+                {name:"PI_Qty", title: "PI Quantitiy", type: "number", width:  80,
+                validate: "required",editing: false  ,
 
                     insertTemplate: function () {
                         var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
@@ -467,31 +432,14 @@
 
                       
                             var p_Q = this.value;
-                            th._grid.fields[5].insertControl.val(rate*p_Q)//val(unit);
+                            th._grid.fields[5].insertControl.val(p_Q)//val(unit);
                             
                          
                         });
                      
                         return $insertControl;
                     },
-                    editTemplate: function (args) {
-                        var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                        var th= this;
-                        $editControl.on("keyup change", function () {
-
-                            var rate =  th._grid.fields[4].editControl.val();
-
-                      
-                            var p_Q = this.value;
-                            th._grid.fields[5].editControl.val(rate*p_Q)//val(unit);
-                            
-                            //var dscnt = th._grid.fields[8].editControl.val(th._grid.fields[8].editControl.val()).trigger("change");
-
-                        });
-              
-                        update_on_enter($editControl,"jsGrid");
-                        return $editControl;
-                    },
+                
                 },
                 {name:"PO_Qty", title: "PO Quantity", type: "number", width:  60, validate: "required",
                     insertTemplate: function () {
@@ -526,7 +474,14 @@
                         return $editControl;
                     },
                 },
-          
+           {
+               name: "Item_Code",
+               title: "",
+               type: "text",
+               visible: false
+
+
+           },
                  {
                      name: "PI_ID",
                      title: "",
