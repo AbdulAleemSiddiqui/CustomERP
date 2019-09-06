@@ -28,6 +28,7 @@ namespace SfDesk.Models
         public int Quantitiy { get; set; }
 
         public string action { get; set; }
+        public int Item_Cat_ID { get; set; }
 
         public void PO_Detail_Update()
         {

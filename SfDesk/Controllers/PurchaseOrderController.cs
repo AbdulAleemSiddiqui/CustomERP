@@ -106,17 +106,7 @@ namespace SfDesk.Controllers
 
         public ActionResult PO_Create()
         {
-
-            try
-            {
-                // Loading drop down lists.
-                this.ViewBag.ItemCategoryList = this.GetItemCategories();
-            }
-            catch (Exception ex)
-            {
-                // Info
-                Console.Write(ex);
-            }
+            List<PO_Details> lst = new List<PO_Details>();
             return View();
         }
         [HttpPost]

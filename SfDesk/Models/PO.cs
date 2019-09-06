@@ -24,7 +24,7 @@ namespace SfDesk.Models
       
 
         [DisplayName("Item Type")]
-        public List<Item_Category> Item_Categories { get; set; }
+        public List<int> Item_Categories { get; set; }
         //public int Item_Type_ID { get; set; }
         //public string Item_Type_Name { get; set; } = "";
 
