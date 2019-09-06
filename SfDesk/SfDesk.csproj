@@ -580,6 +580,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <None Include="Content\Model.snippet" />
+    <Content Include="Content\chosen.css" />
     <Content Include="extra\Antlr3.Runtime.dll" />
     <Content Include="extra\EntityFramework.dll" />
     <Content Include="extra\EntityFramework.SqlServer.dll" />
@@ -750,6 +751,7 @@
     <None Include="Properties\PublishProfiles\Sf-Desk.pubxml" />
     <None Include="Properties\PublishProfiles\SFDesk.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -883,6 +885,7 @@
     <Content Include="Views\GDN\detaill.cshtml" />
     <Content Include="Views\GDN\Master.cshtml" />
     <Content Include="Views\PurchaseIndend\Master.cshtml" />
+    <Content Include="Views\PurchaseOrder\PO_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
