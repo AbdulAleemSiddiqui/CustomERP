@@ -54,7 +54,7 @@ namespace SfDesk.Models
         public string AllocatedStatus { get; set; }
         #endregion
         public List<PO_Details> details { get; set; }
-      
+        public List<int> Item_Categories { get; set; }
         //[Display(Name = "attach file")]
         //[FileExtensions(Extensions = "txt,doc,docx,pdf", ErrorMessage = "Please upload valid format")]
         //public HttpPostedFileBase Attachment { get; set; }

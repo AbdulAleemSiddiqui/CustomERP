@@ -19,6 +19,7 @@ namespace SfDesk.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PI_Date { get; set; }
+        public int Item_ID { get; set; }
         [DisplayName("Item Code")]
         public int Item_Code { get; set; }
         [DisplayName("Item Name")]
@@ -32,7 +33,7 @@ namespace SfDesk.Models
 
         public string action { get; set; }
         public int Item_Cat_ID { get; set; }
-
+        public bool is_Selected { get; set; }
         public void PO_Detail_Update()
         {
             SqlCommand sc = new SqlCommand("PO_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
@@ -80,6 +81,7 @@ namespace SfDesk.Models
             sdr.Close();
             return ls;
         }
+
         public int PO_Detail_Add()
         {
             SqlCommand sc = new SqlCommand("PO_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;

@@ -16,7 +16,7 @@
                     <div class="form-group">
                         @Html.Label("Select Categories", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "IC_ID", "IC_Name"), new { @class = "form-control chosen-select" ,@multiple="true"})
+                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "IC_ID", "IC_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
                         </div>
                     </div>
 
@@ -44,8 +44,8 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="PI_Detail_tbl">
-
+                                <tbody id="PO_Detail_tbl">
+                                 
                                 </tbody>
                             </table>
                         </div>
@@ -69,9 +69,49 @@
 
 @section scripts
 {
-<script src="~/Scripts/chosen.jquery.js"></script>
+    <script src="~/Scripts/chosen.jquery.js"></script>
 
     <script>
         $('.chosen-select').chosen();
+       
+        $('#Item_Categories').change(function () {
+            var selectedValues = $(this).val();  
+            debugger;   
+           
+            $.ajax({
+                url: '/PurchaseOrder/Get_PO_Detail',
+                type: 'GET',
+                dataType: 'json',
+                data: { Cat_ID: JSON.stringify(selectedValues) },
+                contentType: 'application/json; charset=utf-8',
+                success: function (details) {
+                    var tbl = $('#PO_Detail_tbl');
+                    debugger;
+                    tbl.html("");
+                    $.each(details, function (index, item) {
+
+                        var a = "<tr>" +
+                            "<td>" +
+                            "<input type='hidden'  id='details[" + index + "].PI_ID' name='details[" + index + "].PI_ID' value='" + item.PI_ID + "' />" +
+                            "<input type='hidden'  id='details[" + index + "].Item_ID' name='details[" + index + "].Item_ID' value='"+item.Item_ID+"' />" +
+                            "<input  type='checkbox' id='details[" + index + "].is_Selected' name='details[" + index + "].is_Selected' value='true'/> " +
+                             "<input type='hidden' value='false'  name='details[" + index + "].is_Selected' /> </td>"+
+                        "<td>" +
+                            item.PI_NO +
+                        "</td> <td>" +
+                        item.PI_Date +
+                        "</td> <td>" +
+                        item.Item_Name +
+                        "</td> <td>" +
+                        item.PI_Qty +
+                        "</td>" +
+                            +"</tr>"
+                        tbl.append(a);
+                    });
+                }
+            });
+
+        })
+
     </script>
 }

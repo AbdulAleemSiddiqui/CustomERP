@@ -106,8 +106,8 @@ namespace SfDesk.Controllers
 
         public ActionResult PO_Create()
         {
-            List<PO_Details> lst = new List<PO_Details>();
-            return View();
+          
+            return View(new PO() );
         }
         [HttpPost]
         public ActionResult PO_Create(PO c)
@@ -116,39 +116,15 @@ namespace SfDesk.Controllers
             return View();
         }
 
-        private IEnumerable<SelectListItem> GetItemCategories()
+        public ActionResult Get_PO_Detail(string [] Cat_ID)
         {
-            // Initialization.
-            SelectList lstobj = null;
-
-            try
+              List<PO_Details> pd = new List<PO_Details>();
+            for (int i = 0; i < 10; i++)
             {
-                // Loading.
-                var list = new Item_Category().Item_Category_Get_All()
-                                  .Select(p =>
-                                            new SelectListItem
-                                            {
-                                                Value = p.IC_ID.ToString(),
-                                                Text = p.IC_Name
-                                            });
-
-                // Setting.
-                lstobj = new SelectList(list, "Value", "Text");
+                pd.Add(new PO_Details() { PI_NO = DateTime.Now.Year.ToString() + "||" + i, Item_Code = i, Item_Name = $"product {i}", Item_Description = $"product no {i}", PI_ID = i, PI_Qty = 12 * i, PI_Date = DateTime.Now, Item_Cat_ID = i % 3 });
             }
-            catch (Exception ex)
-            {
-                // Info
-                throw ex;
-            }
-
-            // info.
-            return lstobj;
+            return Json(pd, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
         public ActionResult showAll()
         {
             return View();//(new PO() { App_Status = "PR_Approve" }.PR_Get_All());
@@ -237,7 +213,7 @@ namespace SfDesk.Controllers
             List<PO_Details> pd = new List<PO_Details>();
             for (int i = 0; i < 10; i++)
             {
-             pd.Add(new PO_Details() { PI_NO = DateTime.Now.Year.ToString() +"||"+ i,Item_Code = i,Item_Name = $"product {i}", Item_Description= $"product no {i}",PI_ID=i,PI_Qty = 12*i,PI_Date = DateTime.Now });
+             pd.Add(new PO_Details() { PI_NO = DateTime.Now.Year.ToString() +"||"+ i,Item_Code = i,Item_Name = $"product {i}", Item_Description= $"product no {i}",PI_ID=i,PI_Qty = 12*i,PI_Date = DateTime.Now , Item_Cat_ID =i%3});
             }
          
             return Json(pd, JsonRequestBehavior.AllowGet);
