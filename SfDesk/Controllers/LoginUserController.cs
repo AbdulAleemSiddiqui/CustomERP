@@ -15,12 +15,12 @@ namespace SfDesk.Controllers
         public ActionResult Login()
         {
 
-            var macAddr =
-                (
-                    from nic in NetworkInterface.GetAllNetworkInterfaces()
-                    where nic.OperationalStatus == OperationalStatus.Up
-                    select nic.GetPhysicalAddress().ToString()
-                ).FirstOrDefault();
+            //var macAddr =
+            //    (
+            //        from nic in NetworkInterface.GetAllNetworkInterfaces()
+            //        where nic.OperationalStatus == OperationalStatus.Up
+            //        select nic.GetPhysicalAddress().ToString()
+            //    ).FirstOrDefault();
             return View();
         }
         [HttpPost]
@@ -37,7 +37,7 @@ namespace SfDesk.Controllers
                 case "OK":
                     u.User_Update_Login_Date();
                     Session["ID"] = u;
-                    Session["COA"] = new ChartOfAccount().COA_Get_All();
+                  //  Session["COA"] = new ChartOfAccount().COA_Get_All();
                     return RedirectToAction("Index","user");
                 default:
                     ViewBag.i = "Wronge Email or Password";

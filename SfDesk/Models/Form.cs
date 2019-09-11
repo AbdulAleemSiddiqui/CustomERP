@@ -31,13 +31,13 @@ namespace SfDesk.Models
         public string Mac_Address { get; set; }
 
 
-        public Form()
-        {
-            this.Machine_Ip = Utility.GetIPAddress();
-            this.Mac_Address = Utility.GetMacAddress();
+        //public Form()
+        //{
+        //    this.Machine_Ip = Utility.GetIPAddress();
+        //    this.Mac_Address = Utility.GetMacAddress();
 
-        }
-        #endregion
+        //}
+       #endregion
 
         public List<Action> actions { get; set; }
         public void Form_Add()

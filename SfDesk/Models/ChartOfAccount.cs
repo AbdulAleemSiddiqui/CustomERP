@@ -39,11 +39,11 @@ namespace SfDesk.Models
 
         public string Mac_Address { get; set; }
 
-        public ChartOfAccount()
-        {
-            this.Machine_Ip = Utility.GetIPAddress();
-            this.Mac_Address = Utility.GetMacAddress();
-        }
+        //public ChartOfAccount()
+        //{
+        //    this.Machine_Ip = Utility.GetIPAddress();
+        //    this.Mac_Address = Utility.GetMacAddress();
+        //}
 
 
         #endregion
