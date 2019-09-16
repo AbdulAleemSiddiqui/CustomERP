@@ -12,9 +12,12 @@ namespace SfDesk.Models
         #region Properties
         public int PD_ID { get; set; }
         public int P_ID { get; set; }
-        public int PI_ID { get; set; }
-
-        public string P_Name { get; set; }
+        public int COA_ID { get; set; }
+        public string Payment_Mode { get; set; }
+        public string Account { get; set; }
+        public string Bank_Name { get; set; }
+        public string Instument_NO { get; set; }
+        public string Instrument_Date { get; set; }
         public decimal Amount { get; set; }
         public int Created_By { get; set; }
 
@@ -95,7 +98,7 @@ namespace SfDesk.Models
                 Payment_Detail u = new Payment_Detail();
                 u.PD_ID = (int)sdr["PD_ID"];
                 u.P_ID = (int)sdr["P_ID"];
-                u.PI_ID = (int)sdr["PI_ID"];
+                //u.PI_ID = (int)sdr["PI_ID"];
                 //u.P_Name = (string)sdr["P_Name "];
                 u.Amount = (decimal)sdr["Amount"];
 
@@ -119,7 +122,7 @@ namespace SfDesk.Models
             {
                 u.PD_ID = (int)sdr["PD_ID"];
                 u.P_ID = (int)sdr["P_ID"];
-                u.PI_ID = (int)sdr["PI_ID"];
+                //u.PI_ID = (int)sdr["PI_ID"];
                 //u.P_Name = (string)sdr["P_Name "];
                 u.Amount = (decimal)sdr["Amount"];
 
@@ -136,7 +139,7 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("Payment_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@P_ID", P_ID);
-            sc.Parameters.AddWithValue("@PI_ID", PI_ID);
+            //sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Amount", Amount);
 
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);

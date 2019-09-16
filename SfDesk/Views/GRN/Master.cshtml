@@ -15,52 +15,36 @@
                 <div class="form-horizontal">
                     <h4>GRN</h4>
                     <hr />
-                    @Html.HiddenFor(model=>model.PI_ID)
+                    @Html.HiddenFor(model=>model.PO_ID)
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group col-md-4">
-                        @Html.HiddenFor(Model => Model.Suplier_ID)
                         @Html.LabelFor(model => model.Suplier_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                        @{
-                            var Depart_list = new SfDesk.Models.Vendor().Vendor_Get_All();
-                        }
                         <div class="col-md-8">
-
+                            @Html.HiddenFor(Model => Model.Suplier_ID)
                             <input type="text" name="Suplier_Name" list="Suplier_List" id="Suplier_Name" class="form-control text-box">
-                            <datalist id="Suplier_List" class="control-label col-md-4">
+                            <datalist id="Suplier_List">
+                                @{
+                                    var Supplier_List = new SfDesk.Models.Vendor().Vendor_Get_All();
+                                }
 
-                                @foreach (var item in Depart_list)
+                                @foreach (var item in Supplier_List)
                                 {
                                     <option id="@item.Vendor_ID" data-id="@item.Vendor_ID" value="@item.Business_Name"></option>
                                 }
                             </datalist>
+
                             @Html.ValidationMessageFor(model => model.Suplier_ID, "", new { @class = "text-danger" })
                         </div>
+                        
                     </div>
 
+               
                     <div class="form-group col-md-4">
 
-                        @Html.LabelFor(model => model.Trans_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.Trans_NO, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.HiddenFor(model => model.GRN_NO, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.GRN_NO, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                            @Html.LabelFor(model => model.Trans_Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Trans_Date, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Trans_Date, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                    <div class="form-group col-md-4">
-
-                        @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group col-md-4">
@@ -72,26 +56,48 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.HiddenFor(Model => Model.Transporter_ID)
+                            <input type="text" name="Transporter_Name" list="Transporter_List" id="Transporter_Name" class="form-control text-box">
+                            <datalist id="Transporter_List">
+                                @{
+                                    var Transporter_List = new SfDesk.Models.Transporter().Transporter_Get_All();
+                                }
+
+                                @foreach (var item in Transporter_List)
+                                {
+                                    <option id="@item.T_ID" data-id="@item.T_ID" value="@item.Trading_Name"></option>
+                                }
+                            </datalist>
+                            @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn mini btn-primary" onclick="AddTrans()" style="margin-top:6px">
+                                <i class="ti-plus"></i>
+                            </button>
                         </div>
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Exchange_Rate, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Exchange_Rate, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Exchange_Rate, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Vehicle_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.Vehicle_ID, new SelectList(new List<string>()), htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Vehicle_ID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2" @*style="display:none"*@>
+                            <button type="button" class="btn mini btn-primary" onclick="AddVehicle()" style="margin-top:6px">
+                                <i class="ti-plus"></i>
+                            </button>
                         </div>
                     </div>
+      
+              
                     <div id="child"></div>
-                    <div id="child2"></div>
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
+                                <input type="button" value="Create",id="create", class="btn btn-default" />
                             </div>
                         </div>
                     </div>
@@ -101,6 +107,20 @@
     </div>
 </div>
 
+<div id='myModal' class='modal'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:auto;height:80%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div id='myModalContent'>
+
+            </div>
+        </div>
+    </div>
+
+</div>
 @section scripts
 {
 
@@ -109,10 +129,67 @@
     <script src="~/assets/js/db.js">
     </script>
     <script>
+        function AddSupplier() {
+            $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });
+            $('#myModal').modal('show');
+
+        };
+        function AddTrans() {
+            $.get('@Url.Action("Add", "Transporter")', function (data) { $("#myModalContent").html(data); });
+            $('#myModal').modal('show');
+
+        };
+   
+        function AddVehicle() {
+            var id = $('#Transporter_ID').val();
+            if (id != 0) {
+                $.get('@Url.Action("Add_Vehicle", "Transporter")' + '?id=' + id, function (data) { $("#myModalContent").html(data); });
+                $('#myModal').modal('show');
+            }
+        };
+        function populate() {
+            debugger;
+            var value = $('#Transporter_Name').val();
+            var name = "#Transporter_List";
+            name = name + " option[value='" + value + "']";
+            value = $(name).data('id');
+            $('#Transporter_ID').val(value);
+            id = $('#Transporter_ID').val()
+
+            $.ajax({
+                url: '/PurchaseInventory/Vehcile_Get_By_Transporter',
+                type: 'GET',
+                dataType: 'json',
+                data: { id: id },
+                success: function (d) {
+
+                    var ddlState = $('#Vehicle_ID');
+                    ddlState.empty();
+                    $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
+                    $.each(d, function (i, states) {
+                        if ($('#V_ID').val() == states.V_ID) {
+
+                            ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
+                        }
+                        else {
+                            ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
+                        }
+                    });
+                }
+            });
+        }
+       
+        var Master_Id = 0;
         DropDown_Fill("Suplier");
         Typable_Dropdown('Suplier');
         $(document).ready(function () {
-
+            $('#Transporter_Name').on("change", populate);
+            DropDown_Fill("Suplier");
+            DropDown_Fill("Transporter");
+            DropDown_Fill("Middle_Man");
+            Typable_Dropdown('Suplier');
+            Typable_Dropdown('Transporter');
+            Typable_Dropdown('Middle_Man');
             $.get('@Url.Action("detail", "grn")', function (data) { $("#child").html(data); });
             $.get('@Url.Action("Detail2", "grn")', function (data) { $("#child2").html(data); });
         });
@@ -120,16 +197,34 @@
             $("#myModalContent").html("")
         });
 
-     
-        $("form").submit(function (e) {
+        $("#create").click(function (e) {
             e.preventDefault();
-            $.post(this.action, $(this).serialize(), function (data) {
-                debugger;
-                window.location.href = '@Url.Action("Master", "Payment")';
+           @*$.post(this.action, $(this).serialize(), function (data) {
+               detail()
+               debugger;
+               Master_Id = data;
+               window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
 
-            })
-            
-        })
+           });*@
+           var data = {};
+            $(this).serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.details = clients;
+            data.transactions = myTransaction;
+            data.taxes = myTaxes;
+            $.ajax({
+                url: 'master',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("Master", "Payment")';
+
+                }
+
+            });
+        });
 
 
     </script>

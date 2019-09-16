@@ -1,5 +1,5 @@
 ﻿
-@model  IEnumerable<SfDesk.Models.GRN>
+
 
 
 @{
@@ -19,7 +19,7 @@
                 <div class="jsgrid-table-panel">
 
                     <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
-             
+
                 </div>
                 <!-- /# card -->
             </div>
@@ -37,7 +37,7 @@
         //   var txtdisabled=disble.find("input:eq(0)").attr("disabled", "disabled");
         //   disble=tr.find("td:eq(1)")
         //   disabled=disble.find("input:eq(0)").attr("disabled", "disabled");
-             
+
         //}
         var td=tr.find("td:eq(0)")
         debugger
@@ -65,10 +65,10 @@
         });
     }  // isme change he
     function update_on_enter(field,id) {
-    
+
         field.on("keydown", function(e) {
             debugger
-            
+
             if(e.keyCode === 13 ){
                 $("#"+id).jsGrid("updateItem");
                 return false;
@@ -104,19 +104,20 @@
     var clients =[]
     var CO=[]
     var arr =[]
+
     $(document).ready(function () {
 
+        debugger
 
          CO =@Html.Raw(Json.Encode(Session["COA"]));
         $.ajax({
             type: "GET",
-            url: "Index",
-          
+            url: "/GDN/index",
+
             dataType: "json",
             success: function (d) {
 
                 if (d.ID != 0)
-                    debugger
                     arr = d
                     my()
                     newRow("jsGrid")
@@ -184,7 +185,7 @@
             onItemInserting: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+              //  args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'I';
                 clients.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
@@ -195,7 +196,7 @@
             onItemUpdating: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                //args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'U';
                 clients.push(args.item)
 
@@ -212,17 +213,17 @@
                 clients.push(args.item);
             },
                 fields: [
-          
-               {name:"Item_Name", title: "Product Name", type: "text", width:  80 ,editing: false  
 
-           
+               {name:"Item_Name", title: "Product Name", type: "text", width:  80 ,editing: false
+
+
                },
-               {name:"Item_Description", title: "Product Description", type: "text", width:  80, editing: false  
-        
+               {name:"Item_Description", title: "Product Description", type: "text", width:  80, editing: false
+
                },
-             
-               {name:"Qty", title: "Quantity", type: "number", width:  60,editing: false  
-         
+
+               {name:"Qty", title: "Quantity", type: "number", width:  60,editing: false
+
                },
                 {name:"Net_weight", title: "Net weight", type: "text", width:  80, validate: "required",
                 editTemplate: function (args) {
@@ -230,10 +231,10 @@
                     update_on_enter($editControl,"jsGrid");
                     return $editControl;
                 }
-        
+
                 },
                 {name:"Gross_weight", title: "Gross weight", type: "text", width:  80, validate: "required",
-                     
+
                 insertTemplate: function () {
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                     insert_on_enter(this.insertControl,"jsGrid");
@@ -280,4 +281,5 @@
             });
     }
 </script>
+
 

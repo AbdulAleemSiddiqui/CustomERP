@@ -1,5 +1,4 @@
 ﻿
-
 <link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
 <link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
 <style>
@@ -310,6 +309,35 @@
 
             },
             fields: [
+                 {
+                     name: "Store_Name", title: "Store", type: "text", width: 80, validate: "required",
+                     insertTemplate: function (value) {
+                         var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                         var th = this;
+                         $insertControl.on("keyup change", function () {
+                             debugger;
+                             var p_Q = parseInt(this.value);
+                             th._grid.fields[1].insertControl.val(p_Q)//val(unit);
+
+
+
+
+
+
+                         });
+                         focusChange($insertControl);
+
+
+
+                         return this.insertControl;
+                     },
+                     editTemplate: function (args) {
+                         var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                         update_on_enter($editControl);
+
+                         return $editControl;
+                     },
+                 },
             {
                 name: "Product_Code", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_ID", insertTemplate: function (value) {
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
@@ -991,4 +1019,5 @@
 
     }
 </script>
+
 

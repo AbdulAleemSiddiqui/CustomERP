@@ -39,47 +39,42 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.P_Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.P_Date, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.P_Date, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
+                        @Html.LabelFor(model => model.Payment_No, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.Currency, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Payment_No, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Payment_No, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
+  
+       
                     <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.ExRate, htmlAttributes: new { @class = "control-label col-md-4" })
+                        @Html.LabelFor(model => model.Ref_No, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.ExRate, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ExRate, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Job_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Job_ID, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Job_ID, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        @Html.LabelFor(model => model.Naration, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Naration, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Naration, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Ref_No, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Ref_No, "", new { @class = "text-danger" })
                         </div>
                     </div>
          
-                    <div id="child"></div>
+                    <div col-md-12" id="child"></div>
                    
+                   
+                     <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div col-md-12" id="child2"></div>
                     <div class="form-group">
                         <div class="col-md-10">
                             <input type="submit" value="Create" class="btn btn-default" id="submit"/>
@@ -114,16 +109,18 @@
         Typable_Dropdown('Suplier');
         $(document).ready(function () {
             $.get('@Url.Action("detail", "payment")', function (data) { $("#child").html(data); });
-
+            var date =  $.now()
+            $("#Date").datepicker("setDate", new Date(date));
         });
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
         });
 
-        $("#Suplier_ID").on("change", function () {
+        $("#Suplier_Name").on("change", function () {
             sup_ID = $('option:selected', this).attr('value');
 
             detail();
+            
         })
         $("form").submit(function (e) {
             e.preventDefault();

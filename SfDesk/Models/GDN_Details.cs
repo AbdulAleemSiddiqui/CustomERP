@@ -6,10 +6,8 @@ using System.Web;
 
 namespace SfDesk.Models
 {
-    public class GRN_Details
+    public class GDN_Details
     {
-
-
 
         public int Detail_ID { get; set; }
         public int GRN_ID { get; set; }
@@ -21,13 +19,12 @@ namespace SfDesk.Models
         public string Item_Name { get; set; } = "";
         [DisplayName("Item Desc.")]
         public string Item_Description { get; set; } = "";
-       
+
         [DisplayName("Quantity")]
         public int Qty { get; set; }
         public decimal Net_Weight { get; set; }
         public decimal Gross_Weight { get; set; }
 
         public string action { get; set; }
-
     }
 }

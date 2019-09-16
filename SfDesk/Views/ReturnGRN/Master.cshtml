@@ -1,4 +1,5 @@
-﻿@model SfDesk.Models.GDN
+﻿@model SfDesk.Models.ReturnGrn
+
 
 @{
     ViewBag.Title = "Master";
@@ -15,7 +16,6 @@
                 <div class="form-horizontal">
                     <h4>GDN</h4>
                     <hr />
-                    <input hidden="hidden" name="SO_ID" id="SO_ID" value="@Model.SO_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group ">
@@ -39,16 +39,16 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.GDN_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.SGRN_NO, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.GDN_NO, new
+                                @Html.EditorFor(model => model.SGRN_NO, new
                            {
                                htmlAttributes = new
                                {
                                    @class = "form-control"
                                }
                            })
-                                @Html.ValidationMessageFor(model => model.GDN_NO, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.SGRN_NO, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -138,7 +138,7 @@
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                 
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.AttachmentPath, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -184,20 +184,12 @@
                         </div>
                     </div>
 
-                
+
 
 
                     <div id="child"></div>
 
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
+               <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-8">
                             @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
@@ -240,8 +232,8 @@
 
             $.get('@Url.Action("detail", "gdn")', function (data) { $("#child").html(data); });
 
-         
-           
+
+
             $('#Transporter_Name').on("change", populate);
         });
         $('#myModal').on("hidden.bs.modal", function () {
@@ -291,4 +283,4 @@
 
 
     </script>
-}
+    }

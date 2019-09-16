@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace SfDesk.Models
 {
-    public class GDN
+    public class ReturnGrn
     {
-        public int SO_ID { get; set; }
-        public int GDN_ID { get; set; }
-        public string GDN_NO { get; set; }
+         public int SGRN_ID { get; set; }
+        public string SGRN_NO { get; set; }
         [DisplayName("Customer")]
         public int Customer_ID { get; set; }
         public String Customer_Name { get; set; }
@@ -28,9 +26,6 @@ namespace SfDesk.Models
         public int Branch_ID { get; set; }
 
         public string Branch_Name { get; set; }
-        [DisplayName("Shipping Address")]
-        public string ShippingAddress { get; set; } = "";
-
         [DisplayName("Vehicle #")]
         public int Vehicle_ID { get; set; }
         public string Vehicle_No { get; set; }
@@ -45,6 +40,5 @@ namespace SfDesk.Models
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
         #endregion
-
     }
 }

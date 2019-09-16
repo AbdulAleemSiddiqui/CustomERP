@@ -1,5 +1,4 @@
-﻿@model SfDesk.Models.SaleOrder
-
+﻿@model SfDesk.Models.Quotation
 @{
     ViewBag.Title = "master";
     Layout = "~/Views/Shared/_dashLayout.cshtml";
@@ -18,9 +17,9 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>SalesOrder</h4>
+                    <h4>Quotation</h4>
                     <hr />
-                    <input hidden="hidden" name="S_ID" id="S_ID" value="@Model.S_ID" />
+                    <input hidden="hidden" name="Q_ID" id="Q_ID" value="@Model.Q_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group ">
@@ -44,16 +43,16 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.S_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Q_NO, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.S_NO, new
+                                @Html.EditorFor(model => model.Q_NO, new
                            {
                                htmlAttributes = new
                                {
                                    @class = "form-control"
                                }
                            })
-                                @Html.ValidationMessageFor(model => model.S_NO, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Q_NO, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,10 +113,10 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Delivery_Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Delivery_Date, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Delivery_Date, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group ">
@@ -135,7 +134,7 @@
 
                                     @foreach (var item in Branch_List)
                                     {
-                                        <option id="@item" data-id="@item" value="@item"></option>
+                                    <option id="@item" data-id="@item" value="@item"></option>
                                     }
                                 </datalist>
 
@@ -153,15 +152,15 @@
                     </div>
 
                     <div id="child"></div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Term, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Term, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Term, "", new { @class = "text-danger" })
+                 
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Term, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Term, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Term, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <br />
+                  <br />
                     <div class="jsgrid-table-panel col-lg-5">
                         <h5>Charges</h5>
 
@@ -191,7 +190,7 @@
                     </div>
                 </div>
 
-                                        }
+            }
 
 
         </div>
@@ -214,172 +213,98 @@
 @section scripts
 {
 
+    <script src="~/assets/js/jsgrid.min.js"></script>
     <script src="~/assets/js/TypableDropdown.js"></script>
-<script src="~/assets/js/jsgrid.min.js"></script>
-<script src="~/assets/js/db.js">
-
-</script>
+    <script src="~/assets/js/db.js"></script>
     <script>
-     var details= []
-     var myOpts = []
-     var mytrans = []
-     editedClients = []
-     var Master_Id = 0;
-     $(window).load(function () {
+        var details = []
+        var Master_Id = 0
 
-         detail()
-   
-
-     });
-        $(document).ready(function () {   // Help for the HTML4 version.
-
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-
-            today = mm + '/' + dd + '/' + yyyy;
-            $('#ADate').val(today);
-            Typable_Dropdown('Account_Receivable');
-            Typable_Dropdown('Sale_Account');
-            Typable_Dropdown('Customer');
-            Typable_Dropdown('Transporter');
-            Typable_Dropdown('Sales_Man');
-            id = $('#Transporter_ID').val();
-        
-
-        
-
-        });
         $('#cancel').click(function () {
-            window.location.href = '/SaleOrder/Showall';
+            window.location.href = '/PurchaseRequisition/Showall';
         });
         $('#done').click(function () {
-            window.location.href = '@Url.Action("Showall", "SaleOrder")';
+            window.location.href = '@Url.Action("Showall", "PurchaseRequisition")';
         });
-       
         $('#approve').click(function () {
             debugger;
-            @*$.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
-                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+            @*$.post('@Url.Action("Approve", "PurchaseRequisition")', $('form').serialize(), function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
             })*@
+            //$.post(this.action, $(this).serialize(), function (data) {
+
+            //    Master_Id = data;
+            //    addDetails()
+            //})
+
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             data.details = clients;
-            data.transactions = myTransaction;
-            data.taxes = myTaxes;
+            debugger
             $.ajax({
-                url: '@Url.Action("Approve", "SaleOrder")',
+                url: '@Url.Action("Approve", "PurchaseRequisition")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
-                    c: data,
+                    p: data, pi: clients, pie: editedClients
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
                 }
 
             });
-        })
+        });
+        $(document).ready(function () {   // Help for the HTML4 version.
+
+            $('#myModal').on("hidden.bs.modal", function () {
+                $("#myModalContent").html("")
+            });
+            detail();
 
 
-
-        $("form").submit(function (e) {
-
-            e.preventDefault();
-            var data = {};
-            $(this).serializeArray().map(function (x) { data[x.name] = x.value; });
-            data.details = clients;
-            data.transactions = myTransaction;
-            data.taxes = myTaxes;
-            $.ajax({
-                url: this.action,
-                type: 'Post',
-                dataType: 'json',
-                data: {
-                    c: data,
-                },
-                success: function (data) {
-                    var model = new FormData();
-                    var files = $('input[type="file"]')[0].files[0];
-                    model.append("file", files);
-                    model.append("P_ID", data);
-                    debugger;
-                    $.ajax({// and other parameter is set here
-                        url: '/SaleOrder/SaveImage',
-                        type: "POST",
-                        data: model,
-                        dataType: "json",
-                        cache: false,
-                        contentType: false,
-                        processData: false
-
-                    })
-       .always(function (result) {
-       });
-
-                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
-                }
-
-            })
-            //$.post(this.action, $(this).serialize(), function (data) {
-            //    detail()
-            //    ;
-            //    Master_Id = data;
-            //})
 
         });
 
+        $("#create").click(function (e) {
+            e.preventDefault();
+            //$.post(this.action, $(this).serialize(), function (data) {
 
-       
+            //    Master_Id = data;
+            //    addDetails()
+            //})
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
+            data.details = clients;
+            $.ajax({
+                url: '@Url.Action("master", "PurchaseRequisition")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data, pi: clients, pie: editedClients
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+                }
+
+            });
+        });
+
+
         /*ye master ka he*/
         function detail() {
 
-            $.get('@Url.Action("detail", "SaleOrder")', function (data) { $("#child").html(data); });
+            $.get('@Url.Action("detail")', function (data) { $("#child").html(data); });
             $("#done").hide()
             debugger;
 
         };
-        function AddSupplier() {
-            $.get('@Url.Action("AddPartial", "Vendor")', function (data) { $("#myModalContent").html(data); });
+        function AddSM() {
+            $.get('@Url.Action("add", "salesman")', function (data) { $("#myModalContent").html(data); });
             $('#myModal').modal('show');
 
         };
-        function AddTrans() {
-            $.get('@Url.Action("Add", "Transporter")', function (data) { $("#myModalContent").html(data); });
-            $('#myModal').modal('show');
-
-        };
-        function AddVehicle() {
-            var id = $('#Transporter_ID').val();
-            if (id != 0) {
-                $.get('@Url.Action("Add_Vehicle", "Transporter")' + '?id=' + id, function (data) { $("#myModalContent").html(data); });
-                $('#myModal').modal('show');
-            }
-        };
-
-        var id = 0;
-        function populate() {
-            id = $('#Transporter_ID').val()
-            debugger;
-            $.ajax({
-                url: '/SaleOrder/Vehcile_Get_By_Transporter',
-                type: 'GET',
-                dataType: 'json',
-                data: { id: id },
-                success: function (d) {
-
-                    var ddlState = $('#Vehicle_ID');
-                    ddlState.empty();
-                    $("#Vehicle_ID").prepend("<option value='' selected='selected'></option>");// Clear the please wait
-                    $.each(d, function (i, states) {
-
-                        ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
-                    });
-                }
-            });
-        }
-        $('#Transporter_Name').on("change", populate);
+      
 
     </script>
 }

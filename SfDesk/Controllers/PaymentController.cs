@@ -12,7 +12,17 @@ namespace SfDesk.Controllers
         // GET: Payment
         public ActionResult Index()
         {
-            return View();
+            List<Payment_Detail> pd = new List<Payment_Detail>();
+           
+
+            return Json(pd, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Tax_adjustment()
+        {
+            List<Payment_Tax_adjustment> pd = new List<Payment_Tax_adjustment>();
+
+
+            return Json(pd, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Master()
         {
@@ -22,8 +32,8 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Master(Payment d )
         {
-            int id =Convert.ToInt32(d.Payment_Add());
-            return Json(id,JsonRequestBehavior.AllowGet);
+            //int id =Convert.ToInt32(d.Payment_Add());
+            return Json(0,JsonRequestBehavior.AllowGet);
         }
         public ActionResult PaymentDetail()
         {
@@ -50,9 +60,9 @@ namespace SfDesk.Controllers
             }
             return PartialView("detail", new List<Payment_Mode>());
         }
-        public ActionResult Bill_Get_By_SID(int id)
+        public ActionResult Bill_Get_By_SID(int? id)
         {
-            return Json( new Payment_Detail().Bill_Get_By_SID(id).FindAll(x=> x.TotalAmount > 0 && x.DueAmount>0),JsonRequestBehavior.AllowGet);
+            return Json( new List<Payment_Settlement>(),JsonRequestBehavior.AllowGet);
         }
 
 
