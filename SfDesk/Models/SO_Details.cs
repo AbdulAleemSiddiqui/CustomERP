@@ -57,7 +57,7 @@ namespace SfDesk.Models
         }
         public void SO_Detail_Update()
         {
-            SqlCommand sc = new SqlCommand("SO_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Detail_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
@@ -75,7 +75,7 @@ namespace SfDesk.Models
         }
         public void SO_Detail_Delete()
         {
-            SqlCommand sc = new SqlCommand("SO_Detail_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Detail_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
@@ -85,7 +85,7 @@ namespace SfDesk.Models
         {
 
             List<SO_Details> ls = new List<SO_Details>();
-            SqlCommand sc = new SqlCommand("SO_Detail_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Detail_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -114,7 +114,7 @@ namespace SfDesk.Models
         }
         public int SO_Detail_Add()
         {
-            SqlCommand sc = new SqlCommand("SO_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Detail_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@Store", Store);

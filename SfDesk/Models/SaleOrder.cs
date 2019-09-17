@@ -82,7 +82,7 @@ namespace SfDesk.Models
         #region SO
         public int SI_Add()
         {
-            SqlCommand sc = new SqlCommand("Sale_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Sale_Inventory_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PR_No", PR_No);
             sc.Parameters.AddWithValue("@is_SO",SO_No);
@@ -106,7 +106,7 @@ namespace SfDesk.Models
         }
         public int SO_Add()
         {
-            SqlCommand sc = new SqlCommand("SO_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PR_No", PR_No);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
@@ -129,7 +129,7 @@ namespace SfDesk.Models
         }
         public void SO_Approve()
         {
-            SqlCommand sc = new SqlCommand("SO_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Approve", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
@@ -151,7 +151,7 @@ namespace SfDesk.Models
         public List<SaleOrder> SO_Get_All()
         {
             List<SaleOrder> lst = new List<SaleOrder>();
-            SqlCommand sc = new SqlCommand("SO_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -200,7 +200,7 @@ namespace SfDesk.Models
         #endregion
         public void SO_SaveImage()
         {
-            SqlCommand sc = new SqlCommand("SO_SaveImage", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_SaveImage", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@imagePath", ImagePath);
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
@@ -211,7 +211,7 @@ namespace SfDesk.Models
        
         public string SO_Get_New_ID()
         {
-            SqlCommand sc = new SqlCommand("SO_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SO_Get_New_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.Parameters.Add("@a", SqlDbType.Int);
             sc.Parameters["@a"].Direction = ParameterDirection.Output;

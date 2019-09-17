@@ -92,7 +92,7 @@ namespace SfDesk.Models
         #region CRUD
         public int Vendor_Add()
         {
-            SqlCommand sc = new SqlCommand("Vendor_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vendor_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
 
             sc.Parameters.AddWithValue("@Vendor_Type", Vendor_Type);
@@ -130,7 +130,7 @@ namespace SfDesk.Models
         }
         public void Vendor_Update()
         {
-            SqlCommand sc = new SqlCommand("Vendor_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vendor_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Vendor_ID", Vendor_ID);
             sc.Parameters.AddWithValue("@Vendor_Type", Vendor_Type);
@@ -167,14 +167,14 @@ namespace SfDesk.Models
         }
         public void Vendor_Delete()
         {
-            SqlCommand sc = new SqlCommand("Vendor_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vendor_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Vendor_ID", Vendor_ID);
             sc.ExecuteNonQuery();
         }
         public Vendor Vendor_Get_BY_ID(int id)
         {
             Vendor u = new Vendor();
-            SqlCommand sc = new SqlCommand("Vendor_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vendor_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Vender_ID", id);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -221,7 +221,7 @@ namespace SfDesk.Models
         {
 
             List<Vendor> ls = new List<Vendor>();
-            SqlCommand sc = new SqlCommand("Vendor_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vendor_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -268,7 +268,7 @@ namespace SfDesk.Models
         {
 
             List<Vendor> ls = new List<Vendor>();
-            SqlCommand sc = new SqlCommand("Vendor_Get_All_For_Lov", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vendor_Get_All_For_Lov", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -284,4 +284,7 @@ namespace SfDesk.Models
         }
         #endregion
     }
+
+
+    
 }

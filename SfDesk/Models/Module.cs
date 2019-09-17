@@ -26,7 +26,7 @@ namespace SfDesk.Models
 
         public void Module_Add()
         {
-            SqlCommand sc = new SqlCommand("Module_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Module_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Module_Name", Module_Name);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
@@ -36,7 +36,7 @@ namespace SfDesk.Models
         public List<Form> Form_Get_By_Module(int Module_ID,int R_ID)
         {
             forms = new List<Form>();
-            SqlCommand sc = new SqlCommand("Form_Get_By_Module", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Form_Get_By_Module", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Mod_Id", Module_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             List<int> selected = Menu_Role_Selected_Menu(R_ID);
@@ -66,7 +66,7 @@ namespace SfDesk.Models
         }
         public List<int> Menu_Role_Selected_Menu(int R_ID)
         {
-            SqlCommand sc = new SqlCommand("Menu_Role_Selected_Menu", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Menu_Role_Selected_Menu", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             List<int> lst = new List<int>();

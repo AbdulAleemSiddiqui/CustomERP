@@ -91,14 +91,10 @@
     var  trans_total = 0;
     var grand_total =0;
     function loadData() {
-
-
-
             var id =  $('#PI_ID').val()
-            if (typeof (history.pushState) != "undefined") {
-
-                window.history.pushState( {} , 'PurchaseInventory', '/PurchaseInventory/master' );
-            }
+            //if (typeof (history.pushState) != "undefined") {
+            //    window.history.pushState( {} , 'PurchaseInventory', '/PurchaseInventory/master' );
+            //}
             $.ajax({
                 type: "GET",
                 url: "index",
@@ -112,13 +108,11 @@
                     newRow("jsGrid") 
                 }
             });
-
             $.ajax({
                 type: "GET",
                 url: "Get_taxes",
                 dataType: "json",
                 success: function (d) {
-
                     if (d.ID != 0){
                         taxes = d
                         taxes.unshift({SalesTax_ID : ""})
@@ -132,15 +126,12 @@
 
                             if (d.ID != 0){
                                 taxess = f
-                               
-                             
                             }
                             taxess.forEach(function(item) {
                                 item.Total = Gross_total*(item.Rate/100);
                                 item.Total=item.Total.toFixed(2);
                             });
                             tax()
-    
                             newRow("Grid") 
                         }
                     });

@@ -42,7 +42,7 @@ namespace SfDesk.Models
         public List<Action> actions { get; set; }
         public void Form_Add()
         {
-            SqlCommand sc = new SqlCommand("Form_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Form_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Form_Name", Form_Name);
             sc.Parameters.AddWithValue("@Module_ID", Module_ID);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);  
@@ -54,7 +54,7 @@ namespace SfDesk.Models
         {
             List<Form> lst = new List<Form>();
 
-            SqlCommand sc = new SqlCommand("Menu_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Menu_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", id);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -80,7 +80,7 @@ namespace SfDesk.Models
         {
             List<Form> lst = new List<Form>();
 
-            SqlCommand sc = new SqlCommand("Menu_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Menu_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", ((user)HttpContext.Current.Session["ID"]).U_Id);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();

@@ -74,7 +74,7 @@ namespace SfDesk.Models
         public Company Company_Get_By_User(int U_id)
         {
             Company u = new Company();
-            SqlCommand sc = new SqlCommand("Company_Get_By_User", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Company_Get_By_User", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", U_id);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -110,7 +110,7 @@ namespace SfDesk.Models
         public List<Company> Company_Get_All()
         {
             List<Company> lst = new List<Company>();
-            SqlCommand sc = new SqlCommand("Company_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Company_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -147,7 +147,7 @@ namespace SfDesk.Models
         public Company Company_Get_By_ID(int id)
         {
             Company u = new Company();
-            SqlCommand sc = new SqlCommand("Company_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Company_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Company_ID", id);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -182,7 +182,7 @@ namespace SfDesk.Models
         }
         public void Company_Add()
         {
-            SqlCommand sc = new SqlCommand("Company_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Company_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Company_Name", Company_Name);
             sc.Parameters.AddWithValue("@Contact", Email);
@@ -210,7 +210,7 @@ namespace SfDesk.Models
         }
         public void Company_Update()
         {
-            SqlCommand sc = new SqlCommand("Company_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Company_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
 
             sc.Parameters.AddWithValue("@Company_ID", Company_ID);
             sc.Parameters.AddWithValue("@Company_Name", Company_Name);
@@ -236,14 +236,14 @@ namespace SfDesk.Models
         }
         public void Company_Delete()
         {
-            SqlCommand sc = new SqlCommand("Company_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Company_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@id", Company_ID);
             sc.ExecuteNonQuery();
         }
         #endregion
         public bool Verify()
         {
-            SqlCommand sc = new SqlCommand("Company_Check_Duplication", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Company_Check_Duplication", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Company_Name", Company_Name);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             object return_Data =sc.ExecuteScalar();

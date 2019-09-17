@@ -36,7 +36,7 @@ namespace SfDesk.Models
         public List<PurchaseInventory> Bill_Get_By_SID(int id)
         {
             List<PurchaseInventory> bills = new List<PurchaseInventory>();
-            SqlCommand sc = new SqlCommand("Bill_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Bill_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.Parameters.AddWithValue("@Supplier_ID", id);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -61,7 +61,7 @@ namespace SfDesk.Models
         public List<PurchaseInventory> Bill_Get_All()
         {
             List<PurchaseInventory> bills = new List<PurchaseInventory>();
-            SqlCommand sc = new SqlCommand("Bill_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Bill_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -87,7 +87,7 @@ namespace SfDesk.Models
         public List<Payment_Detail> Payment_Detail_Get_All()
         {
             List<Payment_Detail> lst = new List<Payment_Detail>();
-            SqlCommand sc = new SqlCommand("Payment_Detail_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Payment_Detail_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -111,7 +111,7 @@ namespace SfDesk.Models
         public Payment_Detail Payment_Detail_Get_By_ID()
         {
             Payment_Detail u = new Payment_Detail();
-            SqlCommand sc = new SqlCommand("Payment_Detail_Get_By_Payment_Detail_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Payment_Detail_Get_By_Payment_Detail_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@PD_ID", PD_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -134,7 +134,7 @@ namespace SfDesk.Models
 
         public void Payment_Detail_Add()
         {
-            SqlCommand sc = new SqlCommand("Payment_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Payment_Detail_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@P_ID", P_ID);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Amount", Amount);
@@ -148,7 +148,7 @@ namespace SfDesk.Models
 
         public void Payment_Detail_Delete()
         {
-            SqlCommand sc = new SqlCommand("Payment_Detail_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Payment_Detail_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PD_ID", PD_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

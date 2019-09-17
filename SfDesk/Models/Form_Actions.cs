@@ -22,7 +22,7 @@ namespace SfDesk.Models
         public List<Action> Action_Get_By_Form(int Form_ID, int R_ID)
         {
             List<Action> lst = new List<Action>();
-            SqlCommand sc = new SqlCommand("Action_Get_By_Form", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Action_Get_By_Form", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@F_ID", Form_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             List<int> Selected = Role_Detail_Selected_Actions(Form_ID, R_ID);
@@ -47,7 +47,7 @@ namespace SfDesk.Models
         public List<int> Role_Detail_Selected_Actions(int Form_ID, int R_ID)
         {
             List<int> lst = new List<int>();
-            SqlCommand sc = new SqlCommand("Role_Detail_Selected_Actions", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Role_Detail_Selected_Actions", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@F_ID", Form_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.Parameters.AddWithValue("@R_ID", R_ID);
@@ -62,7 +62,7 @@ namespace SfDesk.Models
 
         public void Form_Actions_Add()
         {
-            SqlCommand sc = new SqlCommand("Form_Action_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Form_Action_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@F_ID", F_ID);
             sc.Parameters.AddWithValue("@A_ID", A_ID);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);

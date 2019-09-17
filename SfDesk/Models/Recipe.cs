@@ -39,7 +39,7 @@ namespace SfDesk.Models
         public List<Recipe> Recipe_Get_All()
         {
             List<Recipe> lst = new List<Recipe>();
-            SqlCommand sc = new SqlCommand("Recipe_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Recipe_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -68,7 +68,7 @@ namespace SfDesk.Models
         {
             List<Recipe> lst = new List<Recipe>();
             
-            SqlCommand sc = new SqlCommand("Recipe_Get_By_Product", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Recipe_Get_By_Product", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@P_Id", P_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -104,7 +104,7 @@ namespace SfDesk.Models
 
         public void Recipe_Add()
         {
-            SqlCommand sc = new SqlCommand("Recipe_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Recipe_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@P_ID", P_ID);
             sc.Parameters.AddWithValue("@M_ID", ID);
             sc.Parameters.AddWithValue("@Type", Type);
@@ -117,7 +117,7 @@ namespace SfDesk.Models
         }
         public void Recipe_Update()
         {
-            SqlCommand sc = new SqlCommand("Recipe_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Recipe_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             sc.Parameters.AddWithValue("@P_ID", P_ID);
             sc.Parameters.AddWithValue("@M_ID", ID);
@@ -127,7 +127,7 @@ namespace SfDesk.Models
         }
         public void Recipe_Delete()
         {
-            SqlCommand sc = new SqlCommand("Recipe_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Recipe_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);

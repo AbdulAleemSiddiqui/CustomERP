@@ -36,7 +36,7 @@ namespace SfDesk.Models
         public List<Payment_Mode> Payment_Mode_Get_All()
         {
             List<Payment_Mode> lst = new List<Payment_Mode>();
-            SqlCommand sc = new SqlCommand("Payment_Mode_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Payment_Mode_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -62,7 +62,7 @@ namespace SfDesk.Models
         public Payment_Mode Payment_Mode_Get_By_PM_ID()
         {
             Payment_Mode u = new Payment_Mode();
-            SqlCommand sc = new SqlCommand("Payment_Mode_Get_By_PM_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Payment_Mode_Get_By_PM_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@PM_ID", PM_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -87,7 +87,7 @@ namespace SfDesk.Models
 
         public void Payment_Mode_Add()
         {
-            SqlCommand sc = new SqlCommand("Payment_Mode_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Payment_Mode_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PaymentMode ", PaymentMode );
             sc.Parameters.AddWithValue("@P_ID", P_ID);
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
@@ -102,7 +102,7 @@ namespace SfDesk.Models
         }
         public void Payment_Mode_Update()
         {
-            SqlCommand sc = new SqlCommand("Payment_Mode_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Payment_Mode_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PM_ID", PM_ID);
             sc.Parameters.AddWithValue("@PaymentMode ", PaymentMode );
             sc.Parameters.AddWithValue("@P_ID", P_ID);
@@ -116,7 +116,7 @@ namespace SfDesk.Models
         }
         public void Payment_Mode_Delete()
         {
-            SqlCommand sc = new SqlCommand("Payment_Mode_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Payment_Mode_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PM_ID", PM_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

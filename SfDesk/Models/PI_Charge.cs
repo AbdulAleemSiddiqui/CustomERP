@@ -32,7 +32,7 @@ namespace SfDesk.Models
         public List<PI_Charge> PI_Charge_Get_All()
         {
             List<PI_Charge> lst = new List<PI_Charge>();
-            SqlCommand sc = new SqlCommand("PI_Charge_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("PI_Charge_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -57,7 +57,7 @@ namespace SfDesk.Models
         public PI_Charge PI_Charge_Get_BY_ID()
         {
             PI_Charge u = new PI_Charge();
-            SqlCommand sc = new SqlCommand("PI_Charge_Get_BY_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("PI_Charge_Get_BY_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@PI_Charge_ID", PI_Charge_ID);
             sc.Parameters.AddWithValue("@App_PI_Charge_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -78,7 +78,7 @@ namespace SfDesk.Models
         }
         public void PI_Charge_Add()
         {
-            SqlCommand sc = new SqlCommand("PI_Charge_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Charge_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@ST_ID", SalesTax_ID);
             sc.Parameters.AddWithValue("@Rate", Rate);
@@ -91,7 +91,7 @@ namespace SfDesk.Models
         }
         public void PI_Charge_Update()
         {
-            SqlCommand sc = new SqlCommand("PI_Charge_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Charge_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_Charge_ID", PI_Charge_ID);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@ST_ID", SalesTax_ID);
@@ -99,7 +99,7 @@ namespace SfDesk.Models
         }
         public void PI_Charge_Delete()
         {
-            SqlCommand sc = new SqlCommand("PI_Charge_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Charge_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_Charge_ID", PI_Charge_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();

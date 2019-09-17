@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.PI
+﻿@model SfDesk.Models.P_Indent
 @{
     Layout = "~/Views/Shared/_dashLayout.cshtml";
     ViewBag.Title = "Master";
@@ -15,7 +15,7 @@
                     <div class="form-group">
                         @Html.Label("Select Category", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.Item_Cat_Id, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "IC_ID", "IC_Name"), new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.PI_Item_Cat_ID, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "IC_ID", "IC_Name"),"", new { @class = "form-control" })
                         </div>
                     </div>
 
@@ -71,8 +71,8 @@
 @section scripts
 {
     <script>
-        $('#Item_Cat_Id').change(function () {
-            var id = $('#Item_Cat_Id').val();
+        $('#PI_Item_Cat_ID').change(function () {
+            var id = $('#PI_Item_Cat_ID').val();
             $.ajax({
                 url: '/PurchaseIndend/Get_PI_Detail',
                 type: 'GET',
@@ -84,23 +84,30 @@
 
                     tbl.html("");
                     $.each(details, function (index, item) {
-
+                        debugger;
                         var a = "<tr>" +
                             "<td>" +
-                            "<input type='hidden'  id='PI_Details[" + index + "].PRD_ID' name='PI_Details[" + index + "].PRD_ID' value='" + item.PRD_ID + "' />" +
+                            "<input type='hidden'  id='PI_Details[" + index + "].PR_D_ID' name='PI_Details[" + index + "].PR_D_ID' value='" + item.PR_D_ID + "' />" +
+                            "<input type='hidden'  id='PI_Details[" + index + "].PI_ID' name='PI_Details[" + index + "].PI_ID' value='" + item.PI_ID + "' />" +
                             "<input type='hidden'  id='PI_Details[" + index + "].Item_ID' name='PI_Details[" + index + "].Item_ID' value='"+item.Item_ID+"' />" +
                             "<input  type='checkbox' id='PI_Details[" + index + "].is_Selected' name='PI_Details[" + index + "].is_Selected' value='true'/> " +
                              "<input type='hidden' value='false'  name='PI_Details[" + index + "].is_Selected' /> </td>"+
                         "<td>" +
                             item.PR_No +
+                            "<input type='hidden'  id='PI_Details[" + index + "].PR_No' name='PI_Details[" + index + "].PR_No' value='" + item.PR_No + "' />" +
                         "</td> <td>" +
                         item.PR_Date +
+                            "<input type='hidden'  id='PI_Details[" + index + "].PR_Date' name='PI_Details[" + index + "].PR_Date' value='" + item.PR_Date + "' />" +
+
                         "</td> <td>" +
                         item.Department_Name +
+                            "<input type='hidden'  id='PI_Details[" + index + "].Department_Name' name='PI_Details[" + index + "].Department_Name' value='" + item.Department_Name + "' />" +
                         "</td> <td>" +
                         item.Item_Name +
+                            "<input type='hidden'  id='PI_Details[" + index + "].Item_Name' name='PI_Details[" + index + "].Item_Name' value='" + item.Item_Name + "' />" +
                         "</td> <td>" +
                         item.Quantity +
+                            "<input type='hidden'  id='PI_Details[" + index + "].Quantity' name='PI_Details[" + index + "].Quantity' value='" + item.Quantity + "' />" +
                         "</td>" +
                             +"</tr>"
                         tbl.append(a);

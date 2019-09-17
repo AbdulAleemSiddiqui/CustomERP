@@ -90,7 +90,7 @@ namespace SfDesk.Models
 #region CRUD
         public void Customer_Add()
         {
-            SqlCommand sc = new SqlCommand("Customer_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Customer_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             
             sc.Parameters.AddWithValue("@Customer_Type", Customer_Type);
@@ -127,7 +127,7 @@ namespace SfDesk.Models
         }
         public void Customer_Update()
         {
-            SqlCommand sc = new SqlCommand("Customer_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Customer_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
             sc.Parameters.AddWithValue("@Customer_Type", Customer_Type);
@@ -163,14 +163,14 @@ namespace SfDesk.Models
         }
         public void Customer_Delete()
         {
-            SqlCommand sc = new SqlCommand("Customer_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Customer_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
             sc.ExecuteNonQuery();
         }
         public Customer Customer_Get_BY_ID(int id)
         {
             Customer u = new Customer();
-            SqlCommand sc = new SqlCommand("Customer_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Customer_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Customer_ID", id);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -219,7 +219,7 @@ namespace SfDesk.Models
         {
           
             List<Customer> ls = new List<Customer>();
-            SqlCommand sc = new SqlCommand("Customer_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Customer_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

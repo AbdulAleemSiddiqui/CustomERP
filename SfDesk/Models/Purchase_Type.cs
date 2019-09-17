@@ -24,7 +24,7 @@ namespace SfDesk.Models
         public List<Purchase_Type> Purchase_Type_Get_All()
         {
             List<Purchase_Type> lst = new List<Purchase_Type>();
-            SqlCommand sc = new SqlCommand("Purchase_Type_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Purchase_Type_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

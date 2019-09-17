@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SfDesk.Models.PurchaseInventory>
+﻿@model IEnumerable<SfDesk.Models.PR>
 
 @{
     ViewBag.Title = "Index";
@@ -16,7 +16,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.PR_No)
+                                    @Html.DisplayNameFor(model => model.PR_NO)
                                 </th>
 
                                 <th>
@@ -29,7 +29,7 @@
 
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Comments)
+                                    @Html.DisplayNameFor(model => model.Comment)
                                 </th>
 
                                 <th></th>
@@ -40,7 +40,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PR_No)
+                                        @Html.DisplayFor(modelItem => item.PR_NO)
                                     </td>
 
                                     <td>
@@ -52,11 +52,11 @@
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Comments)
+                                        @Html.DisplayFor(modelItem => item.Comment)
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("master", "PurchaseRequisition",new { id = item.PI_ID })'"><i class="ti-pencil"></i> Verified </button>
+                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("Master", "PurchaseRequisition",new { id = item.PR_ID })'"><i class="ti-pencil"></i> Verified </button>
                                     </td>
                                 </tr>
                             }

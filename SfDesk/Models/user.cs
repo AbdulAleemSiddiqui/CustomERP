@@ -36,7 +36,7 @@ namespace SfDesk.Models
         }
         public void User_Add()
         {
-            SqlCommand sc = new SqlCommand("User_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Password", Password);
             sc.Parameters.AddWithValue("@Email", Email);
             sc.Parameters.AddWithValue("@CCode", CompanyCode);
@@ -48,7 +48,7 @@ namespace SfDesk.Models
         }
         public string User_Login()
         {
-            SqlCommand sc = new SqlCommand("User_Login", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Login", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Password", Password);
             sc.Parameters.AddWithValue("@Email", Email);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -103,7 +103,7 @@ namespace SfDesk.Models
         {
             List<user> lst = new List<user>();
 
-            SqlCommand sc = new SqlCommand("User_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -130,7 +130,7 @@ namespace SfDesk.Models
         {
             user u = new user();
 
-            SqlCommand sc = new SqlCommand("User_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@id", id);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -157,7 +157,7 @@ namespace SfDesk.Models
         }
         public void User_Update()
         {
-            SqlCommand sc = new SqlCommand("User_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_Id", U_Id);
             sc.Parameters.AddWithValue("@Password", Password);
             sc.Parameters.AddWithValue("@Email", Email);
@@ -166,14 +166,14 @@ namespace SfDesk.Models
         }
         public void User_Delete()
         {
-            SqlCommand sc = new SqlCommand("User_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@id", U_Id);
             sc.ExecuteNonQuery();
         }
 
         public void User_Update_Login_Date()
         {
-            SqlCommand sc = new SqlCommand("User_Update_Login_Date", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Update_Login_Date", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", U_Id);
             sc.ExecuteNonQuery();
         }
@@ -181,7 +181,7 @@ namespace SfDesk.Models
         {
             if (Validate_Password())
             {
-                SqlCommand sc = new SqlCommand("User_Update_Password", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+                SqlCommand sc = new SqlCommand("User_Update_Password", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
                 sc.Parameters.AddWithValue("@U_ID", U_Id);
                 sc.Parameters.AddWithValue("@password", New_Password);
 
@@ -201,7 +201,7 @@ namespace SfDesk.Models
         }
         public  bool Validate_Action(string Action,string Controller)
         {
-            SqlCommand sc = new SqlCommand("Validate_Action", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Validate_Action", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", U_Id);
             sc.Parameters.AddWithValue("@Action", Action);
             sc.Parameters.AddWithValue("@Controller", Controller);

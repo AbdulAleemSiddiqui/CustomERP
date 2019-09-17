@@ -48,6 +48,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DatabaseTVP">
+      <HintPath>E:\Projects\Axon Project\AHS\AHS\bin\DatabaseTVP.dll</HintPath>
+    </Reference>
+    <Reference Include="Logger">
+      <HintPath>E:\Projects\Axon Project\AHS\AHS\bin\Logger.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -269,10 +275,8 @@
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\Payment_Detail.cs" />
     <Compile Include="Models\Payment_Mode.cs" />
-    <Compile Include="Models\PI.cs" />
+    <Compile Include="Models\P_Indent.cs" />
     <Compile Include="Models\PI_Charge.cs" />
-    <Compile Include="Models\PI_Detail.cs" />
-    <Compile Include="Models\PI_Detail_ViewModel.cs" />
     <Compile Include="Models\PI_Transactions.cs" />
     <Compile Include="Models\PO.cs" />
     <Compile Include="Models\PO_Details.cs" />
@@ -282,6 +286,7 @@
     <Compile Include="Models\PR_Detail.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Purchase_Type.cs" />
+    <Compile Include="Models\P_Indent_Detail.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleDetails.cs" />

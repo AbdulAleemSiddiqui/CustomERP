@@ -14,7 +14,7 @@ namespace SfDesk.Models
         public List<Account_Type> Account_Type_Get_All()
         {
             List<Account_Type> lst = new List<Account_Type>();
-            SqlCommand sc = new SqlCommand("Account_Type_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Account_Type_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

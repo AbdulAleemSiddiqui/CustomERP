@@ -10,7 +10,7 @@ namespace SfDesk.Models
     public class Item
     {
         public int Item_ID { get; set; }
-        public string Item_No { get; set; }
+        public string Item_Code { get; set; }
         public string Item_Name { get; set; }
         public int IC_ID { get; set; }
         public string Cat_Name { get; set; }
@@ -32,7 +32,7 @@ namespace SfDesk.Models
         public List<Item> Item_Get_All()
         {
             List<Item> lst = new List<Item>();
-            SqlCommand sc = new SqlCommand("Item_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Item_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -40,7 +40,7 @@ namespace SfDesk.Models
 
                 Item u = new Item();
                 u.Item_ID = (int)sdr["Item_ID"];
-                //u.Item_No = (string)sdr["Item_No"];
+                u.Item_Code = (string)sdr["Item_Code"];
                 u.Item_Name = (string)sdr["Item_Name"];
                 u.IC_ID = (int)sdr["Cat_ID"];
                 u.Cat_Name = (string)sdr["Cat_Name"];
@@ -56,14 +56,14 @@ namespace SfDesk.Models
         public Item Item_Get_By_ID()
         {
             Item u = new Item();
-            SqlCommand sc = new SqlCommand("Item_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Item_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@Item_ID", Item_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
             {
                 u.Item_ID = (int)sdr["Item_ID"];
-                u.Item_No = (string)sdr["Item_No"];
+                u.Item_Code = (string)sdr["Item_Code"];
                 u.Item_Name = (string)sdr["Item_Name"];
                 u.IC_ID = (int)sdr["IC_ID"];
                 u.Cat_Name = (string)sdr["Cat_Name"];
@@ -78,8 +78,8 @@ namespace SfDesk.Models
 
         public void Item_Add()
         {
-            SqlCommand sc = new SqlCommand("Item_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Item_No", Item_No);
+            SqlCommand sc = new SqlCommand("Item_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Item_Name", Item_Name);
             sc.Parameters.AddWithValue("@IC_ID", IC_ID);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
@@ -90,9 +90,9 @@ namespace SfDesk.Models
         }
         public void Item_Update()
         {
-            SqlCommand sc = new SqlCommand("Item_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Item_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Item_ID", Item_ID);
-            sc.Parameters.AddWithValue("@Item_No", Item_No);
+            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Item_Name", Item_Name);
             sc.Parameters.AddWithValue("@IC_ID", IC_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -100,7 +100,7 @@ namespace SfDesk.Models
         }
         public void Item_Delete()
         {
-            SqlCommand sc = new SqlCommand("Item_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Item_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Item_ID", Item_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

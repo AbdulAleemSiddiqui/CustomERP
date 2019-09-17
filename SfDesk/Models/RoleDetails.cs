@@ -31,7 +31,7 @@ namespace SfDesk.Models
         public void Role_Detail_Add()
         {
 
-            SqlCommand sc = new SqlCommand("Menu_Role_Del", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Menu_Role_Del", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
@@ -39,7 +39,7 @@ namespace SfDesk.Models
             {
                 foreach (Form item in module.forms.FindAll(x=>x.isSelected==true))
                 {
-                    SqlCommand dc = new SqlCommand("Menu_Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+                    SqlCommand dc = new SqlCommand("Menu_Role_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
                     dc.Parameters.AddWithValue("@R_ID", R_ID);
                     dc.Parameters.AddWithValue("@M_ID", item.Form_ID);
                     dc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
@@ -53,7 +53,7 @@ namespace SfDesk.Models
         //public List<Form> Form_Get_By_Module(int Module_ID)
         //{
         //    forms = new List<Form>();
-        //    SqlCommand sc = new SqlCommand("Form_Get_By_Module", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+        //    SqlCommand sc = new SqlCommand("Form_Get_By_Module", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
         //    sc.Parameters.AddWithValue("@Mod_Id", Module.Module_ID);
         //    sc.Parameters.AddWithValue("@App_Id", App.App_ID);
 
@@ -83,7 +83,7 @@ namespace SfDesk.Models
             // than we find each module FORMS
             // than for each form we find its action
             modules = new List<Module>();
-            SqlCommand sc = new SqlCommand("Module_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Module_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

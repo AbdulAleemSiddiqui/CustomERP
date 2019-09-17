@@ -109,7 +109,7 @@ namespace SfDesk.Models
         #region PR
         public int Purchase_Inventory_Add()
         {
-            SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Purchase_Inventory_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PR_No", PR_No);
             sc.Parameters.AddWithValue("@PO_No", PO_No);
@@ -133,7 +133,7 @@ namespace SfDesk.Models
         }
         public int PI_Add()
         {
-            SqlCommand sc = new SqlCommand("PI_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Invoice_No", Invoice_No);
             sc.Parameters.AddWithValue("@Department_ID", Department_ID);
@@ -156,7 +156,7 @@ namespace SfDesk.Models
         public List<PurchaseInventory> PR_Get_All()
         {
             List<PurchaseInventory> lst = new List<PurchaseInventory>();
-            SqlCommand sc = new SqlCommand("PR_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PR_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -182,7 +182,7 @@ namespace SfDesk.Models
         public List<PurchaseInventory> PO_Get_All()
         {
             List<PurchaseInventory> lst = new List<PurchaseInventory>();
-            SqlCommand sc = new SqlCommand("PO_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PO_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -232,7 +232,7 @@ namespace SfDesk.Models
         }
         public void PR_Approve()
         {
-            SqlCommand sc = new SqlCommand("PR_Approve", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PR_Approve", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
@@ -255,7 +255,7 @@ namespace SfDesk.Models
         #endregion
         public void PI_SaveImage()
         {
-            SqlCommand sc = new SqlCommand("PI_SaveImage", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_SaveImage", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
          
             sc.Parameters.AddWithValue("@imagePath", ImagePath);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
@@ -265,7 +265,7 @@ namespace SfDesk.Models
 
         public string PR_Get_New_PR_NO()
         {
-            SqlCommand sc = new SqlCommand("PR_Get_New_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PR_Get_New_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.Parameters.Add("@a", SqlDbType.Int);
             sc.Parameters["@a"].Direction = ParameterDirection.Output;
@@ -274,7 +274,7 @@ namespace SfDesk.Models
         }
         public int PO_Add()
         {
-            SqlCommand sc = new SqlCommand("PO_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PO_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@App_Status", App_Status);
@@ -346,7 +346,7 @@ namespace SfDesk.Models
 
         public void PI_Detail_Update()
         {
-            SqlCommand sc = new SqlCommand("PI_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Detail_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
@@ -365,7 +365,7 @@ namespace SfDesk.Models
         }
         public void PI_Detail_Delete()
         {
-            SqlCommand sc = new SqlCommand("PI_Detail_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Detail_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
@@ -375,7 +375,7 @@ namespace SfDesk.Models
         {
 
             List<PI_Details> ls = new List<PI_Details>();
-            SqlCommand sc = new SqlCommand("PI_Detail_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Detail_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -408,7 +408,7 @@ namespace SfDesk.Models
         }
         public int PI_Detail_Add()
         {
-            SqlCommand sc = new SqlCommand("PI_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("PI_Detail_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Store", Store);

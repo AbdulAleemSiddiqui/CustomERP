@@ -20,7 +20,7 @@ namespace SfDesk.Models
 
         public void App_Add()
         {
-            SqlCommand sc = new SqlCommand("Form_Action_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Form_Action_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Name", App_Name);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);

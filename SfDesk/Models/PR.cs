@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseTVP;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,123 +9,120 @@ using System.Web;
 
 namespace SfDesk.Models
 {
- 
+
     public class PR
     {
-        #region purchase Order master
-        public int PR_ID { get; set; }
+        private const string Module = "Purchase";
 
+        #region purchase Order master
+        [TVP]
+        public int PR_ID { get; set; }
+        [TVP]
         [DisplayName("P.R #")]
-        public string PR_No { get; set; } = "0";
-       
-        public string App_Status { get; set; }
+        public string PR_NO { get; set; } = "0";
+        [TVP]
         [DisplayName("Department")]
         public int Department_ID { get; set; }
         [DisplayName("Department")]
         public string Department_Name { get; set; }
-
-      
-
+        [TVP]
+        [DataType(DataType.MultilineText)]
+        public string Comment { get; set; } = "";
+        [TVP]
         [DataType(DataType.Date)]
         [DisplayName("Invoice Date")]
         public DateTime Date { get; set; } = DateTime.Parse("2001/01/01");
 
+        [TVP]
+        public int CreatedBy { get; set; }
+        [TVP]
+        public int Status { get; set; }
         public string strngDate { get; set; }
 
-    
-        [DataType(DataType.MultilineText)]
-        public string Comments { get; set; } = "";
-
-
         #endregion
+
+        //View Only Properties
+        public string ReturnMessage { get; set; }
         public List<PR_Details> details { get; set; }
-        #region default Properties
-        public int Created_By { get; set; }
-        public DateTime Created_Date { get; set; }
-        public string Machine_Ip { get; set; }
-        public string Mac_Address { get; set; }
-        #endregion
-        public PR()
-        {
-            this.Machine_Ip = Utility.GetIPAddress();
-            this.Mac_Address = Utility.GetMacAddress();
-        }
 
-
-        public List<PR> PR_Get_All()
+        public string Purchase_PR_Add(int UserId)
         {
-            List<PR> lst = new List<PR>();
-            SqlCommand sc = new SqlCommand("PR_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
+            try
             {
-                PR u = new PR();
-                u.PR_ID = (int)sdr["PR_ID"];
-                u.PR_No = (string)sdr["PR_No"];
-                u.Department_ID = (int)sdr["Department_ID"];
-                u.Date = (DateTime)sdr["Date"];
-          
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
-                lst.Add(u);
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                this.Department_ID = 1;
+                PR p = DataBase.ExecuteQuery<PR>(new { x = this }, Connection.GetConnection()).FirstOrDefault();
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return p.PR_ID.ToString();
             }
-            sdr.Close();
-            return lst;
-        }
-        public PR PR_Get_By_PR_ID()
-        {
-            PR u = new PR();
-            SqlCommand sc = new SqlCommand("PR_Get_By_PR_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@PR_ID", PR_ID);
-            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
+            catch (Exception ex)
             {
-                u.PR_ID = (int)sdr["PR_ID"];
-                u.PR_No = (string)sdr["PR_No"];
-                u.Department_ID = (int)sdr["Department_ID"];
-                u.Date = (DateTime)sdr["Date"];
-                
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
             }
-            sdr.Close();
-            return u;
         }
 
-        public void PR_Add()
+        public PR Purchase_PR_GetById(int Id, int UserId)
         {
-            SqlCommand sc = new SqlCommand("PR_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@PR_No", PR_No);
-            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
-            sc.Parameters.AddWithValue("@Date", Date);
-            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
-            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                PR ret = DataBase.ExecuteQuery<PR>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
 
-        }
-        public void PR_Update()
+        public List<PR> Purchase_PR_GetAll(int UserId)
         {
-            SqlCommand sc = new SqlCommand("PR_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@PR_ID", PR_ID);
-            sc.Parameters.AddWithValue("@PR_No", PR_No);
-            sc.Parameters.AddWithValue("@Department_ID", Department_ID);
-            sc.Parameters.AddWithValue("@Date", Date);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                List<PR> ret = DataBase.ExecuteQuery<PR>(new { x = UserId }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
         }
-        public void PR_Delete()
+
+        public string Purchase_PR_Update(int UserId)
         {
-            SqlCommand sc = new SqlCommand("PR_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@PR_ID", PR_ID);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                string Message = DataBase.ExecuteQuery<PR>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return Message;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
         }
+
+
+
     }
 }

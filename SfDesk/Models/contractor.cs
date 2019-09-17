@@ -29,7 +29,7 @@ namespace SfDesk.Models
         public List<Contractor> Contractor_Get_All()
         {
             List<Contractor> lst = new List<Contractor>();
-            SqlCommand sc = new SqlCommand("Contractor_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Contractor_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -52,7 +52,7 @@ namespace SfDesk.Models
         public Contractor Contractor_Get_By_ID()
         {
             Contractor u = new Contractor();
-            SqlCommand sc = new SqlCommand("Contractor_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Contractor_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@C_ID", ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -72,7 +72,7 @@ namespace SfDesk.Models
         }
         public void Contractor_Add()
         {
-            SqlCommand sc = new SqlCommand("Contractor_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Contractor_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@C_Name", Name);
             sc.Parameters.AddWithValue("@C_Unit", Unit);
@@ -87,7 +87,7 @@ namespace SfDesk.Models
         }
         public void Contractor_Update()
         {
-            SqlCommand sc = new SqlCommand("Contractor_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Contractor_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@C_ID", ID);
             sc.Parameters.AddWithValue("@C_Name", Name);
@@ -101,7 +101,7 @@ namespace SfDesk.Models
         }
         public void Contractor_Delete()
         {
-            SqlCommand sc = new SqlCommand("Contractor_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Contractor_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@C_ID", ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.ExecuteNonQuery();

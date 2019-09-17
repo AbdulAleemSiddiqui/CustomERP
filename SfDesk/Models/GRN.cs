@@ -46,7 +46,7 @@ namespace SfDesk.Models
         public List<GRN> GRN_Get_All()
         {
             List<GRN> lst = new List<GRN>();
-            SqlCommand sc = new SqlCommand("GRN_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("GRN_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -72,7 +72,7 @@ namespace SfDesk.Models
         public GRN GRN_Get_By_ID()
         {
             GRN u = new GRN();
-            SqlCommand sc = new SqlCommand("GRN_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("GRN_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@ID", GRN_NO);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -96,7 +96,7 @@ namespace SfDesk.Models
         }
         public void GRN_Add()
         {
-            SqlCommand sc = new SqlCommand("GRN_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("GRN_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Suplier_ID", Suplier_ID);
             sc.Parameters.AddWithValue("@Trans_NO", Trans_NO);
@@ -114,7 +114,7 @@ namespace SfDesk.Models
         }
         public void GRN_Update()
         {
-            SqlCommand sc = new SqlCommand("GRN_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("GRN_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@GRN_ID", GRN_NO);
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Suplier_ID", Suplier_ID);
@@ -129,7 +129,7 @@ namespace SfDesk.Models
         }
         public void GRN_Delete()
         {
-            SqlCommand sc = new SqlCommand("GRN_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("GRN_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@ID", GRN_NO);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

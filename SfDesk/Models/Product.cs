@@ -31,7 +31,7 @@ namespace SfDesk.Models
         public List<Product> Product_Get_All()
         {
             List<Product> lst = new List<Product>();
-            SqlCommand sc = new SqlCommand("Product_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Product_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -51,7 +51,7 @@ namespace SfDesk.Models
         public Product Product_Get_By_ID()
         {
             Product u = new Product();
-            SqlCommand sc = new SqlCommand("Product_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Product_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@P_Id", P_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -70,7 +70,7 @@ namespace SfDesk.Models
 
         public void Product_Add()
         {
-            SqlCommand sc = new SqlCommand("Product_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Product_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@P_Name", P_Name);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
@@ -80,7 +80,7 @@ namespace SfDesk.Models
         }
         public void Product_Update()
         {
-            SqlCommand sc = new SqlCommand("Product_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Product_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@P_ID", P_ID);
             sc.Parameters.AddWithValue("@P_Name", P_Name);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -88,7 +88,7 @@ namespace SfDesk.Models
         }
         public void Product_Delete()
         {
-            SqlCommand sc = new SqlCommand("Product_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Product_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@P_ID", P_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

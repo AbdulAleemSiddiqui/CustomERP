@@ -10,7 +10,8 @@ namespace SfDesk
     public static class Connection
     {
         static SqlConnection sc;
-        public static SqlConnection Get()
+        static SqlConnection sc_Log;
+        public static SqlConnection GetConnection()
         {
             if(sc==null || sc.State== System.Data.ConnectionState.Closed)
             {
@@ -20,6 +21,17 @@ namespace SfDesk
             }
             return sc;
         }
+        public static SqlConnection GetLogConnection()
+        {
+            if (sc_Log == null || sc_Log.State == System.Data.ConnectionState.Closed)
+            {
+                sc_Log = new SqlConnection();
+                sc_Log.ConnectionString = ConfigurationManager.ConnectionStrings["SfDesk_LogConnection"].ToString();
+                sc_Log.Open();
+            }
+            return sc_Log;
+        }
+
         public static string SafeGetString(this SqlDataReader reader, int colIndex)
         {
             if (!reader.IsDBNull(colIndex))

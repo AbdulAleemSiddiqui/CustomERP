@@ -44,7 +44,7 @@ namespace SfDesk.Models
         public List<GDN> GDN_Get_All()
         {
             List<GDN> lst = new List<GDN>();
-            SqlCommand sc = new SqlCommand("GDN_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("GDN_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -70,7 +70,7 @@ namespace SfDesk.Models
         public GDN GDN_Get_By_ID()
         {
             GDN u = new GDN();
-            SqlCommand sc = new SqlCommand("GDN_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("GDN_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@ID", GDN_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -92,7 +92,7 @@ namespace SfDesk.Models
         }
         public void GDN_Add()
         {
-            SqlCommand sc = new SqlCommand("GDN_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("GDN_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
             sc.Parameters.AddWithValue("@SO_NO", is_SO);
@@ -108,7 +108,7 @@ namespace SfDesk.Models
         }
         public void GDN_Update()
         {
-            SqlCommand sc = new SqlCommand("GDN_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("GDN_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@GDN_ID", GDN_ID);
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
             sc.Parameters.AddWithValue("@Customer_ID", Customer_ID);
@@ -119,7 +119,7 @@ namespace SfDesk.Models
         }
         public void GDN_Delete()
         {
-            SqlCommand sc = new SqlCommand("GDN_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("GDN_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@ID", GDN_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

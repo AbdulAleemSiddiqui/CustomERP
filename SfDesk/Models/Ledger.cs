@@ -20,7 +20,7 @@ namespace SfDesk.Models
         public List<Ledger> Ledger_Get_All()
         {
             List<Ledger> lst = new List<Ledger>();
-            SqlCommand sc = new SqlCommand("Ledger_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Ledger_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

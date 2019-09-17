@@ -45,7 +45,7 @@ namespace SfDesk.Models
         public List<Vehicle> Vehcile_Get_By_Transporter()
         {
             List<Vehicle> lst = new List<Vehicle>();
-            SqlCommand sc = new SqlCommand("Vehcile_Get_By_Transporter", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Vehcile_Get_By_Transporter", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -69,7 +69,7 @@ namespace SfDesk.Models
         public List<Vehicle> Vehcile_Get_All()
         {
             List<Vehicle> lst = new List<Vehicle>();
-            SqlCommand sc = new SqlCommand("Vehcile_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Vehcile_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -92,7 +92,7 @@ namespace SfDesk.Models
         public Vehicle Vehcile_Get_By_ID()
         {
             Vehicle u = new Vehicle();
-            SqlCommand sc = new SqlCommand("Vehcile_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Vehcile_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@V_ID",V_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -113,7 +113,7 @@ namespace SfDesk.Models
         }
         public int Vehcile_Add()
         {
-            SqlCommand sc = new SqlCommand("Vehicle_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vehicle_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Vehicle_Type", Vehicle_Type);
             sc.Parameters.AddWithValue("@Vehicle_N", Vehicle_No);
@@ -128,7 +128,7 @@ namespace SfDesk.Models
         }
         public void Vehcile_Update()
         {
-            SqlCommand sc = new SqlCommand("Vehicle_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vehicle_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@V_ID", V_ID);
             sc.Parameters.AddWithValue("@Vehicle_Type", Vehicle_Type);
@@ -140,7 +140,7 @@ namespace SfDesk.Models
         }
         public void Vehcile_Delele()
         {
-            SqlCommand sc = new SqlCommand("Vehicle_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Vehicle_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@V_ID", V_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);

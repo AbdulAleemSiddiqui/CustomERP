@@ -31,7 +31,7 @@
     var clients =[]
     var editedClients =[];
     var arr = [];
-    items = [];
+   var  items = [];
     function newRow() //ye change kia he 
     {
         $("#jsGrid").jsGrid({ inserting: true });
@@ -78,31 +78,30 @@
         $.post(this.action,charges );   
     }); 
     function loadData() {
-        debugger;
         $.ajax({
             type: "GET",
             url: "/PurchaseRequisition/Item_Get_All",
-          
             dataType: "json",
             success: function (d) {
-
-                    items = d
-                
+                items = d;
             }
         });
+
+
+        debugger;
         $.ajax({
             type: "GET",
-            url: "/PurchaseRequisition/Index",
-            data: { PI_ID: Master_Id },
+            url: "/PurchaseRequisition/PR_Detail_Get_By_PR",
+            data: { PR_ID:  Master_Id},
             dataType: "json",
             success: function (d) {
-
-                if (d.ID != 0)
+                if (d.PR_ID != 0)
                     arr = d
-                my()
-                newRow() ///ye 
+                my();
+                newRow();
             }
         });
+       
     }
     function total(input,id)
     {
@@ -127,25 +126,23 @@
     }
     var net_total=0;
     $(function(){
+       
+
+       
+    
         loadData();
-      
+
         var array =@Html.Raw(Json.Encode(Model));
         var arr=[];
         $.each(array, function (key, value) {
 
             var na = value;
-
             var a= na.Store;
-
             arr.push({
-
                 "Item_Code": na.Item_Code,
-                "Product_Name": na.Product_Name,
-                "Product_Description": na.Product_Description,
-                "Purchase_Quantitiy": na.Purchase_Quantitiy,
-
-
-
+                "Item_Name": na.Item_Name,
+                "Description": na.Description,
+                "Quantity": na.Quantity,
             })
         });
         clients = arr;
@@ -173,6 +170,7 @@
         });
     }
     function my(){
+        
         $("#jsGrid").jsGrid({
 
             height: "auto",
@@ -245,35 +243,19 @@
                 //}
             },
             onItemInserted: function (args) {
-                
-               
-                //jQuery("#jsGrid").jsGrid("destroy");
-                //loadData();
-
-
             },
             onItemDeleted: function(args) {
-               
             }, 
             fields: [
-            {name:"Item_Code", title: "Code", type: "select", width:  80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_ID",            insertTemplate: function(value) { 
+            {name:"Item_ID", title: "Code", type: "select", width:  80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Code",            insertTemplate: function(value) { 
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
                $insertControl.on("keyup change", function () {
                     debugger;
                     var p_Q = parseInt(this.value);
                     th._grid.fields[1].insertControl.val(p_Q)//val(unit);
-                      
-                        
-
-                        
-                       
-                          
                 });
                focusChange($insertControl);
-
-               
-               
                 return this.insertControl;
             },
             editTemplate: function (args) {
@@ -282,7 +264,7 @@
                     
                 return $editControl;
             }, },
-            {name:"Product_Name", title: "Product", type: "select", width:  80, validate: "required",
+            {name:"Item_Name", title: "Product", type: "select", width:  80, validate: "required",
             items: items, valueField: "Item_ID", textField: "Item_Name",         
                 
             insertTemplate: function (args) {
@@ -292,30 +274,19 @@
                         debugger;
                         var p_Q = parseInt(this.value);
                         var d1= th._grid.fields[0].insertControl.val(p_Q).trigger("change");
-                       
-
-                       
-
-                        
-                      
-                        
-
-                        
-                       
-                          
                     });
                     update_on_enter($insertControl);
                     
                     return $insertControl;
             }, },
-            {name:"Product_Description", title: "Description", type: "text", width:  80, validate: "required"  ,
+            {name:"Description", title: "Description", type: "text", width:  80, validate: "required"  ,
                 editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                 update_on_enter($editControl);
                     
                 return $editControl;
             }, },
-            {name:"Purchase_Quantitiy", title: "Quantitiy", type: "number", width:  80,
+            {name:"Quantity", title: "Quantity", type: "number", width:  80,
                 validate: "required",
                 insertTemplate: function(value) { 
                     this.insertControl = $("<input>");

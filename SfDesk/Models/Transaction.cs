@@ -56,7 +56,7 @@ namespace SfDesk.Models
         public List<Transaction> Transaction_Get_All()
         {
             List<Transaction> lst = new List<Transaction>();
-            SqlCommand sc = new SqlCommand("Transaction_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transaction_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -91,7 +91,7 @@ namespace SfDesk.Models
         public Transaction Transaction_Get_By_ID()
         {
             Transaction u = new Transaction();
-            SqlCommand sc = new SqlCommand("Transaction_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transaction_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -124,7 +124,7 @@ namespace SfDesk.Models
         }
         public void Transaction_Add()
         {
-            SqlCommand sc = new SqlCommand("Transaction_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transaction_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             
             sc.Parameters.AddWithValue("@Name", Name);
             sc.Parameters.AddWithValue("@Charge_Nature", Charge_Nature);
@@ -143,7 +143,7 @@ namespace SfDesk.Models
         }
         public void Transaction_Update()
         {
-            SqlCommand sc = new SqlCommand("Transaction_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Transaction_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
 
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@Name", Name);
@@ -161,7 +161,7 @@ namespace SfDesk.Models
         }
         public void Transaction_Delete()
         {
-            SqlCommand sc = new SqlCommand("Transaction_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transaction_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
@@ -171,7 +171,7 @@ namespace SfDesk.Models
         public List<Transaction> Transaction_Get_For_LOV()
         {
             List<Transaction> lst = new List<Transaction>();
-            SqlCommand sc = new SqlCommand("Transaction_Get_For_LOV", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transaction_Get_For_LOV", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())

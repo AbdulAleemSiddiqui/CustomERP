@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace SfDesk.Controllers
 {
@@ -13,49 +14,49 @@ namespace SfDesk.Controllers
         private PO old;
         public ActionResult master(int? id)
         {
-            if (id != null)
-            {
-                PO p = new PO() { PO_ID = id.Value, App_Status = "PR_Approve" };
-                //  p = p.PR_Get_All().Find(x => x.PO_ID == id);
+            //if (id != null)
+            //{
+            //    PO p = new PO() { PO_ID = id.Value,  = "PR_Approve" };
+            //    //  p = p.PR_Get_All().Find(x => x.PO_ID == id);
 
-                if (p == null)
-                {
+            //    if (p == null)
+            //    {
 
-                    p = new PO() { PO_ID = id.Value, App_Status = "PO_Created" };
-                    //  p = p.PO_Get_All().Find(x => x.PO_ID == id);
-                    //ViewBag.vehicle = new Vehicle() { V_ID = p.Vehicle_ID, Vehicle_No = p.Vehicle_No };
-                }
-                old = p;
-                return View(p == null ? new PO() : p);
-            }
+            //        p = new PO() { PO_ID = id.Value, App_Status = "PO_Created" };
+            //        //  p = p.PO_Get_All().Find(x => x.PO_ID == id);
+            //        //ViewBag.vehicle = new Vehicle() { V_ID = p.Vehicle_ID, Vehicle_No = p.Vehicle_No };
+            //    }
+            //    old = p;
+            //    return View(p == null ? new PO() : p);
+            //}
             return View(new PO());
         }
         [HttpPost]
         public ActionResult master(PO c, List<PO_Details> pi, List<PO_Details> pie)
         {
-            c.App_Status = "PO_Created";
-            if (c != old)
+            ////c.App_Status = "PO_Created";
+            //if (c != old)
 
-                if (c.details != null && c.details.Count > 0)
-                {
-                    foreach (var item in c.details)
-                    {
-                        if (item.action == "I")
-                        {
-                            item.PO_ID = c.PO_ID;
-                            item.PO_Detail_Add();
-                        }
-                        else if (item.action == "U")
-                        {
-                            item.PO_Detail_Update();
-                        }
-                        else if (item.action == "D")
-                        {
-                            item.PO_Detail_Delete();
-                        }
+            //    if (c.details != null && c.details.Count > 0)
+            //    {
+            //        foreach (var item in c.details)
+            //        {
+            //            if (item.action == "I")
+            //            {
+            //                item.PO_ID = c.PO_ID;
+            //                item.PO_Detail_Add();
+            //            }
+            //            else if (item.action == "U")
+            //            {
+            //                item.PO_Detail_Update();
+            //            }
+            //            else if (item.action == "D")
+            //            {
+            //                item.PO_Detail_Delete();
+            //            }
 
-                    }
-                }
+            //        }
+            //    }
             //if (c.taxes != null && c.taxes.Count > 0)
             //{
             //    foreach (var p in c.taxes)
@@ -116,13 +117,10 @@ namespace SfDesk.Controllers
             return View();
         }
 
-        public ActionResult Get_PO_Detail(string [] Cat_ID)
+        public ActionResult Get_PO_Detail(string Cat_ID)
         {
-              List<PO_Details> pd = new List<PO_Details>();
-            for (int i = 0; i < 10; i++)
-            {
-                pd.Add(new PO_Details() { PI_NO = DateTime.Now.Year.ToString() + "||" + i, Item_Code = i, Item_Name = $"product {i}", Item_Description = $"product no {i}", PI_ID = i, PI_Qty = 12 * i, PI_Date = DateTime.Now, Item_Cat_ID = i % 3 });
-            }
+            string [] ids =((object[])new JavaScriptSerializer().DeserializeObject(Cat_ID)).Cast<string>().ToArray();
+           new PO_Details().Purchase_PO_Detail_Get_By_Cat()
             return Json(pd, JsonRequestBehavior.AllowGet);
         }
         public ActionResult showAll()
@@ -136,28 +134,28 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Approve(PO c)
         {
-            c.App_Status = "Un-Allocated";
+          //  c.App_Status = "Un-Allocated";
           //  c.PR_Approve();
-            if (c.details != null && c.details.Count > 0)
-            {
-                foreach (var item in c.details)
-                {
-                    if (item.action == "I")
-                    {
-                        item.PO_ID = c.PO_ID;
-                        item.PO_Detail_Add();
-                    }
-                    else if (item.action == "U")
-                    {
-                        item.PO_Detail_Update();
-                    }
-                    else if (item.action == "D")
-                    {
-                        item.PO_Detail_Delete();
-                    }
+            //if (c.details != null && c.details.Count > 0)
+            //{
+            //    foreach (var item in c.details)
+            //    {
+            //        if (item.action == "I")
+            //        {
+            //            item.PO_ID = c.PO_ID;
+            //            item.PO_Detail_Add();
+            //        }
+            //        else if (item.action == "U")
+            //        {
+            //            item.PO_Detail_Update();
+            //        }
+            //        else if (item.action == "D")
+            //        {
+            //            item.PO_Detail_Delete();
+            //        }
 
-                }
-            }
+            //    }
+            //}
             //if (c.taxes != null && c.taxes.Count > 0)
             //{
             //    foreach (var p in c.taxes)
@@ -211,10 +209,7 @@ namespace SfDesk.Controllers
         public ActionResult Index(int? PO_ID)
         {
             List<PO_Details> pd = new List<PO_Details>();
-            for (int i = 0; i < 10; i++)
-            {
-             pd.Add(new PO_Details() { PI_NO = DateTime.Now.Year.ToString() +"||"+ i,Item_Code = i,Item_Name = $"product {i}", Item_Description= $"product no {i}",PI_ID=i,PI_Qty = 12*i,PI_Date = DateTime.Now , Item_Cat_ID =i%3});
-            }
+           
          
             return Json(pd, JsonRequestBehavior.AllowGet);
           //  return Json(new PO_Details() { PO_ID = PO_ID }.PO_Detail_Get_All(), JsonRequestBehavior.AllowGet);

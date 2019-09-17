@@ -11,14 +11,14 @@ namespace SfDesk.Controllers
     public class PurchaseRequisitionController : Controller
     {
         private static PR old;
-        private static List<PR_Details> details =new List<PR_Details>();
+      
 
         public ActionResult master(int? id)
          {
             if (id != null)
             {
-                PR p = new PR() { PR_ID = id.Value ,App_Status="I"};
-                p = p.PR_Get_All().Find(x => x.PR_ID == id);
+                PR p = new PR() { PR_ID = id.Value };
+                p = p.Purchase_PR_GetAll(App.App_ID).Find(x => x.PR_ID == id);
                 if(p!=null)
                 {
                     old = p;
@@ -26,7 +26,7 @@ namespace SfDesk.Controllers
                 }
             }
             // return View(new PR() {PR_No=new PR().PR_Get_New_PR_NO() });
-            return View(new PR());
+            return View(new PR() { PR_NO=Utility.Get_New_No("PR","PR_ID","PR",App.App_ID)});
         }
         [HttpPost]
         public ActionResult master(PR c)
@@ -35,24 +35,13 @@ namespace SfDesk.Controllers
             //{
             int id = c.PR_ID;
             if (c.PR_ID == 0)
-               c.PR_Add();
-
-
-
-
-            //if (pi != null)
-            //    foreach (var item in c.details)
-            //    {
-            //        item.PR_ID = id;
-            //        item.PR_Detail_Add();
-            //    }
-            //if (pie != null)
-            //    foreach (var item in pie)
-            //    {
-
-            //        item.PR_Detail_Update();
-            //    }
-
+            {
+                id = int.Parse(c.Purchase_PR_Add(App.App_ID));
+            }
+            else
+            {
+                c.Purchase_PR_Update(App.App_ID);
+            }
             if (c.details != null && c.details.Count > 0)
             {
                 foreach (var item in c.details)
@@ -60,15 +49,15 @@ namespace SfDesk.Controllers
                     if (item.action == "I")
                     {
                         item.PR_ID = id;
-                        item.PR_Detail_Add();
+                        item.Purchase_PR_Details_Add(App.App_ID);
                     }
                     else if (item.action == "U")
                     {
-                        item.PR_Detail_Update();
+                        item.Purchase_PR_Details_Update(App.App_ID);
                     }
                     else if (item.action == "D")
                     {
-                        item.PR_Detail_Delete();
+                        item.Purchase_PR_Details_Delete(App.App_ID);
                     }
 
                 }
@@ -86,35 +75,35 @@ namespace SfDesk.Controllers
         }
         public ActionResult showAll()
         {
-            return View(new PR() { App_Status = "I" }.PR_Get_All());
+            return View(new PR().Purchase_PR_GetAll(App.App_ID));
         }
         [HttpPost]
         public ActionResult Approve(PR p)
         {
-           
+            p.details.ForEach(x => x.PR_ID = p.PR_ID);
             if (p.details != null && p.details.Count > 0)
             {
                 foreach (var item in p.details)
                 {
                     if (item.action == "I")
                     {
-                        item.PR_Detail_Add();
+                        item.Purchase_PR_Details_Add(App.App_ID);
                     }
                     else if (item.action == "U")
                     {
-                        item.PR_Detail_Update();
+                        item.Purchase_PR_Details_Update(App.App_ID);
                     }
                     else if (item.action == "D")
                     {
-                        item.PR_Detail_Delete();
+                        item.Purchase_PR_Details_Delete(App.App_ID);
                     }
 
                 }
 
             }
-            p.App_Status = "PR_Approve";
+            p.Status = 2;
 
-           // p.PR_Approve();
+            p.Purchase_PR_Update(App.App_ID);
             return Json("kuch bhi", JsonRequestBehavior.AllowGet);
 
         }
@@ -122,10 +111,14 @@ namespace SfDesk.Controllers
         {
             return PartialView("detail", new List<PR>());
         }
-        public ActionResult Index()//int PR_ID)
+        public ActionResult PR_Detail_Get_By_PR(int PR_ID)
         {
-           // details = new PR_Details() { PR_ID = PR_ID }.PR_Detail_Get_All();
-            return Json(details, JsonRequestBehavior.AllowGet);
+            List<PR_Details> details = null;
+            if (PR_ID != 0)
+            {
+                details = new PR_Details() { PR_ID = PR_ID }.Purchase_PR_Details_Get_By_PR(App.App_ID, PR_ID);
+            }
+            return Json(details==null?new List<PR_Details>():details, JsonRequestBehavior.AllowGet);
         }
 
         #region Detail
@@ -137,4 +130,8 @@ namespace SfDesk.Controllers
    
         #endregion
     }
+
+
+
+
 }

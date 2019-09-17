@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseTVP;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,113 +11,152 @@ namespace SfDesk.Models
 {
     public class PR_Details
     {
+        private const string Module = "Purchase";
+
         #region Detail
+        [TVP]
+        public int PR_D_ID { get; set; }
+        [TVP]
         public int PR_ID { get; set; }
-        public int Detail_ID { get; set; }
+        [TVP]
+        public int Item_ID { get; set; }
+        [TVP]
+        [DisplayName("Product Description")]
+        public string Description { get; set; } = "";
+        [TVP]
+        [DisplayName("Quantity")]
+        public decimal Quantity { get; set; }
+        [TVP]
+        public int CreatedBy { get; set; }
+
         [DisplayName("Store / Godown")]
         public string Store { get; set; } = "";
         [DisplayName("Item Code")]
-        public int Item_Code { get; set; }
+        public string Item_Code { get; set; }
         [DisplayName("Product Name")]
-        public string Product_Name { get; set; } = "";
-        [DisplayName("Product Description")]
-        public string Product_Description { get; set; } = "";
-        [DisplayName("Quantitiy")]
-        public int Quantitiy { get; set; }
-       
+        public string Item_Name { get; set; } = "";     
         public string action { get; set; }
-
-        public void PR_Detail_Update()
-        {
-            SqlCommand sc = new SqlCommand("PR_Detail_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-
-            sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
-            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Product_Name", Product_Name);
-            sc.Parameters.AddWithValue("@Description", Product_Description);
-            sc.Parameters.AddWithValue("@P_Quantity", Quantitiy);
-            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            sc.ExecuteNonQuery();
-        }
-        public void PR_Detail_Delete()
-        {
-            SqlCommand sc = new SqlCommand("PR_Detail_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-
-            sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
-            sc.Parameters.AddWithValue("@App_ID", App.App_ID);
-            sc.ExecuteNonQuery();
-        }
-        public List<PR_Details> PR_Detail_Get_All()
-        {
-
-            List<PR_Details> ls = new List<PR_Details>();
-            SqlCommand sc = new SqlCommand("PR_Detail_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
-            sc.Parameters.AddWithValue("@PI_ID", PR_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
-            {
-                PR_Details u = new PR_Details();
-              
-                u.Detail_ID = (int)sdr["Detail_ID"];
-                u.Store = (string)sdr["Store"];
-                u.Item_Code = (int)sdr["Item_Code"];
-                u.Product_Name = (string)sdr["Product_Name"];
-                u.Product_Description = (string)sdr["Description"];
-             
-
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
-                ls.Add(u);
-            }
-            sdr.Close();
-            return ls;
-        }
-        public int PR_Detail_Add()
-        {
-            SqlCommand sc = new SqlCommand("PR_Detail_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-
-            sc.Parameters.AddWithValue("@PI_ID", PR_ID);
-            sc.Parameters.AddWithValue("@Store", Store);
-            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Product_Name", Product_Name);
-            sc.Parameters.AddWithValue("@Description", Product_Description);
-            sc.Parameters.AddWithValue("@P_Quantity", Quantitiy);
-           
-            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
-            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-
-
-            //u.Created_Date = (DateTime)sdr["CreatedDate"];
-
-
-            object a = sc.ExecuteScalar();
-            if (typeof(int) == a.GetType())
-            {
-                return (int)a;
-            }
-            else if (typeof(decimal) == a.GetType())
-            {
-                return Convert.ToInt32((decimal)a);
-            }
-            return 0;
-        }
-
+        public string ReturnMessage { get; set; }
 
         #endregion
-        #region Default
-        public int Created_By { get; set; }
+        public string Purchase_PR_Details_Add(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId; 
+                string Message = DataBase.ExecuteQuery<PR_Details>(new { x = this }, Connection.GetConnection()).FirstOrDefault().PR_D_ID.ToString();
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return Message;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+        
+        public PR_Details Purchase_PR_Details_GetById(int Id, int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId; 
+                PR_Details ret = DataBase.ExecuteQuery<PR_Details>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Created_Date { get; set; } = DateTime.Parse("2001/01/01");
+        
+        public List<PR_Details> Purchase_PR_Details_Get_By_PR(int UserId,int PR_ID)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                List<PR_Details> ret = DataBase.ExecuteQuery<PR_Details>(new {  a=PR_ID, x = UserId }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
 
-        public string Machine_Ip { get; set; }
 
-        public string Mac_Address { get; set; }
-        #endregion
+
+        public List<PR_Details> Purchase_PR_Details_GetAll(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId; 
+                List<PR_Details> ret = DataBase.ExecuteQuery<PR_Details>(new { x = UserId }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+
+        public string Purchase_PR_Details_Update(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                string Message = DataBase.ExecuteQuery<PR_Details>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return Message;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+        public string Purchase_PR_Details_Delete(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                string Message = DataBase.ExecuteQuery<PR_Details>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return Message;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+
+
+
+
     }
 }

@@ -32,7 +32,7 @@ namespace SfDesk.Models
         public List<Material> Material_Get_All()
         {
             List<Material> lst = new List<Material>();
-            SqlCommand sc = new SqlCommand("Material_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Material_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -57,7 +57,7 @@ namespace SfDesk.Models
         {
             List<Material> lst = new List<Material>();
 
-            SqlCommand sc = new SqlCommand("Material_Get_By_Type", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Material_Get_By_Type", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@M_Type", M_Type);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -82,7 +82,7 @@ namespace SfDesk.Models
         public Material Material_Get_By_ID()
         {
             Material u = new Material();
-            SqlCommand sc = new SqlCommand("Material_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Material_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@M_ID", ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -102,7 +102,7 @@ namespace SfDesk.Models
         }
         public void Material_Add()
         {
-            SqlCommand sc = new SqlCommand("Material_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Material_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@M_Name", Name);
             sc.Parameters.AddWithValue("@M_Unit", Unit);
@@ -117,7 +117,7 @@ namespace SfDesk.Models
         }
         public void Material_Update()
         {
-            SqlCommand sc = new SqlCommand("Material_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Material_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@M_ID", ID);
             sc.Parameters.AddWithValue("@M_Name", Name);
@@ -131,7 +131,7 @@ namespace SfDesk.Models
         }
         public void Material_Delete()
         {
-            SqlCommand sc = new SqlCommand("Material_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Material_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@M_ID", ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
 

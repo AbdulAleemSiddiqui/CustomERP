@@ -50,7 +50,7 @@ namespace SfDesk.Models
         public List<SalesTax> SalesTax_Get_All()
         {
             List<SalesTax> lst = new List<SalesTax>();
-            SqlCommand sc = new SqlCommand("SalesTax_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesTax_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -79,7 +79,7 @@ namespace SfDesk.Models
         public SalesTax SalesTax_Get_By_ID()
         {
             SalesTax u = new SalesTax();
-            SqlCommand sc = new SqlCommand("SalesTax_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesTax_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -106,7 +106,7 @@ namespace SfDesk.Models
         }
         public void SalesTax_Add()
         {
-            SqlCommand sc = new SqlCommand("SalesTax_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesTax_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             
             sc.Parameters.AddWithValue("@Name", SalesTax_Name);
             sc.Parameters.AddWithValue("@Code", Code);
@@ -126,7 +126,7 @@ namespace SfDesk.Models
         }
         public void SalesTax_Update()
         {
-            SqlCommand sc = new SqlCommand("SalesTax_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("SalesTax_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
 
             sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
              sc.Parameters.AddWithValue("@Name", SalesTax_Name);
@@ -145,7 +145,7 @@ namespace SfDesk.Models
         }
         public void SalesTax_Delete()
         {
-            SqlCommand sc = new SqlCommand("SalesTax_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesTax_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.ExecuteNonQuery();

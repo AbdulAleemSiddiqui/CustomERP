@@ -49,7 +49,7 @@ namespace SfDesk.Models
         public List<SalesMan> SalesMan_Get_All()
         {
             List<SalesMan> lst = new List<SalesMan>();
-            SqlCommand sc = new SqlCommand("SalesMan_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("SalesMan_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -82,7 +82,7 @@ namespace SfDesk.Models
         {
             SalesMan u = new SalesMan();
 
-            SqlCommand sc = new SqlCommand("SalesMan_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("SalesMan_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@S_ID", S_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -113,7 +113,7 @@ namespace SfDesk.Models
         public List<SalesMan> SalesMan_Get_For_LOV()
         {
             List<SalesMan> lst = new List<SalesMan>();
-            SqlCommand sc = new SqlCommand("SalesMan_Get_For_LOV", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("SalesMan_Get_For_LOV", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -129,7 +129,7 @@ namespace SfDesk.Models
         }
         public int SalesMan_Add()
         {
-            SqlCommand sc = new SqlCommand("SalesMan_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesMan_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
             sc.Parameters.AddWithValue("@STRN", STRN);
@@ -149,7 +149,7 @@ namespace SfDesk.Models
         }
         public void SalesMan_Update()
         {
-            SqlCommand sc = new SqlCommand("SalesMan_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesMan_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@S_ID", S_ID);
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
@@ -166,7 +166,7 @@ namespace SfDesk.Models
         }
         public void SalesMan_Delete()
         {
-            SqlCommand sc = new SqlCommand("SalesMan_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("SalesMan_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@S_ID", S_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();

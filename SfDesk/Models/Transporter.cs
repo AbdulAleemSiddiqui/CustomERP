@@ -52,7 +52,7 @@ namespace SfDesk.Models
         public List<Transporter> Transporter_Get_All()
         {
             List<Transporter> lst = new List<Transporter>();
-            SqlCommand sc = new SqlCommand("Transporter_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Transporter_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -80,7 +80,7 @@ namespace SfDesk.Models
         public Transporter Transporter_Get_By_ID()
         {
             Transporter u= new Transporter();
-            SqlCommand sc = new SqlCommand("Transporter_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Transporter_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -107,7 +107,7 @@ namespace SfDesk.Models
 
         public int Transporter_Add()
         {
-            SqlCommand sc = new SqlCommand("Transporter_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transporter_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
 
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
@@ -126,7 +126,7 @@ namespace SfDesk.Models
         }
         public void Transporter_Update()
         {
-            SqlCommand sc = new SqlCommand("Transporter_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transporter_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
@@ -142,7 +142,7 @@ namespace SfDesk.Models
         }
         public void Transporter_Delete()
         {
-            SqlCommand sc = new SqlCommand("Transporter_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Transporter_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();

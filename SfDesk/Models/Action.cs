@@ -25,7 +25,7 @@ namespace SfDesk.Models
         //}
         public void Action_Add()
         {
-            SqlCommand sc = new SqlCommand("Action_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Action_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Action_Name", Action_Name);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);

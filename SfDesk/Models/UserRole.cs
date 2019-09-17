@@ -45,7 +45,7 @@ namespace SfDesk.Models
         {
             List<User_Role> lst = new List<User_Role>();
 
-            SqlCommand sc = new SqlCommand("User_Role_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("User_Role_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -66,7 +66,7 @@ namespace SfDesk.Models
         {
             List<User_Role> lst = new List<User_Role>();
 
-            SqlCommand sc = new SqlCommand("User_Role_Get_By_U_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("User_Role_Get_By_U_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@U_ID", U_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -89,7 +89,7 @@ namespace SfDesk.Models
         {
 
             User_Role u = new User_Role();
-            SqlCommand sc = new SqlCommand("User_Role_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("User_Role_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@UR_ID", UR_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
 
@@ -110,7 +110,7 @@ namespace SfDesk.Models
         }
         public void User_Role_Add()
         {
-            SqlCommand sc = new SqlCommand("User_Role_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Role_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@U_ID", U_ID);
             sc.Parameters.AddWithValue("@R_ID", R_ID);
             sc.Parameters.AddWithValue("@C_ID", C_ID);
@@ -121,13 +121,13 @@ namespace SfDesk.Models
         }
         public void User_Role_Delete()
         {
-            SqlCommand sc = new SqlCommand("User_Role_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("User_Role_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@UR_ID", UR_ID);
             sc.ExecuteNonQuery();
         }
         public void User_Role_Update()
         {
-            SqlCommand sc = new SqlCommand("User_Role_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("User_Role_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
 
             sc.Parameters.AddWithValue("@UR_ID", UR_ID);
             sc.Parameters.AddWithValue("@U_ID", U_ID);

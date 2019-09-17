@@ -30,7 +30,7 @@ namespace SfDesk.Models
         public List<Department> Department_Get_All()
         {
             List<Department> lst = new List<Department>();
-            SqlCommand sc = new SqlCommand("Department_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Department_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -51,7 +51,7 @@ namespace SfDesk.Models
         public Department Department_Get_By_ID()
         {
             Department u = new Department();
-            SqlCommand sc = new SqlCommand("Department_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("Department_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@D_ID", D_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -71,7 +71,7 @@ namespace SfDesk.Models
 
         public void Department_Add()
         {
-            SqlCommand sc = new SqlCommand("Department_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Department_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@D_Name", D_Name);
             sc.Parameters.AddWithValue("@D_Head", D_Head);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
@@ -82,7 +82,7 @@ namespace SfDesk.Models
         }
         public void Department_Update()
         {
-            SqlCommand sc = new SqlCommand("Department_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Department_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@D_ID", D_ID);
             sc.Parameters.AddWithValue("@D_Name", D_Name);
             sc.Parameters.AddWithValue("@D_Head", D_Head);
@@ -91,7 +91,7 @@ namespace SfDesk.Models
         }
         public void Department_Delete()
         {
-            SqlCommand sc = new SqlCommand("Department_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("Department_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@D_ID", D_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();

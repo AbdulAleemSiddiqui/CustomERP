@@ -48,7 +48,7 @@ namespace SfDesk.Models
         public List<MiddleMan> MiddleMan_Get_All()
         {
             List<MiddleMan> lst = new List<MiddleMan>();
-            SqlCommand sc = new SqlCommand("MiddleMan_Get_All", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("MiddleMan_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -81,7 +81,7 @@ namespace SfDesk.Models
         {
             MiddleMan u = new MiddleMan();
 
-            SqlCommand sc = new SqlCommand("MiddleMan_Get_By_ID", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("MiddleMan_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@MM_ID", MM_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
@@ -112,7 +112,7 @@ namespace SfDesk.Models
         public List<MiddleMan> MiddleMan_Get_For_LOV()
         {
             List<MiddleMan> lst = new List<MiddleMan>();
-            SqlCommand sc = new SqlCommand("MiddleMan_Get_For_LOV", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure };
+            SqlCommand sc = new SqlCommand("MiddleMan_Get_For_LOV", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             SqlDataReader sdr = sc.ExecuteReader();
             while (sdr.Read())
@@ -128,7 +128,7 @@ namespace SfDesk.Models
         }
         public int MiddleMan_Add()
         {
-            SqlCommand sc = new SqlCommand("MiddleMan_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("MiddleMan_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
             sc.Parameters.AddWithValue("@STRN", STRN);
@@ -148,7 +148,7 @@ namespace SfDesk.Models
         }
         public void MiddleMan_Update()
         {
-            SqlCommand sc = new SqlCommand("MiddleMan_Update", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("MiddleMan_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@MM_ID", MM_ID);
             sc.Parameters.AddWithValue("@Trading_Name", Trading_Name);
             sc.Parameters.AddWithValue("@NTN", NTN);
@@ -165,7 +165,7 @@ namespace SfDesk.Models
         }
         public void MiddleMan_Delete()
         {
-            SqlCommand sc = new SqlCommand("MiddleMan_Delete", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
+            SqlCommand sc = new SqlCommand("MiddleMan_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@MM_ID", MM_ID);
             sc.Parameters.AddWithValue("@App_ID", App.App_ID);
             sc.ExecuteNonQuery();
