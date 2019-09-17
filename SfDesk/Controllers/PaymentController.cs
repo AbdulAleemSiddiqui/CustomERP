@@ -42,7 +42,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult detail()
         {
-            return PartialView("detail", new List<Payment_Mode>());
+            return PartialView("detail");
         }
         [HttpPost]
         public ActionResult detail( PaymentViewModel p)
