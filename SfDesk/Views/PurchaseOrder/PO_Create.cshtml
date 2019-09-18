@@ -16,7 +16,7 @@
                     <div class="form-group">
                         @Html.Label("Select Categories", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
+                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(),"Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
                         </div>
                     </div>
 
@@ -41,12 +41,13 @@
                                             @Html.DisplayName("PI QTY")
                                         </th>
                                         <th>
+                                            @Html.DisplayName("Description")
+                                        </th>
+                                        <th>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="PO_Detail_tbl">
-                                 
-                                </tbody>
+                                <tbody id="PO_Detail_tbl"></tbody>
                             </table>
                         </div>
                     </div>
@@ -73,21 +74,21 @@
 
     <script>
         $('.chosen-select').chosen();
-       var arr = []
+        var arr = []
         $('#Item_Categories').change(function () {
-            var selectedValues = $(this).val();  
+            var selectedValues = $(this).val();
             debugger;
             var items = []
-           
+
             $(selectedValues).each(function (i, item) {
                 //opt.Cat_ID= $(this).val();
                 var opt = {}
                 opt['Cat_ID'] = parseInt(item);
                 items.push(opt)
             });
-            things = JSON.stringify({ 'Cat_ID': items});
+            things = JSON.stringify({ 'Cat_ID': items });
 
-         
+
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -103,19 +104,27 @@
                         var a = "<tr>" +
                             "<td>" +
                             "<input type='hidden'  id='details[" + index + "].PI_ID' name='details[" + index + "].PI_ID' value='" + item.PI_ID + "' />" +
-                            "<input type='hidden'  id='details[" + index + "].Item_ID' name='details[" + index + "].Item_ID' value='"+item.Item_ID+"' />" +
+                            "<input type='hidden'  id='details[" + index + "].Item_ID' name='details[" + index + "].Item_ID' value='" + item.Item_ID + "' />" +
                             "<input  type='checkbox' id='details[" + index + "].is_Selected' name='details[" + index + "].is_Selected' value='true'/> " +
-                             "<input type='hidden' value='false'  name='details[" + index + "].is_Selected' /> </td>"+
+                             "<input type='hidden' value='false'  name='details[" + index + "].is_Selected' /> </td>" +
                         "<td>" +
+                            "<input type='hidden'  id='details[" + index + "].PI_NO' name='details[" + index + "].PI_NO' value='" + item.PI_NO + "' />" +
                             item.PI_NO +
                         "</td> <td>" +
+                            "<input type='hidden'  id='details[" + index + "].PI_Date' name='details[" + index + "].PI_Date' value='" + item.PI_Date + "' />" +
                         item.PI_Date +
                         "</td> <td>" +
+                            "<input type='hidden'  id='details[" + index + "].Item_Name' name='details[" + index + "].Item_Name' value='" + item.Item_Name + "' />" +
                         item.Item_Name +
                         "</td> <td>" +
+                            "<input type='hidden'  id='details[" + index + "].PI_Qty' name='details[" + index + "].PI_Qty' value='" + item.PI_Qty + "' />" +
                         item.PI_Qty +
+                        "</td> <td>" +
+                        "<input type='hidden'  id='details[" + index + "].Item_Description' name='details[" + index + "].Item_Description' value='" + item.Item_Description + "' />" +
+                        item.Item_Description +
                         "</td>" +
-                            +"</tr>"
+                        "<td> </td>"
+                            + "</tr>"
                         tbl.append(a);
                     });
                 }

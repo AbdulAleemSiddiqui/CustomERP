@@ -1,9 +1,9 @@
 ﻿@model SfDesk.Models.PO
-
 @{
     ViewBag.Title = "master";
     Layout = "~/Views/Shared/_dashLayout.cshtml";
 }
+<link href="~/Content/chosen.css" rel="stylesheet" />
 <style>
     .form-group {
         padding: 0px;
@@ -23,7 +23,7 @@
                     @*<input hidden="hidden" name="PI_ID" id="PI_ID" value="@Model.PI_ID" />*@
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.PO_No, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -31,33 +31,20 @@
                            {
                                htmlAttributes = new
                                {
-                                   @class = "form-control"}
+                                   @class = "form-control",@readonly="readonly"
+                               }
                            })
                                 @Html.ValidationMessageFor(model => model.PO_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-               
-                        <div class="form-group">
-                            @Html.HiddenFor(Model => Model.Item_Type_ID)
-                            @Html.LabelFor(model => model.Item_Type_ID, htmlAttributes: new { @class = "control-label col-md-4" })
-                            @{
-                                var list = new SfDesk.Models.Item_Category().Item_Category_Get_All();
-                            }
-                            <div class="col-md-5">
-                                <input type="text" name="Item_Type_Name" list="Item_Type_List" id="Item_Type_Name"  autocomplete="off"  class="form-control text-box">
-                                <datalist id="Item_Type_List">
 
-                                    @foreach (var item in list)
-                                    {
-                                        <option id="@item.IC_ID'" data-id="@item.IC_ID" value="@item.IC_Name"></option>
-                                    }
-                                </datalist>
-                                @Html.ValidationMessageFor(model => model.Item_Type_ID, "", new { @class = "text-danger" })
+                        @*<div class="form-group">
+                            @Html.Label("Categories", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                    @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select,", @readonly = "readonly", @multiple = "true" })
                             </div>
-                        </div>
-           
-                      
+                        </div>*@
 
 
 
@@ -101,24 +88,24 @@
                     </div>
                     <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.PO_Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
                                 <input id="Date" name="Date" type="text" class="form-control tbDate" />
-                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text -danger" })
+                                @Html.ValidationMessageFor(model => model.PO_Date, "", new { @class = "text -danger" })
                             </div>
                         </div>
-                       
 
-                        
+
+
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.PO_Comments, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.PO_Comments, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PO_Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                
+
 
 
                         <div class="form-group">
@@ -171,9 +158,9 @@
 
                     </div>
                 </div>
-            }
+                                        }
 
-          
+
         </div>
     </div>
 </div>
@@ -190,16 +177,19 @@
         </div>
     </div>
 
-</div>  
+</div>
 @section scripts
 {
 
-<script src="~/assets/js/TypableDropdown.js"></script>
-<script src="~/assets/js/jsgrid.min.js"></script>
-<script src="~/assets/js/db.js">
+    <script src="~/assets/js/TypableDropdown.js"></script>
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/db.js"></script>
+    <script src="~/Scripts/chosen.jquery.js"></script>
 
-</script>
     <script>
+        $('.chosen-select').chosen();
+        var array =@Html.Raw(Json.Encode(Model.details));
+        console.log(array)
         var mytrans = []
         var myOpts = []
         var Master_Id = 0;
@@ -211,17 +201,15 @@
                 $('#PI_Image').val(null);
             }
         });
+        
+
         $(window).load(function () {
             detail();
-            if ($('#PI_ID').val() != 0) {
+            if ($('#PO_ID').val() != 0) {
                 debugger;
-              
-                DropDown_Fill("Item_Type");
-             
                 DropDown_Fill("Suplier");
                 DropDown_Fill("Middle_Man");
-                Master_Id = $('#PI_ID').val();
-
+                Master_Id = $('#PO_ID').val();
             }
 
 
@@ -240,18 +228,12 @@
             $("#ADate").val(formatted_date);
 
             //Customer Js file which makes dropdown typable
-           
-            Typable_Dropdown('Item_Type');
-     
-
             Typable_Dropdown('Suplier');
             Typable_Dropdown('Middle_Man');
             //var g = $('#Transporter_ID').val();
             //if (g != "") {
             //    populate();
-
             //}
-
         });
 
         var Master_Id = 0;
@@ -286,6 +268,7 @@
 
         $("#create").click(function (e) {
             e.preventDefault();
+            debugger;   
             @*$.post(this.action, $(this).serialize(), function (data) {
                 detail()
                 debugger;
@@ -308,7 +291,6 @@
                 success: function (data) {
                     window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
                 }
-
             });
         });
 
@@ -317,7 +299,6 @@
         });
         /*ye master ka he*/
         function detail() {
-
             $.get('@Url.Action("detail", "PurchaseOrder")', function (data) { $("#child").html(data); });
             $("#done").hide()
         };
@@ -326,58 +307,11 @@
             $('#myModal').modal('show');
 
         };
-        @*function AddTrans() {
-            $.get('@Url.Action("Add", "Transporter")', function (data) { $("#myModalContent").html(data); });
-            $('#myModal').modal('show');
-
-        };*@
         function MM() {
             $.get('@Url.Action("Add", "middleman")', function (data) { $("#myModalContent").html(data); });
             $('#myModal').modal('show');
-
         };
-        @*function AddVehicle() {
-            var id = $('#Transporter_ID').val();
-            if (id != 0) {
-                $.get('@Url.Action("Add_Vehicle", "Transporter")'+'?id='+id , function (data) { $("#myModalContent").html(data); });
-                $('#myModal').modal('show');
-            }
-        };*@
-
         var id = 0;
-        //function populate() {
-        //    debugger;
-        //    var value = $('#Transporter_Name').val();
-        //    var name = "#Transporter_List";
-        //    name = name + " option[value='" + value + "']";
-        //    value = $(name).data('id');
-        //    $('#Transporter_ID').val(value);
-        //    id = $('#Transporter_ID').val()
 
-
-        //    $.ajax({
-        //        url: '/PurchaseRequisition/Vehcile_Get_By_Transporter',
-        //        type: 'GET',
-        //        dataType: 'json',
-        //        data: { id: id },
-        //        success: function (d) {
-
-        //            var ddlState = $('#Vehicle_ID');
-        //            ddlState.empty();
-        //            $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
-        //            $.each(d, function (i, states) {
-        //                if ($('#V_ID').val() == states.V_ID)
-        //                {
-        //                    ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
-        //                }
-        //                else {
-        //                    ddlState.append($("<option></option>").val(states.V_ID).html(states.Vehicle_Type));
-        //                }
-        //            });
-        //        }
-        //    });
-        //}
-        //$('#Transporter_Name').on("change", populate);
-
-</script>
+    </script>
 }

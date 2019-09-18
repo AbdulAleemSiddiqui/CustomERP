@@ -55,6 +55,7 @@ namespace SfDesk.Controllers
             if (u.User_Update_Password())
             {
                 Session["ID"] = u;
+                Session["User_ID"] = u.U_Id;
                 Session["COA"] = new ChartOfAccount().COA_Get_All();
                 return RedirectToAction("Index", "Company");
             }

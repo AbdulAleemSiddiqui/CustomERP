@@ -11,26 +11,22 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseOrderController : Controller
     {
-        private PO old;
-        public ActionResult master(int? id)
+        private const string Module = "Purchase";
+
+        public ActionResult master()
         {
-            //if (id != null)
-            //{
-            //    PO p = new PO() { PO_ID = id.Value,  = "PR_Approve" };
-            //    //  p = p.PR_Get_All().Find(x => x.PO_ID == id);
-
-            //    if (p == null)
-            //    {
-
-            //        p = new PO() { PO_ID = id.Value, App_Status = "PO_Created" };
-            //        //  p = p.PO_Get_All().Find(x => x.PO_ID == id);
-            //        //ViewBag.vehicle = new Vehicle() { V_ID = p.Vehicle_ID, Vehicle_No = p.Vehicle_No };
-            //    }
-            //    old = p;
-            //    return View(p == null ? new PO() : p);
-            //}
-            return View(new PO());
+            try
+            {
+                PO po = (PO)TempData["PO"];
+                po.PO_No = Utility.Get_New_No("PO", "PO_ID", "PO", App.App_ID);
+                return View(po);
+            }
+            catch
+            {
+                return RedirectToAction("PO_Create");
+            }
         }
+
         [HttpPost]
         public ActionResult master(PO c, List<PO_Details> pi, List<PO_Details> pie)
         {
@@ -107,15 +103,38 @@ namespace SfDesk.Controllers
 
         public ActionResult PO_Create()
         {
-          
-            return View(new PO() );
+            return View(new PO());
         }
+
         [HttpPost]
         public ActionResult PO_Create(PO c)
         {
+            try
+            {
+                if (PageAuth.URM_AuthenticatePage(Convert.ToInt32(Session["User_Id"]), "PO_Create"))
+                {
+                    //Your API Call here:
+                    TempData["PO"] = c;
+                    Logger.Logging.DB_LogVisit(Convert.ToInt32(Session["User_Id"]), "PO_Create", Connection.GetLogConnection());
 
-            return View();
+                    return RedirectToAction("Master", "PurchaseOrder");
+                }
+                else throw new Exception("Access Denied");
+            }
+            catch (Exception ex)
+            {
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = "" }, "", Module, Connection.GetLogConnection(), Convert.ToInt32(Session["User_Id"]));
+                return null;// ex.Message;
+            }
         }
+
+
+        //[HttpPost]
+        //public ActionResult PO_Create(PO c)
+        //{
+        //    TempData["PO"] = c;
+        //    return RedirectToAction("Master", "PurchaseOrder");
+        //}
         [HttpPost]
         public ActionResult Get_PO_Detail(List<Item_Category> Cat_ID)
         {
@@ -124,7 +143,7 @@ namespace SfDesk.Controllers
             {
                 return Json(new PO_Details().Purchase_PO_Detail_Get_By_Cat(Cat_ID, 1), JsonRequestBehavior.AllowGet);
             }
-            return Json("No item",JsonRequestBehavior.AllowGet);
+            return Json("No item", JsonRequestBehavior.AllowGet);
         }
         public ActionResult showAll()
         {
@@ -137,8 +156,8 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult Approve(PO c)
         {
-          //  c.App_Status = "Un-Allocated";
-          //  c.PR_Approve();
+            //  c.App_Status = "Un-Allocated";
+            //  c.PR_Approve();
             //if (c.details != null && c.details.Count > 0)
             //{
             //    foreach (var item in c.details)
@@ -212,10 +231,10 @@ namespace SfDesk.Controllers
         public ActionResult Index(int? PO_ID)
         {
             List<PO_Details> pd = new List<PO_Details>();
-           
-         
+
+
             return Json(pd, JsonRequestBehavior.AllowGet);
-          //  return Json(new PO_Details() { PO_ID = PO_ID }.PO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            //  return Json(new PO_Details() { PO_ID = PO_ID }.PO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -253,7 +272,7 @@ namespace SfDesk.Controllers
         public ActionResult Save_Charges(int PO_ID, SalesTax s)
         {
             PI_Charge p = new PI_Charge();
-          //  p.PO_ID = PO_ID;
+            //  p.PO_ID = PO_ID;
             p.SalesTax_ID = s.SalesTax_ID;
             p.PI_Charge_Add();
             return Json("");
@@ -289,3 +308,4 @@ namespace SfDesk.Controllers
         }
     }
 }
+
