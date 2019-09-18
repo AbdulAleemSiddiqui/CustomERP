@@ -77,105 +77,21 @@
 
 @*  <script src="~/assets/js/db.js"></script>*@
 <script>
-        var clients =[]
-        var myTransaction =[]
-
-        var myTaxes =[]
-        var taxes =[];
-        var taxess = []
-        var arr = [];
-        var taxes =[];
-        var taxess = [];
-        var transactions = [];
-        var transactionsID = [];
+     
+      
+   var clients = []
+    
         var Gross_total=0;
         var  tax_total = 0;
         var  trans_total = 0;
         var grand_total =0;
 
         function loadData() {
-            var id =  $('#PI_ID').val()
-            if (typeof (history.pushState) != "undefined") {
-
-                window.history.pushState( {} , 'PurchaseOrder', '/PurchaseOrder/master' );
-            }
+       
             debugger
-            $.ajax({
-                type: "GET",
-                url: "Index",
-                data: { PI_ID: id },
-                dataType: "json",
-                success: function (d) {
-
-                    if (d.ID != 0)
-                        arr = d
-                    my()
-                    newRow("jsGrid")
-                }
-            });
-            //$.ajax({
-            //    type: "GET",
-            //    url: "Get_taxes",
-            //    dataType: "json",
-            //    success: function (d) {
-
-            //        if (d.ID != 0){
-            //            taxes = d
-            //            taxes.unshift({SalesTax_ID : ""})
-            //        }
-            //        $.ajax({
-            //            type: "GET",
-            //            url: "Get_taxes_by_ID",
-            //            data: {PI_ID : $('#PI_ID').val() },
-            //            dataType: "json",
-            //            success: function (f) {
-
-            //                if (d.ID != 0)
-            //                    taxess = f
-            //                taxess.forEach(function(item) {
-            //                    item.Total = Gross_total*(item.Rate/100);
-            //                    item.Total=item.Total.toFixed(2);
-            //                });
-            //                tax()
-                            
-            //                newRow("Grid") 
-
-            //            }
-            //        });
-
-            //    }
-            //});
-            //$.ajax({
-            //    type: "GET",
-            //    url: "Get_Transasction",
-            //    dataType: "json",
-            //    success: function (d) {
-            //        ;
-            //        if (d.ID != 0)
-            //        {
-            //            transactions = d
-            //            transactions.unshift({T_ID : ""})
-            //        }
-            //        $.ajax({
-            //            type: "GET",
-            //            url: "Get_trans_by_ID",
-            //            data: {PI_ID : $('#PI_ID').val() },
-            //            dataType: "json",
-
-            //            success: function (f) {
-
-            //                if (d.ID != 0)
-            //                    transactionsID = f
-
-            //                trans()
-                            
-            //                newRow("transGrid") 
-
-            //            }
-            //        });
-
-            //    }
-            //});
+            my()
+            newRow("jsGrid")
+        
         }
         function newRow(id)
         {
@@ -248,9 +164,10 @@
             });
         }
 
-        $(function(){
+        $(function () {
+            clients =array
             loadData();
-            debugger;
+           
             var mmid = $('#Middle_Man_ID').val()
             var vid = $('#Vehicle_ID').val();
            
@@ -298,26 +215,7 @@
             //        mytrans = d;
             //    }
             //});
-            var array =@Html.Raw(Json.Encode(Model));
-            var arr=[];
-            $.each(array, function (key, value) {
-
-                var na = value;
-
-                var a= na.Store;
-
-                arr.push({
-                "Item_Code": na.Item_Code,
-                "Product_Name": na.Product_Name,
-                "Product_Description": na.Product_Description,
-                "Purchase_Quantitiy": na.Purchase_Quantitiy,
-                "Rate": na.Rate,
-                "Gross_Amount": na.Gross_Amount,
-
-
-                })
-            });
-            clients = arr;
+       
         })
 
         function my(){
@@ -474,22 +372,24 @@
                         return $editControl;
                     },
                 },
-           {
-               name: "Item_Code",
+                {
+               name: "Item_ID",
                title: "",
                type: "text",
                visible: false
 
 
            },
-                 {
-                     name: "PI_ID",
-                     title: "",
-                     type: "text",
-                     visible: false
+         
+                {
+                                name: "PI_ID",
+                                title: "",
+                                type: "text",
+                                visible: false
 
 
-                 },
+                            },
+            
                 { type: "control",
                     itemTemplate: function(_, item) {
                         if(item.IsTotal)

@@ -189,7 +189,7 @@
     <script>
         $('.chosen-select').chosen();
         var array =@Html.Raw(Json.Encode(Model.details));
-        console.log(array)
+       
         var mytrans = []
         var myOpts = []
         var Master_Id = 0;
@@ -201,7 +201,7 @@
                 $('#PI_Image').val(null);
             }
         });
-        
+
 
         $(window).load(function () {
             detail();
@@ -250,10 +250,10 @@
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             data.details = clients;
-            data.transactions = myTransaction;
-            data.taxes = myTaxes;
+          //  data.transactions = myTransaction;
+           // data.taxes = myTaxes;
             $.ajax({
-                url: '@Url.Action("Approve", "PurchaseOrder")',
+                url: '@Url.Action("master", "PurchaseOrder")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
@@ -268,7 +268,8 @@
 
         $("#create").click(function (e) {
             e.preventDefault();
-            debugger;   
+            console.log(clients)
+            debugger;
             @*$.post(this.action, $(this).serialize(), function (data) {
                 detail()
                 debugger;
@@ -276,23 +277,27 @@
                 window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
 
             });*@
+             e.preventDefault();
+
             var data = {};
-            $(this).serializeArray().map(function (x) { data[x.name] = x.value; });
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
             data.details = clients;
-            data.transactions = myTransaction;
-            data.taxes = myTaxes;
             $.ajax({
-                url: 'master',
+                url: '@Url.Action("master", "PurchaseRequisition")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
-                    c: data,
+                    c: data
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
                 }
+
             });
-        });
+      
+            });
+       
 
         $('#myModal').on("hidden.bs.modal", function () {
             $("#myModalContent").html("")
