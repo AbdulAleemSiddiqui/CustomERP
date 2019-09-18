@@ -113,6 +113,7 @@ namespace SfDesk.Controllers
             {
                 if (PageAuth.URM_AuthenticatePage(Convert.ToInt32(Session["User_Id"]), "PO_Create"))
                 {
+                    c.details = c.details.FindAll(x => x.is_Selected == true);
                     //Your API Call here:
                     TempData["PO"] = c;
                     Logger.Logging.DB_LogVisit(Convert.ToInt32(Session["User_Id"]), "PO_Create", Connection.GetLogConnection());
