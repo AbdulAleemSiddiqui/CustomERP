@@ -15,7 +15,7 @@
                     <div class="form-group">
                         @Html.Label("Select Category", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.PI_Item_Cat_ID, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "Cat_ID", "Cat_Name"),"", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.PI_Item_Cat_ID, new SelectList(new SfDesk.Models.Item_Category().Purchase_Item_Category_Get_All(SfDesk.Models.App.App_ID), "Cat_ID", "Cat_Name"),"", new { @class = "form-control" })
                         </div>
                     </div>
 
@@ -84,6 +84,8 @@
 
                     tbl.html("");
                     $.each(details, function (index, item) {
+                        var nowDate = new Date(parseInt(item.PR_Date.substr(6)));
+                        nowDate = $.datepicker.formatDate('dd-MM-yy', nowDate)
                         debugger;
                         var a = "<tr>" +
                             "<td>" +
@@ -96,7 +98,7 @@
                             item.PR_No +
                             "<input type='hidden'  id='PI_Details[" + index + "].PR_No' name='PI_Details[" + index + "].PR_No' value='" + item.PR_No + "' />" +
                         "</td> <td>" +
-                        item.PR_Date +
+                       nowDate +
                             "<input type='hidden'  id='PI_Details[" + index + "].PR_Date' name='PI_Details[" + index + "].PR_Date' value='" + item.PR_Date + "' />" +
 
                         "</td> <td>" +

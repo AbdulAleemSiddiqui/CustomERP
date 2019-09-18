@@ -10,21 +10,12 @@ namespace SfDesk.Controllers
     [Session]
     public class PurchaseRequisitionController : Controller
     {
-        private static PR old;
+      
       
 
-        public ActionResult master(int? id)
+        public ActionResult master()
          {
-            if (id != null)
-            {
-                PR p = new PR() { PR_ID = id.Value };
-                p = p.Purchase_PR_GetAll(App.App_ID).Find(x => x.PR_ID == id);
-                if(p!=null)
-                {
-                    old = p;
-                    return View(p);
-                }
-            }
+            
             // return View(new PR() {PR_No=new PR().PR_Get_New_PR_NO() });
             return View(new PR() { PR_NO=Utility.Get_New_No("PR","PR_ID","PR",App.App_ID)});
         }
@@ -77,34 +68,21 @@ namespace SfDesk.Controllers
         {
             return View(new PR().Purchase_PR_GetAll(App.App_ID));
         }
-        [HttpPost]
-        public ActionResult Approve(PR p)
+       
+        public ActionResult Approve(int? id)
         {
-            p.details.ForEach(x => x.PR_ID = p.PR_ID);
-            if (p.details != null && p.details.Count > 0)
+            if (id != null)
             {
-                foreach (var item in p.details)
+                PR p = new PR() { PR_ID = id.Value };
+                p = p.Purchase_PR_GetAll(App.App_ID).Find(x => x.PR_ID == id);
+                if (p != null)
                 {
-                    if (item.action == "I")
-                    {
-                        item.Purchase_PR_Details_Add(App.App_ID);
-                    }
-                    else if (item.action == "U")
-                    {
-                        item.Purchase_PR_Details_Update(App.App_ID);
-                    }
-                    else if (item.action == "D")
-                    {
-                        item.Purchase_PR_Details_Delete(App.App_ID);
-                    }
 
+                    return View(p);
                 }
-
             }
-            p.Status = 2;
 
-            p.Purchase_PR_Update(App.App_ID);
-            return Json("kuch bhi", JsonRequestBehavior.AllowGet);
+            return View();
 
         }
         public ActionResult detail(int? id)
