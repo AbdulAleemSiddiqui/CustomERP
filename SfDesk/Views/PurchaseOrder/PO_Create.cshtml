@@ -16,7 +16,7 @@
                     <div class="form-group">
                         @Html.Label("Select Categories", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(),"Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
+                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Purchase_Item_Category_Get_All(SfDesk.Models.App.App_ID),"Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
                         </div>
                     </div>
 
