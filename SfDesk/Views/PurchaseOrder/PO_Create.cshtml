@@ -16,7 +16,7 @@
                     <div class="form-group">
                         @Html.Label("Select Categories", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(),"Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
+                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Purchase_Item_Category_Get_All(SfDesk.Models.App.App_ID),"Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
                         </div>
                     </div>
 
@@ -100,7 +100,8 @@
                     debugger;
                     tbl.html("");
                     $.each(details, function (index, item) {
-
+                        var nowDate = new Date(parseInt(item.PI_Date.substr(6)));
+                        nowDate = $.datepicker.formatDate('dd-MM-yy', nowDate)
                         var a = "<tr>" +
                             "<td>" +
                             "<input type='hidden'  id='details[" + index + "].PI_ID' name='details[" + index + "].PI_ID' value='" + item.PI_ID + "' />" +
@@ -112,7 +113,7 @@
                             item.PI_NO +
                         "</td> <td>" +
                             "<input type='hidden'  id='details[" + index + "].PI_Date' name='details[" + index + "].PI_Date' value='" + item.PI_Date + "' />" +
-                        item.PI_Date +
+                       nowDate +
                         "</td> <td>" +
                             "<input type='hidden'  id='details[" + index + "].Item_Name' name='details[" + index + "].Item_Name' value='" + item.Item_Name + "' />" +
                         item.Item_Name +
