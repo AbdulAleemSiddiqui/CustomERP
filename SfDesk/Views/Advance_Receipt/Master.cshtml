@@ -1,0 +1,205 @@
+﻿@model SfDesk.Models.Receipt
+
+@{
+    ViewBag.Title = "Master";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Receipt</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Customer_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.HiddenFor(Model => Model.Customer_ID)
+                            <input type="text" name="Customer_Name" list="Customer_List" id="Customer_Name" class="form-control text-box">
+                            <datalist id="Customer_List">
+                                @{
+                                    var Customer_List = new SfDesk.Models.Customer().Customer_Get_All();
+                                }
+
+                                @foreach (var item in Customer_List)
+                                {
+                                    <option id="@item.Customer_ID" data-id="@item.Customer_ID" value="@item.Business_Name"></option>
+                                }
+                            </datalist>
+
+                            @Html.ValidationMessageFor(model => model.Customer_ID, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Rec_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Rec_NO, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Rec_NO, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-4 ">
+                        @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.HiddenFor(Model => Model.Currency)
+                            <input type="text" name="Customer_Name" list="Customer_List" id="Customer_Name" class="form-control text-box">
+                            <datalist id="Curr_List">
+                                @{
+                                    var Curr_List = new List<string>();
+                                    Curr_List.Add("pkr");
+                                    Curr_List.Add("inr");
+                                    Curr_List.Add("USD");
+                                }
+
+                                @foreach (var item in Curr_List)
+                                {
+                                    <option id="@item" data-id="@item" value="@item"></option>
+                                }
+                            </datalist>
+
+                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.AttachmentPath, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.AttachmentPath, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AttachmentPath, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+     
+                    <div col-md-12" id="child"></div>
+
+
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div col-md-12" id="child2"></div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" id="submit" />
+                        </div>
+                    </div>
+                </div>
+
+                            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/db.js">
+    </script>
+    <script src="~/assets/js/TypableDropdown.js"></script>
+
+    <script>
+        var sup_ID = -1;
+        var inventory = []
+        var details = []
+        var pdata= []
+        var paydetail = []
+        var totalamount = 0
+        var allocamount = 0
+        var dueammount = 0
+        DropDown_Fill("customer");
+        Typable_Dropdown('customer');
+        $(document).ready(function () {
+            $.get('@Url.Action("detail", "Advance_receipt")', function (data) { $("#child").html(data); });
+            var date =  $.now()
+            $("#Date").datepicker("setDate", new Date(date));
+        });
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
+
+        $("#Customer_Name").on("change", function () {
+            sup_ID = $('option:selected', this).attr('value');
+
+            detail();
+
+        })
+        $("form").submit(function (e) {
+            e.preventDefault();
+
+            var mydata = $(this).serialize()
+            if (allocamount == totalamount) {
+
+                var deta = JSON.stringify(details);
+                var paydeta = JSON.stringify(paydetail);
+
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: "master",
+                    data: mydata,
+                    success: function (d) {
+                        var model = { mode: details, detail: paydetail ,id :d }
+                        $.ajax({
+                            type: "POST",
+                            url: "detail",
+                            contentType: 'application/json; charset=utf-8',
+                            data:  JSON.stringify(model),
+                            success: function (d) {
+
+                            },
+                        })
+                    },
+                })
+
+                window.location.href = '/Advance_receipt/Master/';
+            }
+            else {
+                alert("naaah")
+            }
+        })
+
+        function detail() {
+
+            $.ajax({
+                type: "GET",
+                data: { id: sup_ID },
+                url: "Bill_Get_By_SID",
+                success: function (d) {
+
+
+                   inventory =d
+                },
+            })
+            $.get('@Url.Action("ReceiptDetail", "Advance_receipt")', function (data) { $("#child2").html(data); });
+            $("#done").hide()
+        };
+
+
+    </script>
+}

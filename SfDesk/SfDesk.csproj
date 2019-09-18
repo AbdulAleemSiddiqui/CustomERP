@@ -217,6 +217,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Advance_ReceiptController.cs" />
     <Compile Include="Controllers\ChartOfAccountController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContractorController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PurchaseRequisitionController.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
+    <Compile Include="Controllers\ReceiptController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\RecurringInvoiceController.cs" />
     <Compile Include="Controllers\ReturnGRNController.cs" />
@@ -260,7 +262,11 @@
     <Compile Include="Models\Account_Group.cs" />
     <Compile Include="Models\Account_Type.cs" />
     <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\Advance_Receipt.cs" />
     <Compile Include="Models\App.cs" />
+    <Compile Include="Models\AR_Details.cs" />
+    <Compile Include="Models\AR_Settlement.cs" />
+    <Compile Include="Models\AR_Tax_adjustment.cs" />
     <Compile Include="Models\ChartOfAccount.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\contractor.cs" />
@@ -300,6 +306,10 @@
     <Compile Include="Models\P_Indent_Detail.cs" />
     <Compile Include="Models\Quotation.cs" />
     <Compile Include="Models\Quotation_Detail.cs" />
+    <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\ReceiptDetails.cs" />
+    <Compile Include="Models\Receipt_Settlement.cs" />
+    <Compile Include="Models\Receipt_Tax_adjustment.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecurringInvoice.cs" />
     <Compile Include="Models\ReturnGrn.cs" />
@@ -926,6 +936,12 @@
     <Content Include="Views\ReturnGRN\Detail.cshtml" />
     <Content Include="Views\SalesReturnInvoice\master.cshtml" />
     <Content Include="Views\SalesReturnInvoice\detail.cshtml" />
+    <Content Include="Views\Receipt\Master.cshtml" />
+    <Content Include="Views\Receipt\detail.cshtml" />
+    <Content Include="Views\Receipt\ReceiptDetail.cshtml" />
+    <Content Include="Views\Advance_Receipt\detail.cshtml" />
+    <Content Include="Views\Advance_Receipt\Master.cshtml" />
+    <Content Include="Views\Advance_Receipt\ReceiptDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

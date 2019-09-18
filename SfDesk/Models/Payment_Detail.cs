@@ -29,12 +29,7 @@ namespace SfDesk.Models
 
         public string Mac_Address { get; set; }
 
-        public Payment_Detail()
-        {
-            this.Machine_Ip = Utility.GetIPAddress();
-            this.Mac_Address = Utility.GetMacAddress();
-        }
-
+    
         #endregion
         public List<PurchaseInventory> Bill_Get_By_SID(int id)
         {
