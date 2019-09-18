@@ -16,7 +16,7 @@
                     <div class="form-group">
                         @Html.Label("Select Categories", htmlAttributes: new { @class = "control-label col-sm-2" })
                         <div class="col-md-3">
-                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "IC_ID", "IC_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
+                            @Html.DropDownListFor(model => model.Item_Categories, new SelectList(new SfDesk.Models.Item_Category().Item_Category_Get_All(), "Cat_ID", "Cat_Name"), new { @class = "form-control chosen-select", @multiple = "true" })
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@
                                             @Html.DisplayName("Item")
                                         </th>
                                         <th>
-                                            @Html.DisplayName("PI Qty")
+                                            @Html.DisplayName("PI QTY")
                                         </th>
                                         <th>
                                         </th>
@@ -73,17 +73,27 @@
 
     <script>
         $('.chosen-select').chosen();
-       
+       var arr = []
         $('#Item_Categories').change(function () {
             var selectedValues = $(this).val();  
-            debugger;   
+            debugger;
+            var items = []
            
+            $(selectedValues).each(function (i, item) {
+                //opt.Cat_ID= $(this).val();
+                var opt = {}
+                opt['Cat_ID'] = parseInt(item);
+                items.push(opt)
+            });
+            things = JSON.stringify({ 'Cat_ID': items});
+
+         
             $.ajax({
-                url: '/PurchaseOrder/Get_PO_Detail',
-                type: 'GET',
-                dataType: 'json',
-                data: { Cat_ID: JSON.stringify(selectedValues) },
                 contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/PurchaseOrder/Get_PO_Detail',
+                data: things,
                 success: function (details) {
                     var tbl = $('#PO_Detail_tbl');
                     debugger;

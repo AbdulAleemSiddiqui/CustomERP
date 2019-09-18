@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseTVP;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,10 +10,15 @@ namespace SfDesk.Models
 
     public class Item
     {
+        [TVP]
         public int Item_ID { get; set; }
-        public string Item_Code { get; set; }
+        [TVP]
         public string Item_Name { get; set; }
-        public int IC_ID { get; set; }
+        [TVP]
+        public string Item_Code { get; set; }
+     
+        [TVP]
+        public int Cat_ID { get; set; }
         public string Cat_Name { get; set; }
 
 
@@ -22,13 +28,7 @@ namespace SfDesk.Models
         public string Machine_Ip { get; set; }
         public string Mac_Address { get; set; }
         #endregion
-        public Item()
-        {
-            this.Machine_Ip = Utility.GetIPAddress();
-            this.Mac_Address = Utility.GetMacAddress();
-        }
-
-
+    
         public List<Item> Item_Get_All()
         {
             List<Item> lst = new List<Item>();
@@ -42,7 +42,7 @@ namespace SfDesk.Models
                 u.Item_ID = (int)sdr["Item_ID"];
                 u.Item_Code = (string)sdr["Item_Code"];
                 u.Item_Name = (string)sdr["Item_Name"];
-                u.IC_ID = (int)sdr["Cat_ID"];
+                u.Cat_ID = (int)sdr["Cat_ID"];
                 u.Cat_Name = (string)sdr["Cat_Name"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -65,7 +65,7 @@ namespace SfDesk.Models
                 u.Item_ID = (int)sdr["Item_ID"];
                 u.Item_Code = (string)sdr["Item_Code"];
                 u.Item_Name = (string)sdr["Item_Name"];
-                u.IC_ID = (int)sdr["IC_ID"];
+                u.Cat_ID = (int)sdr["Cat_ID"];
                 u.Cat_Name = (string)sdr["Cat_Name"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -81,7 +81,7 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("Item_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Item_Name", Item_Name);
-            sc.Parameters.AddWithValue("@IC_ID", IC_ID);
+            sc.Parameters.AddWithValue("@Cat_ID", Cat_ID);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -94,7 +94,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Item_ID", Item_ID);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
             sc.Parameters.AddWithValue("@Item_Name", Item_Name);
-            sc.Parameters.AddWithValue("@IC_ID", IC_ID);
+            sc.Parameters.AddWithValue("@Cat_ID", Cat_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }

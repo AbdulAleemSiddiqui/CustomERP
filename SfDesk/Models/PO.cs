@@ -64,6 +64,7 @@ namespace SfDesk.Models
 
         #endregion
         public List<PO_Details> details { get; set; }
+        public List<Item_Category> Item_Categories { get; set; }
 
         //View Only Properties
         public string ReturnMessage { get; set; }

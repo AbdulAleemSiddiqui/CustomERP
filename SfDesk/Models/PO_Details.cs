@@ -40,7 +40,7 @@ namespace SfDesk.Models
         [DisplayName("Item Desc.")]
         public string Item_Description { get; set; } = "";
         [DisplayName("PI Quantitiy")]
-        public int PI_Qty { get; set; }
+        public decimal PI_Qty { get; set; }
     
         public string action { get; set; }
         public bool is_Selected { get; set; }
@@ -50,17 +50,8 @@ namespace SfDesk.Models
 
 
 
-
-        //Your Properties for Model Here
-
-        [TVP]
-        public int TenantId { get; set; }
-        [TVP]
-        public string AppId { get; set; }
         [TVP]
         public int CreatedBy { get; set; }
-        [TVP]
-        public int ModifiedBy { get; set; }
 
         //View Only Properties
         public string ReturnMessage { get; set; }
@@ -71,7 +62,7 @@ namespace SfDesk.Models
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; this.ModifiedBy = UserId;
+                this.CreatedBy = UserId;  
                 string Message = DataBase.ExecuteQuery<PO_Details>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
@@ -85,21 +76,21 @@ namespace SfDesk.Models
             }
         }
 
-        public PO_Details Purchase_PO_Detail_Get_By_Cat(List<int>  Id, int UserId)
+        public List<PO_Details> Purchase_PO_Detail_Get_By_Cat(List<Item_Category> lst, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; this.ModifiedBy = UserId;
-                PO_Details ret = DataBase.ExecuteQuery<PO_Details>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                this.CreatedBy = UserId;  
+                List<PO_Details> ret = DataBase.ExecuteQuery<PO_Details>(new { x = lst,a=this.CreatedBy }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = lst }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
             }
             catch (Exception ex)
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = lst }, "", Module, Connection.GetLogConnection(), UserId);
                 return null;
             }
         }
@@ -110,7 +101,7 @@ namespace SfDesk.Models
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; this.ModifiedBy = UserId;
+                this.CreatedBy = UserId;  
                 List<PO_Details> ret = DataBase.ExecuteQuery<PO_Details>(new { x = UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
@@ -129,7 +120,7 @@ namespace SfDesk.Models
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; this.ModifiedBy = UserId;
+                this.CreatedBy = UserId;  
                 string Message = DataBase.ExecuteQuery<PO_Details>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);

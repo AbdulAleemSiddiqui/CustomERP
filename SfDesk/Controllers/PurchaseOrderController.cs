@@ -116,12 +116,15 @@ namespace SfDesk.Controllers
 
             return View();
         }
-
-        public ActionResult Get_PO_Detail(string Cat_ID)
+        [HttpPost]
+        public ActionResult Get_PO_Detail(List<Item_Category> Cat_ID)
         {
-            string [] ids =((object[])new JavaScriptSerializer().DeserializeObject(Cat_ID)).Cast<string>().ToArray();
-           new PO_Details().Purchase_PO_Detail_Get_By_Cat()
-            return Json(pd, JsonRequestBehavior.AllowGet);
+            //string [] ids =((object[])new JavaScriptSerializer().DeserializeObject(Cat_ID)).Cast<string>().ToArray();
+            if (Cat_ID != null)
+            {
+                return Json(new PO_Details().Purchase_PO_Detail_Get_By_Cat(Cat_ID, 1), JsonRequestBehavior.AllowGet);
+            }
+            return Json("No item",JsonRequestBehavior.AllowGet);
         }
         public ActionResult showAll()
         {
