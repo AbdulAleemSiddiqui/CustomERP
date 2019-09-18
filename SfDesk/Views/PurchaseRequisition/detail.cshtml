@@ -83,7 +83,9 @@
             url: "/PurchaseRequisition/Item_Get_All",
             dataType: "json",
             success: function (d) {
+                debugger
                 items = d;
+                
             }
         });
 
@@ -96,6 +98,7 @@
             dataType: "json",
             success: function (d) {
                 if (d.PR_ID != 0)
+                    debugger
                     arr = d
                 my();
                 newRow();
@@ -228,6 +231,9 @@
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 //}
             },
+            onDataLoaded: function(args) {
+            debugger
+            }, 
             onItemDeleting  : function (args) {
 
                 debugger
@@ -247,7 +253,8 @@
             onItemDeleted: function(args) {
             }, 
             fields: [
-            {name:"Item_ID", title: "Code", type: "select", width:  80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Code",            insertTemplate: function(value) { 
+            {name:"Item_ID", title: "Code", type: "select", width:  80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Code",         
+                insertTemplate: function(value) { 
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
                $insertControl.on("keyup change", function () {
@@ -259,7 +266,17 @@
                 return this.insertControl;
             },
             editTemplate: function (args) {
-                var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
+                var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this,args);
+                var th= this;
+                $editControl.on("load", function () {
+                   alert("asd")
+                });
+                $editControl.on("keyup change", function () {
+                   
+                    debugger;
+                    var p_Q = parseInt(this.value);
+                    th._grid.fields[1].editControl.val(p_Q)//val(unit);
+                });
                 update_on_enter($editControl);
                     
                 return $editControl;
@@ -278,7 +295,22 @@
                     update_on_enter($insertControl);
                     
                     return $insertControl;
-            }, },
+            }, 
+            editTemplate: function (args) {
+                var th= this;
+                var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this,args);
+                $editControl.on("keyup change", function () {
+                    debugger;
+                    var p_Q = parseInt(this.value);
+                    var d1= th._grid.fields[0].editControl.val(p_Q).trigger("change");
+                });
+              
+                update_on_enter($editControl);
+                    
+                return $editControl;
+            }, 
+            
+            },
             {name:"Description", title: "Description", type: "text", width:  80, validate: "required"  ,
                 editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);

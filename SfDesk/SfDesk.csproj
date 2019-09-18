@@ -48,9 +48,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DatabaseTVP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Projects\Axon Project\AHS\AHS\bin\DatabaseTVP.dll</HintPath>
+    <Reference Include="DatabaseTVP">
+      <HintPath>C:\Users\hp\Downloads\DatabaseTVP\DatabaseTVP.dll</HintPath>
     </Reference>
     <Reference Include="Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -700,6 +699,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Logger.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\css\admin\assets\fonts\themify.eot" />
@@ -942,6 +942,7 @@
     <Content Include="Views\Advance_Receipt\detail.cshtml" />
     <Content Include="Views\Advance_Receipt\Master.cshtml" />
     <Content Include="Views\Advance_Receipt\ReceiptDetail.cshtml" />
+    <Content Include="Views\PurchaseRequisition\Approve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

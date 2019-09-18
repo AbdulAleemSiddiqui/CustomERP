@@ -8,6 +8,8 @@ namespace SfDesk.Models
 {
     public class Item_Category
     {
+        private const string Module = "Purchase";
+
         [TVP]
         public int Cat_ID { get; set; }
         [TVP]
@@ -15,14 +17,23 @@ namespace SfDesk.Models
         [TVP]
         public int CreatedBy{ get; set; }
 
-        public List<Item_Category> Item_Category_Get_All()
+        public List<Item_Category> Purchase_Item_Category_Get_All(int UserId)
         {
-            return new List<Item_Category>()
+            try
             {
-                new Item_Category() {Cat_ID=1,Cat_Name="Row Material" },
-                new Item_Category() {Cat_ID=2,Cat_Name="Packaging" },
-                new Item_Category() {Cat_ID=3,Cat_Name="stationery" }
-            };
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                List<Item_Category> ret = DataBase.ExecuteQuery<Item_Category>(new { x = UserId }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
         }
     }
 }
