@@ -14,7 +14,7 @@
             <div class="card alert">
                 <div class="jsgrid-table-panel">
 
-                    <div id="Grid" class="table table-striped table-bordered dataTable no-footer"></div>
+                    <div id="adjGrid" class="table table-striped table-bordered dataTable no-footer"></div>
 
                 </div>
                 <!-- /# card -->
@@ -30,8 +30,10 @@
 
         $(document).ready(function () {
             debugger
-            console.log(inventory)
-        my()
+           // console.log(inventory)
+            myy()
+            newRow("adjGrid")
+
     });
 
 
@@ -40,9 +42,9 @@
 
 
 
-    function my(){
+    function myy(){
 
-        $("#Grid").jsGrid({
+        $("#adjGrid").jsGrid({
 
             height: "auto",
             width: "100%",
@@ -107,16 +109,79 @@
             fields: [
 
             {
-                name: "PR_No", title: "Ref. No", type: "text", width: 80, editing:false
+                name: "Description", title: "Description", type: "text", width: 80, editing: false,
+
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    var th = this;
+                    update_on_enter($editControl, "adjGrid");
+                    return $editControl;
+                },
             },
-            { name: "strngDate", title: "Trans Date", type: "text", width: 80,  editing: false },
+            {
+                name: "Date", title: "Date", type: "text", width: 80, editing: false,
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    var th = this;
+                    update_on_enter($editControl, "adjGrid");
+                    return $editControl;
+                },
+            },
+            {
+                name: "Due_Date", title: "Due Date", type: "text", width: 80, editing: false
+            ,
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    var th = this;
+                    update_on_enter($editControl, "adjGrid");
+                    return $editControl;
+                },
+            },
 
-          { name: "TotalAmount", title: "Invoice Total", type: "text", width: 80, editing: false, },
-          { name: "Total_Tax", title: "Invoice Taxes", type: "number", width: 80,  editing: false },
-          { name: "DueAmount", title: "Due Amount", type: "text", width: 80, editing: false },
-          { name: "Amount", title: "Recipt", type: "text", width: 80, validate: "required" },
-          { name: "Total", title: "Total", type: "text", width: 80, validate: "required", editing: false },
+          {
+              name: "Total_Amount", title: "Total Amount", type: "text", width: 80, editing: false,
+              editTemplate: function (args) {
+                  var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                  var th = this;
+                  update_on_enter($editControl, "adjGrid");
+                  return $editControl;
+              },
+          },
+          {
+              name: "Adjusted_Amount", title: "Adjusted Amount", type: "text", width: 80, editing: false,
+              editTemplate: function (args) {
+                  var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                  var th = this;
+                  update_on_enter($editControl, "adjGrid");
+                  return $editControl;
+              },
+          },
+          {
+              name: "Balance_Amount", title: "Balance Amount", type: "text", width: 80, editing: false,
+              editTemplate: function (args) {
+                  var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                  var th = this;
+                  update_on_enter($editControl, "adjGrid");
+                  return $editControl;
+              },
+          },
+          {
+              name: "Allocated_Amount", title: "Allocated Amount", type: "text", width: 80, validate: "required",
+              insertTemplate: function () {
 
+                  var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+
+                  insert_on_enter($insertControl, "adjGrid");
+                  return $insertControl;
+              },
+              editTemplate: function (args) {
+                  var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                  var th = this;
+                  update_on_enter($editControl, "adjGrid");
+                  return $editControl;
+              },
+          },
+        
 
                    {
                        type: "control",     insertButton: false,

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace SfDesk.Models
 {
-    public class SO_Details
+    public class RI_Details
     {
-        public int SO_ID { get; set; }
-        public int SO_DID { get; set; }
+        public int RI_ID { get; set; }
+        public int RI_DID { get; set; }
         public string Product_ID { get; set; }
         public string Product_Code { get; set; }
         public string Product_Name { get; set; }

@@ -7,23 +7,21 @@ using System.Web.Mvc;
 
 namespace SfDesk.Controllers
 {
-    [Session]
-    public class SaleOrderController : Controller
+    public class SalesInvoiceController : Controller
     {
-       private SaleOrder old;
         public ActionResult master(int? id)
         {
             //if (id != null)
             //{
-            //    SaleOrder p = new SaleOrder() { SO_ID = id.Value, App_Status = "SO_Created" };
+            //    SalesInvoice p = new SalesInvoice() { SO_ID = id.Value, App_Status = "SO_Created" };
             //    p = p.SO_Get_All().Find(x => x.SO_ID == id);
             //    return View(p);
             //}
-            return View(new SaleOrder());//{ SO_No = new SaleOrder().SO_Get_New_ID(),Date=DateTime.Now });
-         }
-          
+            return View(new SalesInvoice());//{ SO_No = new SalesInvoice().SO_Get_New_ID(),Date=DateTime.Now });
+        }
+
         [HttpPost]
-        public ActionResult master(SaleOrder c, List<SO_Details> SO, List<SO_Details> SOe)
+        public ActionResult master(SalesInvoice c, List<SO_Details> SO, List<SO_Details> SOe)
         {
             //c.App_Status = "SO_Created";
             //if(c!=old)
@@ -96,26 +94,26 @@ namespace SfDesk.Controllers
             ////change krna hai 
             return Json("");//c.SO_ID, JsonRequestBehavior.AllowGet);
         }
-         
+
 
         public ActionResult SO_Approved(int id)
         {
             //if (id != 0)
             //{
-            //    SaleOrder p = new SaleOrder() { SO_ID = id, App_Status = "SO_Created" };
+            //    SalesInvoice p = new SalesInvoice() { SO_ID = id, App_Status = "SO_Created" };
             //    p = p.SO_Get_All().Find(x => x.SO_ID == id);
             //    return View(p);
             //}
-            return View(new SaleOrder());//{ SO_No = new SaleOrder().SO_Get_New_ID(), Date = DateTime.Now });
+            return View(new SalesInvoice());//{ SO_No = new SalesInvoice().SO_Get_New_ID(), Date = DateTime.Now });
         }
 
         public ActionResult showAll()
         {
-            return View(new SaleOrder());//s { App_Status = "SO_Created" }.SO_Get_All());
+            return View(new SalesInvoice());//s { App_Status = "SO_Created" }.SO_Get_All());
         }
-  
+
         [HttpPost]
-        public ActionResult Approve(SaleOrder c)
+        public ActionResult Approve(SalesInvoice c)
         {
             //c.App_Status = "Un-Allocated";
             //c.SO_Approve();
@@ -187,16 +185,13 @@ namespace SfDesk.Controllers
         }
         public ActionResult detail()
         {
-            return PartialView("detail", new List<SaleOrder>());
+            return PartialView("detail", new List<SalesInvoice>());
         }
         public ActionResult Index(int SO_ID)
         {
-            return Json(new SO_Details());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SI_Details());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
-
-
         [HttpGet]
-       
         public ActionResult Vehcile_Get_By_Transporter(int id)
         {
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
@@ -228,7 +223,6 @@ namespace SfDesk.Controllers
         }
 
   
-        [HttpGet]
         public ActionResult Sm_Get_By_ID(int id)
         {
             return Json(new SalesMan() { S_ID = id }.SalesMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
@@ -239,6 +233,5 @@ namespace SfDesk.Controllers
             return Json(new Vehicle() { V_ID = id }.Vehcile_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
         }
-
     }
 }

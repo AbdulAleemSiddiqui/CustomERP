@@ -48,12 +48,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DatabaseTVP">
-      <HintPath>E:\Projects\Axon Project\AHS\AHS\bin\DatabaseTVP.dll</HintPath>
-    </Reference>
-    <Reference Include="Logger">
-      <HintPath>E:\Projects\Axon Project\AHS\AHS\bin\Logger.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -232,10 +226,16 @@
     <Compile Include="Controllers\PurchaseInventoryController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\PurchaseRequisitionController.cs" />
+    <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
+    <Compile Include="Controllers\RecurringInvoiceController.cs" />
+    <Compile Include="Controllers\ReturnGRNController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SaleOrderController.cs" />
+    <Compile Include="Controllers\SalesInvoiceController.cs" />
     <Compile Include="Controllers\SalesManController.cs" />
+    <Compile Include="Controllers\SalesReturnInvoiceController.cs" />
+    <Compile Include="Controllers\SalesReturnOrderController.cs" />
     <Compile Include="Controllers\SalesTaxController.cs" />
     <Compile Include="Controllers\SessionAttribute.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
@@ -261,6 +261,7 @@
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\GDN.cs" />
+    <Compile Include="Models\GDN_Details.cs" />
     <Compile Include="Models\GRN.cs" />
     <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -275,8 +276,12 @@
     <Compile Include="Models\PaymentViewModel.cs" />
     <Compile Include="Models\Payment_Detail.cs" />
     <Compile Include="Models\Payment_Mode.cs" />
-    <Compile Include="Models\P_Indent.cs" />
+    <Compile Include="Models\Payment_Settlement.cs" />
+    <Compile Include="Models\Payment_Tax_adjustment.cs" />
+    <Compile Include="Models\PI.cs" />
     <Compile Include="Models\PI_Charge.cs" />
+    <Compile Include="Models\PI_Detail.cs" />
+    <Compile Include="Models\PI_Detail_ViewModel.cs" />
     <Compile Include="Models\PI_Transactions.cs" />
     <Compile Include="Models\PO.cs" />
     <Compile Include="Models\PO_Details.cs" />
@@ -286,16 +291,27 @@
     <Compile Include="Models\PR_Detail.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Purchase_Type.cs" />
-    <Compile Include="Models\P_Indent_Detail.cs" />
+    <Compile Include="Models\Quotation.cs" />
+    <Compile Include="Models\Quotation_Detail.cs" />
     <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\RecurringInvoice.cs" />
+    <Compile Include="Models\ReturnGrn.cs" />
+    <Compile Include="Models\ReturnGrnDetails.cs" />
+    <Compile Include="Models\RI_Details.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleDetails.cs" />
     <Compile Include="Models\SaleOrder.cs" />
     <Compile Include="Models\SalesMan.cs" />
+    <Compile Include="Models\SalesReturnInvoice.cs" />
+    <Compile Include="Models\SalesReturnOrder.cs" />
     <Compile Include="Models\SalesTax.cs" />
+    <Compile Include="Models\SalesInvoice.cs" />
+    <Compile Include="Models\SI_Details.cs" />
     <Compile Include="Models\SO_Charges.cs" />
     <Compile Include="Models\SO_Details.cs" />
     <Compile Include="Models\SO_Transactions.cs" />
+    <Compile Include="Models\SRI_Details.cs" />
+    <Compile Include="Models\SRO_Details.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Transporter.cs" />
     <Compile Include="Models\user.cs" />
@@ -887,15 +903,28 @@
     <Content Include="Views\SalesMan\Add.cshtml" />
     <Content Include="Views\SalesMan\Index.cshtml" />
     <Content Include="Views\SalesMan\Update.cshtml" />
-    <Content Include="Views\GDN\detaill.cshtml" />
+    <Content Include="Views\GDN\detail.cshtml" />
     <Content Include="Views\GDN\Master.cshtml" />
     <Content Include="Views\PurchaseIndend\Master.cshtml" />
     <Content Include="Views\PurchaseOrder\PO_Create.cshtml" />
+    <Content Include="Views\Quotation\master.cshtml" />
+    <Content Include="Views\Quotation\detail.cshtml" />
+    <Content Include="Views\SalesInvoice\master.cshtml" />
+    <Content Include="Views\SalesInvoice\detail.cshtml" />
+    <Content Include="Views\RecurringInvoice\master.cshtml" />
+    <Content Include="Views\SalesReturnOrder\master.cshtml" />
+    <Content Include="Views\RecurringInvoice\detail.cshtml" />
+    <Content Include="Views\SalesReturnOrder\detail.cshtml" />
+    <Content Include="Views\ReturnGRN\Master.cshtml" />
+    <Content Include="Views\ReturnGRN\Detail.cshtml" />
+    <Content Include="Views\SalesReturnInvoice\master.cshtml" />
+    <Content Include="Views\SalesReturnInvoice\detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="Images\PI_Images\" />
+    <Folder Include="Views\SalesReturnInvoicwe\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
   <ItemGroup>
