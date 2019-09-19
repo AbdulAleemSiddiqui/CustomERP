@@ -18,6 +18,7 @@ namespace SfDesk.Models
         public int PR_D_ID { get; set; }
         [TVP]
         public int PR_ID { get; set; }
+        public string PR_NO { get; set; }
         [TVP]
         public int Item_ID { get; set; }
         [TVP]
@@ -37,7 +38,7 @@ namespace SfDesk.Models
         public string Item_Name { get; set; } = "";     
         public string action { get; set; }
         public string ReturnMessage { get; set; }
-
+        public DateTime PR_Date { get; set; }
         #endregion
         public string Purchase_PR_Details_Add(int UserId)
         {
@@ -58,21 +59,21 @@ namespace SfDesk.Models
             }
         }
         
-        public PR_Details Purchase_PR_Details_GetById(int Id, int UserId)
+        public PR_Details Purchase_PR_Details_Get_By_PI(int PI_ID,int Item_ID, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                PR_Details ret = DataBase.ExecuteQuery<PR_Details>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                PR_Details ret = DataBase.ExecuteQuery<PR_Details>(new { x = PI_ID }, Connection.GetConnection()).FirstOrDefault();
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = PI_ID }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
             }
             catch (Exception ex)
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, Userid
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = PI_ID }, "", Module, Connection.GetLogConnection(), UserId);
                 return null;
             }
         }
