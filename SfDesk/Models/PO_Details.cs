@@ -20,14 +20,18 @@ namespace SfDesk.Models
         [TVP]
         public int PO_ID { get; set; }
         [TVP]
+        public int Item_ID { get; set; }
+        [TVP]
         public int PI_ID { get; set; }
 
         [TVP]
         [DisplayName("PO Quantitiy")]
-        public int PO_Qty { get; set; }
+        public decimal PO_Qty { get; set; }
 
         [TVP]
-        public int Item_ID { get; set; }
+        [DisplayName("PO Quantitiy")]
+        public string PO_Description { get; set; }
+
 
         public string PI_NO { get; set; }
 
@@ -39,9 +43,10 @@ namespace SfDesk.Models
         public string Item_Name { get; set; } = "";
         [DisplayName("Item Desc.")]
         public string Item_Description { get; set; } = "";
-        [DisplayName("PI Quantitiy")]
+        [DisplayName("PI Qty")]
         public decimal PI_Qty { get; set; }
-    
+
+
         public string action { get; set; }
         public bool is_Selected { get; set; }
 

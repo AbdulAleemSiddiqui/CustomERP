@@ -37,32 +37,23 @@ namespace SfDesk.Models
         public DateTime PO_Due_Date { get; set; } = DateTime.Parse("2001/01/01");
 
         [TVP]
-        [DataType(DataType.MultilineText)]
-        public string PO_Comments { get; set; } = "";
-    
-        [TVP]
         [DisplayName("Middle Man")]
         public int Middle_Man_ID { get; set; }
         public string Middle_Man_Name { get; set; }
 
         [TVP]
+        [DataType(DataType.MultilineText)]
+        public string PO_Comments { get; set; } = "";
+        [TVP]
         public decimal Advance { get; set; }
-
-
-        //public decimal TotalAmount { get; set; }
-        //public decimal AllocatedAmount { get; set; }
-        //public decimal DueAmount { get; set; }
-        //public string AllocatedStatus { get; set; }
-        #endregion
 
         [TVP]
         public string ImagePath { get; set; }
-        #region Default
         [TVP]
         public int CreatedBy { get; set; }
-
-
         #endregion
+
+
         public List<PO_Details> details { get; set; }
         public List<Item_Category> Item_Categories { get; set; }
 
@@ -76,7 +67,7 @@ namespace SfDesk.Models
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                string Message = DataBase.ExecuteQuery<PO>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                string Message = DataBase.ExecuteQuery<PO>(new { x = this,x1=this.details }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return Message;
