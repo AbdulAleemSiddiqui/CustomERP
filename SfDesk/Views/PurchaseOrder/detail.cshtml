@@ -159,9 +159,19 @@
         }
 
         $(function () {
+            $.ajax({
+                type: "GET",
+                url: "/PurchaseRequisition/Item_Get_All",
+                dataType: "json",
+                success: function (d) {
+
+                    items = d;
+                    my()
+                    newRow("jsGrid")
+                }
+            });
             clients =array
-            my()
-            newRow("jsGrid")
+           
            
             //var mmid = $('#Middle_Man_ID').val()
        
@@ -266,17 +276,65 @@
                     args.grid._content.append($totalRow);
                 },
                 fields: [
-                {name:"PI_NO", title: "PI NO", type: "text", width:  80 ,readOnly: true  ,editing: false
-             
-                },
-                {name:"PI_Date", title: "PI Date", type: "text", width:  80,readOnly: true   ,editing: false
-          
-                },
-                {name:"Item_Name", title: "Product Name", type: "text", width:  80 ,editing: false  
+              
+                       {
+                           name: "Item_ID", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Code",
+                           insertTemplate: function (value) {
+                               var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                               var th = this;
+                               $insertControl.on("keyup change", function () {
+                                   ;
+                                   var p_Q = parseInt(this.value);
+                                   th._grid.fields[1].insertControl.val(p_Q)//val(unit);
+                               });
+                               focusChange($insertControl);
+                               return this.insertControl;
+                           },
+                           editTemplate: function (args) {
+                               var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                               var th = this;
 
-           
-                },
-                {name:"PO_Description", title: "Product Description", type: "text", width:  80, validate: "required",editing: false  
+                               $editControl.on("keyup change", function () {
+
+                                   ;
+                                   var p_Q = parseInt(this.value);
+                                   th._grid.fields[1].editControl.val(p_Q)//val(unit);
+                               });
+                               update_on_enter($editControl);
+
+                               return $editControl;
+                           },
+                       },
+                    {
+                        name: "Item_ID", title: "Item Name", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Name",
+                        insertTemplate: function (value) {
+                            var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                            var th = this;
+                            $insertControl.on("keyup change", function () {
+
+                                var p_Q = parseInt(this.value);
+                                th._grid.fields[0].insertControl.val(p_Q).trigger("change");
+                            });
+                            focusChange($insertControl);
+                            return this.insertControl;
+                        },
+                        editTemplate: function (args) {
+                            var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                            var th = this;
+
+                            $editControl.on("keyup change", function () {
+
+                                ;
+                                var p_Q = parseInt(this.value);
+                                th._grid.fields[0].editControl.val(p_Q).trigger("change");
+                            });
+                            update_on_enter($editControl);
+
+                            return $editControl;
+                        },
+                    },
+
+                {name:"Item_Description", title: "Product Description", type: "text", width:  80, validate: "required",editing: false  
         
                 },
                 {name:"PI_Qty", title: "PI Quantitiy", type: "number", width:  80,
