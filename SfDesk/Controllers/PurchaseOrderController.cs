@@ -28,8 +28,24 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(PO c)
         {
-           
-            return Json(c.PO_ID, JsonRequestBehavior.AllowGet);
+            try
+            {
+                if (PageAuth.URM_AuthenticatePage(Convert.ToInt32(Session["User_Id"]), "PO_Create"))
+                {
+                    c.Purchase_PO_Add(App.App_ID);
+                    //Your API Call here:
+                    TempData["PO"] = c;
+                    Logger.Logging.DB_LogVisit(Convert.ToInt32(Session["User_Id"]), "PO_Create", Connection.GetLogConnection());
+
+                    return RedirectToAction("Master", "PurchaseOrder");
+                }
+                else throw new Exception("Access Denied");
+            }
+            catch (Exception ex)
+            {
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = "" }, "", Module, Connection.GetLogConnection(), Convert.ToInt32(Session["User_Id"]));
+                return null;// ex.Message;
+            }
         }
         public ActionResult PO_Create()
         {

@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DatabaseTVP">
-      <HintPath>C:\Users\hp\Downloads\DatabaseTVP\DatabaseTVP.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\DatabaseTVP.dll</HintPath>
     </Reference>
     <Reference Include="Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
