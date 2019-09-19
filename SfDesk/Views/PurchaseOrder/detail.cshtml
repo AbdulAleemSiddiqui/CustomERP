@@ -265,39 +265,6 @@
 
                     args.grid._content.append($totalRow);
                 },
-                //onItemUpdated: function(args) {
-                //    $('#jsGrid').jsGrid("refresh");
-                //},
-                //onItemInserting: function (args) {
-
-
-                //    args.item["PI_ID"] = Master_Id;
-                //    args.item["action"] = 'I';
-                //    clients.push(args.item)
-                //    //if (typeof (history.pushState) != "undefined") {
-
-                //    //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //    //}
-                //},
-                //onItemUpdating: function (args) {
-
-
-                //    args.item["PI_ID"] = Master_Id;
-                //    args.item["action"] = 'U';
-                //    clients.push(args.item)
-
-                //    //if (typeof (history.pushState) != "undefined") {
-
-                //    //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //    //}
-                //},
-                //onItemDeleting  : function (args) {
-
-                //    debugger
-                //    args.item["PI_ID"] = Master_Id;
-                //    args.item["action"] = 'D';
-                //    clients.push(args.item);
-                //},
                 fields: [
                 {name:"PI_NO", title: "PI NO", type: "text", width:  80 ,readOnly: true  ,editing: false
              
@@ -383,14 +350,24 @@
                                 visible: false
 
 
-                            },
-            
-                { type: "control",
-                    itemTemplate: function(_, item) {
-                        if(item.IsTotal)
-                            return "";
-                        return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
-                    }}
+               },
+          {
+              type: "control", width: 100, 
+              itemTemplate: function (value, item) {
+                  var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                  var $myButton = $("<button>").attr({
+                      type: "button",
+                      class: "btn-link"
+                  }).click(function (e) {
+                      $.get("Show_details", { id: item.PI_ID });
+                          e.stopPropagation();
+                      });
+                  $myButton.append($("<i>").attr({ class: "ti-notepad" }))
+                  $result = $result.add($myButton)
+              
+                  return $result
+              }
+          }
                 ]
 
             });

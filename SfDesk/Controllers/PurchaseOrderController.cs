@@ -26,7 +26,7 @@ namespace SfDesk.Controllers
             }
         }
         [HttpPost]
-        public ActionResult master(PO c, List<PO_Details> pi, List<PO_Details> pie)
+        public ActionResult master(PO c)
         {
            
             return Json(c.PO_ID, JsonRequestBehavior.AllowGet);
@@ -163,6 +163,11 @@ namespace SfDesk.Controllers
         {
             return Json(new MiddleMan() { MM_ID = id }.MiddleMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
+        }
+        [HttpGet]
+        public ActionResult Show_details(int id)
+        {
+            return null;
         }
 
     }
