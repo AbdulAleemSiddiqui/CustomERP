@@ -180,6 +180,11 @@ namespace SfDesk.Controllers
             return Json(new MiddleMan() { MM_ID = id }.MiddleMan_Get_By_ID(), JsonRequestBehavior.AllowGet);
 
         }
+        [HttpGet]
+        public ActionResult Show_details(int id)
+        {
+            return null;
+        }
 
     }
 }

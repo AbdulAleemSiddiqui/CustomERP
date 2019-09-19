@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SfDesk.Models.PR_Details>
+
+@{
+    ViewBag.Title = "Show_details";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<h2>Show_details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<input type="text" readonly value="@ViewBag.id" />
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.PR_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item_ID)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+    
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.PR_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Item_ID)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+       
+    </tr>
+}
+
+</table>
