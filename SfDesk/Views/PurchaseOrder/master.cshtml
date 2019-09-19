@@ -149,9 +149,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
                                 <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
-                                <input type="button" value="Approved and Exit" class="btn btn-default" id="approve" />
-                                <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
-                                <input type="button" value="Reject" class="btn btn-default" id="reject" />
+                              
                             </div>
                         </div>
 
@@ -242,29 +240,7 @@
         $('#cancel').click(function () {
             window.location.href = '/User/Index/';
         });
-        $('#approve').click(function () {
-            debugger;
-            @*$.post('@Url.Action("Approve", "PurchaseOrder")', $('form').serialize(), function (data) {
-                window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
-            })*@
-            var data = {};
-            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            data.details = clients;
-          //  data.transactions = myTransaction;
-           // data.taxes = myTaxes;
-            $.ajax({
-                url: '@Url.Action("master", "PurchaseOrder")',
-                type: 'Post',
-                dataType: 'json',
-                data: {
-                    c: data,
-                },
-                success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "PurchaseOrder")';
-                }
-
-            });
-        })
+   
 
         $("#create").click(function (e) {
             e.preventDefault();
@@ -282,9 +258,9 @@
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
-            data.details = clients;
+            data.details = array;
             $.ajax({
-                url: '@Url.Action("master", "PurchaseRequisition")',
+                url: '@Url.Action("master", "Purchaseorder")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
