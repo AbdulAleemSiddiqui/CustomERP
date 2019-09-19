@@ -85,10 +85,7 @@
             success: function (d) {
                 
                 items = d;
-                $.each(items, function (i, it) {
-                    debugger
-                    it['I_ID'] = it.Item_ID
-                });
+               
             }
         });
 
@@ -282,7 +279,7 @@
             },
             },
                     {
-                        name: "Item_ID", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Name",
+                        name: "Item_ID", title: "Item Name", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Name",
                         insertTemplate: function (value) {
                             var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
                             var th = this;
