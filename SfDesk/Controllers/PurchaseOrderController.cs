@@ -183,6 +183,7 @@ namespace SfDesk.Controllers
         [HttpGet]
         public ActionResult Show_details(int PI_ID,int Item_ID)
         {
+            ViewBag.id = PI_ID;
             return View(new PR_Details().Purchase_PR_Details_Get_By_PI(PI_ID, Item_ID,App.App_ID));
         }
 

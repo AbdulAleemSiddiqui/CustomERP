@@ -59,13 +59,13 @@ namespace SfDesk.Models
             }
         }
         
-        public PR_Details Purchase_PR_Details_Get_By_PI(int PI_ID,int Item_ID, int UserId)
+        public List<PR_Details> Purchase_PR_Details_Get_By_PI(int PI_ID,int Item_ID, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; 
-                PR_Details ret = DataBase.ExecuteQuery<PR_Details>(new { x = PI_ID }, Connection.GetConnection()).FirstOrDefault();
+                this.CreatedBy = UserId;
+                List<PR_Details> ret = DataBase.ExecuteQuery<PR_Details>(new { x = PI_ID,x1=Item_ID,x2=UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Purchase (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = PI_ID }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;

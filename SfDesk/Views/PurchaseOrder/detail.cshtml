@@ -73,7 +73,16 @@
     </div>
 </div>
 
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:-webkit-fill-available">
+            <div id='myModalContent'>
 
+            </div>
+        </div>
+    </div>
+
+</div>
 
 @*  <script src="~/assets/js/db.js"></script>*@
 <script>
@@ -223,6 +232,9 @@
        
         })
 
+        $('#myModal').on("hidden.bs.modal", function () {
+            $("#myModalContent").html("")
+        });
         function my(){
             $("#jsGrid").jsGrid({
                 height: "auto",
@@ -412,12 +424,18 @@
           {
               type: "control", width: 100, 
               itemTemplate: function (value, item) {
+                  if(item.IsTotal)
+                      return "";
+              
                   var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
                   var $myButton = $("<button>").attr({
                       type: "button",
                       class: "btn-link"
                   }).click(function (e) {
-                      $.get("Show_details", { id: item.PI_ID });
+                      $.get('@Url.Action("Show_details", "Purchaseorder")', { PI_ID: item.PI_ID, Item_ID: item.Item_ID }, function (data) { $("#myModalContent").html(data); });
+
+                      $('#myModal').modal('show');
+
                           e.stopPropagation();
                       });
                   $myButton.append($("<i>").attr({ class: "ti-notepad" }))

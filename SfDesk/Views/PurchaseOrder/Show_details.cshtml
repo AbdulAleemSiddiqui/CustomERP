@@ -1,49 +1,56 @@
-﻿@model IEnumerable<SfDesk.Models.PR>
+﻿@model IEnumerable<SfDesk.Models.PR_Details>
 
 @{
-    ViewBag.Title = "Show_details";
-    Layout = "~/Views/Shared/_dashLayout.cshtml";
+    ViewBag.Title = "";
+    Layout = null;
 }
 
-<h2>Show_details</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+          <label class="col-lg-2"> PI No</label> <input class="col-lg-4" type="text" readonly value="@ViewBag.id" />
 
-<input type="text" readonly value="@ViewBag.id" />
-<table class="table">
-    <tr>
-       
-        <th>
-            @Html.DisplayNameFor(model => model.PR_NO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PR_Date)
-        </th>
-      
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-    
-       
-    </tr>
+            <div class="bootstrap-data-table-panel col-lg-12">
+                <div class="table-responsive">
+                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        <tr>
 
-@foreach (var item in Model) {
-    <tr>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.PR_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Item_ID)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-       
-    </tr>
-}
+                            <th>
+                                @Html.DisplayNameFor(model => model.PR_NO)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PR_Date)
+                            </th>
 
-</table>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Quantity)
+                            </th>
+
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PR_NO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PR_Date)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>

@@ -30,7 +30,7 @@
 <script>
     var clients =[]
     var editedClients =[];
-    var arr = [];
+    var array = [];
    var  items = [];
     function newRow() //ye change kia he 
     {
@@ -83,27 +83,31 @@
             url: "/PurchaseRequisition/Item_Get_All",
             dataType: "json",
             success: function (d) {
-                
-                items = d;
                
+                items = d;
+             
             }
         });
 
 
-        ;
+        
         $.ajax({
             type: "GET",
             url: "/PurchaseRequisition/PR_Detail_Get_By_PR",
             data: { PR_ID:  Master_Id},
             dataType: "json",
             success: function (d) {
-                if (d.PR_ID != 0)
-                    
-                    arr = d
+                debugger
+                if (d.PR_ID != 0) {
+                    array = d
+                }
+                
                 my();
                 newRow();
+            },
+         
               
-            }
+            
         });
        
     }
@@ -130,14 +134,14 @@
     }
     var net_total=0;
     $(function(){
-       
+        
 
        
     
         loadData();
-
+       
     
-        clients = arr;
+        clients = array;
     })
     //function addDetails(){
     //    console.log(clients)
@@ -190,22 +194,22 @@
             pageNavigatorPrevText: "...",
             invalidMessage: "Invalid data entered!",
             onRefreshed: function (args) {
-                grand_total = Gross_total
+           //     grand_total = Gross_total
                 var items = args.grid.option("data");
                 var total = { Name: "Total", "Rate": 0, "Gross_Amount": 0, "Purchase_Quantitiy": 0, IsTotal: true };
 
                 items.forEach(function (item) {
-                    total.Rate += parseFloat(item.Rate);
-                    total.Gross_Amount += parseFloat(item.Gross_Amount);
-                    total.Purchase_Quantitiy += parseFloat(item.Purchase_Quantitiy);
+                  //  total.Rate += parseFloat(item.Rate);
+                 //   total.Gross_Amount += parseFloat(item.Gross_Amount);
+                  //  total.Purchase_Quantitiy += parseFloat(item.Purchase_Quantitiy);
 
                 });
-                total.Rate = parseFloat(total.Rate.toFixed(2));
+              //  total.Rate = parseFloat(total.Rate.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
-                Gross_total = total.Gross_Amount
-                grand_total = parseFloat(Gross_total + tax_total + trans_total).toFixed(2);
-                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> ' + grand_total + '</h1>')
-                args.grid._renderCells($totalRow, total);
+               // Gross_total = total.Gross_Amount
+               // grand_total = parseFloat(Gross_total + tax_total + trans_total).toFixed(2);
+              //  $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> ' + grand_total + '</h1>')
+               // args.grid._renderCells($totalRow, total);
                 debugger;
                 $totalRow.find("td").eq(0).html("<b>Total</b>");
                 $totalRow.find("td").eq(0).attr('colspan', 3);
