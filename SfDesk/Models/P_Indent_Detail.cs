@@ -28,7 +28,7 @@ namespace SfDesk.Models
         public bool is_Selected { get; set; }
 
         //Your Properties for Model Here
-
+        public string Description { get; set; }
         [TVP]
         public int CreatedBy { get; set; }
         //View Only Properties

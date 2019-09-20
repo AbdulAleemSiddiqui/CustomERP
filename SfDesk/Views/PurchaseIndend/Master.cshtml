@@ -39,6 +39,10 @@
                                         <th>
                                             @Html.DisplayName("Item")
                                         </th>
+                                       
+                                        <th>
+                                            @Html.DisplayName("Description")
+                                        </th>
                                         <th>
                                             @Html.DisplayName("Quantity")
                                         </th>
@@ -108,9 +112,14 @@
                         item.Item_Name +
                             "<input type='hidden'  id='PI_Details[" + index + "].Item_Name' name='PI_Details[" + index + "].Item_Name' value='" + item.Item_Name + "' />" +
                         "</td> <td>" +
+                        item.Description +
+                            "<input type='hidden'  id='PI_Details[" + index + "].Description' name='PI_Details[" + index + "].Description' value='" + item.Description + "' />" +
+                        "</td>"
+                        +
+                        "<td>" +
                         item.Quantity +
                             "<input type='hidden'  id='PI_Details[" + index + "].Quantity' name='PI_Details[" + index + "].Quantity' value='" + item.Quantity + "' />" +
-                        "</td>" +
+                        "</td> "+
                             +"</tr>"
                         tbl.append(a);
                     });
