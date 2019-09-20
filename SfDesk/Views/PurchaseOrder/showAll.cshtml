@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SfDesk.Models.PurchaseInventory>
+﻿@model IEnumerable<SfDesk.Models.PO>
 
 @{
     ViewBag.Title = "Index";
@@ -16,22 +16,26 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.PR_No)
+                                    @Html.DisplayNameFor(model => model.PO_No)
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Department_Name)
+                                    @Html.DisplayNameFor(model => model.PO_Date)
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Date)
+                                    @Html.DisplayNameFor(model => model.PO_Due_Date)
                                 </th>
-
-
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Comments)
+                                    @Html.DisplayNameFor(model => model.PO_Comments)
                                 </th>
-
+                                
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Suplier_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Middle_Man_Name)
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -40,23 +44,30 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PR_No)
+                                        @Html.DisplayFor(modelItem => item.PO_No)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Department_Name)
+                                        @Html.DisplayFor(modelItem => item.PO_Date)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Date)
+                                        @Html.DisplayFor(modelItem => item.PO_Due_Date)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Comments)
+                                        @Html.DisplayFor(modelItem => item.PO_Comments)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Suplier_Name)
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("master", "PurchaseOrder",new { id = item.PI_ID })'"><i class="ti-pencil"></i> Create </button>
+                                        @Html.DisplayFor(modelItem => item.Middle_Man_Name)
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("master", "PurchaseOrder",new { id = item.PO_ID })'"><i class="ti-pencil"></i> Approve </button>
 </td>
                                 </tr>
                             }
