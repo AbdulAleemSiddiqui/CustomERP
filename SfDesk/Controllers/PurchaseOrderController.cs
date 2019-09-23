@@ -85,7 +85,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult showAll()
         {
-            return View();//(new PO() { App_Status = "PR_Approve" }.PR_Get_All());
+            return View(new PO().Purchase_PO_Get_All(App.App_ID));
         }
         public ActionResult showAll_Created()
         {
