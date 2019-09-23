@@ -21,6 +21,7 @@ namespace SfDesk.Models
         public string PI_Description { get; set; }
         [TVP]
         public int PI_Item_Cat_ID { get; set; }
+        public string PI_Item_Cat_Name { get; set; }
 
         //Your Properties for Model Here
 

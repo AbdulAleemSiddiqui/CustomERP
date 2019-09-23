@@ -10,6 +10,11 @@ namespace SfDesk.Controllers
     public class PurchaseIndendController : Controller
     {
         // GET: PurchaseIndend
+
+        public ActionResult Show_all()
+        {
+            return View(new P_Indent().Purchase_P_Indent_Get_All(App.App_ID));
+        }
         public ActionResult Master()
         {
             return View(new P_Indent());
