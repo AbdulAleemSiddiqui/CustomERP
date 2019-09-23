@@ -70,7 +70,7 @@ namespace SfDesk.Models
         }
 
 
-        public List<Item> Purchase_Item_Get_All(int UserId)
+        public List<Item> Item_Get_All(int UserId)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace SfDesk.Models
             }
         }
 
-        public string Purchase_Item_Update(int UserId)
+        public string Item_Update(int UserId)
         {
             try
             {
