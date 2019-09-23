@@ -102,7 +102,7 @@ namespace SfDesk.Controllers
         #region Detail
         public ActionResult Item_Get_All()
         {
-            return Json(new Item().Item_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new Item().Purchase_Item_Get_All(App.App_ID), JsonRequestBehavior.AllowGet);
         }
 
    

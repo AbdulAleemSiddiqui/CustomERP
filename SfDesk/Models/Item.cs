@@ -10,6 +10,8 @@ namespace SfDesk.Models
 
     public class Item
     {
+        private const string Module = "Purchase";
+
         [TVP]
         public int Item_ID { get; set; }
         [TVP]
@@ -23,87 +25,87 @@ namespace SfDesk.Models
 
 
         #region default Properties
-        public int Created_By { get; set; }
-        public DateTime Created_Date { get; set; }
-        public string Machine_Ip { get; set; }
-        public string Mac_Address { get; set; }
+        public int CreatedBy { get; set; }
+        public string ReturnMessage { get; set; }
+
         #endregion
+
     
-        public List<Item> Item_Get_All()
+        public int Item_Add(int UserId)
         {
-            List<Item> lst = new List<Item>();
-            SqlCommand sc = new SqlCommand("Item_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
+            try
             {
-
-                Item u = new Item();
-                u.Item_ID = (int)sdr["Item_ID"];
-                u.Item_Code = (string)sdr["Item_Code"];
-                u.Item_Name = (string)sdr["Item_Name"];
-                u.Cat_ID = (int)sdr["Cat_ID"];
-                u.Cat_Name = (string)sdr["Cat_Name"];
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
-                lst.Add(u);
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                int id = DataBase.ExecuteQuery<Item>(new { x = this }, Connection.GetConnection()).FirstOrDefault().Item_ID;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return id;
             }
-            sdr.Close();
-            return lst;
-        }
-        public Item Item_Get_By_ID()
-        {
-            Item u = new Item();
-            SqlCommand sc = new SqlCommand("Item_Get_By_ID", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };
-            sc.Parameters.AddWithValue("@Item_ID", Item_ID);
-            sc.Parameters.AddWithValue("@App_Id", App.App_ID);
-            SqlDataReader sdr = sc.ExecuteReader();
-            while (sdr.Read())
+            catch (Exception ex)
             {
-                u.Item_ID = (int)sdr["Item_ID"];
-                u.Item_Code = (string)sdr["Item_Code"];
-                u.Item_Name = (string)sdr["Item_Name"];
-                u.Cat_ID = (int)sdr["Cat_ID"];
-                u.Cat_Name = (string)sdr["Cat_Name"];
-                u.Created_By = (int)sdr["CreatedBy"];
-                u.Created_Date = (DateTime)sdr["CreatedDate"];
-                u.Machine_Ip = (string)sdr["Machine_Ip"];
-                u.Mac_Address = (string)sdr["Mac_Address"];
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return 0;
             }
-            sdr.Close();
-            return u;
         }
 
-        public void Item_Add()
+        public Item Item_Get_By_ID(int Id, int UserId)
         {
-            SqlCommand sc = new SqlCommand("Item_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Item_Name", Item_Name);
-            sc.Parameters.AddWithValue("@Cat_ID", Cat_ID);
-            sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
-            sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                Item ret = DataBase.ExecuteQuery<Item>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
 
-        }
-        public void Item_Update()
+
+        public List<Item> Purchase_Item_Get_All(int UserId)
         {
-            SqlCommand sc = new SqlCommand("Item_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Item_ID", Item_ID);
-            sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Item_Name", Item_Name);
-            sc.Parameters.AddWithValue("@Cat_ID", Cat_ID);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                List<Item> ret = DataBase.ExecuteQuery<Item>(new { x = UserId }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
         }
-        public void Item_Delete()
+
+        public string Purchase_Item_Update(int UserId)
         {
-            SqlCommand sc = new SqlCommand("Item_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@Item_ID", Item_ID);
-            sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
-            sc.ExecuteNonQuery();
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                string Message = DataBase.ExecuteQuery<Item>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return Message;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
         }
     }
 
