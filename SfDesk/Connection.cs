@@ -13,7 +13,7 @@ namespace SfDesk
         static SqlConnection sc_Log;
         public static SqlConnection GetConnection()
         {
-            if(sc==null || sc.State== System.Data.ConnectionState.Closed)
+            if(sc== null || sc.State == System.Data.ConnectionState.Closed)
             {
                 sc = new SqlConnection();
                 sc.ConnectionString = ConfigurationManager.ConnectionStrings["SfDeskConnection"].ToString(); 
