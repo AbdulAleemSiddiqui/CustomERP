@@ -45,7 +45,7 @@ namespace SfDesk.Models
         #endregion
 
 
-        public List<MiddleMan> MiddleMan_Get_All()
+        public List<MiddleMan> MiddleMan_Get_All(int UserId)
         {
             List<MiddleMan> lst = new List<MiddleMan>();
             SqlCommand sc = new SqlCommand("MiddleMan_Get_All", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure };

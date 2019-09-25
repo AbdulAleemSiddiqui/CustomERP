@@ -215,7 +215,7 @@ namespace SfDesk.Models
             sdr.Close();
             return u;
         }
-        public List<Customer> Customer_Get_All()
+        public List<Customer> Customer_Get_All(int UserId)
         {
           
             List<Customer> ls = new List<Customer>();

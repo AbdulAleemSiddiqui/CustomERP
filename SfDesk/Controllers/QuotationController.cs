@@ -11,17 +11,25 @@ namespace SfDesk.Controllers
     {
         public ActionResult master()
         {
-            
-            return View(new Quotation());
+            ViewBag.Customers = new Customer().Customer_Get_All(App.App_ID);
+            ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
+            ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);
+            ViewBag.Branch = new Branch().Branch_Get_All(App.App_ID);
+            return View(new Quotation() { Date = DateTime.Now });
+        }
+        [HttpPost]
+        public ActionResult master(Quotation c)
+        {
+            return View();
         }
         public ActionResult detail()
         {
-            return PartialView("detail", new List<Quotation_Detail>());
+            return PartialView("detail", new List<Q_Detail>());
         }
         // GET: Quotation
         public ActionResult Index(int? Q_ID)
         {
-            List<Quotation_Detail> pd = new List<Quotation_Detail>();
+            List<Q_Detail> pd = new List<Q_Detail>();
            
 
             return Json(pd, JsonRequestBehavior.AllowGet);

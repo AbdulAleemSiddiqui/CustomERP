@@ -27,7 +27,7 @@ namespace SfDesk.Controllers
       
         public ActionResult Index()
         {
-            return View(new MiddleMan().MiddleMan_Get_All());
+            return View(new MiddleMan().MiddleMan_Get_All(App.App_ID));
         }
         public ActionResult Update(int id)
         {

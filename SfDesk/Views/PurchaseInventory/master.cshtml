@@ -241,7 +241,7 @@
                                 <input type="text" name="Middle_Man_Name" list="Middle_Man_List" id="Middle_Man_Name" class="form-control text-box">
                                 <datalist id="Middle_Man_List">
                                     @{
-                                        var Middle_Man_List = new SfDesk.Models.MiddleMan().MiddleMan_Get_All();
+                                        var Middle_Man_List = new SfDesk.Models.MiddleMan().MiddleMan_Get_All(SfDesk.Models.App.App_ID);
                                     }
 
                                     @foreach (var item in Middle_Man_List)

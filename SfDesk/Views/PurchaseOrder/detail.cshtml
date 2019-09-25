@@ -405,6 +405,40 @@
                     },
                 },
                 {
+                    name: "Rate", title: "Rate", type: "text", width: 60, validate: "required",
+                    insertTemplate: function () {
+                        var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                        insert_on_enter(this.insertControl, "jsGrid");
+                        var th = this;
+
+
+                        $insertControl.on("keyup", function () {
+
+
+
+                        });
+                        return $insertControl;
+                    },
+                    editTemplate: function (args) {
+                        var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                        var th = this;
+                        $editControl.on("keyup", function () {
+                            var p_Q = th._grid.fields[3].insertControl.val();
+
+
+                            var rate = this.value;
+                            //$u.attr("disabled", "disabled");
+
+
+                            amount = th._grid.fields[5].insertControl.val(rate * p_Q);
+
+
+                        });
+                        update_on_enter($editControl, "jsGrid");
+                        return $editControl;
+                    },
+                },
+                {
                name: "Item_ID",
                title: "",
                type: "text",

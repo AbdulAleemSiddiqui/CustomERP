@@ -13,7 +13,7 @@ namespace SfDesk.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            return View(new Customer().Customer_Get_All());
+            return View(new Customer().Customer_Get_All(App.App_ID));
         }
         public ActionResult Add()
         {

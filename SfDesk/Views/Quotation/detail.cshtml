@@ -311,7 +311,7 @@
             },
             fields: [
             {
-                name: "Product_Code", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_ID", insertTemplate: function (value) {
+                name: "Item_Code", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_ID", insertTemplate: function (value) {
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
                $insertControl.on("keyup change", function () {
@@ -337,7 +337,8 @@
 
                 return $editControl;
             }, },
-            {name:"Product_Name", title: "Product", type: "select", width:  80, validate: "required",
+            {
+                name: "Item_Name", title: "Product", type: "select", width: 80, validate: "required",
             items: items, valueField: "Item_ID", textField: "Item_Name",
 
             insertTemplate: function (args) {
@@ -363,7 +364,7 @@
 
                     return $insertControl;
             }, },
-            {name:"Product_Description", title: "Description", type: "text", width:  80, validate: "required"  ,
+            {name:"Description", title: "Description", type: "text", width:  80, validate: "required"  ,
                 editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                 update_on_enter($editControl);

@@ -266,9 +266,11 @@
     <Compile Include="Models\AR_Details.cs" />
     <Compile Include="Models\AR_Settlement.cs" />
     <Compile Include="Models\AR_Tax_adjustment.cs" />
+    <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\ChartOfAccount.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\contractor.cs" />
+    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Form.cs" />
@@ -304,7 +306,9 @@
     <Compile Include="Models\P_Indent.cs" />
     <Compile Include="Models\P_Indent_Detail.cs" />
     <Compile Include="Models\Quotation.cs" />
-    <Compile Include="Models\Quotation_Detail.cs" />
+    <Compile Include="Models\Q_Charge.cs" />
+    <Compile Include="Models\Q_Detail.cs" />
+    <Compile Include="Models\Q_Tax.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptDetails.cs" />
     <Compile Include="Models\Receipt_Settlement.cs" />
