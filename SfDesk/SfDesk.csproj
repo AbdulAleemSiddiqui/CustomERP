@@ -950,6 +950,7 @@
     <Content Include="Views\PurchaseRequisition\Approve.cshtml" />
     <Content Include="Views\PurchaseOrder\Show_details.cshtml" />
     <Content Include="Views\PurchaseIndend\Show_all.cshtml" />
+    <Content Include="Views\Product\AddProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

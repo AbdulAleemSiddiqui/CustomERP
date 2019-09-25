@@ -20,6 +20,11 @@ namespace SfDesk.Models
         {
             return PartialView("add");
         }
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Add(Product c)
         {
@@ -41,6 +46,7 @@ namespace SfDesk.Models
             new Product() { P_ID = id }.Product_Delete();
             return RedirectToAction("index");
         }
+
 
     }
 }
