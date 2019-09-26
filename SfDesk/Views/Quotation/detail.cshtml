@@ -111,34 +111,33 @@
             success: function (d) {
 
                 items = d
+                $.ajax({
+                    type: "GET",
+                    url: "Get_taxes",
+                    dataType: "json",
+                    success: function (d) {
 
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "/Quotation/Index",
-            dataType: "json",
-            success: function (d) {
+                        if (d.ID != 0) {
+                            taxes = d
+                            taxes.unshift({ SalesTax_ID: "" })
+                            tax()
+                            newRow("Grid")
+                        }
+                        $.ajax({
+                            type: "GET",
+                            url: "/Quotation/Index",
+                            dataType: "json",
+                            success: function (d) {
 
-                if (d.ID != 0)
-                    arr = d
-                my()
-                newRow("jsGrid") ///ye
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "Get_taxes",
-            dataType: "json",
-            success: function (d) {
+                                if (d.ID != 0)
+                                    arr = d
+                                my()
+                                newRow("jsGrid") ///ye
+                            }
+                        });
 
-                if (d.ID != 0) {
-                    taxes = d
-                    taxes.unshift({ SalesTax_ID: "" })
-                    tax()
-                    newRow("Grid")
-                }
-         
+                    }
+                });
 
             }
         });
@@ -202,7 +201,6 @@
             pageButtonCount: 5,
             deleteConfirm: "Do you rete the client?",
             data: arr,
-
             pagerContainer: null,
             pageIndex: 1,
             pageSize: 20,
@@ -214,7 +212,6 @@
             pageLastText: "Last",
             pageNavigatorNextText: "...",
             pageNavigatorPrevText: "...",
-
             invalidMessage: "Invalid data entered!",
             onRefreshed: function (args) {
 
@@ -253,17 +250,15 @@
                 //$totalRow.find("td").eq(1).remove();
                 args.grid._content.append($totalRow);
             },
-
-
             onItemUpdated: function(args) {
                 $('#jsGrid').jsGrid("refresh");
             },
-
             onItemInserting: function (args) {
 
 
                 args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'I';
+                args.item["ST_ID"] = parseInt(args.item["ST_ID"])
                 clients.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
 
@@ -296,9 +291,7 @@
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 //}
             },
-         
             onItemDeleted: function(args) {
-
             },
             fields: [
             {
@@ -375,7 +368,7 @@
                     return $editControl;
                 },
             },
-              {
+            {
                   name: "Price", title: "Price", type: "text", width: 80, validate: "required",
                   insertTemplate: function () {
                       var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
@@ -394,7 +387,7 @@
                       return $editControl;
                   },
               },
-                {
+            {
                     name: "Discount", title: "Discount", type: "text", width: 80, validate: "required",
                     insertTemplate: function () {
                         var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
@@ -413,25 +406,22 @@
                         return $editControl;
                     },
                 },
-                  {
-                      name: "Tax", title: "Tax", type: "text", width: 80, validate: "required",
-                      insertTemplate: function () {
-                          var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
-                          var th = this;
-                          $insertControl.on("keyup change", function () {
-                              DetailCalculation(th)
+            {
+                         name: "ST_ID", title: "Tax", type: "select", width: 100, validate: "required",
+                         items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
+                         insertTemplate: function () {
+                             var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
+                             var th = this;
+                           
+                             return $insertControl;
+                         },
+                         editTemplate: function (args) {
+                             var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                             update_on_enter($editControl, "jsGrid");
 
-
-                          });
-                          return $insertControl;
-                      },
-                      editTemplate: function (args) {
-                          var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
-                          update_on_enter( $editControl,"jsGrid");
-
-                          return $editControl;
-                      },
-                  },
+                             return $editControl;
+                         },
+                     },
             {name:"Amount", title: "Amount", type: "text", width:  80,
                 validate: "required",
                 insertTemplate: function(value) {
@@ -447,7 +437,6 @@
                     return $editControl;
                 },
             },
-       
             { type: "control",
                 editButton : false,
                 itemTemplate: function(_, item) {
