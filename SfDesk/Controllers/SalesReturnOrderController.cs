@@ -22,7 +22,7 @@ namespace SfDesk.Controllers
         }
 
         [HttpPost]
-        public ActionResult master(SalesReturnOrder c, List<SO_Details> SO, List<SO_Details> SOe)
+        public ActionResult master(SalesReturnOrder c, List<SO_Detail> SO, List<SO_Detail> SOe)
         {
             //c.App_Status = "SO_Created";
             //if(c!=old)
@@ -190,7 +190,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Index(int SO_ID)
         {
-            return Json(new SO_Details());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SO_Detail());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -207,21 +207,17 @@ namespace SfDesk.Controllers
         }
         public ActionResult Get_taxes_by_ID(int SO_ID)
         {
-            SO_Charges p = new SO_Charges() { SO_ID = SO_ID };
-            return Json(p.SO_Charges_Get_All(), JsonRequestBehavior.AllowGet);
+            SO_Charge p = new SO_Charge() { SO_ID = SO_ID };
+            return Json(p.Sale_SO_Charge_Get_By_SO(SO_ID,App.App_ID), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Get_trans_by_ID(int SO_ID)
         {
-            SO_Transactions p = new SO_Transactions() { SO_ID = SO_ID };
-            return Json(p.SO_Transactions_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new  SO_Charge().Sale_SO_Charge_Get_By_SO(SO_ID,App.App_ID), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Get_Transasction()
         {
             List<Transaction> lst = new Transaction().Transaction_Get_All();
-            //lst.Add(new Transaction() { Name = "Middle Man" });
-            //lst.Add(new Transaction() { Name = "Transporter" });
-
             lst.Remove(lst.Find(x => x.Name.ToLower() == "middle man"));
             return Json(lst, JsonRequestBehavior.AllowGet);
         }

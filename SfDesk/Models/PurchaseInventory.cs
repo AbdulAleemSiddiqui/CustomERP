@@ -82,7 +82,7 @@ namespace SfDesk.Models
         public decimal Less_add_Commision { get; set; }
 
         public decimal GST { get; set; }
-        [DisplayName("Further Tax")]
+        [DisplayName("Further Tax_Id")]
         public decimal Further_tax { get; set; }
         public decimal Total_Tax { get; set; }
 
@@ -350,7 +350,7 @@ namespace SfDesk.Models
 
             sc.Parameters.AddWithValue("@Detail_ID", Detail_ID);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Product_Name", Product_Name);
+            sc.Parameters.AddWithValue("@Item_Name", Product_Name);
             sc.Parameters.AddWithValue("@Description", Product_Description);
             sc.Parameters.AddWithValue("@P_Quantity", Purchase_Quantitiy);
             sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
@@ -386,7 +386,7 @@ namespace SfDesk.Models
                 u.Detail_ID = (int)sdr["Detail_ID"];
                 u.Store = (string)sdr["Store"];
                 u.Item_Code = (int)sdr["Item_Code"];
-                u.Product_Name = (string)sdr["Product_Name"];
+                u.Product_Name = (string)sdr["Item_Name"];
                 u.Product_Description = (string)sdr["Description"];
                 u.Purchase_Quantitiy = (int)sdr["Purchase_Quantity"];
                 u.Received_Quantitiy = (int)sdr["Received_Quantity"];
@@ -413,7 +413,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Store", Store);
             sc.Parameters.AddWithValue("@Item_Code", Item_Code);
-            sc.Parameters.AddWithValue("@Product_Name", Product_Name);
+            sc.Parameters.AddWithValue("@Item_Name", Product_Name);
             sc.Parameters.AddWithValue("@Description", Product_Description);
             sc.Parameters.AddWithValue("@P_Quantity", Purchase_Quantitiy);
             sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);

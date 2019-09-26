@@ -20,6 +20,7 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(Quotation c)
         {
+            c.Sale_Quotation_Add(App.App_ID);
             return View();
         }
         public ActionResult detail()

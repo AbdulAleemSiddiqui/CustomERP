@@ -16,7 +16,7 @@ namespace SfDesk.Models
 
         public string TaxType { get; set; }
         public string Code{ get; set; }
-        [DisplayName("Tax Name")]
+        [DisplayName("Tax_Id Name")]
 
         public string SalesTax_Name { get; set; }
         [DisplayName("Account Name")]

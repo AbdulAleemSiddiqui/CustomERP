@@ -22,7 +22,7 @@ namespace SfDesk.Controllers
         }
 
         [HttpPost]
-        public ActionResult master(SalesReturnInvoice c, List<SO_Details> SO, List<SO_Details> SOe)
+        public ActionResult master(SalesReturnInvoice c, List<SO_Detail> SO, List<SO_Detail> SOe)
         {
             //c.App_Status = "SO_Created";
             //if(c!=old)
@@ -204,14 +204,12 @@ namespace SfDesk.Controllers
         }
         public ActionResult Get_taxes_by_ID(int SO_ID)
         {
-            SO_Charges p = new SO_Charges() { SO_ID = SO_ID };
-            return Json(p.SO_Charges_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SO_Tax().Sale_SO_Tax_Get_By_SO(SO_ID,App.App_ID), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Get_trans_by_ID(int SO_ID)
         {
-            SO_Transactions p = new SO_Transactions() { SO_ID = SO_ID };
-            return Json(p.SO_Transactions_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new  SO_Charge().Sale_SO_Charge_Get_By_SO(SO_ID,App.App_ID), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Get_Transasction()
         {

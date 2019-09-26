@@ -1,6 +1,7 @@
 ﻿using DatabaseTVP;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -27,7 +28,7 @@ namespace SfDesk.Models
         [TVP]
         public int Tax_Id { get; set; }
         [TVP]
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
 
         [TVP]
         public int CreatedBy { get; set; }
