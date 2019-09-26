@@ -95,7 +95,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control tbDate" } })
+                                <input id="Due_Date" name="Due_Date" type="text" class="form-control tbDate" />
                                 @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -200,14 +200,15 @@
         Typable_Dropdown('SalesMan');
         Typable_Dropdown('Currency');
         Typable_Dropdown('Branch');
+        $(document).ready(function () {
+            $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
+            $('.tbDate').prop("readonly", true);
+            $('.tbDate').val("DD-MM-YY");
 
-        $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
-        $('.tbDate').prop("readonly", true);
-        $('.tbDate').val("DD-MM-YY");
-        var date = new Date();
-        var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-        $("#ADate").val(formatted_date);
-
+            var date = new Date();
+            var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+            $("#ADate").val(formatted_date);
+        });
         $('#Img_Path').bind('change', function () {
                                     //this.files[0].size gets the size of your file.
                                     var size = this.files[0].size / 1024 / 1024;

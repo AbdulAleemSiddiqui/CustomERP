@@ -10,22 +10,22 @@ namespace SfDesk.Controllers
     [Session]
     public class SaleOrderController : Controller
     {
-       private SaleOrder old;
+       private SO old;
         public ActionResult master(int? id)
         {
             //if (id != null)
             //{
-            //    SaleOrder p = new SaleOrder() { SO_ID = id.Value, App_Status = "SO_Created" };
+            //    SO p = new SO() { SO_ID = id.Value, App_Status = "SO_Created" };
             //    p = p.SO_Get_All().Find(x => x.SO_ID == id);
             //    return View(p);
             //}
             ViewBag.Customers = new Customer().Customer_Get_All(App.App_ID);
             ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
-            return View(new SaleOrder());//{ SO_No = new SaleOrder().SO_Get_New_ID(),Date=DateTime.Now });
+            return View(new SO());//{ SO_No = new SO().SO_Get_New_ID(),Date=DateTime.Now });
          }
           
         [HttpPost]
-        public ActionResult master(SaleOrder c, List<SO_Details> SO, List<SO_Details> SOe)
+        public ActionResult master(SO c, List<SO_Detail> SO, List<SO_Detail> SOe)
         {
             //c.App_Status = "SO_Created";
             //if(c!=old)
@@ -104,20 +104,20 @@ namespace SfDesk.Controllers
         {
             //if (id != 0)
             //{
-            //    SaleOrder p = new SaleOrder() { SO_ID = id, App_Status = "SO_Created" };
+            //    SO p = new SO() { SO_ID = id, App_Status = "SO_Created" };
             //    p = p.SO_Get_All().Find(x => x.SO_ID == id);
             //    return View(p);
             //}
-            return View(new SaleOrder());//{ SO_No = new SaleOrder().SO_Get_New_ID(), Date = DateTime.Now });
+            return View(new SO());//{ SO_No = new SO().SO_Get_New_ID(), Date = DateTime.Now });
         }
 
         public ActionResult showAll()
         {
-            return View(new SaleOrder());//s { App_Status = "SO_Created" }.SO_Get_All());
+            return View(new SO());//s { App_Status = "SO_Created" }.SO_Get_All());
         }
   
         [HttpPost]
-        public ActionResult Approve(SaleOrder c)
+        public ActionResult Approve(SO c)
         {
             //c.App_Status = "Un-Allocated";
             //c.SO_Approve();
@@ -189,11 +189,11 @@ namespace SfDesk.Controllers
         }
         public ActionResult detail()
         {
-            return PartialView("detail", new List<SaleOrder>());
+            return PartialView("detail", new List<SO>());
         }
         public ActionResult Index(int SO_ID)
         {
-            return Json(new SO_Details());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SO_Detail());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -210,14 +210,12 @@ namespace SfDesk.Controllers
         }
         public ActionResult Get_taxes_by_ID(int SO_ID)
         {
-            SO_Charges p = new SO_Charges() { SO_ID = SO_ID };
-            return Json(p.SO_Charges_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SO_Tax().Sale_SO_Tax_Get_By_SO(SO_ID,App.App_ID), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Get_trans_by_ID(int SO_ID)
         {
-            SO_Transactions p = new SO_Transactions() { SO_ID = SO_ID };
-            return Json(p.SO_Transactions_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SO_Tax().Sale_SO_Tax_Get_By_SO(SO_ID,App.App_ID), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Get_Transasction()
         {

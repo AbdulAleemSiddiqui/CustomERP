@@ -20,7 +20,6 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(Quotation c)
         {
-
             return View();
         }
         public ActionResult Approve(int id)

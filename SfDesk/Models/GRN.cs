@@ -52,7 +52,7 @@ namespace SfDesk.Models
         //        u.Trans_NO = (int)sdr["Trans_NO"];
         //        u.Trans_Date = (DateTime)sdr["Trans_Date"];
         //        u.Due_Date = (DateTime)sdr["Due_Date"];
-        //        u.Currency = (string)sdr["Currency"];
+        //        u.Currency_ID = (string)sdr["Currency_ID"];
         //        u.Ref_No = (int)sdr["Ref_No"];
         //        u.Exchange_Rate = (decimal)sdr["Exchange_Rate"];
         //        u.Created_By = (int)sdr["CreatedBy"];
@@ -78,7 +78,7 @@ namespace SfDesk.Models
         //        u.Trans_NO = (int)sdr["Trans_NO"];
         //        u.Trans_Date = (DateTime)sdr["Trans_Date"];
         //        u.Due_Date = (DateTime)sdr["Due_Date"];
-        //        u.Currency = (string)sdr["Currency"];
+        //        u.Currency_ID = (string)sdr["Currency_ID"];
         //        u.Ref_No = (int)sdr["Ref_No"];
         //        u.Exchange_Rate = (decimal)sdr["Exchange_Rate"];
         //        u.Created_By = (int)sdr["CreatedBy"];
@@ -97,7 +97,7 @@ namespace SfDesk.Models
         //    sc.Parameters.AddWithValue("@Trans_NO", Trans_NO);
         //    sc.Parameters.AddWithValue("@Trans_Date", Trans_Date);
         //    sc.Parameters.AddWithValue("@Due_Date", Due_Date);
-        //    sc.Parameters.AddWithValue("@Currency", Currency);
+        //    sc.Parameters.AddWithValue("@Currency_ID", Currency_ID);
         //    sc.Parameters.AddWithValue("@Ref_No", Ref_No);
         //    sc.Parameters.AddWithValue("@Exchange_Rate", Exchange_Rate);
         //    sc.Parameters.AddWithValue("@Narration",  Narration);
@@ -116,7 +116,7 @@ namespace SfDesk.Models
         //    sc.Parameters.AddWithValue("@Trans_NO", Trans_NO);
         //    sc.Parameters.AddWithValue("@Trans_Date", Trans_Date);
         //    sc.Parameters.AddWithValue("@Due_Date", Due_Date);
-        //    sc.Parameters.AddWithValue("@Currency", Currency);
+        //    sc.Parameters.AddWithValue("@Currency_ID", Currency_ID);
         //    sc.Parameters.AddWithValue("@Ref_No", Ref_No);
         //    sc.Parameters.AddWithValue("@Exchange_Rate", Exchange_Rate);
         //    sc.Parameters.AddWithValue("@Narration", Narration);

@@ -53,7 +53,7 @@ namespace SfDesk.Models
         //        u.Suplier_Name = (string)sdr["Suplier_Name"];
         //        u.P_No = (int)sdr["P_No"];
         //        u.P_Date = (DateTime)sdr["P_Date"];
-        //        u.Currency = (string)sdr["Currency"];
+        //        u.Currency_ID = (string)sdr["Currency_ID"];
         //        u.ExRate = (decimal)sdr["ExRate"];
         //        u.Job_ID = (int)sdr["Job_ID"];
         //        u.Job_Name = (string)sdr["Job_Name"];
@@ -81,7 +81,7 @@ namespace SfDesk.Models
         //        u.Suplier_Name = (string)sdr["Suplier_Name"];
         //        u.P_No = (int)sdr["P_No"];
         //        u.P_Date = (DateTime)sdr["P_Date"];
-        //        u.Currency = (string)sdr["Currency"];
+        //        u.Currency_ID = (string)sdr["Currency_ID"];
         //        u.ExRate = (decimal)sdr["ExRate"];
         //        u.Job_ID = (int)sdr["Job_ID"];
         //        u.Job_Name = (string)sdr["Job_Name"];
@@ -100,7 +100,7 @@ namespace SfDesk.Models
         //    SqlCommand sc = new SqlCommand("Payment_Add", Connection.Get()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
         //    sc.Parameters.AddWithValue("@Suplier_ID", Suplier_ID);
         //    sc.Parameters.AddWithValue("@P_Date", P_Date);
-        //    sc.Parameters.AddWithValue("@Currency", Currency);
+        //    sc.Parameters.AddWithValue("@Currency_ID", Currency_ID);
         //    sc.Parameters.AddWithValue("@ExRate", ExRate);
         //    sc.Parameters.AddWithValue("@Job_ID", Job_ID);
         //    sc.Parameters.AddWithValue("@Narrations", Naration);
@@ -119,7 +119,7 @@ namespace SfDesk.Models
         //    sc.Parameters.AddWithValue("@Suplier_Name", Suplier_Name);
         //    sc.Parameters.AddWithValue("@P_No", P_No);
         //    sc.Parameters.AddWithValue("@P_Date", P_Date);
-        //    sc.Parameters.AddWithValue("@Currency", Currency);
+        //    sc.Parameters.AddWithValue("@Currency_ID", Currency_ID);
         //    sc.Parameters.AddWithValue("@ExRate", ExRate);
         //    sc.Parameters.AddWithValue("@Job_ID", Job_ID);
         //    sc.Parameters.AddWithValue("@Job_Name", Job_Name);

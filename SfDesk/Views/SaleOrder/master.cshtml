@@ -1,4 +1,4 @@
-﻿@model SfDesk.Models.SaleOrder
+﻿@model SfDesk.Models.SO
 
 @{
     ViewBag.Title = "master";
@@ -20,7 +20,7 @@
                 <div class="form-horizontal">
                     <h4>SalesOrder</h4>
                     <hr />
-                    <input hidden="hidden" name="S_ID" id="S_ID" value="@Model.S_ID" />
+                    <input hidden="hidden" name="S_ID" id="S_ID" value="@Model.SO_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group ">
@@ -41,22 +41,22 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.S_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.SO_NO, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.S_NO, new
+                                @Html.EditorFor(model => model.SO_NO, new
                            {
                                htmlAttributes = new
                                {
                                    @class = "form-control"
                                }
                            })
-                                @Html.ValidationMessageFor(model => model.S_NO, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.SO_NO, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Salesman_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.SalesMan_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.HiddenFor(Model => Model.Salesman_ID)
+                                @Html.HiddenFor(Model => Model.SalesMan_ID)
                                 <input type="text" name="Salesman_Name" list="Salesman_List" id="Salesman_Name" class="form-control text-box">
                                 <datalist id="Salesman_List">
                                  
@@ -66,7 +66,7 @@
                                     }
                                 </datalist>
 
-                                @Html.ValidationMessageFor(model => model.Salesman_ID, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.SalesMan_ID, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-2" @*style="display:none"*@>
                                 <button type="button" class="btn mini btn-primary" onclick="AddSM()" style="margin-top:6px">
@@ -75,9 +75,9 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Currency_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.HiddenFor(Model => Model.Currency)
+                                @Html.HiddenFor(Model => Model.Currency_ID)
                                 <input type="text" name="Customer_Name" list="Customer_List" id="Customer_Name" class="form-control text-box">
                                 <datalist id="Curr_List">
                                     @{
@@ -93,7 +93,7 @@
                                     }
                                 </datalist>
 
-                                @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Currency_ID, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
@@ -133,15 +133,15 @@
                                     }
                                 </datalist>
 
-                                @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Currency_ID, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.AttachmentPath, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Img_Path, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.AttachmentPath, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.AttachmentPath, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Img_Path, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Img_Path, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -149,10 +149,10 @@
                     <div id="child"></div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Term, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.Term, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Term, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <br />
@@ -249,7 +249,7 @@
             window.location.href = '/SaleOrder/Showall';
         });
         $('#done').click(function () {
-            window.location.href = '@Url.Action("Showall", "SaleOrder")';
+            window.location.href = '@Url.Action("Showall", "SO")';
         });
        
         $('#approve').click(function () {
@@ -263,14 +263,14 @@
             data.transactions = myTransaction;
             data.taxes = myTaxes;
             $.ajax({
-                url: '@Url.Action("Approve", "SaleOrder")',
+                url: '@Url.Action("Approve", "SO")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
                     c: data,
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                    window.location.href = '@Url.Action("ShowAll", "SO")';
                 }
 
             });
@@ -312,7 +312,7 @@
        .always(function (result) {
        });
 
-                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                    window.location.href = '@Url.Action("ShowAll", "SO")';
                 }
 
             })
@@ -329,7 +329,7 @@
         /*ye master ka he*/
         function detail() {
 
-            $.get('@Url.Action("detail", "SaleOrder")', function (data) { $("#child").html(data); });
+            $.get('@Url.Action("detail", "SO")', function (data) { $("#child").html(data); });
             $("#done").hide()
             debugger;
 
