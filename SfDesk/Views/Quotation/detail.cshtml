@@ -100,12 +100,7 @@
             }
         });
     }
-    $("#charges_form").submit(function (e) {
-        e.preventDefault();
-        var charges = $(this).serialize()+ "&Q_ID="+Master_Id;
-        debugger;
-        $.post(this.action,charges );
-    });
+ 
     function loadData() {
         debugger;
         $.ajax({
@@ -166,26 +161,23 @@
         });
       
     }
-    function total(input,id)
+    function DetailCalculation(th)
     {
+        debugger
+        var quantity = parseFloat(th._grid.fields[3].insertControl.val())|| 1;
+        var price = parseFloat(th._grid.fields[4].insertControl.val()) || 1;
+        var discount = parseFloat(th._grid.fields[5].insertControl.val()) || 0;
+        var tax = parseFloat(th._grid.fields[6].insertControl.val()) || 0;
+        var total = (quantity * price) 
+       
+            total -= total * (discount/100);
+        
+     
+            total += total * (tax / 100);
+        
+       th._grid.fields[7].insertControl.val(total)
 
-
-        var val =$(input).val();
-        var total = net_total*(val/100);
-        total=total.toFixed(2); debugger;
-        $("#"+id).val(total);
-        var sum=0;
-        for (var i = 0; i < 3; i++) {
-
-            if(isNaN(parseFloat($("#c_"+i).val())))
-            {
-            }
-            else
-            {
-                sum+= parseFloat($("#c_"+i).val());
-            }
-        }
-        $('#total').html(sum.toFixed(2));
+        
     }
     var net_total=0;
     $(function(){
@@ -366,15 +358,35 @@
             },
             {
                 name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
+                insertTemplate: function () {
+                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                    var th = this;
+                    $insertControl.on("keyup change", function () {
+                        DetailCalculation(th)
+
+
+                    });
+                    return $insertControl;
+                },
                 editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
                     update_on_enter( $editControl,"jsGrid");
-
+                    calculation(parse(int))
                     return $editControl;
                 },
             },
               {
                   name: "Price", title: "Price", type: "text", width: 80, validate: "required",
+                  insertTemplate: function () {
+                      var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                      var th = this;
+                      $insertControl.on("keyup change", function () {
+                          DetailCalculation(th)
+
+
+                      });
+                      return $insertControl;
+                  },
                   editTemplate: function (args) {
                       var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
                       update_on_enter( $editControl,"jsGrid");
@@ -384,6 +396,16 @@
               },
                 {
                     name: "Discount", title: "Discount", type: "text", width: 80, validate: "required",
+                    insertTemplate: function () {
+                        var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                        var th = this;
+                        $insertControl.on("keyup change", function () {
+                            DetailCalculation(th)
+
+
+                        });
+                        return $insertControl;
+                    },
                     editTemplate: function (args) {
                         var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
                         update_on_enter( $editControl,"jsGrid");
@@ -393,6 +415,16 @@
                 },
                   {
                       name: "Tax", title: "Tax", type: "text", width: 80, validate: "required",
+                      insertTemplate: function () {
+                          var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                          var th = this;
+                          $insertControl.on("keyup change", function () {
+                              DetailCalculation(th)
+
+
+                          });
+                          return $insertControl;
+                      },
                       editTemplate: function (args) {
                           var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
                           update_on_enter( $editControl,"jsGrid");
