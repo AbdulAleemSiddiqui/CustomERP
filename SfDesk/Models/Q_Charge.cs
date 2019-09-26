@@ -20,19 +20,19 @@ namespace SfDesk.Models
         public decimal T_Rate { get; set; }
         [TVP]
         public decimal T_Total { get; set; }
-
-
-
         [TVP]
         public int CreatedBy { get; set; }
+
+        public int Trans_Name{ get; set; }
+
         public string ReturnMessage { get; set; }
-        public int Sale_Q_Detail_Add(int UserId)
+        public int Sale_Q_Charge_Add(int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                int id = DataBase.ExecuteQuery<Q_Detail>(new { x = this }, Connection.GetConnection()).FirstOrDefault().Q_ID;
+                int id = DataBase.ExecuteQuery<Q_Charge>(new { x = this }, Connection.GetConnection()).FirstOrDefault().Q_ID;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return id;
@@ -45,13 +45,13 @@ namespace SfDesk.Models
             }
         }
 
-        public Q_Detail Sale_Q_Detail_Get_By_Id(int Id, int UserId)
+        public Q_Charge Sale_Q_Charge_Get_By_Id(int Id, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                Q_Detail ret = DataBase.ExecuteQuery<Q_Detail>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                Q_Charge ret = DataBase.ExecuteQuery<Q_Charge>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
@@ -64,13 +64,13 @@ namespace SfDesk.Models
             }
         }
 
-        public List<Q_Detail> Sale_Q_Detail_Get_All(int UserId)
+        public List<Q_Charge> Sale_Q_Charge_Get_By_Q(int Q_ID ,int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                List<Q_Detail> ret = DataBase.ExecuteQuery<Q_Detail>(new { x = UserId }, Connection.GetConnection());
+                List<Q_Charge> ret = DataBase.ExecuteQuery<Q_Charge>(new { x=Q_ID,x1 = UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
@@ -83,13 +83,13 @@ namespace SfDesk.Models
             }
         }
 
-        public string Sale_Q_Detail_Update(int UserId)
+        public string Sale_Q_Charge_Update(int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                string Message = DataBase.ExecuteQuery<Q_Detail>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                string Message = DataBase.ExecuteQuery<Q_Charge>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return Message;

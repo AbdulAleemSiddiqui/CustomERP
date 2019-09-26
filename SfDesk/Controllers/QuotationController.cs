@@ -15,7 +15,7 @@ namespace SfDesk.Controllers
             ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
             ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);
             ViewBag.Branch = new Branch().Branch_Get_All(App.App_ID);
-            return View(new Quotation() { Date = DateTime.Now });
+            return View(new Quotation() { Date = DateTime.Now,Q_NO = Utility.Get_New_No("Q", "Q_ID", "Quotation", App.App_ID) });
         }
         [HttpPost]
         public ActionResult master(Quotation c)
