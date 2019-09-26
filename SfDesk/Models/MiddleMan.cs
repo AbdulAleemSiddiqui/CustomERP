@@ -134,7 +134,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@STRN", STRN);
             sc.Parameters.AddWithValue("@Contact_Name", Contact_Name);
             sc.Parameters.AddWithValue("@Phone_Number", Phone_Number);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Exp_Acc_ID", Exp_Acc_ID);
             sc.Parameters.AddWithValue("@Pay_Acc_ID", Pay_Acc_ID);
             sc.Parameters.AddWithValue("@Type", Type);
@@ -155,7 +155,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@STRN", STRN);
             sc.Parameters.AddWithValue("@Contact_Name", Contact_Name);
             sc.Parameters.AddWithValue("@Phone_Number", Phone_Number);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Exp_Acc_ID", Exp_Acc_ID);
             sc.Parameters.AddWithValue("@Pay_Acc_ID", Pay_Acc_ID);
             sc.Parameters.AddWithValue("@Type", Type);

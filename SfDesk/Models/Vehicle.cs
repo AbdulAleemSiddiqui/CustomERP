@@ -18,7 +18,7 @@ namespace SfDesk.Models
         public string Vehicle_Type { get; set; }
         [DisplayName("Vehicle #")]
         public string Vehicle_No { get; set; }
-        [DisplayName("Rate")]
+        [DisplayName("ST_Rate")]
         public decimal Rate{ get; set; }
 
         public int T_ID { get; set; }
@@ -117,7 +117,7 @@ namespace SfDesk.Models
 
             sc.Parameters.AddWithValue("@Vehicle_Type", Vehicle_Type);
             sc.Parameters.AddWithValue("@Vehicle_N", Vehicle_No);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
@@ -133,7 +133,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@V_ID", V_ID);
             sc.Parameters.AddWithValue("@Vehicle_Type", Vehicle_Type);
             sc.Parameters.AddWithValue("@Vehicle_N", Vehicle_No);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@App_Id", App.App_ID);
             sc.ExecuteNonQuery();

@@ -20,10 +20,10 @@ namespace SfDesk.Models
         [DisplayName("Is Taxable")]
         public bool isTexable { get; set; }
 
-        [DisplayName("Rate")]
+        [DisplayName("ST_Rate")]
         public decimal Rate{ get; set; }
 
-        [DisplayName("Rate Type")]
+        [DisplayName("ST_Rate Type")]
         public string Rate_Type { get; set; }
 
         [DisplayName("% apply on (rate * qty)")]
@@ -129,7 +129,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Name", Name);
             sc.Parameters.AddWithValue("@Charge_Nature", Charge_Nature);
             sc.Parameters.AddWithValue("@isTexable", isTexable);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Rate_Type", Rate_Type);
             sc.Parameters.AddWithValue("@isPer_Apply", isPer_Apply);
             sc.Parameters.AddWithValue("@Sales_Account_ID", Sales_Account_ID);
@@ -149,7 +149,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Name", Name);
             sc.Parameters.AddWithValue("@Charge_Nature", Charge_Nature);
             sc.Parameters.AddWithValue("@isTexable", isTexable);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Rate_Type", Rate_Type);
             sc.Parameters.AddWithValue("@isPer_Apply", isPer_Apply);
 

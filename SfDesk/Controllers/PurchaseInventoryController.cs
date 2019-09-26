@@ -139,10 +139,7 @@ namespace SfDesk.Controllers
             return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult Get_Taxes()
-        {
-            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
-        }
+       
         public ActionResult Get_taxes_by_ID(int PI_ID)
         {
             PI_Charge p = new PI_Charge() { PI_ID = PI_ID };
@@ -153,6 +150,10 @@ namespace SfDesk.Controllers
         {
             PI_Transactions p = new PI_Transactions() { PI_ID = PI_ID };
             return Json(p.PI_Transactions_Get_All(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Get_Taxes()
+        {
+            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Get_Transasction()
         {

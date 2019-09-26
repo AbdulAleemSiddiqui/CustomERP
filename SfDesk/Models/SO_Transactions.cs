@@ -70,8 +70,8 @@ namespace SfDesk.Models
             {
                 u.SOT_ID = (int)sdr["SOT_ID"];
                 u.SO_ID = (int)sdr["SO_ID"];
-                u.T_ID = (int)sdr["ST_ID"];
-                u.Name = (string)sdr["ST_Name"];
+                u.T_ID = (int)sdr["SalesTax_ID"];
+                u.Name = (string)sdr["SalesTax_Name"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Total = (decimal)sdr["Total"];
                 u.is_MiddleMan = (bool)sdr["is_MiddleMan"];
@@ -91,7 +91,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@T_ID", T_ID);
             sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
             sc.Parameters.AddWithValue("@is_SalesMan", is_MiddleMan);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Total", Total);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
@@ -104,7 +104,7 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("SO_Transactions_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SOT_ID", SOT_ID);
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
-            sc.Parameters.AddWithValue("@ST_ID", T_ID);
+            sc.Parameters.AddWithValue("@SalesTax_ID", T_ID);
             sc.Parameters.AddWithValue("@is_MiddleMan", is_MiddleMan);
             sc.Parameters.AddWithValue("@is_Transporter", is_Transporter);
             sc.ExecuteNonQuery();
