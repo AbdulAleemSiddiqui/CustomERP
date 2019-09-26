@@ -105,7 +105,7 @@
                                 @Html.HiddenFor(Model => Model.Branch_ID)
                                 <input type="text" name="Branch_Name" list="Branch_List" id="Branch_Name" class="form-control text-box">
                                 <datalist id="Branch_List">
-                               
+
                                     @foreach (var item in ViewBag.Branch)
                                     {
                                         <option id="@item.B_ID" data-id="@item.B_ID" value="@item.B_Name"></option>
@@ -119,8 +119,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Img_Path, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Img_Path, new { htmlAttributes = new { @class = "form-control",@type="file",
-                               @accept = ".jpg,.jpeg,.png", @onclick = "ValidateSize(this);" } })
+                                @Html.EditorFor(model => model.Img_Path, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   @type = "file",
+                                   @accept = ".jpg,.jpeg,.png",
+                                   @onclick = "ValidateSize(this);"
+                               }
+                           })
                                 @Html.ValidationMessageFor(model => model.Img_Path, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -133,9 +141,9 @@
                         </div>
                     </div>
 
-                    
 
-                   
+
+
                     <div id="child"></div>
                     <br />
                     <div class="jsgrid-table-panel col-lg-5">
@@ -167,7 +175,7 @@
                     </div>
                 </div>
 
-                                        }
+            }
 
 
         </div>
@@ -194,7 +202,7 @@
     <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
-        
+
         var Master_Id = 0
         Typable_Dropdown('Customer');
         Typable_Dropdown('SalesMan');
@@ -219,12 +227,39 @@
         $('#cancel').click(function () {
                                     window.location.href = '/PurchaseRequisition/Showall';
                                 });
-      
+        $('#done').click(function () {
+                                    window.location.href = '@Url.Action("Showall", "PurchaseRequisition")';
+                                });
+        $('#approve').click(function () {
+                                    debugger;
+          
+
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            data.Q_Details = clients;
+            data.Q_Charges = transactions;
+            data.Q_Taxs = taxes
+           
+            $.ajax({
+                url: '@Url.Action("Approve", "PurchaseRequisition")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    p: data,
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+                }
+
+            });
+        });
         $(document).ready(function () {   // Help for the HTML4 version.
 
             $('#myModal').on("hidden.bs.modal", function () {
                 $("#myModalContent").html("")
             });
+           debugger
+            Master_Id = $("#Q_ID").val()
             detail();
 
 
@@ -239,7 +274,7 @@
             //    addDetails()
             //})
             var data = {};
-           
+
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
             data.Q_Details = clients;
