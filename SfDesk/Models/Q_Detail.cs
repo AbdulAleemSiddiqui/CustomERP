@@ -75,13 +75,13 @@ namespace SfDesk.Models
             }
         }
 
-        public List<Q_Detail> Sale_Q_Detail_Get_All(int UserId)
+        public List<Q_Detail> Sale_Q_Detail_Get_By_Q(int Q_ID,int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                List<Q_Detail> ret = DataBase.ExecuteQuery<Q_Detail>(new { x = UserId }, Connection.GetConnection());
+                List<Q_Detail> ret = DataBase.ExecuteQuery<Q_Detail>(new { x = Q_ID,x1=UserId}, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;

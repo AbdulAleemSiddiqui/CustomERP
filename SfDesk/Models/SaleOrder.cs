@@ -14,7 +14,6 @@ namespace SfDesk.Models
         public int S_ID { get; set; }
         public string S_NO { get; set; }
         public int Customer_ID { get; set; }
-
         public string Customer_Name { get; set; }
         public int Salesman_ID { get; set; }
         [DataType(DataType.Date)]
@@ -23,10 +22,8 @@ namespace SfDesk.Models
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
         public DateTime Delivery_Date { get; set; }
-
         public string Salesman_Name { get; set; }
         public string Currency { get; set; }
-
         public string AttachmentPath { get; set; }
         public int Branch_ID { get; set; }
 
