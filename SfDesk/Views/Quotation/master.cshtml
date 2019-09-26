@@ -194,8 +194,8 @@
     <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
-        var details = []
-                                var Master_Id = 0
+        
+        var Master_Id = 0
         Typable_Dropdown('Customer');
         Typable_Dropdown('SalesMan');
         Typable_Dropdown('Currency');
@@ -238,14 +238,16 @@
 
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            data.details = clients;
+            data.Q_Details = clients;
+            data.Q_Charges = transactions;
+            data.Q_Taxs = taxes
             debugger
             $.ajax({
                 url: '@Url.Action("Approve", "PurchaseRequisition")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
-                    p: data, pi: clients, pie: editedClients
+                    p: data,
                 },
                 success: function (data) {
                     window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
@@ -272,15 +274,18 @@
             //    addDetails()
             //})
             var data = {};
+           
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
             data.Q_Details = clients;
+            data.Q_Charges = mytrans;
+            data.Q_Taxs = Mytax
             $.ajax({
                 url: '@Url.Action("master", "Quotation")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
-                    c: data, pi: clients, pie: editedClients
+                    c: data
                 },
                 success: function (data) {
                     window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';

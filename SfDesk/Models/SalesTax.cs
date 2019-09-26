@@ -112,7 +112,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Code", Code);
             sc.Parameters.AddWithValue("@TaxType", TaxType);
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
             sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance );
             sc.Parameters.AddWithValue("@Is_Claimable", Is_Claimable);
@@ -133,7 +133,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@Code", Code);
             sc.Parameters.AddWithValue("@TaxType", TaxType);
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@RateType", Rate_Type);
             sc.Parameters.AddWithValue("@Opening_Balance", Opening_Balance);
             sc.Parameters.AddWithValue("@Is_Claimable", Is_Claimable);

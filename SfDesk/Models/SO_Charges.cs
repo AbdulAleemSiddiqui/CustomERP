@@ -39,7 +39,7 @@ namespace SfDesk.Models
                 SO_Charges u = new SO_Charges();
                 u.SO_Charge_ID = (int)sdr["SO_Charge_ID"];
                 u.SO_ID = (int)sdr["SO_ID"];
-                u.SalesTax_ID = (int)sdr["ST_ID"];
+                u.SalesTax_ID = (int)sdr["SalesTax_ID"];
                 u.SalesTax_Name = (string)sdr["Name"];
                 u.Rate = (decimal)sdr["Rate"];
 
@@ -63,8 +63,8 @@ namespace SfDesk.Models
             {
                 u.SO_Charge_ID = (int)sdr["SO_Charge_ID"];
                 u.SO_ID = (int)sdr["SO_ID"];
-                u.SalesTax_ID = (int)sdr["ST_ID"];
-                u.SalesTax_Name = (string)sdr["ST_Name"];
+                u.SalesTax_ID = (int)sdr["SalesTax_ID"];
+                u.SalesTax_Name = (string)sdr["SalesTax_Name"];
                 u.Rate = (decimal)sdr["Rate"];
                 u.Created_By = (int)sdr["CreatedBy"];
                 u.Created_Date = (DateTime)sdr["CreatedDate"];
@@ -78,8 +78,8 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("SO_Charges_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
-            sc.Parameters.AddWithValue("@ST_ID", SalesTax_ID);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Total", Total);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
@@ -92,7 +92,7 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("SO_Charges_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@SO_Charge_ID", SO_Charge_ID);
             sc.Parameters.AddWithValue("@SO_ID", SO_ID);
-            sc.Parameters.AddWithValue("@ST_ID", SalesTax_ID);
+            sc.Parameters.AddWithValue("@SalesTax_ID", SalesTax_ID);
             sc.ExecuteNonQuery();
         }
         public void SO_Charges_Delete()

@@ -355,7 +355,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@P_Quantity", Purchase_Quantitiy);
             sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
             sc.Parameters.AddWithValue("@Commision", Commision);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
             sc.Parameters.AddWithValue("@Discount", Discount);
             sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);
@@ -418,7 +418,7 @@ namespace SfDesk.Models
             sc.Parameters.AddWithValue("@P_Quantity", Purchase_Quantitiy);
             sc.Parameters.AddWithValue("@R_Quantity", Received_Quantitiy);
             sc.Parameters.AddWithValue("@Commision", Commision);
-            sc.Parameters.AddWithValue("@Rate", Rate);
+            sc.Parameters.AddWithValue("@ST_Rate", Rate);
             sc.Parameters.AddWithValue("@Gross_Amount", Gross_Amount);
             sc.Parameters.AddWithValue("@Discount", Discount);
             sc.Parameters.AddWithValue("@Discount_Amount", Discount_Amount);

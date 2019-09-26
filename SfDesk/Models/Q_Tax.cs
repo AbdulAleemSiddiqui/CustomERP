@@ -17,6 +17,8 @@ namespace SfDesk.Models
         public int Q_ID { get; set; }
         [TVP]
         public int ST_ID { get; set; }
+      
+        public string ST_Name { get; set; }
         [TVP]
         public decimal ST_Rate { get; set; }
         [TVP]

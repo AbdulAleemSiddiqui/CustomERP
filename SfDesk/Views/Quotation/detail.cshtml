@@ -29,52 +29,77 @@
 @*  <script src="~/assets/js/db.js"></script>*@
 <script>
     var clients =[]
-    var editedClients =[];
     var arr = [];
     var taxes = [];
-    var taxess = [];
     var transactions = [];
-    var transactionsID = [];
     items = [];
-    function newRow() //ye change kia he
-    {
-        $("#jsGrid").jsGrid({ inserting: true });
-       var tr = $(".jsgrid-insert-row").closest("tr");
+    var Gross_total = 0;
+    var tax_total = 0;
+    var trans_total = 0;
+    var grand_total = 0;
+    function newRow(id) {
+        $("#" + id).jsGrid({ inserting: true });
 
-       var td=tr.find("td:eq(0)")
-       var inout=td.find("input:eq(0)")
-               var last =  $(tr).find('td:last').html('')
-    $(inout).focus()
+        var tr = $("#" + id + " .jsgrid-insert-row").closest("tr");
+        //if (id === "jsGrid") {
+        //    var disble = tr.find("td:eq(7)")
+        //    var txtdisabled = disble.find("input:eq(0)").attr("disabled", "disabled");
+        //}
+        var td = tr.find("td:eq(0)")
+
+
+
+        inout = td.find("select:eq(0)")
+        if (id === "jsgrid")
+            var inout = td.find("input:eq(0)")
+        var last = $(tr).find('td:last').html('')
+        $(inout).select().focus();
+    } // // isme change he 
+    function insert_on_enter(field, id) {
+
+        field.on("keydown", function (e) {
+
+
+            if (e.keyCode === 13 || e.keyCode === 9) {
+                $("#" + id).jsGrid("insertItem").done(function () {
+                    $("#" + id).jsGrid("clearInsert");
+                    newRow(id)
+                });
+                return false;
+            }
+        });
+    }  // isme change he 
+    function update_on_enter(field, id) {
+        field.on("keydown", function (e) {
+            if (e.keyCode === 13) {
+                $("#" + id).jsGrid("updateItem");
+                return false;
+            }
+            else if (e.keyCode === 27) {
+
+                $("#" + id).jsGrid("cancelEdit");
+                return false;
+            }
+        });
     }  // isme change he
-    function insert_on_enter(field)  {// ye bh
-        field.on("keydown", function(e) {
-            if(e.keyCode === 13 || e.keyCode === 9 ) {
-                if( true)
-                {
-                    debugger
-                    var aa =$("#jsGrid").jsGrid("insertItem").done(function(){
-                        $("#jsGrid").jsGrid("clearInsert");
-                        newRow()
-                    });
+    function focusChange(field, id) {
 
-                }return false;
-            }
-        });
-    } // isme change he
-    function update_on_enter(field) { //aur ye
-        field.on("keydown", function(e) {
-            if(e.keyCode === 13 ){
-                $("#jsGrid").jsGrid("updateItem");
-                return false;
-            }
-            else if(e.keyCode === 27 )
-            {
+        field.on("keydown", function (e) {
+            if ((field.val() === "") && (e.keyCode === 13 || e.keyCode === 9)) {
+                if (id === "jsGrid") {
+                    newRow("transGrid")
+                }
+                else if (id === "transGrid") {
+                    newRow("Grid")
 
-                $("#jsGrid").jsGrid("cancelEdit");
+                }
+                else {
+                    $("#create").focus()
+                }
                 return false;
             }
         });
-    } // isme change he
+    }
     $("#charges_form").submit(function (e) {
         e.preventDefault();
         var charges = $(this).serialize()+ "&Q_ID="+Master_Id;
@@ -103,79 +128,43 @@
                 if (d.ID != 0)
                     arr = d
                 my()
-                newRow() ///ye
+                newRow("jsGrid") ///ye
             }
         });
-        //$.ajax({
-        //    type: "GET",
-        //    url: "Get_taxes",
-        //    dataType: "json",
-        //    success: function (d) {
+        $.ajax({
+            type: "GET",
+            url: "Get_taxes",
+            dataType: "json",
+            success: function (d) {
 
-        //        if (d.ID != 0) {
-        //            taxes = d
-        //            taxes.unshift({ SalesTax_ID: "" })
-        //        }
-        //        $.ajax({
-        //            type: "GET",
-        //            url: "Get_taxes_by_ID",
-        //            data: { PI_ID: $('#PI_ID').val() },
-        //            dataType: "json",
-        //            success: function (f) {
+                if (d.ID != 0) {
+                    taxes = d
+                    taxes.unshift({ SalesTax_ID: "" })
+                    tax()
+                    newRow("Grid")
+                }
+         
 
-        //                if (d.ID != 0) {
-        //                    taxess = f
-
-
-        //                }
-        //                taxess.forEach(function (item) {
-        //                    item.Total = Gross_total * (item.Rate / 100);
-        //                    item.Total = item.Total.toFixed(2);
-        //                });
-        //                tax()
-
-        //                newRow("Grid")
-        //            }
-        //        });
-
-        //    }
-        //});
-        //$.ajax({
-        //    type: "GET",
-        //    url: "Get_Transasction",
-        //    dataType: "json",
-        //    success: function (d) {
-        //        ;
-        //        if (d.ID != 0) {
-        //            transactions = d
-        //            transactions.unshift({ T_ID: "" })
-        //        }
-        //        $.ajax({
-        //            type: "GET",
-        //            url: "Get_trans_by_ID",
-        //            data: { PI_ID: $('#PI_ID').val() },
-        //            dataType: "json",
-
-        //            success: function (f) {
-
-        //                if (d.ID != 0)
-        //                    transactionsID = f
-
-        //                trans()
-
-        //                newRow("transGrid")
-
-        //            }
-        //        });
-
-        //    }
-        //});
-        tax()
-
-        newRow("Grid")
-        trans()
-
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "Get_Transasction",
+            dataType: "json",
+            success: function (d) {
+                ;
+                if (d.ID != 0) {
+                    transactions = d
+                    transactions.unshift({ T_ID: "" })
+                    trans();
                     newRow("transGrid")
+
+                }
+         
+
+            }
+        });
+      
     }
     function total(input,id)
     {
@@ -201,31 +190,11 @@
     var net_total=0;
     $(function(){
         loadData();
-
+        clients = arr
     
     })
-    //function addDetails(){
-    //    console.log(clients)
-    //    $.ajax({
-    //        type: "POST",
-    //        data:  {pi :clients, Q_ID:Master_Id },
-    //        url: "add",
-    //        success: function (d) {
-    //            alert(d);
-    //            location.reload();
 
-    //        },
-
-    //    })
-    //}
-    function focusChange(field){
-        field.on("keydown", function(e) {
-            if((field.val()==="") && (e.keyCode === 13 || e.keyCode === 9) ) {
-                $("#create").focus();
-                return false;
-            }
-        });
-    }
+   
     function my(){
         $("#jsGrid").jsGrid({
 
@@ -255,6 +224,43 @@
             pageNavigatorPrevText: "...",
 
             invalidMessage: "Invalid data entered!",
+            onRefreshed: function (args) {
+
+
+                grand_total = Gross_total
+
+                var items = args.grid.option("data");
+                var total = { Name: "Total", "":"","":null,"Quantity":0,"Price": 0,"Discount":0,"tax":0,"Amount":0, IsTotal: true };
+
+                items.forEach(function (item) {
+                    total.Quantity += parseFloat(item.Quantity);
+                    total.Price += parseFloat(item.Price);
+                    total.Discount += parseFloat(item.Discount);
+                    total.tax += parseFloat(item.tax);
+                    total.Amount += parseFloat(item.Amount);
+                });
+                total.Quantity = parseFloat(total.Quantity.toFixed(2));
+                total.Price = parseFloat(total.Price.toFixed(2));
+                total.Discount = parseFloat(total.Discount.toFixed(2));
+                total.tax = parseFloat(total.tax.toFixed(2));
+                total.Amount = parseFloat(total.Amount.toFixed(2));
+                var $totalRow = $("<tr>").addClass("total-row");
+                Gross_total = total.Amount;
+                grand_total = parseFloat(Gross_total + tax_total + trans_total).toFixed(2);
+                $("#Grand_Total").html('<h1 style="font-size:30px">Total: ' + grand_total + '</h1>')
+
+                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> ' + grand_total + '</h1>')
+
+                args.grid._renderCells($totalRow, total);
+
+                $totalRow.find("td").eq(0).html("<b>Total</b>");
+                //$totalRow.find("td").eq(0).attr('colspan', 4);
+                $totalRow.find("td").eq(0).css('text-align', 'right');
+                //$totalRow.find("td").eq(1).remove();
+                //$totalRow.find("td").eq(1).remove();
+                //$totalRow.find("td").eq(1).remove();
+                args.grid._content.append($totalRow);
+            },
 
 
             onItemUpdated: function(args) {
@@ -298,14 +304,7 @@
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 //}
             },
-            onItemInserted: function (args) {
-
-
-                //jQuery("#jsGrid").jsGrid("destroy");
-                //loadData();
-
-
-            },
+         
             onItemDeleted: function(args) {
 
             },
@@ -325,7 +324,7 @@
 
 
                 });
-               focusChange($insertControl);
+               focusChange($insertControl,"jsGrid");
 
 
 
@@ -333,7 +332,7 @@
             },
             editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                update_on_enter($editControl);
+                update_on_enter( $editControl,"jsGrid");
 
                 return $editControl;
             }, },
@@ -360,14 +359,14 @@
 
 
                     });
-                    update_on_enter($insertControl);
+                    update_on_enter( $insertControl,"jsGrid");
 
                     return $insertControl;
             }, },
             {name:"Description", title: "Description", type: "text", width:  80, validate: "required"  ,
                 editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                update_on_enter($editControl);
+                update_on_enter( $editControl,"jsGrid");
 
                 return $editControl;
                 },
@@ -376,7 +375,7 @@
                 name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
                 editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
-                    update_on_enter($editControl);
+                    update_on_enter( $editControl,"jsGrid");
 
                     return $editControl;
                 },
@@ -385,7 +384,7 @@
                   name: "Price", title: "Price", type: "text", width: 80, validate: "required",
                   editTemplate: function (args) {
                       var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
-                      update_on_enter($editControl);
+                      update_on_enter( $editControl,"jsGrid");
 
                       return $editControl;
                   },
@@ -394,7 +393,7 @@
                     name: "Discount", title: "Discount", type: "text", width: 80, validate: "required",
                     editTemplate: function (args) {
                         var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
-                        update_on_enter($editControl);
+                        update_on_enter( $editControl,"jsGrid");
 
                         return $editControl;
                     },
@@ -403,7 +402,7 @@
                       name: "Tax", title: "Tax", type: "text", width: 80, validate: "required",
                       editTemplate: function (args) {
                           var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
-                          update_on_enter($editControl);
+                          update_on_enter( $editControl,"jsGrid");
 
                           return $editControl;
                       },
@@ -412,13 +411,13 @@
                 validate: "required",
                 insertTemplate: function(value) {
                     this.insertControl = $("<input>");
-                    insert_on_enter(this.insertControl);
+                    insert_on_enter(this.insertControl,"jsGrid");
                     return this.insertControl;
                 },
 
                 editTemplate: function (args) {
                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                    update_on_enter($editControl);
+                    update_on_enter($editControl,"jsGrid");
 
                     return $editControl;
                 },
@@ -436,7 +435,7 @@
         });
 
     };
-
+    var Mytax = []
     function tax() {
         $("#Grid").jsGrid({
 
@@ -451,36 +450,8 @@
             pageSize: 15,
             pageButtonCount: 5,
             deleteConfirm: "confirm",
-            data: taxess,
-            //controller: {
-            //insertItem: function (insertingClient) {
-
-            //        // this.clients.push(insertingClient);
-            //        $.ajax({
-            //        type: "POST",
-            //            data: {PI_ID : Master_Id , s : insertingClient },
-            //            url: "Save_Charges",
-            //            success: function (d) {
-            //                alert(d);
-
-
-            //            },
-            //        })
-            //    },
-
-
-
-            //    deleteItem: function (deletingClient) {
-            //        $.ajax({
-            //        type: "GET",
-            //            data: deletingClient,
-            //            url: "Delete_Charges",
-            //            success: function (d) {
-            //                alert(d);
-            //            },
-            //        })
-            //    }
-            //},
+          data: Mytax,
+           
             pagerContainer: null,
             pageIndex: 1,
             pageSize: 20,
@@ -500,8 +471,8 @@
 
                // args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'I';
-                args.item["SalesTax_ID"] = parseInt(args.item["SalesTax_ID"])
-                myTaxes.push(args.item)
+                args.item["ST_ID"] = parseInt(args.item["ST_ID"])
+                taxes.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
 
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
@@ -512,7 +483,7 @@
 
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'U';
-                myTaxes.push(args.item)
+                taxes.push(args.item)
 
 
             },
@@ -521,7 +492,7 @@
 
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'D';
-                myTaxes.push(args.item);
+                taxes.push(args.item);
                 //var grid = args.grid;
                 //grid.data.splice(args.itemIndex, 1);
                 //   grid.refresh();
@@ -532,19 +503,21 @@
             },
 
             onRefreshed: function (args) {
-               // grand_total = Gross_total
+                debugger
+               grand_total = Gross_total
                 var items = args.grid.option("data");
-                var total = { Name: "Total", "Rate": 0, "Total": 0, IsTotal: true };
+                var total = { Name: "Total", "ST_Rate": "", "ST_Total": 0, IsTotal: true };
 
                 items.forEach(function (item) {
 
-                    total.Total += parseFloat(item.Total);
+                    total.ST_Total += parseFloat(item.ST_Total);
                 });
-                tax_total = total.Total;
-               // grand_total += total.Total;
-              //  grand_total = parseFloat(Gross_total + tax_total + trans_total).toFixed(2);
-            //    $("#Grand_Total").html('<h1 style="font-size:30px">Total: ' + grand_total + '</h1>')
-                total.Total = parseFloat(total.Total.toFixed(2));
+
+                tax_total = total.ST_Total;
+                grand_total += tax_total;
+                grand_total = parseFloat(Gross_total + tax_total + trans_total).toFixed(2);
+                $("#Grand_Total").html('<h1 style="font-size:30px">Total: ' + grand_total + '</h1>')
+                total.ST_Total = parseFloat(total.ST_Total.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
 
                 args.grid._renderCells($totalRow, total);
@@ -556,7 +529,7 @@
 
 
             {
-                name: "SalesTax_ID", title: "Tax", type: "select", width: 100, validate: "required",
+                name: "ST_ID", title: "Tax", type: "select", width: 100, validate: "required",
                 items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
                 insertTemplate: function () {
                     var teamField = this._grid.fields[1];
@@ -567,13 +540,12 @@
                         var selectedDepartment1 = $(this).find('option:selected').val();
 
                         $.each(taxes, function (i, val) {
-                            console.log(val["SalesTax_ID"])
                             if (val["SalesTax_ID"] == selectedDepartment1) {
                                 //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
 
                                 teamField.insertControl.val(val["Rate"])//val(unit);
 
-
+                                debugger
                                 var val = teamField.insertControl.val()
                                 var total = Gross_total * (val / 100);
                                 total = total.toFixed(2);
@@ -594,7 +566,7 @@
                 },
             },
             {
-                name: "Rate", title: "Rate", insertcss: "abc", type: "text", width: 50, validate: "required",
+                name: "ST_Rate", title: "Rate", insertcss: "abc", type: "text", width: 50, validate: "required",
 
                 insertTemplate: function () {
 
@@ -605,18 +577,18 @@
                 },
             },
             {
-                name: "Total", title: "total", type: "text", width: 80, validate: "required", insertcss: "ttl1"
+                name: "ST_Total", title: "total", type: "text", width: 80, validate: "required", insertcss: "ttl1"
+
+        },
+            {
+                name: "Q_T_ID",
+                title: "",
+                type: "text",
+                visible: false,
+                css: "Net"
+
 
             },
-                           {
-                               name: "PI_Charge_ID",
-                               title: "",
-                               type: "text",
-                               visible: false,
-                               css: "Net"
-
-
-                           },
 
 
             {
@@ -637,6 +609,7 @@
     var selectedDepartment1;
     var isMM = false;
     var isT = false;
+    var mytrans = []
     function trans() {
 
         $("#transGrid").jsGrid({
@@ -652,7 +625,7 @@
             pageSize: 15,
             pageButtonCount: 5,
             deleteConfirm: "confirm",
-            data: transactionsID,
+            data :mytrans,
             //controller: {
             //    insertItem: function (insertingClient) {
 
@@ -712,7 +685,7 @@
 
 
                 args.item["action"] = 'I';
-                myTransaction.push(args.item)
+                transactions.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
 
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
@@ -734,7 +707,7 @@
                     args.item["_ID"] = mytrans.T_ID;
                     args.item["is_Transporter"] = true
                 }
-                myTransaction.push(args.item)
+                transactions.push(args.item)
 
                 //if (typeof (history.pushState) != "undefined") {
 
@@ -746,7 +719,7 @@
 
                 args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'D';
-                myTransaction.push(args.item);
+                transactions.push(args.item);
                 //var grid = args.grid;
                 //grid.data.splice(args.itemIndex, 1);
                 //   grid.refresh();
@@ -757,29 +730,31 @@
                 //}
             },
             onItemInserted: function (args) {
-                var ae = transactionsID;
+
+             //   var ae = transactionsID;
 
                 jQuery("#transGrid").jsGrid("refresh");
                 // trans()
             },
             onRefreshed: function (args) {
 
-              //  grand_total = Gross_total
+               grand_total = Gross_total
 
                 var items = args.grid.option("data");
-                var total = { Name: "Total Charged", "Rate": "", "Total": 0, IsTotal: true };
+                var total = { Name: "Total Charged", "Rate": "", "T_Total": 0, IsTotal: true };
 
                 items.forEach(function (item) {
 
-                    total.Total += parseFloat(item.Total);
+                    total.T_Total += parseFloat(item.T_Total);
                 });
-               // trans_total = total.Total;
-              //  grand_total = parseFloat((Gross_total + tax_total + trans_total).toFixed(2));
+                debugger
+                trans_total = total.T_Total;
+                grand_total = parseFloat((Gross_total + tax_total + trans_total).toFixed(2));
 
-               // $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> ' + grand_total + '</h1>')
+                $("#Grand_Total").html('<h1 style="font-size:30px">PKR <br/> ' + grand_total + '</h1>')
 
 
-                total.Total = parseFloat(total.Total.toFixed(2));
+                total.T_Total = parseFloat(total.T_Total.toFixed(2));
                 var $totalRow = $("<tr>").addClass("total-row");
 
                 args.grid._renderCells($totalRow, total);
@@ -904,7 +879,7 @@
                 },
             },
              {
-                 name: "Rate", title: "Rate", type: "text", width: 50, insertcss: "abc2",
+                 name: "T_Rate", title: "Rate", type: "text", width: 50, insertcss: "abc2",
                  validate: "required",
                  insertTemplate: function () {
 
@@ -958,7 +933,7 @@
              },
 
             {
-                name: "Total", title: "total", type: "text", width: 80, validate: "required", insertcss: "ttl",
+                name: "T_Total", title: "total", type: "text", width: 80, validate: "required", insertcss: "ttl",
                 insertTemplate: function (value) {
                     this.insertControl = $("<input>");
                     insert_on_enter(this.insertControl, "transGrid");
@@ -968,7 +943,7 @@
             },
              { name: "_ID", title: "", type: "text", visible: false, css: "_ID" },
                            {
-                               name: "PIT_ID",
+                               name: "Q_C_ID",
                                title: "",
                                type: "text",
                                visible: false,

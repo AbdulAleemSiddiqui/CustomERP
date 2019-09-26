@@ -35,6 +35,20 @@ namespace SfDesk.Controllers
             return Json(pd, JsonRequestBehavior.AllowGet);
             //  return Json(new PO_Details() { PO_ID = PO_ID }.PO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Get_Taxes()
+        {
+            return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Get_Transasction()
+        {
+            List<Transaction> lst = new Transaction().Transaction_Get_All();
+            //lst.Add(new Transaction() { Name = "Middle Man" });
+            //lst.Add(new Transaction() { Name = "Transporter" });
+
+            lst.Remove(lst.Find(x => x.Name.ToLower() == "sales man"));
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
