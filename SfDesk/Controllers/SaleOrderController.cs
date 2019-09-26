@@ -19,6 +19,8 @@ namespace SfDesk.Controllers
             //    p = p.SO_Get_All().Find(x => x.SO_ID == id);
             //    return View(p);
             //}
+            ViewBag.Customers = new Customer().Customer_Get_All(App.App_ID);
+            ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
             return View(new SaleOrder());//{ SO_No = new SaleOrder().SO_Get_New_ID(),Date=DateTime.Now });
          }
           

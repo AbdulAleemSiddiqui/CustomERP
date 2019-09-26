@@ -317,15 +317,8 @@
                     debugger;
                     var p_Q = parseInt(this.value);
                     th._grid.fields[1].insertControl.val(p_Q)//val(unit);
-
-
-
-
-
-
                 });
                focusChange($insertControl,"jsGrid");
-
 
 
                 return this.insertControl;
@@ -337,7 +330,7 @@
                 return $editControl;
             }, },
             {
-                name: "Item_Name", title: "Product", type: "select", width: 80, validate: "required",
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required",
             items: items, valueField: "Item_ID", textField: "Item_Name",
 
             insertTemplate: function (args) {
