@@ -264,7 +264,8 @@
             debugger
             data.Q_Details = editedDetail;
             data.Q_Charges = editedTrans;
-            data.Q_Taxs = editedTax
+            data.Q_Taxs = editedTax;
+            data.Total = grand_total;
             $.ajax({
                 url: '@Url.Action("master", "Quotation")',
                 type: 'Post',
