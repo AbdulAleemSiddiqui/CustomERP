@@ -20,7 +20,14 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(Quotation c)
         {
-            c.Sale_Quotation_Add(App.App_ID);
+            if (c.Q_ID == 0)
+            {
+                c.Sale_Quotation_Add(App.App_ID);
+            }
+            else
+            {
+                c.Sale_Quotation_Approve(App.App_ID);
+            }
             return RedirectToAction("Show_all");
         }
         public ActionResult Approve(int id)
