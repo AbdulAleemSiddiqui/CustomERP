@@ -1,0 +1,135 @@
+﻿@model IEnumerable<SfDesk.Models.Quotation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card alert">
+            <button type="button" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="location.href='@Url.Action("master", "Quotation")'"><i class="ti-plus"></i>Create   new </button>
+            <div class="bootstrap-data-table-panel">
+                <div class="table-responsive">
+                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Q_NO)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Date)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Due_Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Comments)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Customer_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Salesman_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Currency_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Branch_Name)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Q_NO)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Due_Date)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Comments)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Customer_Name)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Salesman_Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Currency_Name)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Branch_Name)
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("Approve", "Quotation",new { id = item.Q_ID })'"><i class="ti-pencil"></i> Approve </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- /# card -->
+    </div>
+    <!-- /# column -->
+</div>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:-webkit-fill-available">
+            <div id='myModalContent'>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts {
+    <script>
+     function detail (id) {
+         $.get('@Url.Action("Detail", "customer")', { id: id }, function (data) { $("#myModalContent").html(data); });
+
+          $('#myModal').modal('show');
+     };
+
+        function ConfirmDelete(id){
+            swal({
+                title: "Are you sure to delete ?",
+                text: "You will not be able to recover this imaginary file !!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it !!",
+                closeOnConfirm: false
+            },
+                  function () {
+                      $.get('@Url.Action("delete", "customer")', { id: id },function () { document.location = '/customer/index'; })
+                      swal("Deleted !!", "Hey, your customer has been deleted !!", "success");
+                });
+
+       };
+
+    </script>
+}

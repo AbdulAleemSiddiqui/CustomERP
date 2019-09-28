@@ -22,7 +22,7 @@ namespace SfDesk.Controllers
             }
             catch
             {
-                return RedirectToAction("PO_Create");
+                return View(new PO() { PO_No = Utility.Get_New_No("PO", "PO_ID", "PO", App.App_ID),details=new List<PO_Details>() });
             }
         }
         [HttpPost]
