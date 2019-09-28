@@ -35,6 +35,10 @@ namespace SfDesk.Controllers
         {
             return PartialView("detail", new List<Q_Detail>());
         }
+        public ActionResult ShowAll()
+        {
+            return View(new Quotation().Sale_Quotation_Get_All(App.App_ID));
+        }
         // GET: Quotation
         public ActionResult Index(int id)
         {
