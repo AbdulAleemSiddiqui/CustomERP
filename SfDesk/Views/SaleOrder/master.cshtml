@@ -262,6 +262,7 @@
             data.Q_Details = arr;
             data.Q_Charges = mytrans;
             data.Q_Taxs = Mytax
+            data.Total = grand_total;
             $.ajax({
                 url: '@Url.Action("master", "Quotation")',
                 type: 'Post',
