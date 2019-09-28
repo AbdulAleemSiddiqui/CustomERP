@@ -38,13 +38,14 @@ namespace SfDesk.Models
         public string Item_Name { get; set; }
         public string Tax_Name { get; set; }
 
+        public List<Q_Detail> Data{ get; set; }
         public int Sale_Q_Detail_Add(int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                int id = DataBase.ExecuteQuery<Q_Detail>(new { x = this }, Connection.GetConnection()).FirstOrDefault().Q_ID;
+                int id = DataBase.ExecuteQuery<Q_Detail>(new { x = this ,x1=UserId}, Connection.GetConnection()).FirstOrDefault().Q_ID;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return id;
@@ -95,13 +96,13 @@ namespace SfDesk.Models
             }
         }
 
-        public string Sale_Q_Detail_Update(int UserId)
+        public string Sale_Q_Detail_Update( int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                string Message = DataBase.ExecuteQuery<Q_Detail>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                string Message = DataBase.ExecuteQuery<Q_Detail>(new { x = Data }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return Message;
@@ -110,6 +111,24 @@ namespace SfDesk.Models
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+        public string Sale_Q_Detail_Delete( int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                string ret = DataBase.ExecuteQuery<Q_Detail>(new { x=Data}, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new {}, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
                 return null;
             }
         }
