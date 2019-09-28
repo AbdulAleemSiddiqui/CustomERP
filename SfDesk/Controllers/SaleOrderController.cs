@@ -36,7 +36,8 @@ namespace SfDesk.Controllers
         public ActionResult master(SO c)
         {
             c.Sale_SO_Add(App.App_ID);
-            return RedirectToAction("Show_all");
+            return Json("Success", JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult Approve(int id)
         {
