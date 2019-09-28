@@ -164,10 +164,8 @@
                     <div class="form-group">
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
-                                <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
-                                <input type="button" value="Approved and Exit" class="btn btn-default" id="approve" />
-                                <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
-                                <input type="button" value="Reject" class="btn btn-default" id="reject" />
+                                <input type="button" value="Approve and Exit" class="btn btn-default" id="create" />
+                               
                             </div>
                         </div>
 
@@ -203,6 +201,18 @@
     <script src="~/assets/js/db.js"></script>
     <script>
 
+        $(window).load(function () {
+
+            detail()
+            if ($('#Q_ID').val() != 0) {
+                debugger;
+
+                DropDown_Fill("Customer");
+                DropDown_Fill("SalesMan");
+                DropDown_Fill("Currency");
+                DropDown_Fill("Branch");
+            }
+        });
         var Master_Id = 0
         Typable_Dropdown('Customer');
         Typable_Dropdown('SalesMan');
@@ -227,32 +237,7 @@
         $('#cancel').click(function () {
                                     window.location.href = '/PurchaseRequisition/Showall';
                                 });
-        $('#done').click(function () {
-                                    window.location.href = '@Url.Action("Showall", "PurchaseRequisition")';
-                                });
-        $('#approve').click(function () {
-                                    debugger;
-          
-
-            var data = {};
-            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            data.Q_Details = clients;
-            data.Q_Charges = transactions;
-            data.Q_Taxs = taxes
-           
-            $.ajax({
-                url: '@Url.Action("Approve", "PurchaseRequisition")',
-                type: 'Post',
-                dataType: 'json',
-                data: {
-                    p: data,
-                },
-                success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
-                }
-
-            });
-        });
+     
         $(document).ready(function () {   // Help for the HTML4 version.
 
             $('#myModal').on("hidden.bs.modal", function () {
@@ -277,9 +262,9 @@
 
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
-            data.Q_Details = clients;
-            data.Q_Charges = mytrans;
-            data.Q_Taxs = Mytax
+            data.Q_Details = editedDetail;
+            data.Q_Charges = editedTrans;
+            data.Q_Taxs = editedTax
             $.ajax({
                 url: '@Url.Action("master", "Quotation")',
                 type: 'Post',

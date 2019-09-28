@@ -23,8 +23,8 @@ namespace SfDesk.Models
         [TVP]
         public int CreatedBy { get; set; }
 
-        public int Trans_Name{ get; set; }
-
+        public string Trans_Name{ get; set; }
+        public string action { get; set; }
         public string ReturnMessage { get; set; }
         public int Sale_Q_Charge_Add(int UserId)
         {

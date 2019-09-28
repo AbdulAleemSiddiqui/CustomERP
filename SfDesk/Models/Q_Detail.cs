@@ -16,11 +16,11 @@ namespace SfDesk.Models
         [TVP]
         public int Q_ID { get; set; }
         [TVP]
-        public string Item_ID { get; set; }
+        public int Item_ID { get; set; }
         [TVP]
         public string Description { get; set; }
         [TVP]
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
         [TVP]
         public decimal Price { get; set; }
         [TVP]
@@ -28,15 +28,15 @@ namespace SfDesk.Models
         [TVP]
         public int Tax_Id { get; set; }
         [TVP]
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [TVP]
         public int CreatedBy { get; set; }
         public string ReturnMessage { get; set; }
-
+        public string action { get; set; }
         public string Item_Code { get; set; }
         public string Item_Name { get; set; }
-        public int Tax_Name { get; set; }
+        public string Tax_Name { get; set; }
 
         public int Sale_Q_Detail_Add(int UserId)
         {
