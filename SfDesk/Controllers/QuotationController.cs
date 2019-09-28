@@ -27,17 +27,25 @@ namespace SfDesk.Controllers
             else
             {
                 c.Sale_Quotation_Approve(App.App_ID);
-                new Q_Detail() { Data = c.Q_Details.FindAll(x => x.action == "U") }.Sale_Q_Detail_Update(App.App_ID);
-                new Q_Detail() { Data = c.Q_Details.FindAll(x => x.action == "D") }.Sale_Q_Detail_Delete(App.App_ID);
-                new Q_Detail() { Data = c.Q_Details.FindAll(x => x.action == "I") }.Sale_Q_Detail_Add(App.App_ID);
+                if (c.Q_Details != null)
+                {
+                    new Q_Detail() { Data = c.Q_Details.FindAll(x => x.action == "I") }.Sale_Q_Detail_Add(App.App_ID);
+                    new Q_Detail() { Data = c.Q_Details.FindAll(x => x.action == "U") }.Sale_Q_Detail_Update(App.App_ID);
+                    new Q_Detail() { Data = c.Q_Details.FindAll(x => x.action == "D") }.Sale_Q_Detail_Delete(App.App_ID);
+                }
+                if (c.Q_Charges != null)
+                {
+                    new Q_Charge() { Data = c.Q_Charges.FindAll(x => x.action == "I") }.Sale_Q_Charge_Add(App.App_ID);
+                    new Q_Charge() { Data = c.Q_Charges.FindAll(x => x.action == "D") }.Sale_Q_Charge_Delete(App.App_ID);
+                }
 
-                new Q_Charge() { Data = c.Q_Charges.FindAll(x => x.action == "D") }.Sale_Q_Charge_Delete(App.App_ID);
-                new Q_Charge() { Data = c.Q_Charges.FindAll(x => x.action == "I") }.Sale_Q_Charge_Add(App.App_ID);
-
-                new Q_Tax() { Data = c.Q_Taxs.FindAll(x => x.action == "D") }.Sale_Q_Tax_Delete(App.App_ID);
-                new Q_Tax() { Data = c.Q_Taxs.FindAll(x => x.action == "I") }.Sale_Q_Tax_Add(App.App_ID);
+                if (c.Q_Charges != null)
+                {
+                    new Q_Tax() { Data = c.Q_Taxs.FindAll(x => x.action == "I") }.Sale_Q_Tax_Add(App.App_ID);
+                    new Q_Tax() { Data = c.Q_Taxs.FindAll(x => x.action == "D") }.Sale_Q_Tax_Delete(App.App_ID);
+                }
             }
-            return RedirectToAction("Show_all");
+            return Json("Success",JsonRequestBehavior.AllowGet);
         }
         public ActionResult Approve(int id)
         {
