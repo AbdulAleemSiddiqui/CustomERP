@@ -952,6 +952,7 @@
     <Content Include="Views\PurchaseIndend\Show_all.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Quotation\ShowAll.cshtml" />
+    <Content Include="Views\SaleOrder\Approve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

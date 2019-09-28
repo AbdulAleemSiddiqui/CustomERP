@@ -508,6 +508,8 @@
                     return $editControl;
                 },
             },
+
+             
             { type: "control",
                 editButton : false,
                 itemTemplate: function(_, item) {
@@ -556,6 +558,7 @@
 
                // args.item["PI_ID"] = Master_Id;
                 args.item["action"] = 'I';
+                args.item["Q_ID"] = Master_Id;
                 args.item["ST_ID"] = parseInt(args.item["ST_ID"])
                 editedTax.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
@@ -567,7 +570,7 @@
             onItemDeleting: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 editedTax.push(args.item);
                 //var grid = args.grid;
@@ -746,7 +749,7 @@
             onItemInserting: function (args) {
             //    args.item["PI_ID"] = Master_Id;
                 args.item["Name"] = selectedDepartment1;
-
+                args.item["Q_ID"] = Master_Id;
                 args.item["T_ID"] = parseInt(args.item["T_ID"]);
                 if (isMM) {
                     args.item["_ID"] = myOpts.MM_ID;
@@ -771,7 +774,7 @@
             onItemUpdating: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'U';
                 args.item["Name"] = selectedDepartment1;
 
@@ -794,7 +797,7 @@
             onItemDeleting: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 editedTrans.push(args.item);
                 //var grid = args.grid;
