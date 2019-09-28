@@ -191,9 +191,9 @@ namespace SfDesk.Controllers
         {
             return PartialView("detail", new List<SO>());
         }
-        public ActionResult Index(int SO_ID)
+        public ActionResult Index(int? SO_ID)
         {
-            return Json(new SO_Detail());//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
+            return Json(new SO_Detail(), JsonRequestBehavior.AllowGet);//{ SO_ID = SO_ID }.SO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
 
 

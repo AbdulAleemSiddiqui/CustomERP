@@ -30,7 +30,7 @@
                                 <input type="text" name="Customer_Name" list="Customer_List" id="Customer_Name" class="form-control text-box">
                                 <datalist id="Customer_List">
                                     @{
-                                        var Customer_List = new SfDesk.Models.Customer().Customer_Get_All();
+                                        var Customer_List = new SfDesk.Models.Customer().Customer_Get_All(SfDesk.Models.App.App_ID);
                                     }
 
                                     @foreach (var item in Customer_List)
@@ -63,7 +63,7 @@
                                 <input type="text" name="Salesman_Name" list="Salesman_List" id="Salesman_Name" class="form-control text-box">
                                 <datalist id="Salesman_List">
                                     @{
-                                        var Salesman_List = new SfDesk.Models.SalesMan().SalesMan_Get_All();
+                                        var Salesman_List = new SfDesk.Models.SalesMan().SalesMan_Get_All(SfDesk.Models.App.App_ID);
                                     }
 
                                     @foreach (var item in Salesman_List)

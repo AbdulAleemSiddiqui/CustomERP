@@ -81,7 +81,7 @@ namespace SfDesk.Models
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                Quotation ret = DataBase.ExecuteQuery<Quotation>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                Quotation ret = DataBase.ExecuteQuery<Quotation>(new { x = Id,xq=UserId }, Connection.GetConnection()).FirstOrDefault();
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;

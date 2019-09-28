@@ -329,7 +329,7 @@
         /*ye master ka he*/
         function detail() {
 
-            $.get('@Url.Action("detail", "SO")', function (data) { $("#child").html(data); });
+            $.get('@Url.Action("detail")', function (data) { $("#child").html(data); });
             $("#done").hide()
             debugger;
 

@@ -20,10 +20,15 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(Quotation c)
         {
-            return View();
+            c.Sale_Quotation_Add(App.App_ID);
+            return RedirectToAction("Show_all");
         }
         public ActionResult Approve(int id)
         {
+            ViewBag.Customers = new Customer().Customer_Get_All(App.App_ID);
+            ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
+            ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);
+            ViewBag.Branch = new Branch().Branch_Get_All(App.App_ID);
             return View(new Quotation().Sale_Quotation_Get_By_Id(id,App.App_ID));
         }
         public ActionResult detail()
@@ -31,19 +36,19 @@ namespace SfDesk.Controllers
             return PartialView("detail", new List<Q_Detail>());
         }
         // GET: Quotation
-        public ActionResult Index(int? id)
+        public ActionResult Index(int id)
         {
-            List<Q_Detail> pd = new List<Q_Detail>();
+            List<Q_Detail> pd = new Q_Detail().Sale_Q_Detail_Get_By_Q(id,App.App_ID);
            
 
             return Json(pd, JsonRequestBehavior.AllowGet);
             //  return Json(new PO_Details() { PO_ID = PO_ID }.PO_Detail_Get_All(), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Get_Taxes()
+        public ActionResult Get_All_Taxes()
         {
             return Json(new SalesTax().SalesTax_Get_All(), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Get_Transasction()
+        public ActionResult Get_All_Transasction()
         {
             List<Transaction> lst = new Transaction().Transaction_Get_All();
             //lst.Add(new Transaction() { Name = "Middle Man" });
@@ -52,7 +57,19 @@ namespace SfDesk.Controllers
             lst.Remove(lst.Find(x => x.Name.ToLower() == "sales man"));
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Get_Taxes_by_Q(int id)
+        {
+            return Json(new Q_Tax().Sale_Q_Tax_Get_By_Q(id,App.App_ID), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Get_Transasction_by_Q(int id)
+        {
+            List<Q_Charge> lst = new Q_Charge().Sale_Q_Charge_Get_By_Q(id,App.App_ID);
+            //lst.Add(new Transaction() { Name = "Middle Man" });
+            //lst.Add(new Transaction() { Name = "Transporter" });
 
+           
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

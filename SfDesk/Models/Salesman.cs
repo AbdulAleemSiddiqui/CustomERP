@@ -55,7 +55,7 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 SalesMan u = new SalesMan();
-                u.S_ID = (int)sdr["SO_ID"];
+                u.S_ID = (int)sdr["S_ID"];
                 u.Trading_Name = (string)sdr["Trading_Name"];
                 u.NTN = (string)sdr["NTN"];
                 u.STRN = (string)sdr["STRN"];

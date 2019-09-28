@@ -243,7 +243,7 @@
            
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
-            data.Q_Details = clients;
+            data.Q_Details = arr;
             data.Q_Charges = mytrans;
             data.Q_Taxs = Mytax
             $.ajax({

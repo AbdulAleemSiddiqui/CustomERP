@@ -26,7 +26,7 @@ namespace SfDesk.Models
 
         [TVP]
         public int CreatedBy { get; set; }
-
+        public string action { get; set; }
         public string ReturnMessage { get; set; }
         public int Sale_Q_Tax_Add(int UserId)
         {
