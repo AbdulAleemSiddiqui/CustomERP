@@ -46,17 +46,24 @@ namespace SfDesk.Controllers
             else
             {
                 c.Sale_SO_Approve(App.App_ID);
-                new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "U") }.Sale_SO_Detail_Update(App.App_ID);
-                new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "D") }.Sale_SO_Detail_Delete(App.App_ID);
-                new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "I") }.Sale_SO_Detail_Add(App.App_ID);
-
-                new SO_Charge() { Data = c.SO_Charges.FindAll(x => x.action == "D") }.Sale_SO_Charge_Delete(App.App_ID);
+                if (c.SO_Details != null)
+                {
+                    new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "I") }.Sale_SO_Detail_Add(App.App_ID);
+                    new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "U") }.Sale_SO_Detail_Update(App.App_ID);
+                    new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "D") }.Sale_SO_Detail_Delete(App.App_ID);
+                }
+                if(c.SO_Charges!=null)
+                { 
                 new SO_Charge() { Data = c.SO_Charges.FindAll(x => x.action == "I") }.Sale_SO_Charge_Add(App.App_ID);
-
-                new SO_Tax() { Data = c.SO_Taxs.FindAll(x => x.action == "D") }.Sale_SO_Tax_Delete(App.App_ID);
-                new SO_Tax() { Data = c.SO_Taxs.FindAll(x => x.action == "I") }.Sale_SO_Tax_Add(App.App_ID);
+                new SO_Charge() { Data = c.SO_Charges.FindAll(x => x.action == "D") }.Sale_SO_Charge_Delete(App.App_ID);
+                    }
+                if (c.SO_Taxs != null)
+                {
+                    new SO_Tax() { Data = c.SO_Taxs.FindAll(x => x.action == "I") }.Sale_SO_Tax_Add(App.App_ID);
+                    new SO_Tax() { Data = c.SO_Taxs.FindAll(x => x.action == "D") }.Sale_SO_Tax_Delete(App.App_ID);
+                }
             }
-            return RedirectToAction("Show_all");
+            return Json("",JsonRequestBehavior.AllowGet);
         }
         public ActionResult Approve(int id)
         {

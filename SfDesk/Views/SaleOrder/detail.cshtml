@@ -300,7 +300,7 @@
             onItemInserting: function (args) {
 
 
-                args.item["Q_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'I';
                 args.item["Tax_Id"] = parseInt(args.item["Tax_Id"])
                 editedDetail.push(args.item)
@@ -312,7 +312,7 @@
             onItemUpdating: function (args) {
 
 
-                args.item["Q_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'U';
                 editedDetail.push(args.item)
 
@@ -324,7 +324,7 @@
             onItemDeleting  : function (args) {
 
                 debugger
-                args.item["Q_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 editedDetail.push(args.item);
                 //var grid = args.grid;
@@ -554,7 +554,7 @@
             onItemInserting: function (args) {
 
 
-               // args.item["PI_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'I';
                 args.item["ST_ID"] = parseInt(args.item["ST_ID"])
                 editedTax.push(args.item)
@@ -567,7 +567,7 @@
             onItemDeleting: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 editedTax.push(args.item);
                 //var grid = args.grid;
@@ -760,7 +760,7 @@
 
                 }
 
-
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'I';
                 editedTrans.push(args.item)
                 //if (typeof (history.pushState) != "undefined") {
@@ -771,7 +771,7 @@
             onItemUpdating: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'U';
                 args.item["Name"] = selectedDepartment1;
 
@@ -794,7 +794,7 @@
             onItemDeleting: function (args) {
 
 
-                args.item["PI_ID"] = Master_Id;
+                args.item["SO_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 editedTrans.push(args.item);
                 //var grid = args.grid;

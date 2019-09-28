@@ -19,7 +19,7 @@
                 <div class="form-horizontal">
                     <h4>SalesOrder</h4>
                     <hr />
-                    <input hidden="hidden" name="S_ID" id="SO_ID" value="@Model.SO_ID" />
+                    <input hidden="hidden" name="SO_ID" id="SO_ID" value="@Model.SO_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group ">
@@ -258,9 +258,9 @@
 
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
-            data.Q_Details = editedDetail;
-            data.Q_Charges = editedTrans;
-            data.Q_Taxs = editedTax;
+            data.SO_Details = editedDetail;
+            data.SO_Charges = editedTrans;
+            data.SO_Taxs = editedTax;
             data.Total = grand_total;
             $.ajax({
                 url: '@Url.Action("master", "SaleOrder")',
@@ -270,7 +270,7 @@
                     c: data
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "Quotation")';
+                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
                 }
 
             });
