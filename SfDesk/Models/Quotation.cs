@@ -131,7 +131,24 @@ namespace SfDesk.Models
                 return null;
             }
         }
-
+        public List<Quotation> Sale_Quotation_Get_All_Approve(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                List<Quotation> ret = DataBase.ExecuteQuery<Quotation>(new { x = UserId }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = UserId }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
         public string Sale_Quotation_Update(int UserId)
         {
             try

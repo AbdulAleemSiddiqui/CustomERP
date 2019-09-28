@@ -24,16 +24,17 @@ namespace SfDesk.Models
         [TVP]
         public int CreatedBy { get; set; }
 
-        public int Trans_Name { get; set; }
-
+        public string Trans_Name { get; set; }
+        public string action { get; set; }
         public string ReturnMessage { get; set; }
+        public List<SO_Charge> Data { get; set; }
         public int Sale_SO_Charge_Add(int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                int id = DataBase.ExecuteQuery<SO_Charge>(new { x = this }, Connection.GetConnection()).FirstOrDefault().SO_ID;
+                int id = DataBase.ExecuteQuery<SO_Charge>(new { x = Data, x1 = UserId }, Connection.GetConnection()).FirstOrDefault().SO_ID;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return id;
@@ -65,7 +66,7 @@ namespace SfDesk.Models
             }
         }
 
-        public List<SO_Charge> Sale_SO_Charge_Get_By_SO (int SO_ID, int UserId)
+        public List<SO_Charge> Sale_SO_Charge_Get_By_SO(int SO_ID, int UserId)
         {
             try
             {
@@ -90,7 +91,7 @@ namespace SfDesk.Models
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                string Message = DataBase.ExecuteQuery<SO_Charge>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                string Message = DataBase.ExecuteQuery<SO_Charge>(new { x = Data }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return Message;
@@ -102,5 +103,24 @@ namespace SfDesk.Models
                 return null;
             }
         }
+        public string Sale_SO_Charge_Delete(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                string Message = DataBase.ExecuteQuery<SO_Charge>(new { x = Data, x1 = UserId }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return Message;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+
     }
 }

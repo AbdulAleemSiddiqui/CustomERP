@@ -259,19 +259,19 @@
 
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
-            data.Q_Details = arr;
-            data.Q_Charges = mytrans;
-            data.Q_Taxs = Mytax
+            data.so_Details = arr;
+            data.SO_Charges= mytrans;
+            data.SO_Taxs = Mytax
             data.Total = grand_total;
             $.ajax({
-                url: '@Url.Action("master", "Quotation")',
+                url: '@Url.Action("master", "SaleOrder")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
                     c: data
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
                 }
 
             });

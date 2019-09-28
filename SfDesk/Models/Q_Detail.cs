@@ -39,6 +39,7 @@ namespace SfDesk.Models
         public string Tax_Name { get; set; }
 
         public List<Q_Detail> Data{ get; set; }
+
         public string Sale_Q_Detail_Add(int UserId)
         {
             try

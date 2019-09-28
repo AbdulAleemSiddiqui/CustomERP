@@ -80,7 +80,7 @@ namespace SfDesk.Models
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                SO ret = DataBase.ExecuteQuery<SO>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                SO ret = DataBase.ExecuteQuery<SO>(new { x = Id,x1=UserId }, Connection.GetConnection()).FirstOrDefault();
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
@@ -92,7 +92,6 @@ namespace SfDesk.Models
                 return null;
             }
         }
-
 
         public List<SO> Sale_SO_Get_All(int UserId)
         {
@@ -134,7 +133,7 @@ namespace SfDesk.Models
 
 
         // qk hamare ko na SO ka model mangta he 
-        public SO Sale_Quotation_Get_By_Id(int Id, int UserId)
+        public SO Sale_SO_Get_Quotation(int Id, int UserId)
         {
             try
             {
@@ -153,5 +152,23 @@ namespace SfDesk.Models
             }
         }
 
+        public int Sale_SO_Approve(int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                DataBase.ExecuteQuery<SO>(new { x = this }, Connection.GetConnection());
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return 0;
+            }
+        }
     }
 }

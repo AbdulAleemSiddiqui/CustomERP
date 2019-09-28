@@ -23,19 +23,39 @@ namespace SfDesk.Controllers
             }
             else
             {
-                SO s = new SO().Sale_Quotation_Get_By_Id(id.Value, App.App_ID);
+                SO s = new SO().Sale_SO_Get_Quotation(id.Value, App.App_ID);
+                if(s!=null)
+                { 
                 s.SO_NO = Utility.Get_New_No("Sale_Order", "SO_ID", "SO", App.App_ID);
                 s.Date = DateTime.Now ;
+                    return View(s);
 
+                }
+                return View(new SO());
 
-                return View(s);
             }
         }
 
         [HttpPost]
         public ActionResult master(SO c)
         {
-            c.Sale_SO_Add(App.App_ID);
+            if (c.SO_ID == 0)
+            {
+                c.Sale_SO_Add(App.App_ID);
+            }
+            else
+            {
+                c.Sale_SO_Approve(App.App_ID);
+                new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "U") }.Sale_SO_Detail_Update(App.App_ID);
+                new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "D") }.Sale_SO_Detail_Delete(App.App_ID);
+                new SO_Detail() { Data = c.SO_Details.FindAll(x => x.action == "I") }.Sale_SO_Detail_Add(App.App_ID);
+
+                new SO_Charge() { Data = c.SO_Charges.FindAll(x => x.action == "D") }.Sale_SO_Charge_Delete(App.App_ID);
+                new SO_Charge() { Data = c.SO_Charges.FindAll(x => x.action == "I") }.Sale_SO_Charge_Add(App.App_ID);
+
+                new SO_Tax() { Data = c.SO_Taxs.FindAll(x => x.action == "D") }.Sale_SO_Tax_Delete(App.App_ID);
+                new SO_Tax() { Data = c.SO_Taxs.FindAll(x => x.action == "I") }.Sale_SO_Tax_Add(App.App_ID);
+            }
             return RedirectToAction("Show_all");
         }
         public ActionResult Approve(int id)
@@ -45,6 +65,10 @@ namespace SfDesk.Controllers
             ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);
             ViewBag.Branch = new Branch().Branch_Get_All(App.App_ID);
             return View(new SO().Sale_SO_Get_By_Id(id, App.App_ID));
+        }
+        public ActionResult ShowAll()
+        {
+            return View(new Quotation().Sale_Quotation_Get_All_Approve(App.App_ID));
         }
         public ActionResult detail()
         {

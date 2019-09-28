@@ -43,7 +43,7 @@
     var grand_total = 0;
     $(document).ready(function () {
         loadData();
-        clients = arr
+       
     })
     function newRow(id) {
         $("#" + id).jsGrid({ inserting: true });
@@ -121,7 +121,7 @@
                 items = d
                 $.ajax({
                     type: "GET",
-                    url: "/quotation/Get_All_taxes",
+                    url: "/SaleOrder/Get_All_taxes",
                     dataType: "json",
                     success: function (d) {
 
@@ -130,7 +130,7 @@
                             taxes.unshift({ SalesTax_ID: "" })
                             $.ajax({
                                 type: "GET",
-                                url: "/Quotation/Index",
+                                url: "/SaleOrder/Index",
                                 dataType: "json",
                                 data: { id: Master_Id },
                                 success: function (d) {
@@ -143,7 +143,7 @@
                             });
                             $.ajax({
                                 type: "GET",
-                                url: "/Quotation/Get_Taxes_by_Q",
+                                url: "/SaleOrder/Get_Taxes_by_SO",
                                 dataType: "json",
                                 data: { id: Master_Id },
                                 success: function (d) {
@@ -164,7 +164,7 @@
         });
         $.ajax({
             type: "GET",
-            url: "/quotation/Get_All_Transasction",
+            url: "/SaleOrder/Get_All_Transasction",
             dataType: "json",
             success: function (d) {
 
@@ -176,7 +176,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/Quotation/Get_Transasction_by_Q",
+                    url: "/SaleOrder/Get_Transasction_by_SO",
                     dataType: "json",
                     data: { id: Master_Id },
                     success: function (d) {
