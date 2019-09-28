@@ -30,7 +30,7 @@ namespace SfDesk.Models
         public int Branch_ID { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayName("Due Date")]
+        
         [TVP]
         public DateTime Date { get; set; }
         [DataType(DataType.Date)]
@@ -128,6 +128,27 @@ namespace SfDesk.Models
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+
+
+        // qk hamare ko na SO ka model mangta he 
+        public SO Sale_Quotation_Get_By_Id(int Id, int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId;
+                SO ret = DataBase.ExecuteQuery<SO>(new { x = Id, xq = UserId }, Connection.GetConnection()).FirstOrDefault();
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
                 return null;
             }
         }
