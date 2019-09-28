@@ -20,8 +20,11 @@ namespace SfDesk.Controllers
         [HttpPost]
         public ActionResult master(Quotation c)
         {
-            c.Sale_Quotation_Add(App.App_ID);
             return View();
+        }
+        public ActionResult Approve(int id)
+        {
+            return View(new Quotation().Sale_Quotation_Get_By_Id(id,App.App_ID));
         }
         public ActionResult detail()
         {
@@ -32,7 +35,7 @@ namespace SfDesk.Controllers
             return View(new Quotation().Sale_Quotation_Get_All(App.App_ID));
         }
         // GET: Quotation
-        public ActionResult Index(int? Q_ID)
+        public ActionResult Index(int? id)
         {
             List<Q_Detail> pd = new List<Q_Detail>();
            
