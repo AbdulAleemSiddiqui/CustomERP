@@ -29,14 +29,13 @@ namespace SfDesk.Models
         [TVP]
         public int Branch_ID { get; set; }
 
-        [DataType(DataType.Date)]
-        
         [TVP]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-        [DataType(DataType.Date)]
         [DisplayName("Delivery Date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [TVP]
-        public DateTime Delivery_Date { get; set; }
+        public DateTime Delivery_Date { get; set; } = DateTime.Now.AddDays(10);
         [TVP]
         public string Img_Path { get; set; }
         [TVP]

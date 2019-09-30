@@ -953,6 +953,7 @@
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Quotation\ShowAll.cshtml" />
     <Content Include="Views\SaleOrder\Approve.cshtml" />
+    <Content Include="Views\Quotation\Approve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
