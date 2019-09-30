@@ -51,6 +51,7 @@ namespace SfDesk.Models
         public string Salesman_Name { get; set; }
         //View Only Properties
         public string ReturnMessage { get; set; }
+        public string Currency_Name { get; set; }
 
         public List<SO_Detail> SO_Details { get; set; }
         public List<SO_Charge> SO_Charges { get; set; }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SfDesk.Models.SaleOrder>
+﻿@model IEnumerable<SfDesk.Models.SO>
 
 @{
     ViewBag.Title = "Index";
@@ -9,28 +9,39 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card alert">
-            <button type="button" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="location.href='@Url.Action("master", "PurchaseRequisition")'"><i class="ti-plus"></i>Create   new </button>
+            <button type="button" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5" onclick="location.href='@Url.Action("master", "SaleMaster")'"><i class="ti-plus"></i>Create   new </button>
             <div class="bootstrap-data-table-panel">
                 <div class="table-responsive">
                     <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.PR_No)
+                                    @Html.DisplayNameFor(model => model.SO_NO)
                                 </th>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Department_Name)
-                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Date)
                                 </th>
 
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Delivery_Date)
+                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Comments)
                                 </th>
 
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Customer_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Salesman_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Currency_Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Branch_Name)
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -39,28 +50,43 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PR_No)
+                                        @Html.DisplayFor(modelItem => item.SO_NO)
                                     </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Department_Name)
-                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Date)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Comments)
+                                        @Html.DisplayFor(modelItem => item.Delivery_Date)
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("master", "PurchaseOrder",new { id = item.PI_ID })'"><i class="ti-pencil"></i> Verified </button>
+                                        @Html.DisplayFor(modelItem => item.Comments)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Customer_Name)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Salesman_Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Currency_Name)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Branch_Name)
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("approve", "SaleOrder",new { id = item.SO_ID })'"><i class="ti-pencil"></i> Create PO </button>
                                     </td>
                                 </tr>
                             }
                         </tbody>
 
                     </table>
+
                 </div>
             </div>
         </div>
