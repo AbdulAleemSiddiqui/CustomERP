@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = " control-label col-md-4" })
                             <div class="col-md-5">
                                 @Html.Editor("ADate", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
@@ -95,7 +95,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control tbDate" } })
+                                <input id="Due_Date" name="Due_Date" type="text" class="form-control tbDate" readonly/>
                                 @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -218,10 +218,10 @@
         Typable_Dropdown('SalesMan');
         Typable_Dropdown('Currency');
         Typable_Dropdown('Branch');
-
+        
         $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
-        $('.tbDate').prop("readonly", true);
-        $('.tbDate').val("DD-MM-YY");
+       // $('.tbDate').prop("readonly", true);
+      
         var date = new Date();
         var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
         $("#ADate").val(formatted_date);

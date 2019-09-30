@@ -81,6 +81,7 @@ namespace SfDesk.Controllers
         {
             return PartialView("detail", new List<SO_Detail>());
         }
+      
         // GET: SO
         public ActionResult Index(int id)
         {
