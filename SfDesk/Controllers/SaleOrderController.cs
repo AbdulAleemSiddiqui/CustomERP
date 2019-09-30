@@ -82,6 +82,10 @@ namespace SfDesk.Controllers
         {
             return View(new Quotation().Sale_Quotation_Get_All_Approve(App.App_ID));
         }
+        public ActionResult ShowAll_Created()
+        {
+            return View(new SO().Sale_SO_Get_All(App.App_ID));
+        }
         public ActionResult detail()
         {
             return PartialView("detail", new List<SO_Detail>());
