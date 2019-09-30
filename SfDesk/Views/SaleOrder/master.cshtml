@@ -96,7 +96,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control",  @id = "AD" } })
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control",  @id = "AD",@readonly="readonly" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Delivery_Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Delivery_Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Delivery_Date, new { htmlAttributes = new { @class = "form-control tbDate" } })
                                 @Html.ValidationMessageFor(model => model.Delivery_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -228,7 +228,9 @@
 
      });
         $(document).ready(function () {   // Help for the HTML4 version.
-    
+            $('.tbDate').prop("readonly", true);
+            $('.tbDate').datepicker()
+
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -236,6 +238,10 @@
 
             today = mm + '/' + dd + '/' + yyyy;
             $('#AD').val(today);
+
+   
+
+
             Typable_Dropdown('Account_Receivable');
             Typable_Dropdown('Sale_Account');
             Typable_Dropdown('Customer');

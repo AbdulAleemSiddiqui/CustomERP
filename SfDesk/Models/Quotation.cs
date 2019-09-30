@@ -26,13 +26,13 @@ namespace SfDesk.Models
         public int Branch_ID { get; set; }
 
         [TVP]
-        [DataType(DataType.Date)]
-        [DisplayName("Due Date")]
-        public DateTime Date { get; set; }
+        [DisplayName("Date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; } = DateTime.Now;
         [TVP]
-        [DataType(DataType.Date)]
         [DisplayName("Due Date")]
-        public DateTime Due_Date { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Due_Date { get; set; } 
         [TVP]
         public string Img_Path { get; set; }
 

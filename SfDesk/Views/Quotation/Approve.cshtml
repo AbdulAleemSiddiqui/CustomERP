@@ -85,9 +85,9 @@
                     </div>
                     <div class="col-md-6" style="text-align:right">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = " control-label col-md-4" })
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.Editor("ADate", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control tbDate" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                <input id="Due_Date" name="Due_Date" type="text" class="form-control tbDate" readonly/>
+                                @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control tbDate" } })
                                 @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -200,13 +200,16 @@
     <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+        $('.tbDate').datepicker()
+
+     
 
         $(window).load(function () {
-
+         
             detail()
             if ($('#Q_ID').val() != 0) {
                 debugger;
-
+                $('.tbDate').prop("readonly", true);
                 DropDown_Fill("Customer");
                 DropDown_Fill("SalesMan");
                 DropDown_Fill("Currency");
@@ -218,13 +221,12 @@
         Typable_Dropdown('SalesMan');
         Typable_Dropdown('Currency');
         Typable_Dropdown('Branch');
-        
-        $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
-       // $('.tbDate').prop("readonly", true);
-      
-        var date = new Date();
-        var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-        $("#ADate").val(formatted_date);
+
+       
+        //$('.tbDate').val("DD-MM-YY");
+        //var date = new Date();
+        //var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+        //$("#ADate").val(formatted_date);
 
         $('#Img_Path').bind('change', function () {
                                     //this.files[0].size gets the size of your file.
@@ -252,6 +254,8 @@
         });
 
         $("#create").click(function (e) {
+
+
             e.preventDefault();
             //$.post(this.action, $(this).serialize(), function (data) {
 
