@@ -28,11 +28,11 @@ namespace SfDesk.Models
         [TVP]
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; }
         [TVP]
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
-        public DateTime Due_Date { get; set; }= DateTime.Parse("2001/01/01");
+        public DateTime Due_Date { get; set; }
         [TVP]
         public string Img_Path { get; set; }
 

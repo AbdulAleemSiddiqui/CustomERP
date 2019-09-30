@@ -263,6 +263,7 @@
             data.SO_Charges= mytrans;
             data.SO_Taxs = Mytax
             data.Total = grand_total;
+
             $.ajax({
                 url: '@Url.Action("master", "SaleOrder")',
                 type: 'Post',

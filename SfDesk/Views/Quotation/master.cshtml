@@ -203,7 +203,7 @@
         $(document).ready(function () {
             $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
             $('.tbDate').prop("readonly", true);
-            $('.tbDate').val("DD-MM-YY");
+            //$('.tbDate').val("DD-MM-YY");
 
             var date = new Date();
             var formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
