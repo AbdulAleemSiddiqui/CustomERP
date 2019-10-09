@@ -82,6 +82,22 @@
                             </div>
 
                         </div>
+
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.HiddenFor(Model => Model.Transporter_ID)
+                                <input type="text" name="Transporter_Name" list="Transporter_Name" class="form-control text-box">
+                                <datalist id="Transporter_List">
+                                    @foreach (var item in ViewBag.Transporter)
+                                    {
+                                        <option id="@item.T_ID" data-id="@item.T_ID" value="@item.Trading_Name"></option>
+                                    }
+                                </datalist>
+                                @Html.ValidationMessageFor(model => model.Transporter_ID, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
                     </div>
                     <div class="col-md-6" style="text-align:right">
                         <div class="form-group">

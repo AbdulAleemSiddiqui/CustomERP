@@ -45,6 +45,10 @@ namespace SfDesk.Models
         public decimal Total { get; set; }
         [TVP]
         public int CreatedBy { get; set; }
+
+        public int Transporter_ID { get; set; }
+
+        public int Transporter_Name { get; set; }
         public string Branch_Name { get; set; }
         public string Customer_Name { get; set; }
         public string Salesman_Name { get; set; }

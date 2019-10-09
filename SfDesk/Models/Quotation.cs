@@ -24,7 +24,7 @@ namespace SfDesk.Models
         public int Currency_ID { get; set; }
         [TVP]
         public int Branch_ID { get; set; }
-
+        public int Transporter_ID { get; set; }
         [TVP]
         [DisplayName("Date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -49,6 +49,7 @@ namespace SfDesk.Models
 
         public string Salesman_Name { get; set; }
         public string Currency_Name { get; set; }
+  public string Transporter_Name { get; set; }
 
         //View Only Properties
         public string ReturnMessage { get; set; }

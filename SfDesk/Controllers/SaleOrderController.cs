@@ -13,6 +13,9 @@ namespace SfDesk.Controllers
      
         public ActionResult master(int? id)
         {
+
+            ViewBag.Transporter = new Transporter().Transporter_Get_All();
+
             ViewBag.Customers = new Customer().Customer_Get_All(App.App_ID);
             ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
             ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);

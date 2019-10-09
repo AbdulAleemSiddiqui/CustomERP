@@ -42,6 +42,9 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Branch_Name)
                                 </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Transporter_Name)
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -77,6 +80,9 @@
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Branch_Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Transporter_Name)
                                     </td>
                                     <td>
                                         <button type="button" class="btn mini btn-primary" onclick="location.href='@Url.Action("approve", "SaleOrder",new { id = item.SO_ID })'"><i class="ti-pencil"></i> Create PO </button>
