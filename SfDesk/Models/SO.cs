@@ -21,6 +21,8 @@ namespace SfDesk.Models
         [TVP]
         public int Q_ID { get; set; }
         [TVP]
+        public int Transporter_ID { get; set; }
+        [TVP]
         public int Customer_ID { get; set; }
         [TVP]
         public int SalesMan_ID { get; set; }
@@ -46,9 +48,8 @@ namespace SfDesk.Models
         [TVP]
         public int CreatedBy { get; set; }
 
-        public int Transporter_ID { get; set; }
 
-        public int Transporter_Name { get; set; }
+        public string Transporter_Name { get; set; }
         public string Branch_Name { get; set; }
         public string Customer_Name { get; set; }
         public string Salesman_Name { get; set; }

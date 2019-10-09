@@ -87,7 +87,7 @@
                             @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
                                 @Html.HiddenFor(Model => Model.Transporter_ID)
-                                <input type="text" name="Transporter_Name" list="Transporter_Name" class="form-control text-box">
+                                <input type="text" name="Transporter_Name" id="Transporter_Name" list="Transporter_List" class="form-control text-box">
                                 <datalist id="Transporter_List">
                                     @foreach (var item in ViewBag.Transporter)
                                     {
@@ -230,12 +230,14 @@
                 DropDown_Fill("SalesMan");
                 DropDown_Fill("Currency");
                 DropDown_Fill("Branch");
+                DropDown_Fill("Transporter");
             }
         });
         var Master_Id = 0
         Typable_Dropdown('Customer');
         Typable_Dropdown('SalesMan');
         Typable_Dropdown('Currency');
+        Typable_Dropdown('Transporter');
         Typable_Dropdown('Branch');
 
        

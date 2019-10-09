@@ -55,6 +55,8 @@ namespace SfDesk.Controllers
             ViewBag.SalesMan = new SalesMan().SalesMan_Get_All(App.App_ID);
             ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);
             ViewBag.Branch = new Branch().Branch_Get_All(App.App_ID);
+            ViewBag.Transporter = new Transporter().Transporter_Get_All();
+
             return View(new Quotation().Sale_Quotation_Get_By_Id(id,App.App_ID));
         }
         public ActionResult detail()

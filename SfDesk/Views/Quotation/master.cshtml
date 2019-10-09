@@ -86,7 +86,7 @@
                         @Html.LabelFor(model => model.Transporter_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-5">
                             @Html.HiddenFor(Model => Model.Transporter_ID)
-                            <input type="text" name="Transporter_Name" list="Transporter_Name" class="form-control text-box">
+                            <input type="text" name="Transporter_Name" list="Transporter_List"   id="Transporter_Name" class="form-control text-box">
                             <datalist id="Transporter_List">
                                 @foreach (var item in ViewBag.Transporter)
                                 {
@@ -217,8 +217,9 @@
         Typable_Dropdown('SalesMan');
         Typable_Dropdown('Currency');
         Typable_Dropdown('Branch');
+        Typable_Dropdown('Transporter');
         $(document).ready(function () {
-            $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
+            $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" }) 
             $('.tbDate').prop("readonly", true);
             //$('.tbDate').val("DD-MM-YY");
 
