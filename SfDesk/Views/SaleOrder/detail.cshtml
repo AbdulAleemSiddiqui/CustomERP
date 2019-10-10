@@ -151,7 +151,7 @@
 
                                     Mytax = d
                                     tax()
-                                    newRow("Grid")
+                                 // newRow("Grid")
                                 }
                             });
 
@@ -293,9 +293,42 @@
                 //$totalRow.find("td").eq(1).remove();
                 //$totalRow.find("td").eq(1).remove();
                 args.grid._content.append($totalRow);
+                tax()
             },
             onItemUpdated: function(args) {
-                $('#jsGrid').jsGrid("refresh");
+                debugger
+                th = args.previousItem["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+                    var check = parseFloat(myt.ST_Total) - parseFloat(totall.toFixed(2))
+                    myt["ST_Total"] = check
+                    if (check === 0) {
+                        $("#Grid").jsGrid("deleteItem", myt);
+                    }
+
+                }
+                th = args.item["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+
+                    myt["ST_Total"] = parseFloat(myt.ST_Total) + parseFloat(totall.toFixed(2))
+
+
+                }
+                else {
+                    var totall = parseFloat(args.item["Amount"]) * (rate / 100);
+                    var temp = { "ST_ID": taxx.SalesTax_ID, "ST_Rate": rate, "ST_Total": totall.toFixed(2) }
+                    Mytax.push(temp)
+
+                }
+                tax();
             },
             onItemInserting: function (args) {
 
@@ -335,7 +368,45 @@
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 //}
             },
-            onItemDeleted: function(args) {
+            onItemInserted: function (args) {
+                debugger
+                th = args.item["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+                debugger
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+
+                    myt["ST_Total"] = parseFloat(myt.ST_Total) + parseFloat(totall.toFixed(2))
+
+
+                }
+                else {
+                    var totall = parseFloat(args.item["Amount"]) * (rate / 100);
+                    var temp = { "ST_ID": taxx.SalesTax_ID, "ST_Rate": rate, "ST_Total": totall.toFixed(2) }
+                    Mytax.push(temp)
+
+                }
+            },
+            onItemDeleted: function (args) {
+
+                th = args.item["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+                    var check = parseFloat(myt.ST_Total) - parseFloat(totall.toFixed(2))
+                    myt["ST_Total"] = check
+                    if (check === 0) {
+                        $("#Grid").jsGrid("deleteItem", myt);
+                    }
+
+                }
+                tax();
+
+
             },
             fields: [
             {
@@ -477,7 +548,7 @@
                     },
                 },
             {
-                name: "Tax_Id", title: "Tax", type: "select", width: 100, validate: "required",
+                name: "Tax_Id", title: "Tax", type: "select", width: 100, valueType: "number", validate: "required", autosearch: true,
                          items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
                          insertTemplate: function () {
 
@@ -528,13 +599,13 @@
             width: "100%",
             filtering: false,
             editing: false,
+            deleting: false,
             inserting: false,
             sorting: true,
             paging: true,
             autoload: true,
             pageSize: 15,
             pageButtonCount: 5,
-            deleteConfirm: "confirm",
           data: Mytax,
 
             pagerContainer: null,

@@ -213,12 +213,13 @@
     <script>
         
         var Master_Id = 0
-        Typable_Dropdown('Customer');
-        Typable_Dropdown('SalesMan');
-        Typable_Dropdown('Currency');
-        Typable_Dropdown('Branch');
-        Typable_Dropdown('Transporter');
+       
         $(document).ready(function () {
+            Typable_Dropdown('Customer');
+            Typable_Dropdown('SalesMan');
+            Typable_Dropdown('Currency');
+            Typable_Dropdown('Branch');
+            Typable_Dropdown('Transporter');
             $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" }) 
             $('.tbDate').prop("readonly", true);
             //$('.tbDate').val("DD-MM-YY");

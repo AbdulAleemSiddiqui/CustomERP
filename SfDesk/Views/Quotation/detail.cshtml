@@ -110,14 +110,14 @@
     }
  
     function loadData() {
-        debugger;
+        ;
         $.ajax({
             type: "GET",
             url: "/PurchaseRequisition/Item_Get_All",
 
             dataType: "json",
             success: function (d) {
-                debugger
+                
                 items = d
                 $.ajax({
                     type: "GET",
@@ -151,7 +151,7 @@
 
                                     Mytax = d
                                     tax()
-                                    newRow("Grid")
+                                    //newRow("Grid")
                                 }
                             });
                             
@@ -194,7 +194,7 @@
     }
     function DetailCalculation(th, edit)
     {
-        debugger
+     
         if (edit) {
             var quantity = parseFloat(th._grid.fields[3].editControl.val()) || 1;
             var price = parseFloat(th._grid.fields[4].editControl.val()) || 1;
@@ -259,7 +259,7 @@
             invalidMessage: "Invalid data entered!",
             onRefreshed: function (args) {
 
-
+               debugger
                 grand_total = Gross_total
 
                 var items = args.grid.option("data");
@@ -293,37 +293,63 @@
                 //$totalRow.find("td").eq(1).remove();
                 //$totalRow.find("td").eq(1).remove();
                 args.grid._content.append($totalRow);
+                tax()
             },
-            onItemUpdated: function(args) {
-                $('#jsGrid').jsGrid("refresh");
+            onItemUpdated: function (args) {
+                debugger
+                th = args.previousItem["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+                    var check =  parseFloat(myt.ST_Total) - parseFloat(totall.toFixed(2))
+                    myt["ST_Total"] = check
+                    if (check === 0)
+                    {
+                        $("#Grid").jsGrid("deleteItem", myt);
+                    }
+
+                }
+                th = args.item["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+
+                    myt["ST_Total"] = parseFloat(myt.ST_Total) + parseFloat(totall.toFixed(2))
+
+
+                }
+                else {
+                    var totall = parseFloat(args.item["Amount"]) * (rate / 100);
+                    var temp = { "ST_ID": taxx.SalesTax_ID, "ST_Rate": rate, "ST_Total": totall.toFixed(2) }
+                    Mytax.push(temp)
+
+                }
+                tax();
             },
             onItemInserting: function (args) {
-
-
+               
                 args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'I';
                 args.item["Tax_Id"] = parseInt(args.item["Tax_Id"])
                 editedDetail.push(args.item)
-                //if (typeof (history.pushState) != "undefined") {
-
-                //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //}
+             
             },
             onItemUpdating: function (args) {
-
-
                 args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'U';
+                args.item["Tax_Id"] = parseInt(args.item["Tax_Id"])
                 editedDetail.push(args.item)
 
-                //if (typeof (history.pushState) != "undefined") {
-
-                //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //}
+               
             },
             onItemDeleting  : function (args) {
 
-                debugger
+                
                 args.item["Q_ID"] = Master_Id;
                 args.item["action"] = 'D';
                 editedDetail.push(args.item);
@@ -335,16 +361,57 @@
                 //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
                 //}
             },
-            onItemDeleted: function(args) {
+            onItemInserted: function (args) {
+                
+                th = args.item["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+                
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+                    
+                    myt["ST_Total"] = parseFloat(myt.ST_Total) + parseFloat(totall.toFixed(2))
+
+
+                }
+                else {
+                    var totall = parseFloat(args.item["Amount"]) * (rate / 100);
+                    var temp = { "ST_ID": taxx.SalesTax_ID, "ST_Rate": rate, "ST_Total": totall.toFixed(2) }
+                    Mytax.push(temp)
+
+                }
+
+                
             },
+            onItemDeleted: function (args) {
+                
+                th = args.item["Tax_Id"];
+                taxx = taxes.find(x => x.SalesTax_ID === parseInt(th));
+                var rate = taxx.Rate;
+                var myt = Mytax.find(x => x.ST_ID === parseInt(th));
+                if (myt != undefined) {
+                    var totall = parseFloat(args.item["Amount"]) * (myt.ST_Rate / 100);
+                    var check = parseFloat(myt.ST_Total) - parseFloat(totall.toFixed(2))
+                    myt["ST_Total"] = check
+                    if (check === 0) {
+                        $("#Grid").jsGrid("deleteItem", myt);
+                    }
+
+                }
+                tax();
+
+
+            },
+
             fields: [
             {
-                name: "Item_ID", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", textField: "Item_Code",
+                name: "Item_ID", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Code",
                 insertTemplate: function (value) {
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
                $insertControl.on("keyup change", function () {
-                    debugger;
+                    ;
                     var p_Q = parseInt(this.value);
                     th._grid.fields[1].insertControl.val(p_Q)//val(unit);
                 });
@@ -355,7 +422,7 @@
                 var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
                 var th = this;
                 $editControl.on("keyup change", function () {
-                    debugger;
+                    ;
                     var p_Q = parseInt(this.value);
                     th._grid.fields[1].editControl.val(p_Q)//val(unit);
                 });
@@ -371,7 +438,7 @@
                 var th= this;
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                     $insertControl.on("keyup change", function () {
-                        debugger;
+                        ;
                         var p_Q = parseInt(this.value);
                         var d1= th._grid.fields[0].insertControl.val(p_Q).trigger("change");
                     });
@@ -383,7 +450,7 @@
                 var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
                 var th = this;
                 $editControl.on("keyup change", function () {
-                        debugger;
+                        ;
                         var p_Q = parseInt(this.value);
                         var d1 = th._grid.fields[0].editControl.val(p_Q).trigger("change");
                     });
@@ -477,17 +544,22 @@
                     },
                 },
             {
-                name: "Tax_Id", title: "Tax", type: "select", width: 100, validate: "required",
+                name: "Tax_Id", title: "Tax", type: "select", width: 100, valueType: "number" ,validate: "required", autosearch: true,    
                          items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
                          insertTemplate: function () {
                              
                              var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
+                 
 
+                          
                              focusChange($insertControl, "jsGrid");
                              return $insertControl;
                          },
                          editTemplate: function (args) {
                              var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                          
+
+                             $editControl.val(parseInt($editControl.val()))
                              update_on_enter($editControl, "jsGrid");
 
                              return $editControl;
@@ -531,12 +603,13 @@
             filtering: false,
             editing: false,
             inserting: false,
+            deleting: false,
             sorting: true,
             paging: true,
             autoload: true,
             pageSize: 15,
             pageButtonCount: 5,
-            deleteConfirm: "confirm",
+           
           data: Mytax,
            
             pagerContainer: null,
@@ -583,13 +656,15 @@
             },
 
             onRefreshed: function (args) {
-                debugger
+                
                grand_total = Gross_total
                 var items = args.grid.option("data");
                 var total = { Name: "Total", "ST_Rate": "", "ST_Total": 0, IsTotal: true };
 
                 items.forEach(function (item) {
-
+                   
+                
+                   
                     total.ST_Total += parseFloat(item.ST_Total);
                 });
 
@@ -609,7 +684,7 @@
 
 
             {
-                name: "ST_ID", title: "Tax", type: "select", width: 100, validate: "required",
+                name: "ST_ID", title: "Tax", type: "select", width: 100, validate: "required",insertcss:"STID",
                 items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
                 insertTemplate: function () {
                     var teamField = this._grid.fields[1];
@@ -625,7 +700,7 @@
 
                                 teamField.insertControl.val(val["Rate"])//val(unit);
 
-                                debugger
+                                
                                 var val = teamField.insertControl.val()
                                 var total = Gross_total * (val / 100);
                                 total = total.toFixed(2);
@@ -827,7 +902,7 @@
 
                     total.T_Total += parseFloat(item.T_Total);
                 });
-                debugger
+                
                 trans_total = total.T_Total;
                 grand_total = parseFloat((Gross_total + tax_total + trans_total).toFixed(2));
 
