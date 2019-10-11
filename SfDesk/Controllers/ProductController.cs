@@ -23,6 +23,8 @@ namespace SfDesk.Models
         [HttpGet]
         public ActionResult AddProduct()
         {
+            ViewBag.Tax = new SalesTax().SalesTax_Get_All();
+            ViewBag.Cat = new Item_Category().Item_Category_Get_All(App.App_ID);
             return View();
         }
         [HttpPost]

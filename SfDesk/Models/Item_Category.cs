@@ -8,7 +8,7 @@ namespace SfDesk.Models
 {
     public class Item_Category
     {
-        private const string Module = "Purchase";
+        private const string Module = "";
 
         [TVP]
         public int Cat_ID { get; set; }
@@ -17,7 +17,7 @@ namespace SfDesk.Models
         [TVP]
         public int CreatedBy{ get; set; }
 
-        public List<Item_Category> Purchase_Item_Category_Get_All(int UserId)
+        public List<Item_Category> Item_Category_Get_All(int UserId)
         {
             try
             {

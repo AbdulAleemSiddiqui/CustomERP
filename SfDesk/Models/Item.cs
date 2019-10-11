@@ -22,7 +22,12 @@ namespace SfDesk.Models
         [TVP]
         public int Cat_ID { get; set; }
         public string Cat_Name { get; set; }
-
+        [TVP]
+        public int P_Tax_ID { get; set; }
+        public string P_Tax_Name { get; set; }
+        [TVP]
+        public int S_Tax_ID { get; set; }
+        public string S_Tax_Name { get; set; }
 
         #region default Properties
         public int CreatedBy { get; set; }

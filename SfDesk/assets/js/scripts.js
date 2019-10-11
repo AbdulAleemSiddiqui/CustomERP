@@ -66,11 +66,11 @@
     /*  Auto date in footer and refresh
     --------------------------------------*/
 
-    document.getElementById("date-time").innerHTML = Date();
+    //document.getElementById("date-time").innerHTML = Date();
 
-    $('.page-refresh').on("click", function() {
-        location.reload();
-    });
+    //$('.page-refresh').on("click", function() {
+    //    location.reload();
+    //});
 
 
     /* TO DO LIST 
@@ -177,9 +177,9 @@
     /*  pace Loader
     -------------*/
 
-    paceOptions = {
-        elements: true
-    };
+    //paceOptions = {
+    //    elements: true
+    //};
 
 
 

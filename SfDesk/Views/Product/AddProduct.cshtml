@@ -1,294 +1,359 @@
-﻿@{
+﻿@model SfDesk.Models.Item
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_dashLayout.cshtml";
 }
+
 <div class="card-body">
     <div class="custom-tab">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">Product</a></li>
-            <li role="presentation"><a href="#2" aria-controls="2" role="tab" data-toggle="tab">Product Assembly</a></li>
+            <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">General</a></li>
+            <li id="AP" role="presentation"><a href="#2ta" aria-controls="2ta" role="tab" data-toggle="tab">Assembly Product</a></li>
+
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="1">
-             
-                <div class="card alert">
-                    <div class="card-header">
-                        <div class="card-body">
-                            @using (Html.BeginForm())
-            {
-                                @Html.AntiForgeryToken()
+                  
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-                                <div class="form-horizontal">
-                                   
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="col-md-12">
-                                        <div class="form-group col-md-2">
-                                            <div class="col-sm-1">
-                                                @Html.RadioButton("Product", true)
-                                                @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
-                                            </div>
+                    <div class="form-horizontal">
 
-                                            @Html.Label("Product", htmlAttributes: new { @class = "control-label col-sm-11", @style = " padding-top: 0;  text-align:left" })
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <div class="col-sm-1">
-                                                @Html.RadioButton("Product", false)
-                                                @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
-                                            </div>
-
-                                            @Html.Label("Services", htmlAttributes: new { @class = "control-label col-sm-11", @style = " padding-top: 0;  text-align:left" })
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <div class="col-sm-1">
-                                                @Html.RadioButton("Product", false)
-                                                @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
-                                            </div>
-
-                                            @Html.Label("Product Assembly", htmlAttributes: new { @class = "control-label col-sm-11", @style = " padding-top: 0;  text-align:left" })
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Product Type", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("Product Type", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Product Name", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("Product Name", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("Product Name", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Unit Of Measure", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("Unit", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("Unit", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group col-md-6">
-                                            <div class="col-sm-1">
-                                                @Html.CheckBox("fractional units", false)
-                                                @Html.ValidationMessage("fractional units", "", new { @class = "text-danger" })
-                                            </div>
-
-                                            @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
-                                        </div>
-                                        <div class="col-lg-12"></div>
-                                        <div class="form-group col-md-6">
-                                            <div class="col-sm-1">
-                                                @Html.CheckBox("calculate product quantity", false)
-                                                @Html.ValidationMessage("calculate product quantity", "", new { @class = "text-danger" })
-                                            </div>
-
-                                            @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0;  text-align:left" })
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr />
-                                        <div class="form-group col-md-6">
-                                            <div class="col-sm-1">
-                                                @Html.CheckBox("fractional units", false)
-                                                @Html.ValidationMessage("fractional units", "", new { @class = "text-danger" })
-                                            </div>
-
-                                            @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Track Inventory", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
-                                        </div>
-                                        <div class="col-lg-12"></div>
-                                        <div class="form-group col-md-6">
-                                            <div class="col-sm-1">
-                                                @Html.CheckBox("calculate product quantity", false)
-                                                @Html.ValidationMessage("calculate product quantity", "", new { @class = "text-danger" })
-                                            </div>
-
-                                            @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you manage Batch Product for this Product?", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0;  text-align:left" })
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr />
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("Minimum Stock Level", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("Stock_level", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("COA", htmlAttributes: new { @class = "control-label col-sm-2", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                                <datalist id="Purchase_Account_List">
-                                                    @{
-                                                        var ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                                    }
-
-                                                    @foreach (var item in ab)
-                                                    {
-                                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                                    }
-                                                </datalist>
-
-
-                                                @Html.ValidationMessage("Unit", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr />
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("Purchase Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("Purchase Price", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("Purchase Price", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("Purchase Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                                <datalist id="Purchase_Account_List">
-                                                    @{
-                                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                                    }
-
-                                                    @foreach (var item in ab)
-                                                    {
-                                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                                    }
-                                                </datalist>
-                                                @Html.ValidationMessage("Purchase Discount Account", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("Purchase Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                                <datalist id="Purchase_Account_List">
-                                                    @{
-                                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                                    }
-
-                                                    @foreach (var item in ab)
-                                                    {
-                                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                                    }
-                                                </datalist>
-                                                @Html.ValidationMessage("Purchase Discount Account", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("TAX", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("TAX", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("TAX", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr />
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("sale Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("sale Price", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("sale Price", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                                <datalist id="Purchase_Account_List">
-                                                    @{
-                                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                                    }
-
-                                                    @foreach (var item in ab)
-                                                    {
-                                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                                    }
-                                                </datalist>
-                                                @Html.ValidationMessage("sale Discount Account", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                                <datalist id="Purchase_Account_List">
-                                                    @{
-                                                        ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                                        ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                                    }
-
-                                                    @foreach (var item in ab)
-                                                    {
-                                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                                    }
-                                                </datalist>   @Html.ValidationMessage("sale Discount Account", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            @Html.Label("TAX", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                            <div class="col-sm-8">
-                                                @Html.Editor("TAX", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessage("TAX", "", new { @class = "text-danger" })
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-offset-9">
-                                            <input type="submit" value="Create" class="btn btn-default" />
-                                        </div>
-                                    </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            <div class="form-group col-md-2">
+                                <div class="col-sm-1">
+                                    @Html.RadioButton("Product", true)
+                                    @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
                                 </div>
-                                                        }
+
+                                @Html.Label("Product", htmlAttributes: new { @class = "control-label col-sm-11", @style = " padding-top: 0;  text-align:left" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                <div class="col-sm-1">
+                                    @Html.RadioButton("Product", false)
+                                    @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.Label("Services", htmlAttributes: new { @class = "control-label col-sm-11", @style = " padding-top: 0;  text-align:left" })
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-12">
+
+                            <div class="form-group col-md-3">
+                                @Html.Label("Product Type", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                <div class="col-sm-8">
+                                    @Html.HiddenFor(Model => Model.Cat_ID)
+                                    <input type="text" name="Cat_Name" list="Cat_List" id="Cat_Name" class="form-control text-box">
+                                    <datalist id="Cat_List">
+
+                                        @foreach (var item in ViewBag.Cat)
+                                        {
+                                            <option id="@item.Cat_ID" data-id="@item.Cat_ID" value="@item.Cat_Name"></option>
+                                        }
+                                    </datalist>
+
+                                    @Html.ValidationMessageFor(model => model.Cat_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.Label("Item Type", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                <div class="col-sm-8">
+                                    @Html.HiddenFor(Model => Model.Cat_ID)
+                                    <input type="text" name="Cat_Name" list="Cat_List" id="Cat_Name" class="form-control text-box">
+                                    <datalist id="Cat_List">
+
+                                        @foreach (var item in ViewBag.Cat)
+                                        {
+                                            <option id="@item.Cat_ID" data-id="@item.Cat_ID" value="@item.Cat_Name"></option>
+                                        }
+                                    </datalist>
+
+                                    @Html.ValidationMessageFor(model => model.Cat_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.Label("Product Name", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    @Html.Editor("Product Name", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessage("Product Name", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.Label("Unit Of Measure", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    @Html.Editor("Unit", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessage("Unit", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-md-6">
+                                <div class="col-sm-1">
+                                    @Html.CheckBox("fractional units", false)
+                                    @Html.ValidationMessage("fractional units", "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
+                            </div>
+                            <div class="col-lg-12"></div>
+                            <div class="form-group col-md-6">
+                                <div class="col-sm-1">
+                                    @Html.CheckBox("calculate product quantity", false)
+                                    @Html.ValidationMessage("calculate product quantity", "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0;  text-align:left" })
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <hr />
+                            <div class="form-group col-md-6">
+                                <div class="col-sm-1">
+                                    @Html.CheckBox("fractional units", false)
+                                    @Html.ValidationMessage("fractional units", "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Track Inventory", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
+                            </div>
+                            <div class="col-lg-12"></div>
+                            <div class="form-group col-md-6">
+                                <div class="col-sm-1">
+                                    @Html.CheckBox("calculate product quantity", false)
+                                    @Html.ValidationMessage("calculate product quantity", "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you manage Batch Product for this Product?", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0;  text-align:left" })
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <hr />
+                            <div class="form-group col-md-6">
+                                @Html.Label("Minimum Stock Level", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                <div class="col-sm-8">
+                                    @Html.Editor("Stock_level", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.Label("COA", htmlAttributes: new { @class = "control-label col-sm-2", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase_Account_List">
+                                        @{
+                                            var ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                        }
+
+                                        @foreach (var item in ab)
+                                        {
+                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        }
+                                    </datalist>
+
+
+                                    @Html.ValidationMessage("Unit", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <input type="checkbox" id="isPurchase" > Do you purchase this product? <br />
+                        
+                        </div>
+
+                        <div class="col-md-12" id="Purchase">
+
+                            <hr />
+                            <div class="form-group col-md-6">
+                                @Html.Label("Purchase Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                <div class="col-sm-8">
+                                    @Html.Editor("Purchase Price", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessage("Purchase Price", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("Purchase Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase_Account_List">
+                                        @{
+                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                        }
+
+                                        @foreach (var item in ab)
+                                        {
+                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        }
+                                    </datalist>
+                                    @Html.ValidationMessage("Purchase Discount Account", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("Purchase Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase_Account_List">
+                                        @{
+                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                        }
+
+                                        @foreach (var item in ab)
+                                        {
+                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        }
+                                    </datalist>
+                                    @Html.ValidationMessage("Purchase Discount Account", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @Html.Label("TAX", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    @Html.HiddenFor(Model => Model.P_Tax_ID)
+                                    <input type="text" name="P_Tax_Name" list="P_Tax_List" id="P_Tax_Name" class="form-control text-box">
+                                    <datalist id="P_Tax_List">
+
+                                        @foreach (var item in ViewBag.tax)
+                                        {
+                                            <option id="@item.SalesTax_ID" data-id="@item.SalesTax_ID" value="@item.SalesTax_Name"></option>
+                                        }
+                                    </datalist>
+
+                                    @Html.ValidationMessageFor(model => model.P_Tax_ID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="checkbox" id="isSale"> Do you purchase this Sale? <br />
+
+                        </div>
+                        <div class="col-md-12" id="Sale">
+                            <hr />
+                            <div class="form-group col-md-6">
+                                @Html.Label("sale Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                <div class="col-sm-8">
+                                    @Html.Editor("sale Price", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessage("sale Price", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase_Account_List">
+                                        @{
+                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                        }
+
+                                        @foreach (var item in ab)
+                                        {
+                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        }
+                                    </datalist>
+                                    @Html.ValidationMessage("sale Discount Account", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase_Account_List">
+                                        @{
+                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
+                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
+                                        }
+
+                                        @foreach (var item in ab)
+                                        {
+                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        }
+                                    </datalist>   @Html.ValidationMessage("sale Discount Account", "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                @Html.Label("TAX", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    @Html.HiddenFor(Model => Model.S_Tax_ID)
+                                    <input type="text" name="S_Tax_Name" list="S_Tax_List" id="S_Tax_Name" class="form-control text-box">
+                                    <datalist id="S_Tax_List">
+
+                                        @foreach (var item in ViewBag.tax)
+                                        {
+                                            <option id="@item.SalesTax_ID" data-id="@item.SalesTax_ID" value="@item.SalesTax_Name"></option>
+                                        }
+                                    </datalist>
+
+                                    @Html.ValidationMessageFor(model => model.S_Tax_ID, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-9">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            
-            
-            
-                </div>
-            <div role="tabpanel" class="tab-pane" id="2">
+
+                                            }
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="2ta">
                 <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee sd. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. photo booth letterpress, commodo enim craft beer mlkshk alip jean shorts ullamco ad vinyl cillum PBR.</p>
             </div>
-            <div role="tabpanel" class="tab-pane" id="3">
-                <p>Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint sapiente accusamus tattooed echo park.</p>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="4">
-                <p>Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, irure terry richardson ex sd. Alip placeat salvia cillum iphone. Seitan alip s cardigan american apparel, butcher voluptate nisi .</p>
-            </div>
+   
         </div>
     </div>
 </div>
+@section scripts{
+<script>
+ 
+    $(document).ready(function () {
+        $("#Sale").hide('slow');
+        $("#Purchase").hide('slow');
+        $("#AP").hide('slow');
+        $('#isSale').change(function () {
+
+
+            $("#Sale").toggle('slow')
+
+        });
+        $('#isPurchase').change(function () {
+
+
+            $("#Purchase").toggle('slow')
+
+        });
+        $('#Cat_Name').change(function (){
+            if (this.value == 'Packaging') {
+                $("#AP").show('slow');
+
+
+            }
+            else {
+                $("#AP").hide('slow');
+            }
+        });
+    })
+</script>
+}
