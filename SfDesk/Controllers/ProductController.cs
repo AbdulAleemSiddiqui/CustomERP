@@ -27,6 +27,17 @@ namespace SfDesk.Models
             ViewBag.Cat = new Item_Category().Item_Category_Get_All(App.App_ID);
             return View();
         }
+        public ActionResult Product_Get_All()
+        {
+            return Json(new Item_Category().Item_Category_Get_All(App.App_ID),JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult Add_Product_Assembly()
+        {
+
+            return PartialView("Add_Product_Assembly", new List<Product_Assembly>());
+
+        }
         [HttpPost]
         public ActionResult Add(Product c)
         {

@@ -168,7 +168,6 @@
                             <input type="checkbox" id="isPurchase" > Do you purchase this product? <br />
                         
                         </div>
-
                         <div class="col-md-12" id="Purchase">
 
                             <hr />
@@ -319,15 +318,16 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="2ta">
-                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee sd. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. photo booth letterpress, commodo enim craft beer mlkshk alip jean shorts ullamco ad vinyl cillum PBR.</p>
-            </div>
+                <div id="child"></div>
+               </div>
    
         </div>
     </div>
 </div>
 @section scripts{
+
 <script>
- 
+
     $(document).ready(function () {
         $("#Sale").hide('slow');
         $("#Purchase").hide('slow');
@@ -347,6 +347,7 @@
         $('#Cat_Name').change(function (){
             if (this.value == 'Packaging') {
                 $("#AP").show('slow');
+                $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#child").html(data); });
 
 
             }
@@ -354,6 +355,7 @@
                 $("#AP").hide('slow');
             }
         });
+
     })
 </script>
 }
