@@ -12,8 +12,18 @@ namespace SfDesk.Controllers
         // GET: GDN
         public ActionResult Master(int? id)
         {
-         
-                return View(new GDN() );
+            ViewBag.Customers = new Customer().Customer_Get_All(App.App_ID);
+            ViewBag.Stores = new Store().Store_Get_All(App.App_ID);
+            ViewBag.Currency = new Currency().Currency_Get_All(App.App_ID);
+            ViewBag.Branch = new Branch().Branch_Get_All(App.App_ID);
+            ViewBag.Transporter = new Transporter().Transporter_Get_All();
+            if(id!=null)
+            {
+                GDN item = new GDN().Sale_GDN_Get_SO(id.Value, App.App_ID);
+                item.GDN_NO = Utility.Get_New_No("GDN", "GDN_ID", "GDN", App.App_ID);
+                return View(item);
+            }
+            return View(new GDN());
          
         }
         [HttpPost]
@@ -21,6 +31,10 @@ namespace SfDesk.Controllers
         {
          //   GDN.GDN_Add();
             return View();
+        }
+        public ActionResult ShowAll()
+        {
+            return View(new GDN().Sale_GDN_Get_All_SO(App.App_ID));
         }
         public ActionResult Detail()
         {
@@ -46,5 +60,6 @@ namespace SfDesk.Controllers
 
             return Json(pd, JsonRequestBehavior.AllowGet);
         }
+
     }
 }
