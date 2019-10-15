@@ -318,14 +318,16 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="2ta">
-                <div id="child"></div>
+               
                </div>
    
         </div>
     </div>
 </div>
 @section scripts{
-
+<script src="~/assets/js/jsgrid.min.js"></script>
+<script src="~/assets/js/TypableDropdown.js"></script>
+<script src="~/assets/js/db.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -347,7 +349,6 @@
         $('#Cat_Name').change(function (){
             if (this.value == 'Packaging') {
                 $("#AP").show('slow');
-                $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#child").html(data); });
 
 
             }
@@ -355,7 +356,13 @@
                 $("#AP").hide('slow');
             }
         });
-
+        detail();
+   
     })
+    function detail()
+    {
+        $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#2ta").html(data); });
+
+    }
 </script>
 }
