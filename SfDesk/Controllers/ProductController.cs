@@ -27,6 +27,10 @@ namespace SfDesk.Models
             ViewBag.Cat = new Item_Category().Item_Category_Get_All(App.App_ID);
             return View();
         }
+        public ActionResult COA_Get_All()
+        {
+            return Json(new ChartOfAccount().COA_Get_All(), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Product_Get_All()
         {
             return Json(new Item_Category().Item_Category_Get_All(App.App_ID),JsonRequestBehavior.AllowGet);

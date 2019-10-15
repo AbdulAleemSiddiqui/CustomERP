@@ -16,8 +16,16 @@ namespace SfDesk.Models
         public decimal Quantity { get; set; }
         public List<Product_Assembly> Input_products { get; set; }
         public List<Product_Assembly> Output_products { get; set; }
-        public List<ChartOfAccount> Account_expences { get; set; }
+        public List<Product_Assembly_Expence> Account_expences { get; set; }
 
 
     }
+   public class Product_Assembly_Expence
+    {
+        public int COA_ID { get; set; }
+        public string COA_Name { get; set; }
+        public string Description{ get; set; }
+        public decimal Amount { get; set; }
+    }
+
 }

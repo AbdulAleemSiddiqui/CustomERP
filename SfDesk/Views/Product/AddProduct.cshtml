@@ -8,7 +8,7 @@
     <div class="custom-tab">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">General</a></li>
-            <li id="AP" role="presentation"><a href="#2ta" aria-controls="2ta" role="tab" data-toggle="tab">Assembly Product</a></li>
+            <li id="AP" role="presentation"><a href="#ta2" aria-controls="ta2" role="tab" data-toggle="tab">Assembly Product</a></li>
 
         </ul>
         <div class="tab-content">
@@ -308,8 +308,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-offset-9">
-                                <input type="submit" value="Create" class="btn btn-default" />
+                            <div class="col-md-12" style="padding:15px">
+                                <br />
+                                <input type="button" id="create" value="Create" class="btn btn-default" />
                             </div>
                         </div>
                     </div>
@@ -317,7 +318,7 @@
                                             }
 
             </div>
-            <div role="tabpanel" class="tab-pane" id="2ta">
+            <div role="tabpanel" class="tab-pane" id="ta2">
                
                </div>
    
@@ -329,7 +330,12 @@
 <script src="~/assets/js/TypableDropdown.js"></script>
 <script src="~/assets/js/db.js"></script>
 <script>
+       function detail()
+    {
+        $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#ta2").html(data); });
 
+       }
+    var isAssembled = false;
     $(document).ready(function () {
         $("#Sale").hide('slow');
         $("#Purchase").hide('slow');
@@ -346,23 +352,56 @@
             $("#Purchase").toggle('slow')
 
         });
-        $('#Cat_Name').change(function (){
+        $('#Cat_Name').change(function () {
             if (this.value == 'Packaging') {
-                $("#AP").show('slow');
 
+                isAssembled = true
 
             }
             else {
                 $("#AP").hide('slow');
+                isAssembled = false
             }
         });
-        detail();
-   
-    })
-    function detail()
-    {
-        $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#2ta").html(data); });
+      
 
-    }
+    });
+    $("#create").click(function (e) {
+        e.preventDefault();
+        if (isAssembled) {
+            $("#AP").show('slow');
+            detail();
+            $('a[href="#ta2"]').click();
+
+        }
+        var data = {};
+
+        $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+        debugger
+        //data.Q_Details = arr;
+        //data.Q_Charges = mytrans;
+        //data.Q_Taxs = Mytax;
+        //data.Total = grand_total;
+        $.ajax({
+            url: '@Url.Action("master")',
+            type: 'Post',
+            dataType: 'json',
+            data: {
+                c: data
+            },
+            success: function (data) {
+                //window.location.href = '//Url.Action("ShowAll", "Quotation")';
+                if (isAssembled) {
+                    details();
+                    $( ".custom-tab" ).tabs({ active: 'ta2' });
+
+                }
+            }
+
+        });
+    });
+
+
+
 </script>
 }

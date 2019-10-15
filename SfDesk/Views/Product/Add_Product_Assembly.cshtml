@@ -18,21 +18,34 @@
                 </div>
                 <div class="form-group col-md-6">
                     <div class="col-sm-1">
-                        @Html.CheckBox("Account Expenses (Optional)", false)
+                        @Html.CheckBox("Account", false)
                         @Html.ValidationMessage("Account Expenses (Optional)", "", new { @class = "text-danger" })
                     </div>
 
-                    @Html.Label("Account Expenses (Optional)", "Track Inventory", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
+                    @Html.Label("Account Expenses (Optional)", "Account Expenses (Optional)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
                 </div>
                 <div class="jsgrid-table-panel">
                     <div id="expGrid" class="table table-striped table-bordered dataTable no-footer"></div>
                     <br />
+                    <hr />
                 </div>
-                <p><b>Output</b></p>
+                <p><hr /><b>Output</b></p>
                 <div class="jsgrid-table-panel">
                     <div id="Grid" class="table table-striped table-bordered dataTable no-footer"></div>
                     <br />
                 </div>
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                  
+                    <div class="form-group">
+                        <div class="col-md-12" style="padding:15px">
+                            <br />
+                            <input type="button" id="create" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- /# card -->
         </div>
@@ -41,11 +54,19 @@
 </div>
 
 <script>
-    var expences=[]
+    var expences = []
+    var allexpences=[]
     var inputs = []
     var outputs = []
    var items = []
-    $(document).ready(function () {
+   $(document).ready(function () {
+       $("#expGrid").hide('slow');
+       $('#Account').change(function () {
+
+
+           $("#expGrid").toggle('slow')
+
+       });
         loadData();
      //   clients = arr
     })
@@ -126,10 +147,23 @@
               //  trans()
                 newRow("jsGrid")
                 newRow("Grid")
+            }
+           
+        });
+        $.ajax({
+            type: "GET",
+            url: "COA_Get_All",
+
+            dataType: "json",
+            success: function (d) {
+                debugger
+                allexpences = d
+
+                trans()
+
                 newRow("expGrid")
             }
         });
-
 
     }
     function DetailCalculation(th, edit)
@@ -497,104 +531,12 @@
 
 
             {
-                name: "Account", title: "Account", type: "select", width: 100, validate: "required",
-                items: transactions, valueField: "T_ID", textField: "Name",
+                name: "COA_ID", title: "Account", type: "select", width: 100, validate: "required",
+                items: allexpences, valueField: "COA_ID", textField: "COA_Name", valueType: "number",
                 insertTemplate: function () {
 
-                    var teamField = this._grid.fields[1];
-                    var Total = this._grid.fields[2];
+                  
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
-                    $insertControl.on("change", function () {
-                        selectedDepartment1 = $(this).find('option:selected').html();
-
-
-                        var val = 0;
-                        var total = 0;
-                        //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
-                        if (selectedDepartment1 == "Middle Man") {
-                            isMM = true;
-                            isT = false;
-                            var tt = myOpts.Rate;
-                            teamField.insertControl.val(tt)//val(unit);
-
-                            val = teamField.insertControl.val();
-                            total = parseInt(val);
-                        }
-                        else if (selectedDepartment1 == "Transporter") {
-                            isT = true;
-                            isMM = false;
-                            var tt = mytrans.Rate;
-                            teamField.insertControl.val(tt)//val(unit);
-
-                            val = teamField.insertControl.val();
-
-                            total = parseInt(val);
-
-                        }
-                        else {
-                            isT = false;
-                            isMM = false;
-                            selectedDepartment1 = $(this).find('option:selected').val();
-
-                            $.each(transactions, function (i, val) {
-                                if (val["T_ID"] == selectedDepartment1) {
-
-                                    var rate_Type = val["Rate_Type"];
-                                    var Nature = val["Charge_Nature"];
-
-                                    teamField.insertControl.val(val["Rate"])//val(unit);
-                                    ;
-                                    val = teamField.insertControl.val();
-
-                                    if (rate_Type == "Flat") {
-                                        if (Nature == "Deduction") {
-
-                                            total = -1 * parseInt(val);
-                                        }
-                                        else {
-
-                                            total = parseInt(val);
-                                        }
-
-                                    }
-                                    else {
-                                        if (Nature == "Deduction") {
-
-                                            total = -1 * Gross_total * (val / 100);
-                                        }
-                                        else {
-
-                                            total = Gross_total * (val / 100);
-                                        }
-
-                                    }
-
-                                }
-                            });
-                        }
-
-
-
-
-
-                        var val = teamField.insertControl.val()
-
-                        Total.insertControl.val(total)//val(unit);
-
-
-
-
-
-
-
-
-
-
-
-
-                        return $insertControl;
-
-                    });
                     focusChange($insertControl, "transGrid");
                     return $insertControl;
 
@@ -605,11 +547,7 @@
              {
                  name: "Description", title: "Description", type: "text", width: 50, insertcss: "abc2",
                  validate: "required",
-                 insertTemplate: function () {
-
-                  
-                     return $insertControl;
-                 },
+           
 
 
              },
