@@ -34,7 +34,8 @@ namespace SfDesk.Models
    
 
         [DisplayName("Date")]
-        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime Date { get; set; }
 
         public string Img_Path { get; set; }

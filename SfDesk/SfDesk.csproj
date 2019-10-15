@@ -276,7 +276,7 @@
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\GDN.cs" />
-    <Compile Include="Models\GDN_Details.cs" />
+    <Compile Include="Models\GDN_Detail.cs" />
     <Compile Include="Models\GRN.cs" />
     <Compile Include="Models\GRN_Details.cs" />
     <Compile Include="Models\IdentityModels.cs" />
