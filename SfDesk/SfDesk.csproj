@@ -333,6 +333,7 @@
     <Compile Include="Models\SO_Tax.cs" />
     <Compile Include="Models\SRI_Details.cs" />
     <Compile Include="Models\SRO_Details.cs" />
+    <Compile Include="Models\Store.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Transporter.cs" />
     <Compile Include="Models\user.cs" />
@@ -958,6 +959,7 @@
     <Content Include="Views\SaleOrder\Approve.cshtml" />
     <Content Include="Views\Quotation\Approve.cshtml" />
     <Content Include="Views\Product\Add_Product_Assembly.cshtml" />
+    <Content Include="Views\GDN\ShowAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
