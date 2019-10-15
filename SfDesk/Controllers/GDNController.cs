@@ -52,14 +52,18 @@ namespace SfDesk.Controllers
         }  // GET: GDN
         public ActionResult Index()
         {
-            List<GDN_Details> pd = new List<GDN_Details>();
+            List<GDN_Detail> pd = new List<GDN_Detail>();
             for (int i = 0; i < 10; i++)
             {
-                pd.Add(new GDN_Details() { Item_Code = i, Item_Name = $"product {i}", Item_Description = $"product no {i}", Qty = 12 * i, Net_Weight = 12.2m, Gross_Weight = 23.23m });
+                pd.Add(new GDN_Detail() { Item_Code = i.ToString(), Item_Name = $"product {i}", Item_Description = $"product no {i}", Qty = 12 * i, Net_Weight = 12.2m, Gross_Weight = 23.23m });
             }
 
             return Json(pd, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Vehicle_Get_By_ID(int id)
+        {
+            return Json(new Vehicle() { T_ID = id }.Vehcile_Get_By_Transporter(), JsonRequestBehavior.AllowGet);
 
+        }
     }
 }

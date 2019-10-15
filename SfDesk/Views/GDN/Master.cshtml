@@ -18,6 +18,20 @@
                     <input hidden="hidden" name="SO_ID" id="SO_ID" value="@Model.SO_ID" />
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.GDN_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.GDN_NO, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   @readonly="readonly"
+                               }
+                           })
+                                @Html.ValidationMessageFor(model => model.GDN_NO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                         <div class="form-group ">
                             @Html.LabelFor(model => model.Customer_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -36,19 +50,7 @@
 
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.GDN_NO, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.EditorFor(model => model.GDN_NO, new
-                           {
-                               htmlAttributes = new
-                               {
-                                   @class = "form-control"
-                               }
-                           })
-                                @Html.ValidationMessageFor(model => model.GDN_NO, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                     
                         <div class="form-group">
                             @Html.LabelFor(model => model.Store_ID, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
@@ -108,18 +110,11 @@
 
                     </div>
                     <div class="col-md-6" style="text-align:right">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-5">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-5">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @id = "AD", @readonly = "readonly" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -169,6 +164,21 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="form-group  ">
+                            @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group  ">
+                            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
 
                 
@@ -176,21 +186,7 @@
 
                     <div id="child"></div>
 
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                  
                     <br />
 
                     <div class="form-group">
@@ -233,8 +229,13 @@
 
             $.get('@Url.Action("detail", "gdn")', function (data) { $("#child").html(data); });
 
-         
-           
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+            $('#AD').val(today);
+            populate();
             $('#Transporter_Name').on("change", populate);
         });
         $('#myModal').on("hidden.bs.modal", function () {
@@ -250,17 +251,18 @@
             id = $('#Transporter_ID').val()
 
             $.ajax({
-                url: '/PurchaseInventory/Vehcile_Get_By_Transporter',
+                url: '/GDN/Vehicle_Get_By_ID',
                 type: 'GET',
                 dataType: 'json',
                 data: { id: id },
                 success: function (d) {
-
+                    debugger;
                     var ddlState = $('#Vehicle_ID');
                     ddlState.empty();
                     $("#Vehicle_ID").prepend("<option value='' ></option>");// Clear the please wait
                     $.each(d, function (i, states) {
-                        if ($('#V_ID').val() == states.V_ID) {
+
+                        if ($('#Vehicle_ID').val() == states.V_ID) {
 
                             ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Vehicle_Type));
                         }
@@ -272,15 +274,30 @@
             });
         }
 
-        $("form").submit(function (e) {
+    $("#create").click(function (e) {
             e.preventDefault();
-            $.post(this.action, $(this).serialize(), function (data) {
-                debugger;
-                window.location.href = '@Url.Action("Master", "Payment")';
 
-            })
+            var data = {};
 
-        })
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
+            data = arr;
+            data.Total = grand_total;
+
+            $.ajax({
+                url: '@Url.Action("master", "GDN")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                }
+
+            });
+        });
+
 
 
     </script>

@@ -25,7 +25,6 @@
     });
 
     $('#' + a + '_Name').on('change', function () {
-        debugger;
         var value = $('#' + a + '_Name').val();
         var name = "#" + a + "_List";
         name = name + " option[value='" + value+ "']";
@@ -40,7 +39,6 @@
 }
 function DropDown_Fill(a)
 {
-    debugger;
     var id = $("#" + a + "_ID").val();
     var name = "#" + a + "_List";
     console.log(name)
