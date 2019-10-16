@@ -17,23 +17,40 @@ namespace SfDesk.Models
         [TVP]
         public string Item_Name { get; set; }
         [TVP]
+        public int U_ID{ get; set; } //Unit of measure
+        [TVP]
         public string Item_Code { get; set; }
      
         [TVP]
         public int Cat_ID { get; set; }
+
+        [TVP]
+        public int COA_ID { get; set; }
+
+        [TVP]
+        public int Min_Stock { get; set; }
+        [TVP]
+        public bool is_Fractional_Unit { get; set; }
+        [TVP]
+        public bool is_Item_Qty_Cal { get; set; }
+        [TVP]
+        public bool is_Inventory_Track{ get; set; }
+        [TVP]
+        public bool is_Manage_Batch_Product{ get; set; }
+
+       
         public string Cat_Name { get; set; }
-        [TVP]
-        public int P_Tax_ID { get; set; }
-        public string P_Tax_Name { get; set; }
-        [TVP]
-        public int S_Tax_ID { get; set; }
-        public string S_Tax_Name { get; set; }
+        public string UOM_Name { get; set; }
+
+        public Item_Detail Sale { get; set; } = new Item_Detail() { Flag = "sale" };
+        public Item_Detail Purchase { get; set; } = new Item_Detail() { Flag = "purchase" };
 
         #region default Properties
         public int CreatedBy { get; set; }
         public string ReturnMessage { get; set; }
 
         #endregion
+
 
     
         public int Item_Add(int UserId)
@@ -113,5 +130,14 @@ namespace SfDesk.Models
             }
         }
     }
-
+    public class Item_Detail
+    {
+        public int Item_D_ID { get; set; }
+        public int Item_ID { get; set; }
+        public decimal Price { get; set; }
+        public int Account_ID { get; set; }
+        public int Discount_Account_ID { get; set; }
+        public int Tax_ID { get; set; }
+        public string Flag{ get; set; }
+    }
 }
