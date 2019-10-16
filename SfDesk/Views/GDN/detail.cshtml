@@ -104,27 +104,36 @@
     var clients =[]
     var CO=[]
     var arr =[]
-
+    var item =[]
     $(document).ready(function () {
 
         debugger
 
-         CO =@Html.Raw(Json.Encode(Session["COA"]));
+        CO =@Html.Raw(Json.Encode(Session["COA"]));
         $.ajax({
             type: "GET",
-            url: "/GDN/index",
+            url: "/PurchaseRequisition/Item_Get_All",
 
             dataType: "json",
             success: function (d) {
+                
+                items = d;
+                $.ajax({
+                    type: "GET",
+                    url: "/GDN/index",
 
-                if (d.ID != 0)
-                    arr = d
-                    my()
-                    newRow("jsGrid")
+                    dataType: "json",
+                    success: function (d) {
+
+                        if (d.ID != 0)
+                            arr = d
+                        my()
+                        newRow("jsGrid")
+                    }
+                });
             }
+
         });
-
-
     });
     function my()
     {
@@ -213,11 +222,61 @@
                 clients.push(args.item);
             },
                 fields: [
+              {
+         name: "Item_ID", title: "Code", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Code",
+         insertTemplate: function (value) {
+             var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
+             var th= this;
+             $insertControl.on("keyup change", function () {
+                 ;
+                 var p_Q = parseInt(this.value);
+                 th._grid.fields[1].insertControl.val(p_Q)//val(unit);
+             });
+             focusChange($insertControl,"jsGrid");
+             return this.insertControl;
+         },
+         editTemplate: function (args) {
+             var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+             var th = this;
+             $editControl.on("keyup change", function () {
+                 ;
+                 var p_Q = parseInt(this.value);
+                 th._grid.fields[1].editControl.val(p_Q)//val(unit);
+             });
+             update_on_enter( $editControl,"jsGrid");
 
-               {name:"Item_Name", title: "Product Name", type: "text", width:  80 ,editing: false
+             return $editControl;
+         }, },
+              {
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required",
+                items: items, valueField: "Item_ID", textField: "Item_Name",
 
+                insertTemplate: function (args) {
+                    var th= this;
+                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
+                    $insertControl.on("keyup change", function () {
+                        ;
+                        var p_Q = parseInt(this.value);
+                        var d1= th._grid.fields[0].insertControl.val(p_Q).trigger("change");
+                    });
+             
 
-               },
+                    return $insertControl;
+                },
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                    var th = this;
+                    $editControl.on("keyup change", function () {
+                        ;
+                        var p_Q = parseInt(this.value);
+                        var d1 = th._grid.fields[0].editControl.val(p_Q).trigger("change");
+                    });
+               
+                    update_on_enter($editControl, "jsGrid");
+
+                    return $editControl;
+                },
+            },
                {name:"Item_Description", title: "Product Description", type: "text", width:  80, editing: false
 
                },
