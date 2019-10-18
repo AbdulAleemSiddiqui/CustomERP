@@ -29,9 +29,9 @@ namespace SfDesk.Models
         public int Branch_ID { get; set; }
         [TVP]
         public int Vehicle_ID { get; set; }
-      
-      
-   
+
+        public List<GDN_Detail> details { get; set; }
+
 
         [DisplayName("Date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

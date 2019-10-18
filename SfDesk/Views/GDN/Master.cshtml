@@ -193,10 +193,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-6">
                                 <input type="button" value="Save and Exit" class="btn btn-default" id="create" />
-                                <input type="button" value="Approved and Exit" class="btn btn-default" id="approve" />
-                                <input type="button" value="Cancel" class="btn btn-default" id="cancel" />
-                                <input type="button" value="Reject" class="btn btn-default" id="reject" />
-                            </div>
+                             </div>
                         </div>
 
 
@@ -281,15 +278,14 @@
 
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
-            data = arr;
-            data.Total = grand_total;
+            data.details = arr;
 
             $.ajax({
                 url: '@Url.Action("master", "GDN")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
-                    c: data
+                    GDN: data
                 },
                 success: function (data) {
                     window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
