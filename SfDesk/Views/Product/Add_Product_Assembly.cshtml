@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <div class="col-md-12" style="padding:15px">
                             <br />
-                            <input type="button" id="create" value="Create" class="btn btn-default" />
+                            <input type="button" id="create1" value="Create" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
@@ -229,37 +229,25 @@
             pageNavigatorNextText: "...",
             pageNavigatorPrevText: "...",
             invalidMessage: "Invalid data entered!",
-            onRefreshed: function (args) {
-
-             
-            },
+     
           
             onItemInserting: function (args) {
 
-             //   args.item["Q_ID"] = Master_Id;
-                args.item["action"] = 'I';
-                args.item["Tax_Id"] = parseInt(args.item["Tax_Id"])
+                args.item["Flag"] = 'I';
             
 
             },
             onItemUpdating: function (args) {
-              //  args.item["Q_ID"] = Master_Id;
-                args.item["action"] = 'U';
-                args.item["Tax_Id"] = parseInt(args.item["Tax_Id"])
+                args.item["Flag"] = 'I';
+
               
 
 
             },
-            onItemDeleting  : function (args) {
-
-
-              //  args.item["Q_ID"] = Master_Id;
-                args.item["action"] = 'D';
-        
-            },
+   
             fields: [
             {
-                name: "P_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
                 insertTemplate: function (value) {
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
@@ -275,7 +263,8 @@
 
                 return $editControl;
             }, },
-            {name:"P_Desc", title: "Description", type: "text", width:  80, validate: "required"  ,
+            {
+                name: "Description", title: "Description", type: "text", width: 80, validate: "required",
                 editTemplate: function (args) {
                 var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
                 update_on_enter( $editControl,"jsGrid");
@@ -317,21 +306,18 @@
     };
     function tax() {
         $("#Grid").jsGrid({
-
             height: "auto",
             width: "100%",
             filtering: false,
-            editing: false,
+            editing: true,
             inserting: false,
-            deleting: false,
             sorting: true,
             paging: true,
             autoload: true,
             pageSize: 15,
             pageButtonCount: 5,
-
+            deleteConfirm: "Do you rete the client?",
             data: outputs,
-
             pagerContainer: null,
             pageIndex: 1,
             pageSize: 20,
@@ -343,127 +329,83 @@
             pageLastText: "Last",
             pageNavigatorNextText: "...",
             pageNavigatorPrevText: "...",
-
             invalidMessage: "Invalid data entered!",
+            onRefreshed: function (args) {
+
+
+            },
 
             onItemInserting: function (args) {
 
 
-               // args.item["PI_ID"] = Master_Id;
-                args.item["action"] = 'I';
-                args.item["Q_ID"] = Master_Id;
-                args.item["ST_ID"] = parseInt(args.item["ST_ID"])
-                editedTax.push(args.item)
-                //if (typeof (history.pushState) != "undefined") {
-
-                //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //}
+                args.item["Flag"] = 'O';
             },
-
-            onItemDeleting: function (args) {
-
-
-                args.item["Q_ID"] = Master_Id;
-                args.item["action"] = 'D';
-                editedTax.push(args.item);
-                //var grid = args.grid;
-                //grid.data.splice(args.itemIndex, 1);
-                //   grid.refresh();
-                ////if (typeof (history.pushState) != "undefined") {
-
-                //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //}
-            },
-
-            onRefreshed: function (args) {
-
-               //grand_total = Gross_total
-               // var items = args.grid.option("data");
-               // var total = { Name: "Total", "ST_Rate": "", "ST_Total": 0, IsTotal: true };
-
-               // items.forEach(function (item) {
+            onItemUpdating: function (args) {
+                args.item["Flag"] = 'O';
 
 
 
-               //     total.ST_Total += parseFloat(item.ST_Total);
-               // });
-
-               // tax_total = total.ST_Total;
-               // grand_total += tax_total;
-               // grand_total = parseFloat(Gross_total + tax_total + trans_total).toFixed(2);
-               // $("#Grand_Total").html('<h1 style="font-size:30px">Total: ' + grand_total + '</h1>')
-               // total.ST_Total = parseFloat(total.ST_Total.toFixed(2));
-               // var $totalRow = $("<tr>").addClass("total-row");
-
-               // args.grid._renderCells($totalRow, total);
-
-               // args.grid._content.append($totalRow);
             },
 
             fields: [
-         
-                       {
-                           name: "P_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
-                           insertTemplate: function (value) {
-                               var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
-                               var th= this;
+            {
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                insertTemplate: function (value) {
+                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                    var th = this;
 
-                               focusChange($insertControl,"jsGrid");
-                               return this.insertControl;
-                           },
-                           editTemplate: function (args) {
-                               var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
-                               var th = this;
+                    focusChange($insertControl, "Grid");
+                    return this.insertControl;
+                },
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                    var th = this;
 
-                               update_on_enter( $editControl,"jsGrid");
+                    update_on_enter($editControl, "Grid");
 
-                               return $editControl;
-                           }, },
-                       {name:"P_Desc", title: "Description", type: "text", width:  80, validate: "required"  ,
-                           editTemplate: function (args) {
-                               var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
-                               update_on_enter( $editControl,"jsGrid");
+                    return $editControl;
+                },
+            },
+            {
+                name: "Description", title: "Description", type: "text", width: 80, validate: "required",
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    update_on_enter($editControl, "Grid");
 
-                               return $editControl;
-                           },
-                       },
-                       {
-                           name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
-                           insertTemplate: function () {
-                               var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
-                               var th = this;
-                               insert_on_enter($insertControl, "jsGrid");
-                               return $insertControl;
-                           },
-                           editTemplate: function (args) {
-                               var th = this;
-                               var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
-                               $editControl.on("keyup change", function () {
-                       
+                    return $editControl;
+                },
+            },
+            {
+                name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
+                insertTemplate: function () {
+                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                    var th = this;
+                    insert_on_enter($insertControl, "Grid");
+                    return $insertControl;
+                },
+                editTemplate: function (args) {
+                    var th = this;
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    $editControl.on("keyup change", function () {
 
 
-                               });
-                               update_on_enter( $editControl,"jsGrid");
 
-                               return $editControl;
-                           },
-                       },
-                       {
-                           type: "control",
-                           editButton: false,
-                           itemTemplate: function (_, item) {
-                               if (item.IsTotal)
-                                   return "";
-                               return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
-                           }
-                       }
+                    });
+                    update_on_enter($editControl, "Grid");
+
+                    return $editControl;
+                },
+            },
+            {
+                type: "control",
+                editButton: false,
+                itemTemplate: function (_, item) {
+                    if (item.IsTotal)
+                        return "";
+                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                }
+            }
             ]
-                
-
-           
-
-            
-
         });
 
     }
@@ -486,8 +428,8 @@
             pageSize: 15,
             pageButtonCount: 5,
             deleteConfirm: "confirm",
-            data :expences,
-      
+            data: expences,
+
             pagerContainer: null,
             pageIndex: 1,
             pageSize: 20,
@@ -501,32 +443,7 @@
             pageNavigatorPrevText: "...",
             invalidMessage: "Invalid data entered!",
 
-            onItemInserting: function (args) {
-            //    args.item["PI_ID"] = Master_Id;
-             
-
-                args.item["action"] = 'I';
-                //if (typeof (history.pushState) != "undefined") {
-
-                //    window.history.pushState( {} , 'PurchaseRequisition', '/PurchaseRequisition/master' );
-                //}
-            },
-            onItemUpdating: function (args) {
-
-
-              
-                args.item["action"] = 'U';
-
-              
-            },
-            onItemDeleting: function (args) {
-
-
-             
-                args.item["action"] = 'D';
-               
-            },
-    
+       
             fields: [
 
 
@@ -535,9 +452,9 @@
                 items: allexpences, valueField: "COA_ID", textField: "COA_Name", valueType: "number",
                 insertTemplate: function () {
 
-                  
+
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
-                    focusChange($insertControl, "transGrid");
+                    focusChange($insertControl, "expGrid");
                     return $insertControl;
 
 
@@ -547,7 +464,7 @@
              {
                  name: "Description", title: "Description", type: "text", width: 50, insertcss: "abc2",
                  validate: "required",
-           
+
 
 
              },
@@ -556,12 +473,12 @@
                 name: "Amount", title: "Amount", type: "text", width: 80, validate: "required", insertcss: "ttl",
                 insertTemplate: function (value) {
                     this.insertControl = $("<input>");
-                    insert_on_enter(this.insertControl, "transGrid");
+                    insert_on_enter(this.insertControl, "expGrid");
                     return this.insertControl;
                 },
 
             },
-   
+
             {
                 type: "control", width: 20, editButton: false,
                 itemTemplate: function (_, item) {
@@ -577,4 +494,25 @@
         });
 
     }
+    $("#create1").click(function (e) {
+        e.preventDefault();
+
+        var data = {};
+        debugger
+        data.Input_products  = inputs;
+        data.Output_products = outputs;
+        data.Account_expences = expences;
+        $.ajax({
+            url: '@Url.Action("Add_Product_Assembly", "product")',
+            type: 'Post',
+            dataType: 'json',
+            data: {
+                c: data
+            },
+            success: function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+            }
+
+        });
+    });
 </script>

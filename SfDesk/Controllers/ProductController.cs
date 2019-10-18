@@ -53,6 +53,13 @@ namespace SfDesk.Models
 
         }
         [HttpPost]
+        public ActionResult Add_Product_Assembly(Recipe c)
+        {
+
+            return PartialView("Add_Product_Assembly", new List<Recipe>());
+
+        }
+        [HttpPost]
         public ActionResult Add(Product c)
         {
             c.Product_Add();
