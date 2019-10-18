@@ -13,7 +13,7 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="1">
-                  
+
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
@@ -38,55 +38,47 @@
 
                                 @Html.Label("Services", htmlAttributes: new { @class = "control-label col-sm-11", @style = " padding-top: 0;  text-align:left" })
                             </div>
-                           
+
                         </div>
                         <div class="col-md-12">
 
+
                             <div class="form-group col-md-3">
-                                @Html.Label("Product Type", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                @Html.Label("Main Category", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
                                 <div class="col-sm-8">
-                                    @Html.HiddenFor(Model => Model.Cat_ID)
-                                    <input type="text" name="Cat_Name" list="Cat_List" id="Cat_Name" class="form-control text-box">
-                                    <datalist id="Cat_List">
+                                    @Html.Hidden("Main_Cat_ID")
+                                    <input type="text" name="Main_Cat_Name" list="Main_Cat_List" id="Main_Cat_Name" class="form-control text-box">
+                                    <datalist id="Main_Cat_List">
 
                                         @foreach (var item in ViewBag.Cat)
                                         {
-                                            <option id="@item.Cat_ID" data-id="@item.Cat_ID" value="@item.Cat_Name"></option>
+                                            <option id="@item.ICM_ID" data-id="@item.ICM_ID" value="@item.ICM_Name"></option>
                                         }
                                     </datalist>
-
-                                    @Html.ValidationMessageFor(model => model.Cat_ID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                @Html.Label("Item Type", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
-                                <div class="col-sm-8">
-                                    @Html.HiddenFor(Model => Model.Cat_ID)
-                                    <input type="text" name="Cat_Name" list="Cat_List" id="Cat_Name" class="form-control text-box">
-                                    <datalist id="Cat_List">
 
-                                        @foreach (var item in ViewBag.Cat)
-                                        {
-                                            <option id="@item.Cat_ID" data-id="@item.Cat_ID" value="@item.Cat_Name"></option>
-                                        }
-                                    </datalist>
-
+                                @Html.LabelFor(model => model.Cat_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.DropDownListFor(model => model.Cat_ID, new SelectList(new List<string>()), htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Cat_ID, "", new { @class = "text-danger" })
                                 </div>
+
                             </div>
                             <div class="form-group col-md-3">
                                 @Html.Label("Product Name", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    @Html.Editor("Product Name", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("Product Name", "", new { @class = "text-danger" })
+                                    @Html.EditorFor(x => x.Item_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(x => x.Item_Name, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
                             <div class="form-group col-md-3">
                                 @Html.Label("Unit Of Measure", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    @Html.Editor("Unit", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("Unit", "", new { @class = "text-danger" })
+                                    @Html.EditorFor(x => x.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(x => x.Unit, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
@@ -95,8 +87,11 @@
                         <div class="col-md-12">
                             <div class="form-group col-md-6">
                                 <div class="col-sm-1">
-                                    @Html.CheckBox("fractional units", false)
-                                    @Html.ValidationMessage("fractional units", "", new { @class = "text-danger" })
+                                    @*@Html.CheckBoxFor(x => x.is_Fractional_Unit)*@
+                                    <input type="checkbox" name="is_Fractional_Unit" value="true" />
+                                    @*@Html.CheckBoxFor(x => x.is_Fractional_Unit, new
+                                    {
+                                        htmlAttributes = new { @class = "form-control" } })*@
                                 </div>
 
                                 @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
@@ -104,8 +99,8 @@
                             <div class="col-lg-12"></div>
                             <div class="form-group col-md-6">
                                 <div class="col-sm-1">
-                                    @Html.CheckBox("calculate product quantity", false)
-                                    @Html.ValidationMessage("calculate product quantity", "", new { @class = "text-danger" })
+                                    <input type="checkbox" name="is_Item_Qty_Cal" value="true" />
+                                    @Html.ValidationMessageFor(x => x.is_Item_Qty_Cal, "", new { @class = "text-danger" })
                                 </div>
 
                                 @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0;  text-align:left" })
@@ -116,8 +111,8 @@
                             <hr />
                             <div class="form-group col-md-6">
                                 <div class="col-sm-1">
-                                    @Html.CheckBox("fractional units", false)
-                                    @Html.ValidationMessage("fractional units", "", new { @class = "text-danger" })
+                                    <input type="checkbox" name="is_Inventory_Track" value="true" />
+                                    @Html.ValidationMessageFor(x => x.is_Inventory_Track, "", new { @class = "text-danger" })
                                 </div>
 
                                 @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Track Inventory", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
@@ -125,8 +120,8 @@
                             <div class="col-lg-12"></div>
                             <div class="form-group col-md-6">
                                 <div class="col-sm-1">
-                                    @Html.CheckBox("calculate product quantity", false)
-                                    @Html.ValidationMessage("calculate product quantity", "", new { @class = "text-danger" })
+                                    <input type="checkbox" name="is_Manage_Batch_Product" value="true" />
+                                    @Html.ValidationMessageFor(x => x.is_Manage_Batch_Product, "", new { @class = "text-danger" })
                                 </div>
 
                                 @Html.Label("Do you sell or purchase in fractional units? (e.g. 0.5 kg, 2.25 lt, etc.)", "Do you manage Batch Product for this Product?", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0;  text-align:left" })
@@ -138,8 +133,8 @@
                             <div class="form-group col-md-6">
                                 @Html.Label("Minimum Stock Level", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
                                 <div class="col-sm-8">
-                                    @Html.Editor("Stock_level", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
+                                    @Html.EditorFor(x => x.Min_Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(x => x.Min_Stock, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
@@ -147,14 +142,11 @@
                             <div class="form-group col-md-6">
                                 @Html.Label("COA", htmlAttributes: new { @class = "control-label col-sm-2", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                    <datalist id="Purchase_Account_List">
-                                        @{
-                                            var ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                        }
+                                    @Html.HiddenFor(x=>x.COA_ID)
+                                    <input type="text" name="COA_Name" list="COA_List" id="COA_Name" class="form-control text-box">
+                                    <datalist id="COA_List">
 
-                                        @foreach (var item in ab)
+                                        @foreach (var item in ViewBag.COA)
                                         {
                                             <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                         }
@@ -165,8 +157,8 @@
                                 </div>
 
                             </div>
-                            <input type="checkbox" id="isPurchase" > Do you purchase this product? <br />
-                        
+                            <input type="checkbox" id="isPurchase"> Do you purchase this product? <br />
+
                         </div>
                         <div class="col-md-12" id="Purchase">
 
@@ -174,64 +166,56 @@
                             <div class="form-group col-md-6">
                                 @Html.Label("Purchase Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
                                 <div class="col-sm-8">
-                                    @Html.Editor("Purchase Price", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("Purchase Price", "", new { @class = "text-danger" })
+                                    @Html.EditorFor(x => x.Purchase.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(x => x.Purchase.Price, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("Purchase Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                <div class="col-sm-8">
+                                    <input id="Purchase.Account_ID" name="Purchase.Account_ID" type="hidden" >
+                                    <input type="text" name="Purchase.Account_Name" list="Purchase.Account_List" id="Purchase.Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase.Account_List">
+                                        @foreach (var item in ViewBag.COA)
+                                    {
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        }
+                                    </datalist>
+                                    @Html.ValidationMessageFor(x => x.Purchase.Account_ID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
                             <div class="form-group col-md-6">
                                 @Html.Label("Purchase Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                    <datalist id="Purchase_Account_List">
-                                        @{
-                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                        }
+                                    @Html.HiddenFor(x => x.Purchase.Discount_Account_ID)
+                                    <input type="text" name="Purchase.Discount_Account_Name" list="Purchase.Discount_Account_List" id="Purchase.Discount_Account_Name" class="form-control text-box">
+                                    <datalist id="Purchase.Discount_Account_List">
 
-                                        @foreach (var item in ab)
-                                        {
-                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
+                                        @foreach (var item in ViewBag.COA)
+                                    {
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                         }
                                     </datalist>
-                                    @Html.ValidationMessage("Purchase Discount Account", "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(x => x.Purchase.Discount_Account_ID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
-                            <div class="form-group col-md-6">
-                                @Html.Label("Purchase Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
-                                <div class="col-sm-8">
-                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                    <datalist id="Purchase_Account_List">
-                                        @{
-                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                        }
-
-                                        @foreach (var item in ab)
-                                        {
-                                            <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
-                                        }
-                                    </datalist>
-                                    @Html.ValidationMessage("Purchase Discount Account", "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-
                             <div class="form-group col-md-6">
                                 @Html.Label("TAX", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    @Html.HiddenFor(Model => Model.P_Tax_ID)
-                                    <input type="text" name="P_Tax_Name" list="P_Tax_List" id="P_Tax_Name" class="form-control text-box">
-                                    <datalist id="P_Tax_List">
+                                    @Html.HiddenFor(Model => Model.Purchase.Tax_ID)
+                                    <input type="text" name="Purchase.Tax_Name" list="Purchase.Tax_List" id="Purchase.Tax_Name" class="form-control text-box">
+                                    <datalist id="Purchase.Tax_List">
 
-                                        @foreach (var item in ViewBag.tax)
-                                        {
+                                        @foreach (var item in ViewBag.Tax)
+                {
                                             <option id="@item.SalesTax_ID" data-id="@item.SalesTax_ID" value="@item.SalesTax_Name"></option>
                                         }
                                     </datalist>
 
-                                    @Html.ValidationMessageFor(model => model.P_Tax_ID, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.Purchase.Tax_ID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
@@ -243,66 +227,58 @@
                         <div class="col-md-12" id="Sale">
                             <hr />
                             <div class="form-group col-md-6">
-                                @Html.Label("sale Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
+                                @Html.Label("Sale Price", htmlAttributes: new { @class = "control-label col-sm-4", @style = " padding: 5px;  text-align:left ;font-weight:bold;" })
                                 <div class="col-sm-8">
-                                    @Html.Editor("sale Price", new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessage("sale Price", "", new { @class = "text-danger" })
+                                    @Html.EditorFor(x => x.Sale.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(x => x.Sale.Price, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
                             <div class="form-group col-md-6">
-                                @Html.Label("sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                @Html.Label("Sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                    <datalist id="Purchase_Account_List">
-                                        @{
-                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                        }
-
-                                        @foreach (var item in ab)
+                                    @Html.HiddenFor(x => x.Sale.Account_ID)
+                                    <input type="text" name="Sale.Account_Name" list="Sale.Account_List" id="Sale.Account_Name" class="form-control text-box">
+                                    <datalist id="Sale.Account_List">
+                                        @foreach (var item in ViewBag.COA)
                                         {
                                             <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                         }
                                     </datalist>
-                                    @Html.ValidationMessage("sale Discount Account", "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(x => x.Sale.Account_ID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
                             <div class="form-group col-md-6">
-                                @Html.Label("sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
+                                @Html.Label("Sale Discount Account", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    <input type="text" name="Purchase_Account_Name" list="Purchase_Account_List" id="Purchase_Account_Name" class="form-control text-box">
-                                    <datalist id="Purchase_Account_List">
-                                        @{
-                                            ab = (List<SfDesk.Models.ChartOfAccount>)Session["COA"];
-                                            ab = ab.FindAll(x => x.Group_ID == 2 || x.Group_ID == 5 || x.Group_ID == 4 || x.Group_ID == 24);
-                                        }
+                                    @Html.HiddenFor(x => x.Sale.Discount_Account_ID)
+                                    <input type="text" name="Sale.Discount_Account_Name" list="Sale.Discount_Account_List" id="Sale.Discount_Account_Name" class="form-control text-box">
+                                    <datalist id="Sale.Discount_Account_List">
 
-                                        @foreach (var item in ab)
+                                        @foreach (var item in ViewBag.COA)
                                         {
                                             <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name">@item.Type_Name-@item.Code</option>
                                         }
-                                    </datalist>   @Html.ValidationMessage("sale Discount Account", "", new { @class = "text-danger" })
+                                    </datalist>
+                                    @Html.ValidationMessageFor(x => x.Sale.Discount_Account_ID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
-
-
                             <div class="form-group col-md-6">
                                 @Html.Label("TAX", htmlAttributes: new { @class = "control-label col-sm-4", @style = "font-weight:bold; padding: 5px;  text-align:left" })
                                 <div class="col-sm-8">
-                                    @Html.HiddenFor(Model => Model.S_Tax_ID)
-                                    <input type="text" name="S_Tax_Name" list="S_Tax_List" id="S_Tax_Name" class="form-control text-box">
-                                    <datalist id="S_Tax_List">
+                                    @Html.HiddenFor(Model => Model.Sale.Tax_ID)
+                                    <input type="text" name="Sale.Tax_Name" list="Sale.Tax_List" id="Sale.Tax_Name" class="form-control text-box">
+                                    <datalist id="Sale.Tax_List">
 
-                                        @foreach (var item in ViewBag.tax)
-                                        {
+                                        @foreach (var item in ViewBag.Tax)
+                {
                                             <option id="@item.SalesTax_ID" data-id="@item.SalesTax_ID" value="@item.SalesTax_Name"></option>
                                         }
                                     </datalist>
 
-                                    @Html.ValidationMessageFor(model => model.S_Tax_ID, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.Sale.Tax_ID, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
@@ -319,89 +295,131 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="ta2">
-               
-               </div>
-   
+
+            </div>
+
         </div>
     </div>
 </div>
 @section scripts{
-<script src="~/assets/js/jsgrid.min.js"></script>
-<script src="~/assets/js/TypableDropdown.js"></script>
-<script src="~/assets/js/db.js"></script>
-<script>
-       function detail()
-    {
-        $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#ta2").html(data); });
-
-       }
-    var isAssembled = false;
-    $(document).ready(function () {
-        $("#Sale").hide('slow');
-        $("#Purchase").hide('slow');
-        $("#AP").hide('slow');
-        $('#isSale').change(function () {
-
-
-            $("#Sale").toggle('slow')
-
-        });
-        $('#isPurchase').change(function () {
-
-
-            $("#Purchase").toggle('slow')
-
-        });
-        $('#Cat_Name').change(function () {
-            if (this.value == 'Packaging') {
-
-                isAssembled = true
-
-            }
-            else {
-                $("#AP").hide('slow');
-                isAssembled = false
-            }
-        });
-      
-
-    });
-    $("#create").click(function (e) {
-        e.preventDefault();
-        if (isAssembled) {
-            $("#AP").show('slow');
-            detail();
-            $('a[href="#ta2"]').click();
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script src="~/assets/js/TypableDropdown.js"></script>
+    <script src="~/assets/js/db.js"></script>
+    <script>
+        function detail() {
+            $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#ta2").html(data); });
 
         }
-        var data = {};
+        var isAssembled = false;
+        $(document).ready(function () {
+            $('#Main_Cat_Name').on("change", populate);
+            Typable_Dropdown('COA');
+            Typable_Dropdown('Purchase\\.Account');
+            Typable_Dropdown('Purchase\\.Discount_Account');
+            Typable_Dropdown('Purchase\\.Tax');
+            Typable_Dropdown('Sale\\.Account');
+            Typable_Dropdown('Sale\\.Discount_Account');
+            Typable_Dropdown('Sale\\.Tax');
+          
 
-        $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-        debugger
-        //data.Q_Details = arr;
-        //data.Q_Charges = mytrans;
-        //data.Q_Taxs = Mytax;
-        //data.Total = grand_total;
-        $.ajax({
-            url: '@Url.Action("master")',
-            type: 'Post',
-            dataType: 'json',
-            data: {
-                c: data
-            },
-            success: function (data) {
-                //window.location.href = '//Url.Action("ShowAll", "Quotation")';
-                if (isAssembled) {
-                    details();
-                    $( ".custom-tab" ).tabs({ active: 'ta2' });
+           
+
+            $("#Sale").hide('slow');
+            $("#Purchase").hide('slow');
+            $("#AP").hide('slow');
+            $('#isSale').change(function () {
+
+
+                $("#Sale").toggle('slow')
+
+            });
+            $('#isPurchase').change(function () {
+
+
+                $("#Purchase").toggle('slow')
+
+            });
+            $('#Cat_Name').change(function () {
+                if (this.value == 'Packaging') {
+
+                    isAssembled = true
 
                 }
-            }
+                else {
+                    $("#AP").hide('slow');
+                    isAssembled = false
+                }
+            });
+
 
         });
-    });
+        $("#create").click(function (e) {
+            e.preventDefault();
+            if (isAssembled) {
+                $("#AP").show('slow');
+                detail();
+                $('a[href="#ta2"]').click();
 
+            }
+            var data = {};
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
+            //data.Q_Details = arr;
+            //data.Q_Charges = mytrans;
+            //data.Q_Taxs = Mytax;
+            //data.Total = grand_total;
+            $.ajax({
+                url: '@Url.Action("AddProduct")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    i: data
+                },
+                success: function (data) {
+                    //window.location.href = '//Url.Action("ShowAll", "Quotation")';
+                    if (isAssembled) {
+                        details();
+                        $(".custom-tab").tabs({ active: 'ta2' });
 
+                    }
+                }
 
-</script>
+            });
+        });
+
+        function populate() {
+            debugger;
+            var value = $('#Main_Cat_Name').val();
+            var name = "#Main_Cat_List";
+            name = name + " option[value='" + value + "']";
+            value = $(name).data('id');
+            $('#Main_Cat_ID').val(value);
+            id = $('#Main_Cat_ID').val()
+
+            $.ajax({
+                url: '/Product/Category_Get_By_Main_Cat',
+                type: 'GET',
+                dataType: 'json',
+                data: { id: id },
+                success: function (d) {
+                    debugger;
+                    var ddlState = $('#Cat_ID');
+                    ddlState.empty();
+                    $("#Cat_ID").prepend("<option value='' ></option>");// Clear the please wait
+                    $.each(d, function (i, states) {
+
+                        if ($('#Cat_ID').val() == states.Cat_ID) {
+
+                            ddlState.append($("<option selected='selected'></option>").val(states.V_ID).html(states.Cat_Name));
+                        }
+                        else {
+                            ddlState.append($("<option></option>").val(states.Cat_ID).html(states.Cat_Name));
+                        }
+                    });
+                }
+            });
+        }
+
+   
+    </script>
 }

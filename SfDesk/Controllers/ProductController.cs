@@ -25,12 +25,16 @@ namespace SfDesk.Models
         {
             ViewBag.Tax = new SalesTax().SalesTax_Get_All();
             ViewBag.Cat = new Item_Category_Main().Item_Category_Main_Get_All(App.App_ID);
+            ViewBag.COA = new ChartOfAccount().COA_Get_All();
             return View();
         }
         [HttpPost]
         public ActionResult AddProduct(Item i)
         {
-            ViewBag.Cat = new Item_Category().Item_Category_Get_All(App.App_ID);
+            i.Item_Add(App.App_ID);
+            ViewBag.Tax = new SalesTax().SalesTax_Get_All();
+            ViewBag.Cat = new Item_Category_Main().Item_Category_Main_Get_All(App.App_ID);
+            ViewBag.COA = new ChartOfAccount().COA_Get_All();
             return View();
         }
         public ActionResult COA_Get_All()
@@ -69,7 +73,11 @@ namespace SfDesk.Models
             new Product() { P_ID = id }.Product_Delete();
             return RedirectToAction("index");
         }
+        public ActionResult Category_Get_By_Main_Cat(int id)
+        {
+            return Json(new Item_Category() { M_Cat_ID= id }.Item_Category_Get_By_Main_Cat(App.App_ID), JsonRequestBehavior.AllowGet);
 
+        }
 
     }
 }
