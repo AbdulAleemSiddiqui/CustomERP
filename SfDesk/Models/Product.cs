@@ -71,7 +71,7 @@ namespace SfDesk.Models
         public void Product_Add()
         {
             SqlCommand sc = new SqlCommand("Product_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@P_Name", P_Name);
+            sc.Parameters.AddWithValue("@Item_Name", P_Name);
             sc.Parameters.AddWithValue("@Machine_Ip", Machine_Ip);
             sc.Parameters.AddWithValue("@Mac_Address", Mac_Address);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
@@ -81,15 +81,15 @@ namespace SfDesk.Models
         public void Product_Update()
         {
             SqlCommand sc = new SqlCommand("Product_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@P_ID", P_ID);
-            sc.Parameters.AddWithValue("@P_Name", P_Name);
+            sc.Parameters.AddWithValue("@Item_ID", P_ID);
+            sc.Parameters.AddWithValue("@Item_Name", P_Name);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }
         public void Product_Delete()
         {
             SqlCommand sc = new SqlCommand("Product_Delete", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@P_ID", P_ID);
+            sc.Parameters.AddWithValue("@Item_ID", P_ID);
             sc.Parameters.AddWithValue("@CreatedBy", App.App_ID);
             sc.ExecuteNonQuery();
         }

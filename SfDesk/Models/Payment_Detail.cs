@@ -92,9 +92,9 @@ namespace SfDesk.Models
             {
                 Payment_Detail u = new Payment_Detail();
                 u.PD_ID = (int)sdr["PD_ID"];
-                u.P_ID = (int)sdr["P_ID"];
+                u.P_ID = (int)sdr["Item_ID"];
                 //u.PI_ID = (int)sdr["PI_ID"];
-                //u.P_Name = (string)sdr["P_Name "];
+                //u.Item_Name = (string)sdr["Item_Name "];
                 u.Amount = (decimal)sdr["Amount"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
@@ -116,9 +116,9 @@ namespace SfDesk.Models
             while (sdr.Read())
             {
                 u.PD_ID = (int)sdr["PD_ID"];
-                u.P_ID = (int)sdr["P_ID"];
+                u.P_ID = (int)sdr["Item_ID"];
                 //u.PI_ID = (int)sdr["PI_ID"];
-                //u.P_Name = (string)sdr["P_Name "];
+                //u.Item_Name = (string)sdr["Item_Name "];
                 u.Amount = (decimal)sdr["Amount"];
 
                 u.Created_By = (int)sdr["CreatedBy"];
@@ -133,7 +133,7 @@ namespace SfDesk.Models
         public void Payment_Detail_Add()
         {
             SqlCommand sc = new SqlCommand("Payment_Detail_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
-            sc.Parameters.AddWithValue("@P_ID", P_ID);
+            sc.Parameters.AddWithValue("@Item_ID", P_ID);
             //sc.Parameters.AddWithValue("@PI_ID", PI_ID);
             sc.Parameters.AddWithValue("@Amount", Amount);
 

@@ -44,7 +44,7 @@ namespace SfDesk.Models
                 Payment_Mode u = new Payment_Mode();
                 u.PM_ID = (int)sdr["PM_ID"];
                 u.PaymentMode  = (string)sdr["PaymentMode "];
-                u.P_ID = (int)sdr["P_ID"];
+                u.P_ID = (int)sdr["Item_ID"];
                 u.Account_ID = (int)sdr["Account_ID"];
                 u.Account_Name = (string)sdr["Account_Name"];
                 u.Description  = (string)sdr["Description "];
@@ -70,7 +70,7 @@ namespace SfDesk.Models
             {
                 u.PM_ID = (int)sdr["PM_ID"];
                 u.PaymentMode  = (string)sdr["PaymentMode "];
-                u.P_ID = (int)sdr["P_ID"];
+                u.P_ID = (int)sdr["Item_ID"];
                 u.Account_ID = (int)sdr["Account_ID"];
                 u.Account_Name = (string)sdr["Account_Name"];
                 u.Description  = (string)sdr["Description "];
@@ -89,7 +89,7 @@ namespace SfDesk.Models
         {
             SqlCommand sc = new SqlCommand("Payment_Mode_Add", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PaymentMode ", PaymentMode );
-            sc.Parameters.AddWithValue("@P_ID", P_ID);
+            sc.Parameters.AddWithValue("@Item_ID", P_ID);
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
             sc.Parameters.AddWithValue("@Description ", Description );
             sc.Parameters.AddWithValue("@CheckNo", CheckNo);
@@ -105,7 +105,7 @@ namespace SfDesk.Models
             SqlCommand sc = new SqlCommand("Payment_Mode_Update", Connection.GetConnection()) { CommandType = System.Data.CommandType.StoredProcedure }; ;
             sc.Parameters.AddWithValue("@PM_ID", PM_ID);
             sc.Parameters.AddWithValue("@PaymentMode ", PaymentMode );
-            sc.Parameters.AddWithValue("@P_ID", P_ID);
+            sc.Parameters.AddWithValue("@Item_ID", P_ID);
             sc.Parameters.AddWithValue("@Account_ID", Account_ID);
             sc.Parameters.AddWithValue("@Account_Name", Account_Name);
             sc.Parameters.AddWithValue("@Description ", Description );

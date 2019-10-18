@@ -48,13 +48,13 @@ namespace SfDesk.Controllers
         {
             // foreach (var item in p.mode)
             //{
-            //    item.P_ID = p.id;
+            //    item.Item_ID = p.id;
 
             //    item.Receipt_Mode_Add();
             //}
             //foreach (var item in p.detail)
             //{
-            //    item.P_ID = p.id;
+            //    item.Item_ID = p.id;
             //    item.ReceiptDetails_Add();
             //}
             return PartialView("detail");

@@ -300,7 +300,7 @@
     <Compile Include="Models\PR.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
-    <Compile Include="Models\Product_Assembly.cs" />
+    <Compile Include="Models\Item_Assembly.cs" />
     <Compile Include="Models\PR_Detail.cs" />
     <Compile Include="Models\PurchaseInventory.cs" />
     <Compile Include="Models\Purchase_Type.cs" />
@@ -314,7 +314,6 @@
     <Compile Include="Models\ReceiptDetails.cs" />
     <Compile Include="Models\Receipt_Settlement.cs" />
     <Compile Include="Models\Receipt_Tax_adjustment.cs" />
-    <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecurringInvoice.cs" />
     <Compile Include="Models\ReturnGrn.cs" />
     <Compile Include="Models\ReturnGrnDetails.cs" />

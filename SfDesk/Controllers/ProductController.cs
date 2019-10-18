@@ -13,7 +13,7 @@ namespace SfDesk.Models
         // GET: Product
         public ActionResult Index()
         {
-            return View(new Product().Product_Get_All());
+            return View(new Item().Item_Get_All(App.App_ID));
         }
         [HttpGet]
         public ActionResult Add()
@@ -49,7 +49,7 @@ namespace SfDesk.Models
         public ActionResult Add_Product_Assembly()
         {
 
-            return PartialView("Add_Product_Assembly", new List<Product_Assembly>());
+            return PartialView("Add_Product_Assembly", new List<Recipe>());
 
         }
         [HttpPost]
