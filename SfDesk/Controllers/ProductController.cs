@@ -55,7 +55,7 @@ namespace SfDesk.Models
         [HttpPost]
         public ActionResult Add_Product_Assembly(Recipe c)
         {
-
+            c.Recipe_Add(App.App_ID);
             return PartialView("Add_Product_Assembly", new List<Recipe>());
 
         }

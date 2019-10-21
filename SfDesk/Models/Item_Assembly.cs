@@ -27,8 +27,10 @@ namespace SfDesk.Models
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; 
-                string Message = DataBase.ExecuteQuery<Recipe>(new { x = this }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                this.CreatedBy = UserId;
+                Account_expences = Account_expences==null ?new List<Recipe_Expense>(): Account_expences;
+
+                string Message = DataBase.ExecuteQuery<Recipe>(new { x = Input_products,x1=Output_products,x3=Account_expences,x4=UserId }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
                 return Message;
@@ -103,10 +105,11 @@ namespace SfDesk.Models
     {
         [TVP]
         public int RD_ID { get; set; }
-        [TVP]
-        public int Item_ID { get; set; }
+
         [TVP]
         public int R_ID { get; set; }
+        [TVP]
+        public int Item_ID { get; set; }
         [TVP]
         public string Description { get; set; }
         [TVP]
@@ -207,6 +210,10 @@ namespace SfDesk.Models
     {
         private const string Module = "";
 
+        [TVP]
+        public int RE_ID { get; set; }
+        [TVP]
+        public int R_ID { get; set; }
         [TVP]
         public int COA_ID { get; set; }
         public string COA_Name { get; set; }
