@@ -1,0 +1,555 @@
+﻿@model SfDesk.Models.WorkOrder
+@{ 
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+
+}
+<link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
+<link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
+<style>
+    .total-row td {
+        border-top: 2px solid #efefef;
+    }
+</style>
+    <div class="card alert">
+        <div class="card-header">
+            <div class="card-body">
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                        <div class="form-group">
+    @Html.LabelFor(model => model.WO_ID, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="col-md-5">
+        @Html.EditorFor(model => model.WO_ID, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.WO_ID, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.WO_NO, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.WO_NO, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.WO_NO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Due_Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Due_Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Due_Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+</div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Reference, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.EditorFor(model => model.Reference, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p><b>Input</b></p>
+                    <div class="jsgrid-table-panel">
+                        <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
+                        <br />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="col-sm-1">
+                            @Html.CheckBox("Account", false)
+                            @Html.ValidationMessage("Account Expenses (Optional)", "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.Label("Account Expenses (Optional)", "Account Expenses (Optional)", htmlAttributes: new { @class = "col-sm-11", @style = " padding: 0px; text-align:left" })
+                    </div>
+                    <div class="jsgrid-table-panel">
+                        <div id="expGrid" class="table table-striped table-bordered dataTable no-footer"></div>
+                        <br />
+                        <hr />
+                    </div>
+                    <p><hr /><b>Output</b></p>
+                    <div class="jsgrid-table-panel">
+                        <div id="Grid" class="table table-striped table-bordered dataTable no-footer"></div>
+                        <br />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12" style="padding:15px">
+                            <br />
+                            <input type="button" id="create1" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+}
+            </div>
+            <!-- /# card -->
+        </div>
+        <!-- /# column -->
+    </div>
+@section scripts{
+<script src="~/assets/js/TypableDropdown.js"></script>
+<script src="~/assets/js/jsgrid.min.js"></script>
+
+<script>
+    var expences = []
+    var allexpences=[]
+    var inputs = []
+    var outputs = []
+   var items = []
+   $(document).ready(function () {
+       $("#expGrid").hide('slow');
+       $('#Account').change(function () {
+
+
+           $("#expGrid").toggle('slow')
+
+       });
+        loadData();
+     //   clients = arr
+    })
+    function newRow(id) {
+        $("#" + id).jsGrid({ inserting: true });
+
+        var tr = $("#" + id + " .jsgrid-insert-row").closest("tr");
+        //if (id === "jsGrid") {
+        //    var disble = tr.find("td:eq(7)")
+        //    var txtdisabled = disble.find("input:eq(0)").attr("disabled", "disabled");
+        //}
+        var td = tr.find("td:eq(0)")
+
+
+
+        inout = td.find("select:eq(0)")
+        if (id === "jsgrid")
+            var inout = td.find("input:eq(0)")
+        var last = $(tr).find('td:last').html('')
+        $(inout).select().focus();
+    } // // isme change he
+    function insert_on_enter(field, id) {
+
+        field.on("keydown", function (e) {
+
+
+            if (e.keyCode === 13 || e.keyCode === 9) {
+                $("#" + id).jsGrid("insertItem").done(function () {
+                    $("#" + id).jsGrid("clearInsert");
+                    newRow(id)
+                });
+                return false;
+            }
+        });
+    }  // isme change he
+    function update_on_enter(field, id) {
+        field.on("keydown", function (e) {
+            if (e.keyCode === 13) {
+                $("#" + id).jsGrid("updateItem");
+                return false;
+            }
+            else if (e.keyCode === 27) {
+
+                $("#" + id).jsGrid("cancelEdit");
+                return false;
+            }
+        });
+    }  // isme change he
+    function focusChange(field, id) {
+
+        field.on("keydown", function (e) {
+            if ((field.val() === "") && (e.keyCode === 13 || e.keyCode === 9)) {
+                if (id === "jsGrid") {
+                    newRow("transGrid")
+                }
+                else if (id === "transGrid") {
+                    newRow("Grid")
+
+                }
+                else {
+                    $("#create").focus()
+                }
+                return false;
+            }
+        });
+    }
+    function loadData() {
+        $.ajax({
+            type: "GET",
+            url: "Product_Get_All",
+
+            dataType: "json",
+            success: function (d) {
+                debugger
+                items = d
+                my()
+                tax()
+              //  trans()
+                newRow("jsGrid")
+                newRow("Grid")
+            }
+
+        });
+        $.ajax({
+            type: "GET",
+            url: "COA_Get_All",
+
+            dataType: "json",
+            success: function (d) {
+                debugger
+                allexpences = d
+
+                trans()
+
+                newRow("expGrid")
+            }
+        });
+
+    }
+    function my(){
+        $("#jsGrid").jsGrid({
+
+            height: "auto",
+            width: "100%",
+            filtering: false,
+            editing: true,
+            inserting: false,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 15,
+            pageButtonCount: 5,
+            deleteConfirm: "Do you rete the client?",
+            data: inputs,
+            pagerContainer: null,
+            pageIndex: 1,
+            pageSize: 20,
+            pageButtonCount: 15,
+            pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+            pagePrevText: "Prev",
+            pageNextText: "Next",
+            pageFirstText: "First",
+            pageLastText: "Last",
+            pageNavigatorNextText: "...",
+            pageNavigatorPrevText: "...",
+            invalidMessage: "Invalid data entered!",
+
+
+            onItemInserting: function (args) {
+
+                args.item["Flag"] = 'I';
+
+
+            },
+            onItemUpdating: function (args) {
+                args.item["Flag"] = 'I';
+
+
+
+
+            },
+
+            fields: [
+            {
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                insertTemplate: function (value) {
+                var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
+                var th= this;
+
+               focusChange($insertControl,"jsGrid");
+                return this.insertControl;
+            },
+            editTemplate: function (args) {
+                var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                var th = this;
+
+                update_on_enter( $editControl,"jsGrid");
+
+                return $editControl;
+            }, },
+            {
+                name: "Description", title: "Description", type: "text", width: 80, validate: "required",
+                editTemplate: function (args) {
+                var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this,args);
+                update_on_enter( $editControl,"jsGrid");
+
+                return $editControl;
+                },
+            },
+            {
+                name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
+                insertTemplate: function () {
+                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                    var th = this;
+                    insert_on_enter($insertControl, "jsGrid");
+                    return $insertControl;
+                },
+                editTemplate: function (args) {
+                    var th = this;
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    $editControl.on("keyup change", function () {
+
+
+
+                    });
+                    update_on_enter( $editControl,"jsGrid");
+
+                    return $editControl;
+                },
+            },
+            { type: "control",
+                editButton : false,
+                itemTemplate: function(_, item) {
+                    if(item.IsTotal)
+                        return "";
+                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                }}
+            ]
+        });
+
+    };
+    function tax() {
+        $("#Grid").jsGrid({
+            height: "auto",
+            width: "100%",
+            filtering: false,
+            editing: true,
+            inserting: false,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 15,
+            pageButtonCount: 5,
+            deleteConfirm: "Do you rete the client?",
+            data: outputs,
+            pagerContainer: null,
+            pageIndex: 1,
+            pageSize: 20,
+            pageButtonCount: 15,
+            pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+            pagePrevText: "Prev",
+            pageNextText: "Next",
+            pageFirstText: "First",
+            pageLastText: "Last",
+            pageNavigatorNextText: "...",
+            pageNavigatorPrevText: "...",
+            invalidMessage: "Invalid data entered!",
+            onRefreshed: function (args) {
+
+
+            },
+
+            onItemInserting: function (args) {
+
+
+                args.item["Flag"] = 'O';
+            },
+            onItemUpdating: function (args) {
+                args.item["Flag"] = 'O';
+
+
+
+            },
+
+            fields: [
+            {
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                insertTemplate: function (value) {
+                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                    var th = this;
+
+                    focusChange($insertControl, "Grid");
+                    return this.insertControl;
+                },
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                    var th = this;
+
+                    update_on_enter($editControl, "Grid");
+
+                    return $editControl;
+                },
+            },
+            {
+                name: "Description", title: "Description", type: "text", width: 80, validate: "required",
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    update_on_enter($editControl, "Grid");
+
+                    return $editControl;
+                },
+            },
+            {
+                name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
+                insertTemplate: function () {
+                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                    var th = this;
+                    insert_on_enter($insertControl, "Grid");
+                    return $insertControl;
+                },
+                editTemplate: function (args) {
+                    var th = this;
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    $editControl.on("keyup change", function () {
+
+
+
+                    });
+                    update_on_enter($editControl, "Grid");
+
+                    return $editControl;
+                },
+            },
+            {
+                type: "control",
+                editButton: false,
+                itemTemplate: function (_, item) {
+                    if (item.IsTotal)
+                        return "";
+                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                }
+            }
+            ]
+        });
+
+    }
+    var selectedDepartment1;
+    var isMM = false;
+    var isT = false;
+    var mytrans = []
+    function trans() {
+
+        $("#expGrid").jsGrid({
+
+            height: "auto",
+            width: "100%",
+            filtering: false,
+            editing: false,
+            inserting: false,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 15,
+            pageButtonCount: 5,
+            deleteConfirm: "confirm",
+            data: expences,
+
+            pagerContainer: null,
+            pageIndex: 1,
+            pageSize: 20,
+            pageButtonCount: 15,
+            pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+            pagePrevText: "Prev",
+            pageNextText: "Next",
+            pageFirstText: "First",
+            pageLastText: "Last",
+            pageNavigatorNextText: "...",
+            pageNavigatorPrevText: "...",
+            invalidMessage: "Invalid data entered!",
+
+
+            fields: [
+
+
+            {
+                name: "COA_ID", title: "Account", type: "select", width: 100, validate: "required",
+                items: allexpences, valueField: "COA_ID", textField: "COA_Name", valueType: "number",
+                insertTemplate: function () {
+
+
+                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
+                    focusChange($insertControl, "expGrid");
+                    return $insertControl;
+
+
+
+                },
+            },
+             {
+                 name: "Description", title: "Description", type: "text", width: 50, insertcss: "abc2",
+                 validate: "required",
+
+
+
+             },
+
+            {
+                name: "Amount", title: "Amount", type: "text", width: 80, validate: "required", insertcss: "ttl",
+                insertTemplate: function (value) {
+                    this.insertControl = $("<input>");
+                    insert_on_enter(this.insertControl, "expGrid");
+                    return this.insertControl;
+                },
+
+            },
+
+            {
+                type: "control", width: 20, editButton: false,
+                itemTemplate: function (_, item) {
+
+                    if (item.IsTotal)
+                        return "";
+                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                }
+            }
+
+            ]
+
+        });
+
+    }
+    $("#create1").click(function (e) {
+        e.preventDefault();
+
+        var data = {};
+        $("form").serializeArray().map(function (x) { data[x.name] = x.value; });
+
+        data.Input_products  = inputs;
+        data.Output_products = outputs;
+        data.Account_expences = expences;
+        $.ajax({
+            url: '@Url.Action("master", "workorder")',
+            type: 'Post',
+            dataType: 'json',
+            data: {
+                c: data
+            },
+            success: function (data) {
+                window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+            }
+
+        });
+    });
+</script>
+}
