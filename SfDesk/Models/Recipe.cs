@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -43,24 +44,28 @@ namespace SfDesk.Models
             }
         }
 
-        public Recipe Recipe_Get_By_Id(int Id, int UserId)
+        public int Get_Recipe_By_Item( int item_Id,int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
-                this.CreatedBy = UserId; 
-                Recipe ret = DataBase.ExecuteQuery<Recipe>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                this.CreatedBy = UserId;
+                SqlCommand query = new SqlCommand("SELECT dbo.Get_Recipe_By_Item(@"+item_Id+")",Connection.GetConnection());
+                int R_ID = (int)query.ExecuteScalar();
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
-                return ret;
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = item_Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return R_ID;
             }
             catch (Exception ex)
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
-                return null;
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = item_Id }, "", Module, Connection.GetLogConnection(), UserId);
+                return 0;
             }
         }
+
+
+
 
         public List<Recipe> Recipe_Get_All(int UserId)
         {
@@ -120,7 +125,7 @@ namespace SfDesk.Models
         private const string Module = "";
 
         //Your Properties for Model Here
-
+        public string Item_Name { get; set; }
 
         [TVP]
         public int CreatedBy { get; set; }
@@ -146,21 +151,39 @@ namespace SfDesk.Models
             }
         }
 
-        public Recipe_Detail Recipe_Detail_Get_By_Id(int Id, int UserId)
+        public List<Recipe_Detail> Recipe_Input_Get_By_ID(int id, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                Recipe_Detail ret = DataBase.ExecuteQuery<Recipe_Detail>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                List<Recipe_Detail> ret = DataBase.ExecuteQuery<Recipe_Detail>(new { x = id,x1=UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
             }
             catch (Exception ex)
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
+                return null;
+            }
+        }
+        public List<Recipe_Detail> Recipe_Output_Get_By_ID(int id, int UserId)
+        {
+            try
+            {
+                //place your Model Logic and DB Calls here:
+                this.CreatedBy = UserId; 
+                List<Recipe_Detail> ret = DataBase.ExecuteQuery<Recipe_Detail>(new { x = id, x1 = UserId }, Connection.GetConnection()) ;
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return null;
             }
         }
@@ -249,21 +272,21 @@ namespace SfDesk.Models
             }
         }
 
-        public Recipe_Expense Recipe_Expense_GetById(int Id, int UserId)
+        public List<Recipe_Expense> Recipe_Expense_Get_By_ID(int id, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                Recipe_Expense ret = DataBase.ExecuteQuery<Recipe_Expense>(new { x = Id }, Connection.GetConnection()).FirstOrDefault();
+                List<Recipe_Expense> ret = DataBase.ExecuteQuery<Recipe_Expense>(new { x = id,x1=UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
             }
             catch (Exception ex)
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
-                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = Id }, "", Module, Connection.GetLogConnection(), UserId);
+                Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return null;
             }
         }
