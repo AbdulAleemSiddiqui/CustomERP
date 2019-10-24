@@ -16,6 +16,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Master()
         {
+            ViewBag.Item = new Item().Item_Get_All(App.App_ID);
             return View();
         }
         [HttpPost]

@@ -221,6 +221,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GDNController.cs" />
     <Compile Include="Controllers\GRNController.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\Form_Actions.cs" />
     <Compile Include="Models\GDN.cs" />
@@ -967,6 +969,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="Images\PI_Images\" />
+    <Folder Include="Views\Expense\" />
     <Folder Include="Views\SalesReturnInvoicwe\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>
