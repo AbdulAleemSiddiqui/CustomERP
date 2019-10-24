@@ -14,9 +14,9 @@ namespace SfDesk.Models
         public double Total { get; set; }
         public int Quantity { get; set; }
         public string  Reference { get; set; }
-        public List<Recipe_Detail> Input_products { get; set; }
-        public List<Recipe_Detail> Output_products { get; set; }
-        public List<Recipe_Expense> Account_expences { get; set; }
+        public List<WO_Detail> Input_products { get; set; }
+        public List<WO_Detail> Output_products { get; set; }
+        public List<WO_Expense> Account_expences { get; set; }
     }
     public class WO_Detail
     {
