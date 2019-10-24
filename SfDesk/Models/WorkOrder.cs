@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,7 +11,13 @@ namespace SfDesk.Models
     {
         public int WO_ID { get; set; }
         public string WO_NO { get; set; }
+        public int Item_ID { get; set; }
+        public int Item_Name { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayName("Date")]
         public DateTime Date { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; }
         public double Total { get; set; }
         public int Quantity { get; set; }
