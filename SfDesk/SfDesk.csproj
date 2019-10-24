@@ -964,12 +964,13 @@
     <Content Include="Views\Product\Add_Product_Assembly.cshtml" />
     <Content Include="Views\GDN\ShowAll.cshtml" />
     <Content Include="Views\WorkOrder\Master.cshtml" />
+    <Content Include="Views\Expense\Master.cshtml" />
+    <Content Include="Views\Expense\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="Images\PI_Images\" />
-    <Folder Include="Views\Expense\" />
     <Folder Include="Views\SalesReturnInvoicwe\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>

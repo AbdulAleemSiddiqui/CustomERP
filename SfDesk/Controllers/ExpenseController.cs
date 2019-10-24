@@ -16,6 +16,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Master()
         {
+            ViewBag.COA = new ChartOfAccount().COA_Get_All();
             return View();
         }
         public ActionResult Detail()

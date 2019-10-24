@@ -10,10 +10,12 @@ namespace SfDesk.Models
     {
         public int Ex_ID { get; set; }
         public string Ex_NO { get; set; }
+        public int COA_ID { get; set; }
+        public string COA_Name { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         public string Contact { get; set; }
-        [DataType(DataType.MultilineText)]
+        
         public string Reference { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comment { get; set; }

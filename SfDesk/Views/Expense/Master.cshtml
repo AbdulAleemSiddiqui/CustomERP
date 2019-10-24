@@ -1,0 +1,200 @@
+﻿@model SfDesk.Models.Expense
+
+@{
+    ViewBag.Title = "Master";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+
+<h2>Master</h2>
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                  
+                    <hr />
+                    @Html.HiddenFor(model => model.Ex_ID, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-lg-12">
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.COA_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.HiddenFor(Model => Model.COA_ID)
+                                <input type="text" name="COA_Name" list="COA_List" id="COA_Name" class="form-control text-box">
+                                <datalist id="COA_List">
+
+                                    @foreach (var item in ViewBag.COA)
+                                    {
+                                        <option id="@item.COA_ID" data-id="@item.COA_ID" value="@item.COA_Name"></option>
+                                    }
+                                </datalist>
+
+                                @Html.ValidationMessageFor(model => model.COA_ID, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.Ex_NO, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Ex_NO, new { htmlAttributes = new { @class = "form-control", @disable = "disable" } })
+                                @Html.ValidationMessageFor(model => model.Ex_NO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.Reference, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Reference, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="child"></div>
+                    <div class="col-md-8">
+                    <div class="form-group ">
+    @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Attachment, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Attachment, "", new { @class = "text-danger" })
+    </div>
+</div></div>
+                
+                        <div class="col-lg-4">
+                            <label class="col-lg-4 col-form-label label-font" for="grossAmount">Gross</label>
+                                <div class="col-lg-8 input-group input-group-sm">
+                                    <label class="col-form-label label-font" for="grossAmount" id="grossAmount" style="float:right">0.00</label>
+                                    
+                                </div>
+                        
+                            
+                            <label class="col-lg-4 col-form-label label-font" for="taxAmount">Tax</label>
+                            <div class="col-lg-8 input-group input-group-sm">
+                                <label class="col-form-label label-font" for="taxAmount" id="taxAmount" style="float:right">0.00</label>
+
+                                </div>
+                            
+                                <label class="col-lg-4 col-form-label net-amount" for="netAmount">Net (<span currency-symbol="">PKR</span>)</label>
+                            <div class="col-lg-8 input-group input-group-sm">
+                                <label class="col-form-label label-font" for="netAmount" id="netAmount" style="float:right">0.00</label>
+                                </div>
+                           
+                        </div>
+                
+                   
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@section scripts
+{
+
+    <script src="~/assets/js/TypableDropdown.js"></script>
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script>
+        $(window).load(function () {
+
+            detail()
+       
+                DropDown_Fill("COA");
+           
+            
+
+        });
+        $(document).ready(function () {   // Help for the HTML4 version.
+            //$('.tbDate').prop("readonly", true);
+            //$('.tbDate').datepicker()
+
+            //var today = new Date();
+            //var dd = String(today.getDate()).padStart(2, '0');
+            //var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            //var yyyy = today.getFullYear();
+
+            //today = mm + '/' + dd + '/' + yyyy;
+            //$('#AD').val(today);
+
+
+
+
+            Typable_Dropdown('COA');
+           
+          
+
+
+
+        });
+
+        $("#create").click(function (e) {
+            e.preventDefault();
+
+            var data = {};
+
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
+            data.so_Details = arr;
+            data.SO_Charges = mytrans;
+            data.SO_Taxs = Mytax
+            data.Total = grand_total;
+
+            $.ajax({
+                url: '@Url.Action("master", "SaleOrder")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "SaleOrder")';
+                }
+
+            });
+        });
+
+
+
+        /*ye master ka he*/
+        function detail() {
+
+            $.get('@Url.Action("detail", "expense")', function (data) { $("#child").html(data); });
+            $("#done").hide()
+            debugger;
+
+        };
+  </script>
+   }
