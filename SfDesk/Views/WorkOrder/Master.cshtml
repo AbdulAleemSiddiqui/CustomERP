@@ -26,7 +26,7 @@
                     <div class="col-lg-12">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                @Html.Label("COA", htmlAttributes: new { @class = "control-label col-sm-4" })
+                                @Html.Label("Item", htmlAttributes: new { @class = "control-label col-sm-4" })
                                 <div class="col-sm-5">
                                     @Html.HiddenFor(x => x.Item_ID)
                                     <input type="text" name="Item_Name" list="Item_List" id="Item_Name" class="form-control text-box">
@@ -546,6 +546,34 @@
         });
 
     }
+    $("#Item_Name").on("change",function(){
+        var value = $('#Item_Name').val();
+        var name = "#Item_List";
+        name = name + " option[value='" + value + "']";
+        value = $(name).data('id');
+        $('#Item_ID').val(value);
+       var id = $('#Item_ID').val()
+        debugger;
+        $.ajax({
+            type: "GET",
+            url: "Recipe_Get_By_Item",
+            data: { Item_ID: id },
+            dataType: "json",
+            success: function (data) {
+                debugger
+                inputs=data.Input_products;
+                outputs=data.Output_products;
+               expences= data.Account_expences ;
+               my()
+                tax()
+               trans()
+                newRow("jsGrid")
+                newRow("Grid")
+                newRow("expGrid")
+            }
+
+        });
+    });
     $("#create1").click(function (e) {
         e.preventDefault();
 
@@ -566,7 +594,7 @@
                 window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
             }
 
-        });
+        })
     });
 </script>
 }

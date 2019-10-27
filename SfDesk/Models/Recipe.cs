@@ -50,7 +50,7 @@ namespace SfDesk.Models
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
-                SqlCommand query = new SqlCommand("SELECT dbo.Get_Recipe_By_Item(@"+item_Id+")",Connection.GetConnection());
+                SqlCommand query = new SqlCommand("SELECT dbo.Get_Recipe_By_Item("+item_Id+")",Connection.GetConnection());
                 int R_ID = (int)query.ExecuteScalar();
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = item_Id }, "", Module, Connection.GetLogConnection(), UserId);
