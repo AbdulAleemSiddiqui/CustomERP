@@ -28,15 +28,10 @@
 
 @*  <script src="~/assets/js/db.js"></script>*@
 <script>
-    var editedDetail = []
-    var editedTax = []
-    var editedTrans = []
-    var net_total = 0;
-    var arr = [];
-    var taxes = [];
-    var transactions = [];
-    var items = [];
-    var Mytax = []
+
+    var details = []
+   
+    debugger;
     var Gross_total = 0;
     var tax_total = 0;
     var trans_total = 0;
@@ -109,62 +104,6 @@
         });
     }
 
-    function loadData() {
-        debugger;
-        $.ajax({
-            type: "GET",
-            url: "/PurchaseRequisition/Item_Get_All",
-
-            dataType: "json",
-            success: function (d) {
-                debugger
-                items = d
-                $.ajax({
-                    type: "GET",
-                    url: "/SaleOrder/Get_All_taxes",
-                    dataType: "json",
-                    success: function (d) {
-
-                        if (d.ID != 0) {
-                            taxes = d
-                            taxes.unshift({ SalesTax_ID: "" })
-                            $.ajax({
-                                type: "GET",
-                                url: "/SaleOrder/Index",
-                                dataType: "json",
-                                data: { id: Master_Id },
-                                success: function (d) {
-
-                                    if (d.ID != 0)
-                                        arr = d
-                                    my()
-                                    newRow("jsGrid") ///ye
-                                }
-                            });
-                            $.ajax({
-                                type: "GET",
-                                url: "/SaleOrder/Get_Taxes_by_SO",
-                                dataType: "json",
-                                data: { id: Master_Id },
-                                success: function (d) {
-
-
-                                    Mytax = d
-                                    tax()
-                                 // newRow("Grid")
-                                }
-                            });
-
-                        }
-
-                    }
-                });
-
-            }
-        });
-     
-
-    }
     function newRow(id) {
         $("#" + id).jsGrid({ inserting: true });
 
@@ -229,23 +168,15 @@
         });
     }
     function loadData() {
-        $.ajax({
-            type: "GET",
-            url: "Product_Get_All",
 
-            dataType: "json",
-            success: function (d) {
                 debugger
-                items = d
+                //items = // @Html.Raw(ViewBag.COA);
                 my()
-                tax()
+
                 //  trans()
                 newRow("jsGrid")
-                newRow("Grid")
-            }
 
-        });
-   
+
 
     }
     function my() {
@@ -279,12 +210,12 @@
 
             onItemInserting: function (args) {
 
-               
+
 
 
             },
             onItemUpdating: function (args) {
-               
+
 
 
 
@@ -293,7 +224,7 @@
 
             fields: [
             {
-                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                name: "COA_ID", title: "Account", type: "select", width: 80, validate: "required", items: items, valueField: "COA_ID", autosearch: true, textField: "COA_Name",
                 insertTemplate: function (value) {
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
                     var th = this;
@@ -320,7 +251,7 @@
                 },
             },
             {
-                name: "Quantity", title: "Quantity", type: "text", width: 80, validate: "required",
+                name: "Gross_Amount", title: "Gross Amount", type: "text", width: 80, validate: "required",
                 insertTemplate: function () {
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
                     var th = this;
@@ -341,6 +272,64 @@
                 },
             },
             {
+                  name: "ST_ID", title: "Tax", type: "select", width: 100, validate: "required",
+                  items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
+                  insertTemplate: function () {
+                      var teamField = this._grid.fields[1];
+                      var Total = this._grid.fields[2];
+                      var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
+
+                      $insertControl.on("change", function () {
+                          var selectedDepartment1 = $(this).find('option:selected').val();
+
+                          $.each(taxes, function (i, val) {
+                              if (val["SalesTax_ID"] == selectedDepartment1) {
+                                  //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
+
+                                  teamField.insertControl.val(val["Rate"])//val(unit);
+
+                                  debugger
+                                  var val = teamField.insertControl.val()
+                                  var total = Gross_total * (val / 100);
+                                  total = total.toFixed(2);
+                                  Total.insertControl.val(total)//val(unit);
+
+
+                                  //insert_on_enter($t,"Grid");
+                                  //var a = $(".ttl1").empty();
+
+                                  //$(".ttl1").append($t);
+                                  var sum = 0;
+
+                              }
+                          });
+                      });
+                      focusChange($insertControl, "Grid");
+                      return $insertControl;
+                  },
+              },
+            {
+                name: "Net_Amount", title: "Net Amount", type: "text", width: 80, validate: "required",
+                 insertTemplate: function () {
+                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                     var th = this;
+                     insert_on_enter($insertControl, "jsGrid");
+                     return $insertControl;
+                 },
+                 editTemplate: function (args) {
+                     var th = this;
+                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                     $editControl.on("keyup change", function () {
+
+
+
+                     });
+                     update_on_enter($editControl, "jsGrid");
+
+                     return $editControl;
+                 },
+             },
+            {
                 type: "control",
                 editButton: false,
                 itemTemplate: function (_, item) {
@@ -354,7 +343,7 @@
 
     };
 
- 
+
 </script>
 
 

@@ -29,5 +29,9 @@ namespace SfDesk.Controllers
         {
             return View();
         }
+        public ActionResult Product_Get_All()
+        {
+            return Json(new Item_Category().Item_Category_Get_All(App.App_ID), JsonRequestBehavior.AllowGet);
+        }
     }
 }
