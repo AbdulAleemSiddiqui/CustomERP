@@ -30,7 +30,7 @@
 <script>
 
     var details = []
-   
+    var taxes = []
     debugger;
     var Gross_total = 0;
     var tax_total = 0;
@@ -169,13 +169,22 @@
     }
     function loadData() {
 
-                debugger
-                //items = // @Html.Raw(ViewBag.COA);
-                my()
+        $.ajax({
+            type: "GET",
+            url: "/SaleOrder/Get_All_taxes",
+            dataType: "json",
+            success: function (d) {
 
-                //  trans()
-                newRow("jsGrid")
+                if (d.ID != 0) {
+                    taxes = d
+             
+                    my()
 
+                    //  trans()
+                    newRow("jsGrid")
+                }
+            }
+        });
 
 
     }
