@@ -38,12 +38,13 @@ namespace SfDesk.Controllers
         public ActionResult Recipe_Get_By_Item(int Item_ID)
         {
             Recipe r = new Recipe();
+            WorkOrder w = new WorkOrder();
             r.R_ID = r.Get_Recipe_By_Item(Item_ID, App.App_ID);
-            r.Input_products = new Recipe_Detail().Recipe_Input_Get_By_ID(r.R_ID,App.App_ID);
-            r.Output_products = new Recipe_Detail().Recipe_Output_Get_By_ID(r.R_ID,App.App_ID);
-            r.Account_expences = new Recipe_Expense().Recipe_Expense_Get_By_ID(r.R_ID,App.App_ID);
+            w.Input_products = new Recipe_Detail().Recipe_Input_Get_By_ID(r.R_ID,App.App_ID);
+           w.Output_products = new Recipe_Detail().Recipe_Output_Get_By_ID(r.R_ID,App.App_ID);
+            w.Account_expences = new Recipe_Expense().Recipe_Expense_Get_By_ID(r.R_ID,App.App_ID);
 
-            return Json(r, JsonRequestBehavior.AllowGet);
+            return Json(w, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -121,7 +121,6 @@ namespace SfDesk.Models
         public int Quantity { get; set; }
         [TVP]
         public string Flag { get; set; }
-
         private const string Module = "";
 
         //Your Properties for Model Here
@@ -151,13 +150,13 @@ namespace SfDesk.Models
             }
         }
 
-        public List<Recipe_Detail> Recipe_Input_Get_By_ID(int id, int UserId)
+        public List<WO_Detail> Recipe_Input_Get_By_ID(int id, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                List<Recipe_Detail> ret = DataBase.ExecuteQuery<Recipe_Detail>(new { x = id,x1=UserId }, Connection.GetConnection());
+                List<WO_Detail> ret = DataBase.ExecuteQuery<WO_Detail>(new { x = id,x1=UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
@@ -169,13 +168,13 @@ namespace SfDesk.Models
                 return null;
             }
         }
-        public List<Recipe_Detail> Recipe_Output_Get_By_ID(int id, int UserId)
+        public List<WO_Detail> Recipe_Output_Get_By_ID(int id, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                List<Recipe_Detail> ret = DataBase.ExecuteQuery<Recipe_Detail>(new { x = id, x1 = UserId }, Connection.GetConnection()) ;
+                List<WO_Detail> ret = DataBase.ExecuteQuery<WO_Detail>(new { x = id, x1 = UserId }, Connection.GetConnection()) ;
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;
@@ -272,13 +271,13 @@ namespace SfDesk.Models
             }
         }
 
-        public List<Recipe_Expense> Recipe_Expense_Get_By_ID(int id, int UserId)
+        public List<WO_Expense> Recipe_Expense_Get_By_ID(int id, int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId; 
-                List<Recipe_Expense> ret = DataBase.ExecuteQuery<Recipe_Expense>(new { x = id,x1=UserId }, Connection.GetConnection());
+                List<WO_Expense> ret = DataBase.ExecuteQuery<WO_Expense>(new { x = id,x1=UserId }, Connection.GetConnection());
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = id }, "", Module, Connection.GetLogConnection(), UserId);
                 return ret;

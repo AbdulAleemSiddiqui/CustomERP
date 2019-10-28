@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseTVP;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,18 +10,26 @@ namespace SfDesk.Models
 {
     public class WorkOrder
     {
+        [TVP]
         public int WO_ID { get; set; }
+        [TVP]
         public string WO_NO { get; set; }
+        [TVP]
         public int Item_ID { get; set; }
         public int Item_Name { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Date")]
+        [TVP]
         public DateTime Date { get; set; }
+        [TVP]
         [DataType(DataType.Date)]
         [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; }
+        [TVP]
         public double Total { get; set; }
+        [TVP]
         public int Quantity { get; set; }
+        [TVP]
         public string  Reference { get; set; }
         public List<WO_Detail> Input_products { get; set; }
         public List<WO_Detail> Output_products { get; set; }
@@ -29,19 +38,20 @@ namespace SfDesk.Models
     public class WO_Detail
     {
     
+        [TVP]
         public int WOD_ID { get; set; }
-
-      
+        [TVP]
         public int WO_ID { get; set; }
-        
+        [TVP]
         public int Item_ID { get; set; }
-        
+        [TVP]
         public string Description { get; set; }
-       
+        [TVP]
         public int Quantity { get; set; }
-        
+        [TVP]
         public string Flag { get; set; }
-
+        [TVP]
+        public decimal Amount { get; set; }
         private const string Module = "";
 
         //Your Properties for Model Here
