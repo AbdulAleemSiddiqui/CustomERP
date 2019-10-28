@@ -51,7 +51,9 @@ namespace SfDesk.Models
         [TVP]
         public string Flag { get; set; }
         [TVP]
-        public decimal Amount { get; set; }
+        public decimal Total { get; set; }
+        [TVP]
+        public decimal Cost { get; set; }
         private const string Module = "";
 
         //Your Properties for Model Here
