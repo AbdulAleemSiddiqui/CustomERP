@@ -450,7 +450,7 @@
             pageSize: 15,
             pageButtonCount: 5,
             deleteConfirm: "Do you rete the client?",
-            data: inputs,
+            data: outputs,
             pagerContainer: null,
             pageIndex: 1,
             pageSize: 20,
@@ -465,7 +465,7 @@
             invalidMessage: "Invalid data entered!",
 
             onRefreshed: function (args) {
-
+               
 
             },
 
@@ -676,12 +676,29 @@
         debugger
         var q = parseFloat( this.value);
         $.each(inputs, function (i, item) {
+          
+            if (typeof item["old"] == "undefined" ) {
+               
+                item["old"] = item["Quantity"]
+            }
+            else {
+                item["Quantity"] = item["old"]
+               
+            }
             var qq =q* parseFloat(item["Quantity"]);
             item["Quantity"] =  qq;
 
             item["Total"] = parseFloat(item["Cost"]) * qq;
         });
         $.each(outputs, function (i, item) {
+            if (typeof item["old"] == "undefined") {
+
+                item["old"] = item["Quantity"]
+            }
+            else {
+                item["Quantity"] = item["old"]
+
+            }
             var qq = q * parseFloat(item["Quantity"]);
             item["Quantity"] = qq;
 
@@ -709,7 +726,8 @@
             success: function (data) {
                 debugger
                 inputs=data.Input_products;
-                outputs=data.Output_products;
+                outputs = data.Output_products;
+                $("#Total").val(outputs[0].Total)
                expences= data.Account_expences ;
                my()
                 tax()

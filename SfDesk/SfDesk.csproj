@@ -225,6 +225,7 @@
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GDNController.cs" />
     <Compile Include="Controllers\GRNController.cs" />
+    <Compile Include="Controllers\Journal_EntriesController.cs" />
     <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Item_Category.cs" />
+    <Compile Include="Models\Journal_Entries.cs" />
     <Compile Include="Models\Ledger.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Material.cs" />
@@ -971,6 +973,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\js\lib\New folder\" />
     <Folder Include="Images\PI_Images\" />
+    <Folder Include="Views\Journal_Entries\" />
     <Folder Include="Views\SalesReturnInvoicwe\" />
     <Folder Include="Views\SessionAttribute\" />
   </ItemGroup>

@@ -40,18 +40,20 @@ namespace SfDesk.Models
     
         [TVP]
         public int WOD_ID { get; set; }
-
         [TVP]
         public int WO_ID { get; set; }
-        
+        [TVP]
         public int Item_ID { get; set; }
-        
+        [TVP]
         public string Description { get; set; }
-       
+        [TVP]
         public int Quantity { get; set; }
-        
+        [TVP]
         public string Flag { get; set; }
-
+        [TVP]
+        public decimal Total { get; set; }
+        [TVP]
+        public decimal Cost { get; set; }
         private const string Module = "";
 
         //Your Properties for Model Here
