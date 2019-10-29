@@ -17,17 +17,20 @@ namespace SfDesk.Controllers
         public ActionResult Master()
         {
             ViewBag.COA = new ChartOfAccount().COA_Get_All();
+            ViewBag.Contacts = new Expense().Accounts_Expense_Get_Contacts(App.App_ID);
+            return View(new Expense() { Ex_NO = Utility.Get_New_No("Expense", "Ex_ID", "Ex", App.App_ID) });
+        }
+     
+        [HttpPost]
+        public ActionResult Master(Expense c)
+        {
+            c.Accounts_Expense_Add(App.App_ID);
             return View();
         }
         public ActionResult Detail()
         {
             return PartialView("Detail");
 
-        }
-        [HttpPost]
-        public ActionResult Master(Expense c)
-        {
-            return View();
         }
         public ActionResult Product_Get_All()
         {

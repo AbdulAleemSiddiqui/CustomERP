@@ -18,7 +18,7 @@ namespace SfDesk.Models
         public string WO_NO { get; set; }
         [TVP]
         public int Item_ID { get; set; }
-        public int Item_Name { get; set; }
+        public string Item_Name { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Date")]
         [TVP]
@@ -28,11 +28,13 @@ namespace SfDesk.Models
         [DisplayName("Due Date")]
         public DateTime Due_Date { get; set; }
         [TVP]
-        public double Total { get; set; }
-        [TVP]
         public int Quantity { get; set; }
         [TVP]
-        public string  Reference { get; set; }
+        public string Reference { get; set; }
+        [TVP]
+        public double Total { get; set; }
+      
+   
         [TVP]
         public int CreatedBy { get; set; }
         public string ReturnMessage { get; set; }
@@ -80,9 +82,10 @@ namespace SfDesk.Models
         [TVP]
         public string Flag { get; set; }
         [TVP]
-        public decimal Total { get; set; }
-        [TVP]
         public decimal Cost { get; set; }
+        [TVP]
+        public decimal Total { get; set; }
+
         private const string Module = "";
 
         //Your Properties for Model Here
@@ -101,14 +104,18 @@ namespace SfDesk.Models
         private const string Module = "";
 
        
+        [TVP]
         public int WOE_ID { get; set; }
-       
-       
+        [TVP]
+        public int WO_ID { get; set; }
+        [TVP]
         public int COA_ID { get; set; }
         public string COA_Name { get; set; }
-        
+        [TVP]
+
         public string Description { get; set; }
-        
+        [TVP]
+
         public decimal Amount { get; set; }
 
         [TVP]
