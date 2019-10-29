@@ -247,23 +247,24 @@
             },
    
             fields: [
-            {
-                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
-                insertTemplate: function (value) {
-                var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
-                var th= this;
+         {
+             name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Name",
+             insertTemplate: function (value) {
+                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                 var th = this;
 
-               focusChange($insertControl,"jsGrid");
-                return this.insertControl;
-            },
-            editTemplate: function (args) {
-                var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
-                var th = this;
+                 focusChange($insertControl, "Grid");
+                 return this.insertControl;
+             },
+             editTemplate: function (args) {
+                 var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                 var th = this;
 
-                update_on_enter( $editControl,"jsGrid");
+                 update_on_enter($editControl, "Grid");
 
-                return $editControl;
-            }, },
+                 return $editControl;
+             },
+         },
             {
                 name: "Description", title: "Description", type: "text", width: 80, validate: "required",
                 editTemplate: function (args) {
