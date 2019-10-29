@@ -1,0 +1,330 @@
+﻿@{
+    Layout = null;
+
+ }
+
+<link href="~/assets/css/jsgrid.min.css" rel="stylesheet" />
+<link href="~/assets/css/jsgrid-theme.min.css" rel="stylesheet" />
+<style>
+    .total-row td {
+        border-top: 2px solid #efefef;
+    }
+</style>
+<div id="main-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card alert">
+                <div class="jsgrid-table-panel">
+                    <div id="jsGrid" class="table table-striped table-bordered dataTable no-footer"></div>
+                    <br />
+
+
+                </div>
+            </div>
+            <!-- /# card -->
+        </div>
+        <!-- /# column -->
+    </div>
+</div>
+
+
+
+@*  <script src="~/assets/js/db.js"></script>*@
+<script>
+
+    var details = []
+    var taxes = []
+    debugger;
+   
+    $(document).ready(function () {
+        loadData();
+
+    })
+    function newRow(id) {
+        $("#" + id).jsGrid({ inserting: true });
+
+        var tr = $("#" + id + " .jsgrid-insert-row").closest("tr");
+        //if (id === "jsGrid") {
+        //    var disble = tr.find("td:eq(7)")
+        //    var txtdisabled = disble.find("input:eq(0)").attr("disabled", "disabled");
+        //}
+        var td = tr.find("td:eq(0)")
+
+
+
+        inout = td.find("select:eq(0)")
+        if (id === "jsgrid")
+            var inout = td.find("input:eq(0)")
+        var last = $(tr).find('td:last').html('')
+        $(inout).select().focus();
+    } // // isme change he
+    function insert_on_enter(field, id) {
+
+        field.on("keydown", function (e) {
+
+
+            if (e.keyCode === 13 || e.keyCode === 9) {
+                $("#" + id).jsGrid("insertItem").done(function () {
+                    $("#" + id).jsGrid("clearInsert");
+                    newRow(id)
+                });
+                return false;
+            }
+        });
+    }  // isme change he
+    function update_on_enter(field, id) {
+        field.on("keydown", function (e) {
+            if (e.keyCode === 13) {
+                $("#" + id).jsGrid("updateItem");
+                return false;
+            }
+            else if (e.keyCode === 27) {
+
+                $("#" + id).jsGrid("cancelEdit");
+                return false;
+            }
+        });
+    }  // isme change he
+    function focusChange(field, id) {
+
+        field.on("keydown", function (e) {
+            if ((field.val() === "") && (e.keyCode === 13 || e.keyCode === 9)) {
+                if (id === "jsGrid") {
+                    newRow("transGrid")
+                }
+                else if (id === "transGrid") {
+                    newRow("Grid")
+
+                }
+                else {
+                    $("#create").focus()
+                }
+                return false;
+            }
+        });
+    }
+    function newRow(id) {
+        $("#" + id).jsGrid({ inserting: true });
+
+        var tr = $("#" + id + " .jsgrid-insert-row").closest("tr");
+        //if (id === "jsGrid") {
+        //    var disble = tr.find("td:eq(7)")
+        //    var txtdisabled = disble.find("input:eq(0)").attr("disabled", "disabled");
+        //}
+        var td = tr.find("td:eq(0)")
+
+
+
+        inout = td.find("select:eq(0)")
+        if (id === "jsgrid")
+            var inout = td.find("input:eq(0)")
+        var last = $(tr).find('td:last').html('')
+        $(inout).select().focus();
+    } // // isme change he
+    function insert_on_enter(field, id) {
+
+        field.on("keydown", function (e) {
+
+
+            if (e.keyCode === 13 || e.keyCode === 9) {
+                $("#" + id).jsGrid("insertItem").done(function () {
+                    $("#" + id).jsGrid("clearInsert");
+                    newRow(id)
+                });
+                return false;
+            }
+        });
+    }  // isme change he
+    function update_on_enter(field, id) {
+        field.on("keydown", function (e) {
+            if (e.keyCode === 13) {
+                $("#" + id).jsGrid("updateItem");
+                return false;
+            }
+            else if (e.keyCode === 27) {
+
+                $("#" + id).jsGrid("cancelEdit");
+                return false;
+            }
+        });
+    }  // isme change he
+    function focusChange(field, id) {
+
+        field.on("keydown", function (e) {
+            if ((field.val() === "") && (e.keyCode === 13 || e.keyCode === 9)) {
+                if (id === "jsGrid") {
+                    newRow("transGrid")
+                }
+                else if (id === "transGrid") {
+                    newRow("Grid")
+
+                }
+                else {
+                    $("#create").focus()
+                }
+                return false;
+            }
+        });
+    }
+    function loadData() {
+
+        
+
+                    my()
+        newRow("jsGrid")
+                 
+        
+
+
+    }
+    function my() {
+        $("#jsGrid").jsGrid({
+
+            height: "auto",
+            width: "100%",
+            filtering: false,
+            editing: true,
+            inserting: false,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 15,
+            pageButtonCount: 5,
+            deleteConfirm: "Do you rete the client?",
+            data: details,
+            pagerContainer: null,
+            pageIndex: 1,
+            pageSize: 20,
+            pageButtonCount: 15,
+            pagerFormat: "Pages: {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount}",
+            pagePrevText: "Prev",
+            pageNextText: "Next",
+            pageFirstText: "First",
+            pageLastText: "Last",
+            pageNavigatorNextText: "...",
+            pageNavigatorPrevText: "...",
+            invalidMessage: "Invalid data entered!",
+
+
+            onItemInserting: function (args) {
+
+
+
+
+            },
+            onItemUpdating: function (args) {
+
+
+
+
+
+            },
+
+            fields: [
+            {
+                name: "COA_ID", title: "Account", type: "select", width: 80, validate: "required", items: items, valueField: "COA_ID", autosearch: true, textField: "COA_Name",
+                insertTemplate: function (value) {
+                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                    var th = this;
+
+                    focusChange($insertControl, "jsGrid");
+                    return this.insertControl;
+                },
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                    var th = this;
+
+                    update_on_enter($editControl, "jsGrid");
+
+                    return $editControl;
+                },
+            },
+            {
+                name: "Description", title: "Description", type: "text", width: 80, validate: "required",
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    update_on_enter($editControl, "jsGrid");
+
+                    return $editControl;
+                },
+            },
+            {
+                name: "Debit", title: "Debit", type: "text", width: 80, validate: "required",
+                insertTemplate: function () {
+                    var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                    var th = this;
+                    insert_on_enter($insertControl, "jsGrid");
+                    return $insertControl;
+                },
+                editTemplate: function (args) {
+                    var th = this;
+                    var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                    $editControl.on("keyup change", function () {
+
+
+
+                    });
+                    update_on_enter($editControl, "jsGrid");
+
+                    return $editControl;
+                },
+            },
+            {
+                name: "Credit", title: "Credit", type: "text", width: 80, validate: "required",
+                 insertTemplate: function () {
+                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+                     var th = this;
+                     insert_on_enter($insertControl, "jsGrid");
+                     return $insertControl;
+                 },
+                 editTemplate: function (args) {
+                     var th = this;
+                     var $editControl = jsGrid.fields.text.prototype.editTemplate.call(this, args);
+                     $editControl.on("keyup change", function () {
+
+
+
+                     });
+                     update_on_enter($editControl, "jsGrid");
+
+                     return $editControl;
+                 },
+            },
+            {
+                  name: "COA_ID", title: "Account", type: "select", width: 80, validate: "required", items: items, valueField: "COA_ID", autosearch: true, textField: "COA_Name",
+                  insertTemplate: function (value) {
+                      var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                      var th = this;
+
+                      focusChange($insertControl, "jsGrid");
+                      return this.insertControl;
+                  },
+                  editTemplate: function (args) {
+                      var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                      var th = this;
+
+                      update_on_enter($editControl, "jsGrid");
+
+                      return $editControl;
+                  },
+              },
+            {
+                type: "control",
+                editButton: false,
+                itemTemplate: function (_, item) {
+                    if (item.IsTotal)
+                        return "";
+                    return jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                }
+            }
+            ]
+        });
+
+    };
+
+
+</script>
+
+
+
+

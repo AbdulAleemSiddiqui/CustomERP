@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SfDesk.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,20 @@ namespace SfDesk.Controllers
         {
             return View();
         }
+        public ActionResult Master()
+        {
+            ViewBag.COA = new ChartOfAccount().COA_Get_All();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Master(Journal_Entries c)
+        {
+            return View();
+        }
+        public ActionResult Detail()
+        {
+            return View();
+        }
+
     }
 }

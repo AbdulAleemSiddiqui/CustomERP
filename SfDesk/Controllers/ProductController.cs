@@ -25,17 +25,19 @@ namespace SfDesk.Models
         {
             ViewBag.Tax = new SalesTax().SalesTax_Get_All();
             ViewBag.Cat = new Item_Category_Main().Item_Category_Main_Get_All(App.App_ID);
+            ViewBag.Catt = new Item_Category().Item_Category_Get_All(App.App_ID);
             ViewBag.COA = new ChartOfAccount().COA_Get_All();
             return View();
         }
         [HttpPost]
         public ActionResult AddProduct(Item i)
         {
-            i.Item_Add(App.App_ID);
+           int id=  i.Item_Add(App.App_ID);
             ViewBag.Tax = new SalesTax().SalesTax_Get_All();
             ViewBag.Cat = new Item_Category_Main().Item_Category_Main_Get_All(App.App_ID);
             ViewBag.COA = new ChartOfAccount().COA_Get_All();
-            return View();
+            return Json(id, JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult COA_Get_All()
         {
@@ -43,7 +45,7 @@ namespace SfDesk.Models
         }
         public ActionResult Product_Get_All()
         {
-            return Json(new Item_Category().Item_Category_Get_All(App.App_ID),JsonRequestBehavior.AllowGet);
+            return Json(new Item().Item_Get_All(App.App_ID),JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult Add_Product_Assembly()

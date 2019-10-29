@@ -57,10 +57,11 @@
     var expences = []
     var allexpences=[]
     var inputs = []
-    var outputs = []
    var items = []
    $(document).ready(function () {
        $("#expGrid").hide('slow');
+       debugger
+       console.log(outputs)
        $('#Account').change(function () {
 
 
@@ -349,7 +350,7 @@
 
             fields: [
             {
-                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Name",
                 insertTemplate: function (value) {
                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
                     var th = this;
