@@ -34,75 +34,12 @@
     debugger;
     var Gross_total = 0;
     var tax_total = 0;
-    var trans_total = 0;
     var grand_total = 0;
     $(document).ready(function () {
         loadData();
 
     })
-    function newRow(id) {
-        $("#" + id).jsGrid({ inserting: true });
-
-        var tr = $("#" + id + " .jsgrid-insert-row").closest("tr");
-        //if (id === "jsGrid") {
-        //    var disble = tr.find("td:eq(7)")
-        //    var txtdisabled = disble.find("input:eq(0)").attr("disabled", "disabled");
-        //}
-        var td = tr.find("td:eq(0)")
-
-
-
-        inout = td.find("select:eq(0)")
-        if (id === "jsgrid")
-            var inout = td.find("input:eq(0)")
-        var last = $(tr).find('td:last').html('')
-        $(inout).select().focus();
-    } // // isme change he
-    function insert_on_enter(field, id) {
-
-        field.on("keydown", function (e) {
-
-
-            if (e.keyCode === 13 || e.keyCode === 9) {
-                $("#" + id).jsGrid("insertItem").done(function () {
-                    $("#" + id).jsGrid("clearInsert");
-                    newRow(id)
-                });
-                return false;
-            }
-        });
-    }  // isme change he
-    function update_on_enter(field, id) {
-        field.on("keydown", function (e) {
-            if (e.keyCode === 13) {
-                $("#" + id).jsGrid("updateItem");
-                return false;
-            }
-            else if (e.keyCode === 27) {
-
-                $("#" + id).jsGrid("cancelEdit");
-                return false;
-            }
-        });
-    }  // isme change he
-    function focusChange(field, id) {
-
-        field.on("keydown", function (e) {
-            if ((field.val() === "") && (e.keyCode === 13 || e.keyCode === 9)) {
-                if (id === "jsGrid") {
-                    newRow("transGrid")
-                }
-                else if (id === "transGrid") {
-                    newRow("Grid")
-
-                }
-                else {
-                    $("#create").focus()
-                }
-                return false;
-            }
-        });
-    }
+  
 
     function newRow(id) {
         $("#" + id).jsGrid({ inserting: true });
@@ -176,8 +113,9 @@
             success: function (d) {
 
                 if (d.ID != 0) {
+                    
                     taxes = d
-             
+                    taxes.unshift({ SalesTax_ID: 0, Rate: 0 })
                     my()
 
                     //  trans()
@@ -216,12 +154,34 @@
             pageNavigatorPrevText: "...",
             invalidMessage: "Invalid data entered!",
 
-
+            
             onItemInserting: function (args) {
+             
 
-
-
-
+            },
+            onRefreshed: function (args) {
+                var items = args.grid.option("data");
+                Gross_total = 0;
+                tax_total = 0;
+                grand_total = 0;
+                items.forEach(function (item) {
+                    debugger
+                    Gross_total += parseFloat(item["Gross_Amount"])
+                    var t_id = parseInt(item["Tax_ID"]);
+                    var t = jQuery.grep(taxes, function (obj) {
+                        return obj.SalesTax_ID === t_id;
+                    })[0]["Rate"];
+                 
+                  
+                    var tt = parseFloat(parseFloat(item["Gross_Amount"]) * (t / 100))
+                    tax_total += parseFloat(tt.toFixed(2));
+                   // $("#netAmount").text(parseFloat(item["Gross_Amount"]) + tt.toFixed(2));
+                    grand_total = tax_total + Gross_total
+                   
+                });
+                $("#taxAmount").text(tax_total);
+                $("#grossAmount").text(Gross_total);
+                $("#netAmount").text(grand_total);
             },
             onItemUpdating: function (args) {
 
@@ -262,9 +222,14 @@
             {
                 name: "Gross_Amount", title: "Gross Amount", type: "text", width: 80, validate: "required",
                 insertTemplate: function () {
+                    var teamField = this._grid.fields[4];
+
                     var $insertControl = jsGrid.fields.text.prototype.insertTemplate.call(this);
+
                     var th = this;
-                    insert_on_enter($insertControl, "jsGrid");
+                    $insertControl.on("keyup change", function () {
+                        teamField.insertControl.val($(this).val())
+                    });
                     return $insertControl;
                 },
                 editTemplate: function (args) {
@@ -281,39 +246,15 @@
                 },
             },
             {
-                  name: "Tax_ID", title: "Tax", type: "select", width: 100, validate: "required",
+                  name: "Tax_ID", title: "Tax", type: "select", width: 100,
                   items: taxes, valueField: "SalesTax_ID", textField: "SalesTax_Name",
                   insertTemplate: function () {
                       var teamField = this._grid.fields[1];
                       var Total = this._grid.fields[2];
                       var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
 
-                      $insertControl.on("change", function () {
-                          var selectedDepartment1 = $(this).find('option:selected').val();
-
-                          $.each(taxes, function (i, val) {
-                              if (val["SalesTax_ID"] == selectedDepartment1) {
-                                  //var $u = jsGrid.fields.text.prototype.insertTemplate.call(teamField);
-
-                                  teamField.insertControl.val(val["Rate"])//val(unit);
-
-                                  debugger
-                                  var val = teamField.insertControl.val()
-                                  var total = Gross_total * (val / 100);
-                                  total = total.toFixed(2);
-                                  Total.insertControl.val(total)//val(unit);
-
-
-                                  //insert_on_enter($t,"Grid");
-                                  //var a = $(".ttl1").empty();
-
-                                  //$(".ttl1").append($t);
-                                  var sum = 0;
-
-                              }
-                          });
-                      });
-                      focusChange($insertControl, "Grid");
+                      
+                      insert_on_enter($insertControl, "jsGrid");
                       return $insertControl;
                   },
               },
