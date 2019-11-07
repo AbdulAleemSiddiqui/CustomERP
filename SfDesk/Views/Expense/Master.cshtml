@@ -139,6 +139,9 @@
     <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script>
+        var Gross_total = 0;
+        var tax_total = 0;
+        var grand_total = 0;
         var items = @Html.Raw(Json.Encode(ViewBag.COA));
         $(window).load(function () {
 
@@ -185,12 +188,13 @@
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
            
             data.details = details;
+            data.Total = grand_total;
             //data.SO_Charges = mytrans;
             //data.SO_Taxs = Mytax
             //data.Total = grand_total;
 
             $.ajax({
-                url: '@Url.Action("master", "Expense")',
+                url: '@Url.Action("index", "Expense")',
                 type: 'Post',
                 dataType: 'json',
                 data: {
