@@ -748,6 +748,7 @@
         data.Input_products  = inputs;
         data.Output_products = outputs;
         data.Account_expences = expences;
+        data.Total = $('#Total').val();
         $.ajax({
             url: '@Url.Action("master", "workorder")',
             type: 'Post',

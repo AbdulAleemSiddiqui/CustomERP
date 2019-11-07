@@ -12,17 +12,18 @@ namespace SfDesk.Controllers
         // GET: WorkOrder
         public ActionResult Index()
         {
-            return View();
+            return View(new WorkOrder().WO_Get_All(App.App_ID));
         }
         public ActionResult Master()
         {
             ViewBag.Item = new Item().Item_Get_All_Finish_Good(App.App_ID);
-            return View();
+            return View(new WorkOrder() {WO_NO= Utility.Get_New_No("WO", "WO_ID", "WO", App.App_ID) });
         }
         [HttpPost]
         public ActionResult Master(WorkOrder c)
         {
-
+            c.WO_Add(App.App_ID);
+            ViewBag.Item = new Item().Item_Get_All_Finish_Good(App.App_ID);
             return View();
         }
 
