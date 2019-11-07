@@ -291,7 +291,7 @@
                  },
             },
             {
-                  name: "COA_ID", title: "Account", type: "select", width: 80, validate: "required", items: items, valueField: "COA_ID", autosearch: true, textField: "COA_Name",
+                name: "Contact", title: "Contact", type: "select", width: 80, validate: "required", items: contact, valueField: "Contact_ID", autosearch: true, textField: "Contact_Name  @item.Contact_Table",
                   insertTemplate: function (value) {
                       var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
                       var th = this;

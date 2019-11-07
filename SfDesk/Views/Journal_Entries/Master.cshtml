@@ -87,6 +87,7 @@
     <script src="~/assets/js/jsgrid.min.js"></script>
     <script>
         var items = @Html.Raw(Json.Encode(ViewBag.COA));
+        var contact = @Html.Raw(Json.Encode(ViewBag.Contacts))
         $(window).load(function () {
 
             detail()
