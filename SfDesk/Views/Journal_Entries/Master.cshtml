@@ -1,0 +1,155 @@
+﻿@model SfDesk.Models.Journal_Entries
+
+@{
+    ViewBag.Title = "Master";
+    Layout = "~/Views/Shared/_dashLayout.cshtml";
+}
+<style>
+
+
+</style>
+
+<div class="card alert">
+    <div class="card-header">
+        <div class="card-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h2>Entries</h2>
+                    <hr />
+                    @Html.HiddenFor(model => model.JE_ID, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-lg-12">
+       
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.JE_NO, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9" style="padding-left: 20px;">
+                                @Html.EditorFor(model => model.JE_NO, new { htmlAttributes = new { @class = "form-control", @disable = "disable" } })
+                                @Html.ValidationMessageFor(model => model.JE_NO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10" style="padding-left: 20px;">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.Reference, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9" style="padding-left: 20px;">
+                                @Html.EditorFor(model => model.Reference, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div id="child"></div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.Memo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Memo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Memo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Attachment, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Attachment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" id="Create" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@section scripts
+{
+
+    <script src="~/assets/js/TypableDropdown.js"></script>
+    <script src="~/assets/js/jsgrid.min.js"></script>
+    <script>
+        var items = @Html.Raw(Json.Encode(ViewBag.COA));
+        $(window).load(function () {
+
+            detail()
+
+            DropDown_Fill("COA");
+
+
+
+        });
+        $(document).ready(function () {   // Help for the HTML4 version.
+            //$('.tbDate').prop("readonly", true);
+            //$('.tbDate').datepicker()
+
+            //var today = new Date();
+            //var dd = String(today.getDate()).padStart(2, '0');
+            //var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            //var yyyy = today.getFullYear();
+
+            //today = mm + '/' + dd + '/' + yyyy;
+            //$('#AD').val(today);
+
+
+
+
+
+
+
+        });
+
+        $("#Create").click(function (e) {
+            e.preventDefault();
+
+            var data = {};
+
+            $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
+            debugger
+            data.Details = details;
+          
+          
+
+            $.ajax({
+                url: '@Url.Action("master", "Journal_Entries")',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    c: data
+                },
+                success: function (data) {
+                    window.location.href = '@Url.Action("ShowAll", "Journal_Entries")';
+                }
+
+            });
+        });
+
+
+
+        /*ye master ka he*/
+        function detail() {
+
+            $.get('@Url.Action("detail", "Journal_entries")', function (data) { $("#child").html(data); });
+            $("#done").hide()
+            debugger;
+
+        };
+    </script>
+}

@@ -306,6 +306,8 @@
     <script src="~/assets/js/TypableDropdown.js"></script>
     <script src="~/assets/js/db.js"></script>
     <script>
+
+        var outputs = []
         function detail() {
             $.get('@Url.Action("Add_Product_Assembly")', function (data) { $("#ta2").html(data); });
 
@@ -314,6 +316,7 @@
         $(document).ready(function () {
             $('#Main_Cat_Name').on("change", populate);
             Typable_Dropdown('COA');
+            Typable_Dropdown('CAT');
             Typable_Dropdown('Purchase\\.Account');
             Typable_Dropdown('Purchase\\.Discount_Account');
             Typable_Dropdown('Purchase\\.Tax');
@@ -340,7 +343,7 @@
 
             });
             $('#Main_Cat_Name').change(function () {
-                if (this.value == 'Packaging') {
+                if (this.value == 'Finish Good') {
 
                     isAssembled = true
 
@@ -355,12 +358,7 @@
         });
         $("#create").click(function (e) {
             e.preventDefault();
-            if (isAssembled) {
-                $("#AP").show('slow');
-                detail();
-                $('a[href="#ta2"]').click();
-
-            }
+            
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
             debugger
@@ -378,8 +376,16 @@
                 success: function (data) {
                     //window.location.href = '//Url.Action("ShowAll", "Quotation")';
                     if (isAssembled) {
-                        details();
-                        $(".custom-tab").tabs({ active: 'ta2' });
+                        
+                        if (isAssembled) {
+                            $("#AP").show('slow');
+                          
+                            outputs = $({ "Item_ID": data, "Description": "", "Quantity": 1 });
+                            detail();
+                            //outputs.push({name,"",1}]);
+                            $('a[href="#ta2"]').click();
+
+                        }
 
                     }
                 }

@@ -56,23 +56,23 @@ namespace SfDesk.Models
 
 
     
-        public string Item_Add(int UserId)
+        public int Item_Add(int UserId)
         {
             try
             {
                 //place your Model Logic and DB Calls here:
                 this.CreatedBy = UserId;
                
-                ReturnMessage = DataBase.ExecuteQuery<Item>(new { x = this,x1=Purchase,x2=Sale }, Connection.GetConnection()).FirstOrDefault().ReturnMessage;
+                Item_ID = DataBase.ExecuteQuery<Item>(new { x = this,x1=Purchase,x2=Sale }, Connection.GetConnection()).FirstOrDefault().Item_ID;
                  // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, UserId
                  Logger.Logging.DB_Log(Logger.eLogType.Log_Positive, "", new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
-                return ReturnMessage;
+                return Item_ID;
             }
             catch (Exception ex)
             {
                 // Logging Here=> Type of Log, Message, Data (complete objects or paramters except userid), PageName, Module (for Multiple Areas), Connection to Log DB, Userid
                 Logger.Logging.DB_Log(Logger.eLogType.Log_Negative, ex.Message, new { x = this }, "", Module, Connection.GetLogConnection(), UserId);
-                return "";
+                return -1;
             }
         }
 
