@@ -387,7 +387,7 @@
         $(function () {
             try {
                 //if (Session["ID"].U_Id != 0) {
-                    $.get('@Url.Action("generate_Menu", "form",new { id= ((SfDesk.Models.user)Session["ID"]).U_Id })', function (data) { $("#menu").html(data); });
+                    $.  get('@Url.Action("generate_Menu", "form",new { id= ((SfDesk.Models.user)Session["ID"]).U_Id })', function (data) { $("#menu").html(data); });
                 @*}
                 else {
                     window.location.href = "@Url.Action("Login", "LoginUser")";
