@@ -31,6 +31,8 @@ namespace SfDesk.Models
         [TVP]
         public string Comment { get; set; }
         [TVP]
+        public decimal Total{ get; set; }
+        [TVP]
         public string Img_Path { get; set; }
         [TVP]
         public int CreatedBy { get; set; }

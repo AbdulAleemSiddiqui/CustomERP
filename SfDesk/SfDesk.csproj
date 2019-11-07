@@ -968,6 +968,8 @@
     <Content Include="Views\WorkOrder\Master.cshtml" />
     <Content Include="Views\Expense\Master.cshtml" />
     <Content Include="Views\Expense\Detail.cshtml" />
+    <Content Include="Views\WorkOrder\Index.cshtml" />
+    <Content Include="Views\Expense\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

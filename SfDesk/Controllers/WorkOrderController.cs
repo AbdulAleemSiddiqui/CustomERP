@@ -12,7 +12,7 @@ namespace SfDesk.Controllers
         // GET: WorkOrder
         public ActionResult Index()
         {
-            return View();
+            return View(new WorkOrder().WO_Get_All(App.App_ID));
         }
         public ActionResult Master()
         {

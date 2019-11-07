@@ -12,7 +12,7 @@ namespace SfDesk.Controllers
         // GET: Expense
         public ActionResult Index()
         {
-            return View();
+            return View(new Expense().Accounts_Expense_Get_All(App.App_ID));
         }
         public ActionResult Master()
         {

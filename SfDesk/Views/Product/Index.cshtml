@@ -28,7 +28,13 @@
                                     @Html.DisplayNameFor(model => model.Cat_Name)
                                 </th>
                                 <th>
+                                    @Html.DisplayNameFor(model => model.ICM_Name)
+                                </th>
+                                <th>
                                     @Html.DisplayNameFor(model => model.Min_Stock)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.COA_Name)
                                 </th>
                                 <th></th>
                             </tr>
@@ -51,7 +57,13 @@
                                         @Html.DisplayFor(modelItem => item.Cat_Name)
                                     </td>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.ICM_Name)
+                                    </td>  
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Min_Stock)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.COA_Name)
                                     </td>
                                     <td>
                                         <button type="button" class="btn mini btn-info" onclick="Edit(@item.Item_ID)" })'"><i class="ti-pencil"></i> </button>

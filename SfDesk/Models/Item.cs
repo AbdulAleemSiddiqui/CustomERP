@@ -41,6 +41,8 @@ namespace SfDesk.Models
 
        
         public string Cat_Name { get; set; }
+        public string ICM_Name { get; set; }
+        public string COA_Name { get; set; }
 
         public Item_Detail Sale { get; set; } = new Item_Detail() { Flag = "sale" };
         public Item_Detail Purchase { get; set; } = new Item_Detail() { Flag = "purchase" };
