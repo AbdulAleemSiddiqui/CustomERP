@@ -52,7 +52,7 @@
                         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-9" style="padding-left: 20px;">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control tbDate",@type= "text" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -60,12 +60,13 @@
                             @Html.Label("Contact", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9" style="padding-left: 20px;">
                                 @Html.HiddenFor(Model => Model.Contact_ID)
+                                @Html.HiddenFor(Model => Model.Contact_Table)
                                 <input type="text" name="Contact_Name" list="Contact_List" id="Contact_Name" class="form-control text-box ">
                                 <datalist id="Contact_List">
 
                                     @foreach (var item in ViewBag.Contacts)
                                     {
-                                        <option id="@item.Contact_ID" data-id="@item.Contact_ID" value="@item.Contact_Name - @item.Contact_Table"></option>
+                                        <option id="@item.Contact_ID" data-id="@item.Contact_ID" data-value="@item.Contact_Table" value="@item.Contact_Name - @item.Contact_Table"></option>
                                     }
                                 </datalist>    
                                 @Html.ValidationMessageFor(model => model.Contact_ID, "", new { @class = "text-danger" })
@@ -142,8 +143,12 @@
         $(window).load(function () {
 
             detail()
-       
-                DropDown_Fill("COA");
+            $('.tbDate').datepicker({ dateFormat: "dd-mm-yy" })
+            $('.tbDate').val("DD-MM-YY");
+            var date = new Date();
+            var formatted_date = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear()
+            $(".tbDate").val(formatted_date);
+            DropDown_Fill("COA");
            
             
 
@@ -163,7 +168,8 @@
 
 
 
-            Typable_Dropdown('COA'); Typable_Dropdown('Contact');
+            Typable_Dropdown('COA'); 
+            Typable_Dropdown_Custom('Contact');
            
           
 
@@ -177,7 +183,7 @@
             var data = {};
 
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            debugger
+           
             data.details = details;
             //data.SO_Charges = mytrans;
             //data.SO_Taxs = Mytax
@@ -204,8 +210,53 @@
 
             $.get('@Url.Action("detail", "expense")', function (data) { $("#child").html(data); });
             $("#done").hide()
-            debugger;
+    
 
         };
+        function Typable_Dropdown_Custom( a)
+        {
+   
+            var s = $('#' + a + '_List').find('option').length;
+            if (s == 0)
+            {
+                $('#' + a + '_Name').val("No Data");
+                $('#' + a + '_Name').prop('disabled', true);
+            }
+            $('select[name='+a+'_Name]').change(function () {
+                debugger;
+
+                $('input[name=other]').val($(this).val());
+            });
+            $('#' + a + '_Name').on('keydown', function (e) {
+                if (e.keyCode === 9) {
+                    var s = $(this).val();
+                    var list=$('#' + a + '_List').find('option');
+                    for (var i = 0; i < list.length; i++) {
+                        var z = $(list[i]).val();
+                        if (z.toLowerCase().indexOf(s.toLowerCase()) != -1) {
+                            $(this).val($(list[i]).val());
+                            break;
+                        }
+              
+                    }
+                }
+            });
+
+            $('#' + a + '_Name').on('change', function () {
+                debugger;
+                var value = $('#' + a + '_Name').val();
+                var name = "#" + a + "_List";
+                name = name + " option[value='" + value+ "']";
+                value = $(name).data('id');
+                var tbl = $(name).data('value');
+                if (typeof value === "undefined") {
+                    $('#' + a + '_Name').val("");
+                    alert("Not Match");
+                }
+                $("[name='" + a + "_ID']").val(value);
+                $("[name='" + a + "_Table']").val(tbl);
+            });
+    
+        }
   </script>
    }

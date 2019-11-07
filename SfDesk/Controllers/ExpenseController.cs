@@ -25,6 +25,8 @@ namespace SfDesk.Controllers
         public ActionResult Master(Expense c)
         {
             c.Accounts_Expense_Add(App.App_ID);
+            ViewBag.COA = new ChartOfAccount().COA_Get_All();
+            ViewBag.Contacts = new Expense().Accounts_Expense_Get_Contacts(App.App_ID);
             return View();
         }
         public ActionResult Detail()

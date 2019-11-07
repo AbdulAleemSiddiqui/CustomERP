@@ -1,5 +1,6 @@
 ﻿function Typable_Dropdown( a)
 {
+   
     var s = $('#' + a + '_List').find('option').length;
     if (s == 0)
     {
