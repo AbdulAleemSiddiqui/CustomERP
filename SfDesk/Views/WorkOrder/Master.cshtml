@@ -330,11 +330,20 @@
 
             fields: [
             {
-                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
+                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Name",
                 insertTemplate: function (value) {
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
+                $insertControl.on("change", function () {
+                   var it = jQuery.grep(items, function (obj) {
+                       return obj.Item_ID === this.value;
 
+                   });
+                    debugger
+                    th._grid.fields[3].insertControl.val();
+
+
+                });
                focusChange($insertControl,"jsGrid");
                 return this.insertControl;
             },

@@ -33,7 +33,7 @@ namespace SfDesk.Controllers
         }
         public ActionResult Product_Get_All()
         {
-            return Json(new Item_Category().Item_Category_Get_All(App.App_ID), JsonRequestBehavior.AllowGet);
+            return Json(new Item().Item_Get_All(App.App_ID), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Recipe_Get_By_Item(int Item_ID)
