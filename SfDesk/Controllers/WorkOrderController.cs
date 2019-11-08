@@ -24,7 +24,7 @@ namespace SfDesk.Controllers
         {
             c.WO_Add(App.App_ID);
             ViewBag.Item = new Item().Item_Get_All_Finish_Good(App.App_ID);
-            return View();
+            return Json("Inserted", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult COA_Get_All()
