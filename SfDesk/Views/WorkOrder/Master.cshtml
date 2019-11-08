@@ -261,6 +261,7 @@
             success: function (d) {
                 debugger
                 items = d
+                items.unshift({"Item_ID":0 ,"Item_Name": ""})
                 my()
                 tax()
               //  trans()
@@ -330,17 +331,21 @@
 
             fields: [
             {
-                name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Name",
+                name: "Item_ID", title: "Product", type: "select", selectedIndex: -1, width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Name",
                 insertTemplate: function (value) {
                 var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
                 var th= this;
                 $insertControl.on("change", function () {
-                   var it = jQuery.grep(items, function (obj) {
-                       return obj.Item_ID === this.value;
 
-                   });
+                    var asdsd = $(this).find('option:selected')[0].value;
+                    var it = jQuery.grep(items, function (obj) {
+                        return (obj.Item_ID === parseInt(asdsd));
+                    
+                    })[0]["Cost"];
                     debugger
-                    th._grid.fields[3].insertControl.val();
+                    th._grid.fields[3].insertControl.val(it);
+                    th._grid.fields[2].insertControl.val(1);
+                    th._grid.fields[4].insertControl.val(it);
 
 
                 });
@@ -491,23 +496,37 @@
             },
 
             fields: [
-             {
-                 name: "Item_ID", title: "Product", type: "select", width: 80, validate: "required", items: items, valueField: "Cat_ID", autosearch: true, textField: "Cat_Name",
-                 insertTemplate: function (value) {
-                     var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this,args);
-                     var th= this;
+            {
+                name: "Item_ID", title: "Product", type: "select", selectedIndex: -1, width: 80, validate: "required", items: items, valueField: "Item_ID", autosearch: true, textField: "Item_Name",
+                insertTemplate: function (value) {
+                    var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this, args);
+                    var th = this;
+                    $insertControl.on("change", function () {
 
-                     focusChange($insertControl, "Grid");
-                     return this.insertControl;
-                 },
-                 editTemplate: function (args) {
-                     var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
-                     var th = this;
+                        var asdsd = $(this).find('option:selected')[0].value;
+                        var it = jQuery.grep(items, function (obj) {
+                            return (obj.Item_ID === parseInt(asdsd));
 
-                     update_on_enter($editControl, "Grid");
+                        })[0]["Cost"];
+                        debugger
+                        th._grid.fields[3].insertControl.val(it);
+                        th._grid.fields[2].insertControl.val(1);
+                        th._grid.fields[4].insertControl.val(it);
 
-                     return $editControl;
-                 }, },
+
+                    });
+                    focusChange($insertControl, "Grid");
+                    return this.insertControl;
+                },
+                editTemplate: function (args) {
+                    var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, args);
+                    var th = this;
+
+                    update_on_enter($editControl, "Grid");
+
+                    return $editControl;
+                },
+            },
             {
                 name: "Description", title: "Description", type: "text", width: 80, validate: "required",
                 editTemplate: function (args) {

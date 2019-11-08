@@ -361,7 +361,7 @@
             
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            debugger
+            
             //data.Q_Details = arr;
             //data.Q_Charges = mytrans;
             //data.Q_Taxs = Mytax;
@@ -380,11 +380,12 @@
                         if (isAssembled) {
                             $("#AP").show('slow');
                           
-                            outputs = $({ "Item_ID": data, "Description": "", "Quantity": 1 });
+                           
                             detail();
-                            //outputs.push({name,"",1}]);
+                            
+                            debugger
                             $('a[href="#ta2"]').click();
-
+                            outputs = [{ "Item_ID": data, "Description": "", "Quantity": 1 }];
                         }
 
                     }
@@ -394,7 +395,7 @@
         });
 
         function populate() {
-            debugger;
+            ;
             var value = $('#Main_Cat_Name').val();
             var name = "#Main_Cat_List";
             name = name + " option[value='" + value + "']";
@@ -408,7 +409,7 @@
                 dataType: 'json',
                 data: { id: id },
                 success: function (d) {
-                    debugger;
+                    ;
                     var ddlState = $('#Cat_ID');
                     ddlState.empty();
                     $("#Cat_ID").prepend("<option value='' ></option>");// Clear the please wait
