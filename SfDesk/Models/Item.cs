@@ -1,6 +1,7 @@
 ﻿using DatabaseTVP;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -15,17 +16,22 @@ namespace SfDesk.Models
         [TVP]
         public int Item_ID { get; set; }
         [TVP]
+        [Required]
+
         public string Item_Name { get; set; }
 
         [TVP]
+
         public string Item_Code { get; set; }
 
+        [Required]
         [TVP]
         public int Cat_ID { get; set; }
         [TVP]
         public string Unit { get; set; }
 
         [TVP]
+        [Required]
         public int COA_ID { get; set; }
 
         [TVP]
@@ -161,12 +167,16 @@ namespace SfDesk.Models
         [TVP]
         public int Item_ID { get; set; }
         [TVP]
+        [Required]
         public decimal Price { get; set; }
         [TVP]
+        [Required]
         public int Account_ID { get; set; }
         [TVP]
+        [Required]
         public int Discount_Account_ID { get; set; }
         [TVP]
+        [Required]
         public int Tax_ID { get; set; }
         [TVP]
         public string Flag{ get; set; }

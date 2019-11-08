@@ -316,7 +316,7 @@
         $(document).ready(function () {
             $('#Main_Cat_Name').on("change", populate);
             Typable_Dropdown('COA');
-            Typable_Dropdown('CAT');
+            Typable_Dropdown('Cat');
             Typable_Dropdown('Purchase\\.Account');
             Typable_Dropdown('Purchase\\.Discount_Account');
             Typable_Dropdown('Purchase\\.Tax');
@@ -337,21 +337,16 @@
 
             });
             $('#isPurchase').change(function () {
-
-
                 $("#Purchase").toggle('slow')
-
             });
             $('#Main_Cat_Name').change(function () {
                 if (this.value == 'Finish Good') {
-
                     isAssembled = true
-
                 }
                 else {
                     $("#AP").hide('slow');
                     isAssembled = false
-                }
+                }``
             });
 
 
@@ -361,7 +356,7 @@
             
             var data = {};
             $('form').serializeArray().map(function (x) { data[x.name] = x.value; });
-            
+            debugger
             //data.Q_Details = arr;
             //data.Q_Charges = mytrans;
             //data.Q_Taxs = Mytax;
@@ -374,28 +369,26 @@
                     i: data
                 },
                 success: function (data) {
+                    debugger;
                     //window.location.href = '//Url.Action("ShowAll", "Quotation")';
-                    if (isAssembled) {
-                        
                         if (isAssembled) {
                             $("#AP").show('slow');
-                          
-                           
+                            outputs = $({ "Item_ID": data, "Description": "", "Quantity": 1 });
                             detail();
-                            
-                            debugger
+                            //outputs.push({name,"",1}]);
                             $('a[href="#ta2"]').click();
-                            outputs = [{ "Item_ID": data, "Description": "", "Quantity": 1 }];
                         }
-
+                        else
+                        {
+                            window.location.href = '@Url.Action("Index", "Product")';
+                        }
                     }
-                }
 
             });
         });
 
         function populate() {
-            ;
+            debugger;
             var value = $('#Main_Cat_Name').val();
             var name = "#Main_Cat_List";
             name = name + " option[value='" + value + "']";
@@ -409,7 +402,7 @@
                 dataType: 'json',
                 data: { id: id },
                 success: function (d) {
-                    ;
+                    debugger;
                     var ddlState = $('#Cat_ID');
                     ddlState.empty();
                     $("#Cat_ID").prepend("<option value='' ></option>");// Clear the please wait

@@ -12,12 +12,17 @@
     });
     $('#' + a + '_Name').on('keydown', function (e) {
         if (e.keyCode === 9) {
+            debugger;
+
             var s = $(this).val();
             var list=$('#' + a + '_List').find('option');
             for (var i = 0; i < list.length; i++) {
                 var z = $(list[i]).val();
                 if (z.toLowerCase().indexOf(s.toLowerCase()) != -1) {
-                    $(this).val($(list[i]).val());
+                    var d = $(list[i]);
+                    $(this).val(d.val());
+                    var s=d.attr('id');
+                    $("[name='" + a + "_ID']").val(s);
                     break;
                 }
               
