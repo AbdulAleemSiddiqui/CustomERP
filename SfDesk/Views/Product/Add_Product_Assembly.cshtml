@@ -86,7 +86,7 @@
         var inputs = []
         var items = []
         //var outputs =[]
-       
+
         function newRow(id) {
             $("#" + id).jsGrid({ inserting: true });
 
@@ -530,7 +530,7 @@
                     c: data
                 },
                 success: function (data) {
-                    window.location.href = '@Url.Action("ShowAll", "PurchaseRequisition")';
+                     window.location.href = '@Url.Action("Index", "Product")';
                 }
 
             });
