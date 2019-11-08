@@ -59,7 +59,7 @@ namespace SfDesk.Models
         {
 
             c.Recipe_Add(App.App_ID);
-            return PartialView("Add_Product_Assembly", new List<Recipe>());
+            return Json("", JsonRequestBehavior.AllowGet);
 
         }
         [HttpPost]
