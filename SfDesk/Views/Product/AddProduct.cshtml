@@ -373,7 +373,7 @@
                     //window.location.href = '//Url.Action("ShowAll", "Quotation")';
                         if (isAssembled) {
                             $("#AP").show('slow');
-                            outputs = $({ "Item_ID": data, "Description": "", "Quantity": 1 });
+                            outputs =[{ "Item_ID": data, "Description": "", "Quantity": 1 }];
                             detail();
                             //outputs.push({name,"",1}]);
                             $('a[href="#ta2"]').click();
