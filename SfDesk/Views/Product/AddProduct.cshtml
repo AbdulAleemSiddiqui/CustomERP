@@ -316,7 +316,7 @@
         $(document).ready(function () {
             $('#Main_Cat_Name').on("change", populate);
             Typable_Dropdown('COA');
-            Typable_Dropdown('CAT');
+            Typable_Dropdown('Cat');
             Typable_Dropdown('Purchase\\.Account');
             Typable_Dropdown('Purchase\\.Discount_Account');
             Typable_Dropdown('Purchase\\.Tax');
@@ -337,21 +337,16 @@
 
             });
             $('#isPurchase').change(function () {
-
-
                 $("#Purchase").toggle('slow')
-
             });
             $('#Main_Cat_Name').change(function () {
                 if (this.value == 'Finish Good') {
-
                     isAssembled = true
-
                 }
                 else {
                     $("#AP").hide('slow');
                     isAssembled = false
-                }
+                }``
             });
 
 
@@ -374,21 +369,20 @@
                     i: data
                 },
                 success: function (data) {
+                    debugger;
                     //window.location.href = '//Url.Action("ShowAll", "Quotation")';
-                    if (isAssembled) {
-                        
                         if (isAssembled) {
                             $("#AP").show('slow');
-                          
                             outputs = $({ "Item_ID": data, "Description": "", "Quantity": 1 });
                             detail();
                             //outputs.push({name,"",1}]);
                             $('a[href="#ta2"]').click();
-
                         }
-
+                        else
+                        {
+                            window.location.href = '@Url.Action("Index", "Product")';
+                        }
                     }
-                }
 
             });
         });

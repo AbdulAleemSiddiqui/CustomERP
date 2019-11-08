@@ -69,7 +69,7 @@ namespace SfDesk.Models
         }
         public ActionResult Edit(int id)
         {
-            return PartialView("Edit", new Product() { P_ID = id }.Product_Get_By_ID());
+            return PartialView("Edit", new Item() .Item_Get_By_ID(id ,App.App_ID));
         }
         [HttpPost]
         public ActionResult Edit(Product c)
